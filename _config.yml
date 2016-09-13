@@ -10,9 +10,9 @@ encoding: utf-8
 title:               My Website
 #tagline:             'foo's website
 description:         Foo's blog...
-url: https://dyndna.github.io/lanyon-plus
-baseurl: "/lanyon-plus"
-urlimg: https://dyndna.github.io/lanyon-plus/images/
+url: https://ircama.github.io/osm-carto-tutorials
+baseurl: "/osm-carto-tutorials"
+urlimg: https://ircama.github.io/osm-carto-tutorials/images/
 markdown: kramdown
 paginate: 5
 paginate_path: "/blog/page:num"
