@@ -291,10 +291,13 @@ a.sidebar-nav-item:focus {
           transition: transform .3s ease-in-out;
 }
 
+#sidebar-checkbox:focus ~ .sidebar,
 #sidebar-checkbox:checked + .sidebar {
   z-index: 10;
   visibility: visible;
 }
+#sidebar-checkbox:focus ~ .sidebar,
+#sidebar-checkbox:checked ~ .sidebar,
 #sidebar-checkbox:checked ~ .sidebar,
 #sidebar-checkbox:checked ~ .wrap,
 #sidebar-checkbox:checked ~ .sidebar-toggle {
