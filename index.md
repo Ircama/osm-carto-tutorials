@@ -5,7 +5,7 @@ title: Personal Homepage of foo boo
 description: "Blogging on ...."
 ---
 
-## [lanyon-plus](https://github.com/dyndna/lanyon-plus)
+## [osm-carto-tutorials](https://ircama.github.io/osm-carto-tutorials/)
 
 Based on Jekyll theme: [Lanyon](http://lanyon.getpoole.com) by [**Mark Otto**](https://github.com/mdo)
 
