@@ -24,6 +24,7 @@
       </div>
 
       <div class="container content">
+<a href="{{ site.baseurl }}{{ page.url }}#disqus_thread">Comments</a>
         {{ content }}
         {% include comments.html %}
         {% include google_analytics.html %}
@@ -49,5 +50,6 @@
         }, false);
       })(document);
     </script>
+<script id="dsq-count-scr" src="//ircama-github-io-osm-carto-tutorials.disqus.com/count.js" async></script>
   </body>
 </html>
