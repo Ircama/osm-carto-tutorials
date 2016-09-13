@@ -24,7 +24,6 @@
       </div>
 
       <div class="container content">
-        {% include hcomments.html %}
         {{ content }}
         {% include comments.html %}
         {% include google_analytics.html %}
@@ -50,5 +49,6 @@
         }, false);
       })(document);
     </script>
+  {% include hcomments.html %}
   </body>
 </html>
