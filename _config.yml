@@ -28,7 +28,7 @@ gems:
 
 # Dependencies
 markdown:    kramdown
-highlighter: pygments
+highlighter: rouge
 
 pages_list:
   Archive: '/z_archive'
