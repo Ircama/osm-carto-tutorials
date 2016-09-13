@@ -15,8 +15,8 @@ paginate:            5
 # About/contact
 author:
   name:              ircama
-  url:               http://ircama.github.io
-#  email:             markdotto@gmail.com
+  url:               http://ircama.github.io/osm-carto-tutorials
+#  email:            some_mail@gmail.com
 
 # Custom vars
 version:             1.0.0
