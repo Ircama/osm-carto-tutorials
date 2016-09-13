@@ -1,57 +1,44 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>OpenStreetMap Carto Tutorials by Ircama</title>
+---
+layout: default
+title: Home
+comments: true
+---
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>OpenStreetMap Carto Tutorials</h1>
-        <p>Unofficial guides for openstreetmap-carto</p>
+<div class="posts">
+  {% for post in paginator.posts reversed %}
+  <div class="post">
+    <h1 class="post-title">
+<!--
+      <a href="{{ site.baseurl }}/{{ post.url }}">
+        {{ post.title }}
+-->
+      {{ post.title }}
+      </a>
+    </h1>
 
-        <p class="view"><a href="https://github.com/Ircama/osm-carto-tutorials">View the Project on GitHub <small>Ircama/osm-carto-tutorials</small></a></p>
+    <span class="post-date">{{ post.date | date_to_string }}</span>
 
+    {{ post.content }}
+  </div>
+  {% endfor %}
+</div>
 
-        <ul>
-          <li><a href="https://github.com/Ircama/osm-carto-tutorials/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/Ircama/osm-carto-tutorials/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/Ircama/osm-carto-tutorials">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a id="openstreetmap-carto-tutorials" class="anchor" href="#openstreetmap-carto-tutorials" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OpenStreetMap Carto Tutorials</h1>
-
-<p>This site includes unofficial tutorials to set-up a development environment of <a href="https://github.com/gravitystorm/openstreetmap-carto">openstreetmap-carto</a> in order contribute to this project.</p>
-
-<p>The aim of this site is to keep track of notes that have been useful to me and that I hope will be also of help to newbies in order to master OpenStreetMap Carto fast, learning all most relevant aspects from the ground up and avoiding frustration on installation, Git usage, configuration and other matters that generally need to be faced when approaching such project.</p>
-
-<p>All pages of this site are in blog form, allowing anyone to add open comments and contribute.</p>
-
-<p><strong>DISCALIMER</strong>: documentation included in this site is not only <strong>unofficial</strong>, but also <strong>unapproved</strong> by the maintainers of openstreetmap-carto. The included information requires several improvements that will be possibly addressed in the future and I strongly recommend referencing the official documentation for openstreetmap-carto, which is included here: <a href="https://github.com/gravitystorm/openstreetmap-carto">https://github.com/gravitystorm/openstreetmap-carto</a>. Keep also in mind that some information might be only valid at the time of writing and could require update that I have not been able to accomplish.</p>
-
-<h2>
-<a id="openstreetmap-carto" class="anchor" href="#openstreetmap-carto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OpenStreetMap Carto</h2>
-
-<p><a href="https://github.com/gravitystorm/openstreetmap-carto">OpenStreetMap Carto</a> includes the <a href="http://wiki.openstreetmap.org/wiki/CartoCSS">CartoCSS map stylesheets</a> for the <a href="http://wiki.openstreetmap.org/wiki/Standard_tile_layer">Standard map layer</a> on OpenStreetMap.org. The styles can be converted from CartoCSS to XML and then processed by <a href="http://wiki.openstreetmap.org/wiki/Mapnik">Mapnik</a></p>
-
-<p>CartoCSS is a <a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS-like</a> language for map design developed by <a href="https://en.wikipedia.org/wiki/Mapbox">MapBox</a> and adopted by OpenStreetMap through OpenStreetMap Carto.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/Ircama">Ircama</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
-</html>
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ site.baseurl }}/page{{paginator.next_page}}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="{{ site.baseurl }}/">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="{{ site.baseurl }}/page{{paginator.previous_page}}">Newer</a>
+    {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>
+<div class="posts">
+{% include comments.html %}
+</div>
