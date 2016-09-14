@@ -80,13 +80,9 @@ table.gsc-search-box td.gsc-search-button,
 table.gsc-search-box td.gsc-input {
 	background: #101010 !important;
 	border: 0 !important;
-}
-
-input.gsc-search-button {
-padding: 0;
-min-width: 0;
-background-color: #EEEEEF;
-border: 0px solid #666;
+  padding: 0;
+  min-width: 0;
+  background-color: #EEEEEF;
 }
 
 /*
