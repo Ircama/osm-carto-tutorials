@@ -66,16 +66,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 90%;
 }
 
-/* Google Custom Search custom styles */
-.gsc-search-button,
-.gsc-input {
-  font-family: "PT Sans", Helvetica, Arial, sans-serif;
-  font-size: .875rem; /* 15px */
-  color: rgba(255,255,255,.6);
-    background-color: #202020 !important;
-    background: #202020 !important;
-}
-
 /* Hide the Google branding in search results */
 .gcsc-branding {
     display: none; 
@@ -84,11 +74,6 @@ h1, h2, h3, h4, h5, h6 {
 /* Hide the Clear button of Google Custom Search */
 .gsc-clear-button {
 	display: none;
-}
-
-.gsc-search-box {border: 0px solid !important;
-  border-radius: 0px !important;
-  background-color: 0;
 }
 
 /*
