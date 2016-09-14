@@ -1,6 +1,6 @@
 ---
 layout: default
-title: How to contribute to this site with new documents
+title: How to contribute to this site for documents
 comments: true
 permalink: /how-to-contribute/
 ---
