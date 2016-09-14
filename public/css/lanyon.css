@@ -76,10 +76,8 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
-.gsc-search-box {border: 5px solid !important;
-    background-color: rgba(255,255,255,.1);
-    color: #313131;
-    border-radius: 10px !important;
+.gsc-search-box {border: 0px solid !important;
+    border-radius: 0px !important;
 }
 
 /*
