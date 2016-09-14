@@ -9,7 +9,7 @@ The aim of this site is to keep track of notes that have been useful to me and t
 
 All pages of this site are in blog form, allowing anyone to add open comments and contribute.
 
-**DISCALIMER**: documentation included in this site is not only **unofficial**, but also **unapproved** by *openstreetmap-carto*. The included information requires several improvements that will be possibly addressed in the future and I strongly recommend referencing the official documentation for openstreetmap-carto, which is included [here](https://github.com/gravitystorm/openstreetmap-carto). Keep also in mind that some information might be only valid at the time of writing and could require possible update that I have not been able to accomplish.
+**DISCALIMER**: documentation included in this site is not only **unofficial**, but also **unapproved** by *openstreetmap-carto*. The included information requires several improvements that will be possibly addressed in the future and I strongly recommend referencing the official documentation for openstreetmap-carto, which is included [here](https://github.com/gravitystorm/openstreetmap-carto). Keep also in mind that some information might be only valid at the time of writing and could require possible updates that I have not been able to accomplish.
 
 ## OpenStreetMap Carto
 
