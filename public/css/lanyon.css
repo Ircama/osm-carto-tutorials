@@ -82,7 +82,7 @@ table.gsc-search-box td.gsc-input {
 	border: 0 !important;
 }
 
-.cse input.gsc-search-button, input.gsc-search-button {
+input.gsc-search-button {
 padding: 0;
 min-width: 0;
 background-color: #EEEEEF;
