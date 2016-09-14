@@ -5,11 +5,13 @@ comments: true
 permalink: /how-to-contribute/
 ---
 # How to contribute to this site with new documents
+
 I’m happy to receive contributions and thanks for your effort.
 
 This document assists you in providing updates or additions to the documentation of the "OpenStreetMap Carto Tutorials" site.
 
 There are three types of documents:
+
 - **pages** (`layout: page`): standard documentation, also indexed in the left sidebar of the site; generally stored in the *pages* folder; a title is not needed for *pages* (as automatically created by the `title` tag of the *Front Matter* - see below);
 - **posts** (`layout: post`): entries listed in chronological order in the main page, possibly linking *pages*; all stored in the *_posts* folder;
 - **general matters** (`layout: default`): pages that are NOT reported in the left sidebar of the site; they can be stored anyware in the site (but the *pages* folder is suggested). Differently from *pages*, a specific title is needed within the document text.
@@ -35,6 +37,7 @@ The suggested process to add or update *pages* is directly from the GitHub site:
   permalink: /target-file-name/
   ---
   ```
+  
   Description of the used tags:
   - `layout`: set it to the appropriate type of document (e.g., `page`)
   - `title`: provide an effective title; this will be automatically used by as a short description in all references of the site
@@ -44,6 +47,7 @@ The suggested process to add or update *pages* is directly from the GitHub site:
 - Subsequently to the Front Matter section, you can write the document in [Markdown](http://kramdown.gettalong.org); check related [Quick Reference Guide]( http://kramdown.gettalong.org/quickref.html) and [Syntax](http://kramdown.gettalong.org/syntax.html). As mentioned for `layout: page`, do not add a title to your document, but use the Front Matter *title* tag instead.
   
   Example:
+
   ```
   ---
   layout: page
@@ -62,9 +66,9 @@ The suggested process to add or update *pages* is directly from the GitHub site:
 - Press the *Preview* button to verify the correct rendering of the document.
 
 - Once the editing is completed, ensure that the file name is appropriate, enter an effective short title (e.g., less than 70 chars), add an appropriate multiline extended description, press *"Propose New file"* or *"Propose a file change"*
-- Press "Create pull request".
-- Complete the short description and the long description (the long description exploits Markdown; you can repeat the title in the long description), then press "Create pull request".
+- Press *"Create pull request"*.
+- Complete the short description and the long description (the long description exploits Markdown; you can repeat the title in the long description), then press *"Create pull request"*.
 
 If you have the option to select *"Create a new branch for this commit and start a pull request."*, use it and enter a valid branch name (very short, e.g., 15 chars).
 
-The created pull request will be revised in order to be published. Please, accept some time to accomplish the review process, thanks.
+The created *pull request* will be revised in order to be published. Please, accept some time to accomplish the review process, thanks.
