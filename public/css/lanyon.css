@@ -76,6 +76,10 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
+table.gsc-search-box td,
+table.gsc-search-box td.gsc-input,
+table.gsc-search-box td.gsc-input,
+input.gsc-input,
 .gsc-search-button,
 .gsc-input {
 	background: #101010;
