@@ -12,11 +12,13 @@ This document assists you in providing updates or additions to the documentation
 
 There are three types of documents:
 
-- **pages** (`layout: page`): standard documentation, also indexed in the left sidebar of the site; generally stored in the *pages* folder; a title is not needed for *pages* (as automatically created by the `title` tag of the *Front Matter* - see below);
-- **posts** (`layout: post`): entries listed in chronological order in the main page, possibly linking *pages*; all stored in the *_posts* folder;
+- **pages** (`layout: page`): standard documentation (non-linear content), also indexed in the left sidebar of the site; generally stored in the *pages* folder; a title is not needed for *pages* (as automatically created by the `title` tag of the *Front Matter* - see below);
+- **posts** (`layout: post`): entries (linear content) listed in chronological order in the main page, possibly linking *pages*; all stored in the *_posts* folder;
 - **general matters** (`layout: default`): pages that are NOT reported in the left sidebar of the site; they can be stored anyware in the site (even if the *pages* folder is suggested). Differently from *pages*, a specific title is needed within the document text.
 
 All documents can be written in [Markdown](http://kramdown.gettalong.org) (*.md* extension).
+
+## Managing Pages
 
 The suggested process to add or update *pages* is directly from the GitHub site:
 
@@ -42,9 +44,9 @@ The suggested process to add or update *pages* is directly from the GitHub site:
   - `layout`: set it to the appropriate type of document (e.g., `page`)
   - `title`: provide an effective title; this will be automatically used as a short description in all references of the site
   - `comments`: only for `pages`, use `true` if you want to enable [Disqus commenting](https://disqus.com) at the end of your document
-  - `permalink`: only for `pages`, define a path to store the document in the site; suggestions: use a short set of characters, use the dash to separate letters; avoid upper case letters.
+  - `permalink`: only for `pages`, recommended in order to define a path to reference the document in the site with a permanent link; suggestions: use a short set of characters, use the dash to separate letters; avoid upper case letters, set it once and avoid subsequent modifications (while the file name might be changed over the time, this link should remain unaltered).
 
-- Subsequently to the Front Matter section, you can write the document in Markdown; check related [Quick Reference Guide]( http://kramdown.gettalong.org/quickref.html) and [Syntax](http://kramdown.gettalong.org/syntax.html). As mentioned for `layout: page`, do not add a title to your document, but use the Front Matter *title* tag instead.
+- Subsequently to the *Front Matter* section, you can write the document in *Markdown*; check related [Quick Reference Guide]( http://kramdown.gettalong.org/quickref.html) and [Syntax](http://kramdown.gettalong.org/syntax.html). As mentioned for `layout: page`, do not add a title to your document, but use the Front Matter *title* tag instead.
   
   Example:
 
@@ -64,6 +66,22 @@ The suggested process to add or update *pages* is directly from the GitHub site:
   ```
   
 - Press the *Preview* button to verify the correct rendering of the document.
+
+- Pay attention to relative links, which shall be contructed with {{ site.baseurl }}/my_relative_link (e.g., `[a link to a site]({{ site.baseurl }}/its_permalink/)`).
+
+## Managing Posts
+
+You might limit your contribution to pages, while I'll create appropriate posts during revision. I'll keep anyway a description on how to manage them.
+
+To generate a new post, create a file in the _posts directory similarly to what described in the previous section for *pages*. Blog post files have to be named according to the following format: YEAR-MONTH-DAY-title.md
+
+Where YEAR is a four-digit number, MONTH and DAY are both two-digit numbers, and title is a short name with words separated by dashes.
+MARKUP is the file extension representing the format used in the file. For example, the following are valid post filenames:
+
+2016-09-01-site-scope.md
+2016-09-11-tilemill-osm-carto.md
+
+## Publishing
 
 - Once the editing is completed, ensure that the file name is appropriate, enter an effective short title (e.g., less than 70 chars), add an appropriate multiline extended description, press *"Propose New file"* or *"Propose a file change"*
 - Press *"Create pull request"*.
