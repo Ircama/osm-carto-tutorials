@@ -124,6 +124,24 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Hide the Google branding in search results */
+.gcsc-branding {
+    display: none; 
+}
+    
+/* Hide the Clear button of Google Custom Search */
+.gsc-clear-button {
+	display: none;
+}
+
+table.gsc-search-box td.gsc-search-button,
+table.gsc-search-box td.gsc-input {
+	background: #101010 !important;
+	border: 0 !important;
+  padding: 0;
+  min-width: 0;
+  background-color: #EEEEEF;
+}
 
 /*
  * Sidebar
