@@ -2,7 +2,7 @@
 layout: default
 title: How to contribute to this site with new documents
 comments: true
-permalink: /how-to-contibute/
+permalink: /how-to-contribute/
 ---
 # How to contribute to this site with new documents
 I’m happy to receive contributions and thanks for your effort.
@@ -38,8 +38,8 @@ The suggested process to add or update *pages* is directly from the GitHub site:
   Description of the used tags:
   - `layout`: set it to the appropriate type of document (e.g., `page`)
   - `title`: provide an effective title; this will be automatically used by as a short description in all references of the site
-  - `comments`: use `true` if you want to enable [Disqus commenting](https://disqus.com) at the end of your document
-  - `permalink`: define a short set of characters to store the document in the site; use the dash to separate letters; avoid upper case letters.
+  - `comments`: only for `pages`, use `true` if you want to enable [Disqus commenting](https://disqus.com) at the end of your document
+  - `permalink`: only for `pages`, define a short set of characters to store the document in the site; use the dash to separate letters; avoid upper case letters.
 
 - Subsequently to the Front Matter section, you can write the document in [Markdown](http://kramdown.gettalong.org); check related [Quick Reference Guide]( http://kramdown.gettalong.org/quickref.html) and [Syntax](http://kramdown.gettalong.org/syntax.html). As mentioned for `layout: page`, do not add a title to your document, but use the Front Matter *title* tag instead.
   
