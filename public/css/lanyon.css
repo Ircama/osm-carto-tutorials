@@ -67,6 +67,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*  Google Custom Search */
+#___gcse_0 .forum-table td,
+#___gcse_0 td,
+#___gcse_0 tr,
+.gsc-completion-container td {
+  color: rgba(255,255,255,.6);
+  background-color: 0;
+}
+
 .gsc-control-cse{ 
   background-color: 0;
  }
