@@ -8,7 +8,7 @@ permalink: /to-be-removed/
 # This is a test file
 Revise again
 
-## and add a subtitle
+## Tis is a subtitle
 
 Hello world!
 
