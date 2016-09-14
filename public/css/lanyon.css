@@ -76,19 +76,10 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
-.cse input.gsc-search-button, input.gsc-search-button {
-    background-color: #FFFFFF;
-    background-image: url("http://www.wku.edu/cebs/images/icons/search-icon-small.png");
-    border: 1px solid #FFFFFF !important;
-    border-radius: 2px 2px 2px 2px;
-    color: #FFFFFF;
-    font-family: inherit;
-    font-size: 0;
-    font-weight: normal;
-    height: 24px;
-    padding: 0 0 0;
-    width: 23px;
-    min-width: 0px; 
+.gsc-search-box {border: 2px solid !important;
+    border-radius: 25px !important;
+    opacity: 0.5 !important;
+
 }
 
 /*
