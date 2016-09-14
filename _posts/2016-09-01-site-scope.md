@@ -5,7 +5,7 @@ title: Scope of this site
 
 This indipendent site includes unofficial tutorials to set-up a development environment of [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) in order to exploit the styles and also to be able to contribute to this project.
 
-The aim of this site is to keep track of notes that have been useful to me and that I hope will be also of help to newbies in order to master OpenStreetMap Carto fast, learning all most relevant aspects from the ground up and avoiding frustration on installation, Git usage, configuration and other matters that generally need to be faced when approaching such project.
+The aim of this site is to keep track of technical notes that have been useful to me and that I hope will be also of help to newbies in order to master OpenStreetMap Carto fast, learning all most relevant aspects from the ground up and avoiding frustration on installation, Git usage, configuration and other matters that generally need to be faced when approaching such project.
 
 All pages of this site are in [blog](#disqus_thread) form, allowing anyone to add open comments. You can also [contribute]({{ site.baseurl }}/how-to-contribute/).
 
