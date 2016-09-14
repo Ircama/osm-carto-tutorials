@@ -66,32 +66,13 @@ h1, h2, h3, h4, h5, h6 {
   width: 90%;
 }
 
-/*  Google Custom Search */
-#___gcse_0 .forum-table td,
-#___gcse_0 td,
-#___gcse_0 tr,
-.gsc-completion-container td {
-  color: rgba(255,255,255,.6);
-  background-color: 0;
-}
-
-.gsc-control-cse{ 
-  background-color: 0;
- }
-
+/* Google Custom Search custom styles */
+.gsc-search-button,
 .gsc-input {
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
   font-size: .875rem; /* 15px */
   color: rgba(255,255,255,.6);
-  background-color: 0;
-}
-
-.cse-search-form {
-  background-color: 0;
-}
-
-.gsc-search-box {
-  background-color: 0;
+    background-color: #202020;
 }
 
 /* Hide the Google branding in search results */
