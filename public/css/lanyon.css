@@ -76,6 +76,11 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
+.gsc-search-button,
+.gsc-input {
+	background: #101010;
+}
+
 /*
  * Container
  *
