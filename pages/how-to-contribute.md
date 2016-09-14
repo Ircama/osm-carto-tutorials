@@ -78,8 +78,10 @@ To generate a new post, create a file in the _posts directory similarly to what 
 Where YEAR is a four-digit number, MONTH and DAY are both two-digit numbers, and title is a short name with words separated by dashes.
 MARKUP is the file extension representing the format used in the file. For example, the following are valid post filenames:
 
+```
 2016-09-01-site-scope.md
 2016-09-11-tilemill-osm-carto.md
+```
 
 ## Publishing
 
