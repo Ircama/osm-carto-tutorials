@@ -40,7 +40,7 @@ We suppose that `cd` defaults to your home directory, where the following subfol
     $ nodejs --version # to verify whether nodejs is already installed
     $ sudo apt-get install nodejs
 
-    Read [nodejs](https://nodejs.org/en/download/) for further information.
+Read [nodejs](https://nodejs.org/en/download/) for further information.
 
 (Alternatively: `sudo apt-get install nodejs-legacy`)
 
@@ -50,17 +50,17 @@ We suppose that `cd` defaults to your home directory, where the following subfol
     $ cd kosmtik
     $ npm install
 
-    Read [kosmtik](https://github.com/kosmtik/kosmtik) for further information.
+Read [kosmtik](https://github.com/kosmtik/kosmtik) for further information.
 
 ## Test Kosmtik
 
     $ npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
     
-    When running `npm test`, an error like the following indicates that your system does not have a modern enough libstdc++/gcc-base toolchain:
+When running `npm test`, an error like the following indicates that your system does not have a modern enough libstdc++/gcc-base toolchain:
     
     `Error: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version GLIBCXX_3.4.20 not found (required by /node_modules/osrm/lib/binding/osrm.node)`
     
-    If you are running Ubuntu older than 16.04 you can easily upgrade your libstdc++ version like:
+If you are running Ubuntu older than 16.04 you can easily upgrade your libstdc++ version like:
     
     ```
     sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -68,7 +68,7 @@ We suppose that `cd` defaults to your home directory, where the following subfol
     sudo apt-get install -y libstdc++-5-dev
     ```
     
-    Read [node-mapnik](https://github.com/mapnik/node-mapnik) for further information.
+Read [node-mapnik](https://github.com/mapnik/node-mapnik) for further information.
 
 ## Check that [Python](https://www.python.org/) is installed:
 
