@@ -13,6 +13,6 @@ All pages of this site are in [blog](#disqus_thread) form, allowing anyone to ad
 
 ## OpenStreetMap Carto
 
-[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) includes the [CartoCSS map stylesheets](http://wiki.openstreetmap.org/wiki/CartoCSS) for the [Standard map layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) on [OpenStreetMap](http://www.openstreetmap.org). The styles can be converted from CartoCSS to XML and then processed by [Mapnik](http://wiki.openstreetmap.org/wiki/Mapnik)
+[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) includes the [CartoCSS map stylesheets](http://wiki.openstreetmap.org/wiki/CartoCSS) for the [Standard map layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) on [OpenStreetMap](http://www.openstreetmap.org). The styles can be converted from CartoCSS to [XML](https://github.com/mapnik/mapnik/wiki/XMLConfigReference) and then processed by [Mapnik](http://wiki.openstreetmap.org/wiki/Mapnik).
 
 CartoCSS is a [CSS-like](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) language for map design developed by [MapBox](https://en.wikipedia.org/wiki/Mapbox) and adopted by OpenStreetMap through OpenStreetMap Carto.
