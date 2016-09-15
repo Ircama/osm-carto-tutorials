@@ -33,4 +33,4 @@ highlighter: rouge
 
 pages_list:
   Archive: '/z_archive'
-  RSS feed: '/atom.xml'
+  RSS: '/atom.xml'
