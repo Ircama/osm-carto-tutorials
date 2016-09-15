@@ -16,6 +16,8 @@ Warning: Tilemill hosts a very old version of Mapnik/node-mapnik. Even if you sh
 - you will not be able to exploit the latest features of Mapnik;
 - you might even fail to load the openstreetmap-carto project if someone meanwhile added a new Mapnik feature which is not supported by Tilemill.
 
+**ATTENTION: usage of a different tool (e.g., Kosmtik) for testing new features to be introduced in openstreetmap-carto is strongly recommended, as the very old Mapnik verison currently used in TileMill for Windows does not allow adequate verification.**
+
 ## Installation
 
 Prefer direct Internet connection for the installation, avoiding the need of a proxy. At the end of the installation procedure (and DB population), Tilemill can run openstreetmap-carto off-line.
