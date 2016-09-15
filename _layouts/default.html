@@ -43,7 +43,11 @@ Homepage: https://ircama.github.io/osm-carto-tutorials
 
         document.addEventListener('touchstart', function(e) {
           var target = e.target;
-          if(sidebar.contains(target) || target === toggle) return;
+          if(!checkbox.checked ||
+                  (sidebar.contains(target) ||
+                target === toggle)
+            return;
+
           checkbox.checked = false;
         }, false);
         
@@ -51,8 +55,9 @@ Homepage: https://ircama.github.io/osm-carto-tutorials
           var target = e.target;
 
           if(!checkbox.checked ||
-             sidebar.contains(target) ||
-             (target === checkbox || target === toggle)) return;
+                sidebar.contains(target) ||
+              (target === checkbox || target === toggle))
+            return;
 
           checkbox.checked = false;
         }, false);
