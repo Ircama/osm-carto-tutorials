@@ -11,6 +11,8 @@
  *
  * Designed, built, and released under MIT license by @mdo. Learn more at
  * https://github.com/poole/lanyon.
+ *
+ * Revised by ircama
  */
 
 
@@ -19,8 +21,8 @@
  *
  * Global resets
  * Masthead
- * Google Search
- * Scrollbar
+ * Google Custom Search
+ * Mobile scrollbar
  * Sidebar
  * Slide effect
  * Posts and pages
@@ -126,6 +128,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Google Custom Search section */
+
 /* Hide the Google branding in search results */
 .gcsc-branding {
     display: none; 
@@ -145,7 +149,7 @@ table.gsc-search-box td.gsc-input {
   background-color: #EEEEEF;
 }
 
-/* Scrollbar */
+/* Mobile scrollbar section */
 ::-webkit-scrollbar {
     -webkit-appearance: none;
 }
@@ -168,6 +172,7 @@ table.gsc-search-box td.gsc-input {
     border-radius: 4px;  
     background-color: #ffffff; 
 }
+
 /*
  * Sidebar
  *
