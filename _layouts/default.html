@@ -43,12 +43,13 @@ Homepage: https://ircama.github.io/osm-carto-tutorials
 
         document.addEventListener('touchstart', function(e) {
           var target = e.target;
+          if((!checkbox.checked) &&
+              sidebar.contains(target))
+            event.preventDefault();
           if((!checkbox.checked) ||
               sidebar.contains(target) ||
-              target === toggle) {
-                e.preventDefault();
-                return;
-            }
+              target === toggle)
+            return;
           checkbox.checked = false;
         }, false);
         
