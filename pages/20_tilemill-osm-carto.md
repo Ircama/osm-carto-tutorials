@@ -9,9 +9,9 @@ permalink: /tilemill-osm-carto/
 
 The following step-by-step procedure can be used to install a working development environment of openstreetmap-carto exploiting Tilemill on a Windows PC. It has been tested on Windows 7 32-bit and Windows 7 64-bit.
 
-At the time of writing, Tilemill is the most appropriate tool to be used on Windows (win32 and win64). Alternative software like Kosmtik (the preferred tool for openstreetmap-carto) needs Mapnik 3.5 and recent versions of node-mapnik, which at the moment cannot be installed on Windows. Mapbox needs customization (there is no immediate procedure to convert project.yaml of Openstreetmap-carto to a format valid for Mapbox). Command line tools are not comfortable.
+At the time of writing, Tilemill is the only tool supporting Windows (win32 and win64). Alternative software like Kosmtik (the preferred tool for openstreetmap-carto) needs Mapnik 3.5 and recent versions of *node-mapnik*, which at the moment cannot be installed on Windows. Mapbox Studio Classic uses a different technology and does not work with OpenStreetMap Carto. Mapbox Studio should implement a vector based rendering engine instead of Mapnik. Command line tools are not comfortable.
 
-Warning: Tilemill hosts a very old version of Mapnik/node-mapnik. Even if you should accomplish its installation on Windows through this manual, consider that:
+Warning: TileMill is no longer in active development. It hosts a very old version of Mapnik/node-mapnik. Even if you should accomplish its installation on Windows through this manual, consider that:
 
 - you will not be able to exploit the latest features of Mapnik;
 - you might even fail to load the openstreetmap-carto project if someone meanwhile added a new Mapnik feature which is not supported by Tilemill.
