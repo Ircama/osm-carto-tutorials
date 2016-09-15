@@ -25,7 +25,6 @@ version:             1.0.1
 gems:
   - jekyll-paginate
   - jekyll-seo-tag
-  - jekyll-mentions
   - jemoji
 
 # Dependencies

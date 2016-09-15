@@ -134,12 +134,12 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
+/* Customize Google Custom Search */
 table.gsc-search-box td.gsc-search-button,
 table.gsc-search-box td.gsc-input {
 	background: #101010 !important;
-	border: 0 !important;
-  padding: 0;
-  min-width: 0;
+  border-style: solid;
+  border-color: #101010;
   background-color: #EEEEEF;
 }
 
