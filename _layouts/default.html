@@ -44,8 +44,8 @@ Homepage: https://ircama.github.io/osm-carto-tutorials
         document.addEventListener('touchstart', function(e) {
           var target = e.target;
           if(!checkbox.checked ||
-                  (sidebar.contains(target) ||
-                target === toggle)
+                  sidebar.contains(target) ||
+              (target === checkbox || target === toggle))
             return;
 
           checkbox.checked = false;
