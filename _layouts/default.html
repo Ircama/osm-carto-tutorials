@@ -41,14 +41,10 @@ Homepage: https://ircama.github.io/osm-carto-tutorials
         var sidebar = document.querySelector('#sidebar');
         var checkbox = document.querySelector('#sidebar-checkbox');
 
-        document.addEventListener('touchmove', function(e) { // Disables pinch on sidebar and reset scale
+        document.addEventListener('touchmove', function(e) { // Disables pinch on sidebar
           var target = e.target;
           if((checkbox.checked) &&
               sidebar.contains(target)) {
-                sidebar.style.zoom='100%';
-                sidebar.style.webkitTransform =         // Chrome, Opera, Safari
-                sidebar.style.msTransform =           // IE 9
-                sidebar.style.transform = 'scale(1)';
                 event.preventDefault();
           }
         }, false);
