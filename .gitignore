@@ -13,7 +13,6 @@ _site
 *.swp
 *.zip
 *.vi
-*.cmd
 *~
 
 # OS or Editor folders
