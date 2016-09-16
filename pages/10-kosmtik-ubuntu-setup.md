@@ -54,7 +54,7 @@ Read [kosmtik](https://github.com/kosmtik/kosmtik) for further information.
 
 ## Test Kosmtik
 
-    $ npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
+    $ npm test # you can also run Kosmtik to test: see [Start Kosmtik](#Start Kosmtik).
     
 When running `npm test`, an error like the following indicates that your system does not have a modern enough libstdc++/gcc-base toolchain:
     
