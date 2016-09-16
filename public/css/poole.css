@@ -175,7 +175,7 @@ pre {
   word-wrap: break-word;
   background-color: #f9f9f9;
 
-  overflow: auto; white-space: pre;
+  overflow: auto; white-space: pre; display: inline-block;
   
 }
 pre code {
@@ -184,7 +184,7 @@ pre code {
   color: inherit;
   background-color: transparent;
 
-  overflow: auto; white-space: pre;
+  overflow: auto; white-space: pre; display: inline-block;
 }
 
 /* Pygments via Jekyll */
