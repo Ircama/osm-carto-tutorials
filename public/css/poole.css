@@ -158,6 +158,10 @@ code {
   background-color: #f9f9f9;
   border-radius: 3px;
 }
+/* Make code block overflow */
+.highlight pre {
+  display: inline-block;
+}
 pre {
   display: block;
   margin-top: 0;
@@ -170,11 +174,8 @@ pre {
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f9f9f9;
-  overflow: auto;
 }
 pre code {
-  white-space: pre;
-
   padding: 0;
   font-size: 100%;
   color: inherit;
