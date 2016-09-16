@@ -13,11 +13,6 @@
  * https://github.com/poole/poole.
  */
 
-pre.highlight, .highlight pre {
-padding: 10px;
-overflow: scroll;
-}
-
 /*
  * Contents
  *
@@ -177,6 +172,9 @@ pre {
   background-color: #f9f9f9;
 }
 pre code {
+  overflow: scroll;
+  white-space: pre;
+
   padding: 0;
   font-size: 100%;
   color: inherit;
