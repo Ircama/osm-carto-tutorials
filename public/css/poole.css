@@ -162,6 +162,9 @@ code {
 .highlight pre {
   display: inline-block;
 }
+code {
+    white-space: pre;
+}
 pre {
   display: block;
   margin-top: 0;
