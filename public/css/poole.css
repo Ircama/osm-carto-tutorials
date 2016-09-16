@@ -170,7 +170,7 @@ pre {
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f9f9f9;
-  overflow: scroll;
+  overflow: auto;
 }
 pre code {
   white-space: pre;
