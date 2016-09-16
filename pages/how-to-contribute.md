@@ -83,6 +83,55 @@ MARKUP is the file extension representing the format used in the file. For examp
 2016-09-11-tilemill-osm-carto.md
 ```
 
+## Editing notes
+
+### Link to a section of a different document in the same site
+
+Use this syntax:
+
+```
+[Section name]({{ site.baseurl }}/other-document-permalink/#section-name-in-lowercase-with-spaces-convered-in-dashes)
+```
+
+Remember the initial /osm-carto-tutorials/
+
+Sample:
+
+```
+Check also instruction [here]({{ site.baseurl }}/tilemill-osm-carto/#download-openstreetmap-data).
+```
+
+### Link to a section of the same document
+
+Use this syntax:
+
+```
+[here](#section-name-in-lowercase-with-spaces-convered-in-dashes)
+```
+
+Sample:
+
+```
+    # Contents
+     - [Specification](#specification)
+     - [Dependencies Title](#dependencies-title)
+
+    ## Specification
+    Example text blah. Example text blah. Example text blah. Example text blah.
+Example text blah. Example text blah. Example text blah. Example text blah.
+
+    ## Dependencies Title
+    Example text blah. Example text blah. Example text blah. Example text blah.
+Example text blah. Example text blah. Example text blah. Example text blah.
+```
+
+Sample:
+
+```
+See [Start Kosmtik](#start-kosmtik).
+```
+
+
 ## Publishing
 
 - Once the editing is completed, ensure that the file name is appropriate, enter an effective short title (e.g., less than 70 chars), add an appropriate multiline extended description, press *"Propose New file"* or *"Propose a file change"*
