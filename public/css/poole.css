@@ -13,6 +13,10 @@
  * https://github.com/poole/poole.
  */
 
+pre.highlight, .highlight pre {
+padding: 10px;
+overflow: scroll;
+}
 
 /*
  * Contents
