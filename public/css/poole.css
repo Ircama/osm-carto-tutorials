@@ -161,7 +161,6 @@ code {
 /* Make code block overflow */
 .highlight pre {
   display: inline-block;
-  word-wrap: normal;
 }
 pre {
   display: block;
@@ -177,6 +176,7 @@ pre {
   background-color: #f9f9f9;
 }
 pre code {
+  white-space: pre;
   padding: 0;
   font-size: 100%;
   color: inherit;
