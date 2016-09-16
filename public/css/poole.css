@@ -161,6 +161,7 @@ code {
 /* Make code block overflow */
 .highlight pre {
   display: inline-block;
+  word-wrap: normal;
 }
 pre {
   display: block;
