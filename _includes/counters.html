@@ -1,0 +1,18 @@
+{% assign post_counter = 0 %}
+{% for post in paginator.posts %}
+  {% assign post_counter = post_counter | plus: 1 %}
+{% endfor %}
+
+{% assign page_counter = 0 %}
+{% assign pages_list = site.pages | sort:"name" %}
+{% for node in pages_list %}
+  {% if node.title != null %}
+    {% if node.layout == "page" %}
+      {% assign page_counter = page_counter | plus: 1 %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<div class="related">
+<span class="post">Total of {{ page_counter }} pages and {{ post_counter }} posts in this site.</span>
+</div>
