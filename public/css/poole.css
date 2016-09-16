@@ -169,13 +169,18 @@ pre {
   padding: 1rem;
   font-size: .8rem;
   line-height: 1.4;
+
+/* scrollbars */
+/*
   white-space: pre;
   white-space: pre-wrap;
+*/  
+
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f9f9f9;
 
-  overflow: auto; white-space: pre; display: inline-block; width: 100%;
+  overflow-x: auto; white-space: pre; display: inline-block; width: 100%; /* scrollbars */
   
 }
 pre code {
@@ -184,7 +189,7 @@ pre code {
   color: inherit;
   background-color: transparent;
 
-  overflow: auto; white-space: pre; display: inline-block; width: 100%;
+  overflow-x: auto; white-space: pre; display: inline-block; width: 100%; /* scrollbars */
 }
 
 /* Pygments via Jekyll */
