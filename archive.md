@@ -4,7 +4,7 @@ title: List of all posts
 permalink: /z_archive/
 ---
 
-## List of all Blog Posts
+## List of all site updates and posts
 
 {% for post in site.posts %}
   {% if post.ref != null %}
