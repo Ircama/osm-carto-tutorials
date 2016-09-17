@@ -246,7 +246,7 @@ This topic branch *revised-feature* is now isolated and branched off the history
 
 ### Updating a branch
 
-If maintainers updated the gravitystorm repo, you first need to update your *master* to be even with *gravitystorm:master*; then, you also need to update your branch with appropriate commands; consider meanwhile to combine (squash) your multiple commits into a single one, for future easier revision by maintainers and commenters.
+If maintainers updated the gravitystorm repo, you first need to update your *master* to be even with *gravitystorm:master* (see [Update the master branch](#update-the-master-branch)); then, you also need to update your branch with appropriate commands; consider meanwhile to combine (squash) your multiple commits into a single one, for future easier revision by maintainers and commenters.
 
 Update your branch with the last commits of *gravitystorm:master*, also combining multiple commits (squashing them into one):
 
