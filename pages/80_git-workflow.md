@@ -35,7 +35,7 @@ This document assumes UNIX syntax. With Windows, use \ for folders instead of /.
 
 ## Introduction
 
-<We at OpenStreetMap Carto are happy about every piece of code that you contribute and we collected for you in this document relevant information that we think you should know before working on this repository. This is from one side to save us integration work, but from the other to save you frustration, in case the publishing workflow does not work as expected or if something is implemented in parallel.>
+[](We at OpenStreetMap Carto are happy about every piece of code that you contribute and we collected for you in this document relevant information that we think you should know before working on this repository. This is from one side to save us integration work, but from the other to save you frustration, in case the publishing workflow does not work as expected or if something is implemented in parallel.)
 
 A good habit to get into is using topic branches for your work, while keeping the master branch untouched. You can then keep the master branch up-to-date with the main repository without worrying about merge conflicts.
 
