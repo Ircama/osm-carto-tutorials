@@ -335,6 +335,22 @@ Notice that changed files are automatically managed by GitHub, but new ones are 
 
 *git add* will stage the file changes. You can then commit the staged file(s) with *git commit*.
 
+### Resetting File Changes
+
+To overwrite local changes with the last commit of your current branch
+
+```
+git checkout HEAD file/to/overwrite
+git pull
+```
+
+To overwrite local changes with the last commit of gravitystorm:
+
+```
+git checkout HEAD^ file/to/overwrite
+git pull
+```
+
 ### Check the status of your modifications
 
     $ git status
