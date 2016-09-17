@@ -9,15 +9,15 @@ permalink: /kosmtik-ubuntu-setup/
 
 The following step-by-step procedure can be used to install a working development environment of *openstreetmap-carto* exploiting [Kosmtik](https://github.com/kosmtik) on an Ubuntu PC.
 
-Notice that Kosmtik does not currently install on Windows (setup fails on *node-mapnik*). It can be installed on:
+Notice that Kosmtik does not currently install on Windows (setup fails on *node-mapnik*). It can be installed by now on:
 
 - a Unix server (e.g., Ubuntu)
 - a local UNIX virtual machine
 - a cloud based virtual machine
 
-A PostGIS database is needed and can be installed locally (suggested) or remotely (will be likely slow, depending on the network).
+A PostGIS database is needed and can be installed locally (suggested) or remotely (might be slow, depending on the network).
 
-The here described installation procedure drives you to set-up Kosmtik with Ubuntu. We consider using Ubuntu 15.4 Vivid (but also 14.4 Trusty works).
+The here described installation procedure drives you to set-up Kosmtik with Ubuntu. We consider using Ubuntu 15.4 Vivid or Ubuntu 14.04.3 LTS Trusty (other versions should work).
 
 ## Update Ubuntu
 
@@ -50,15 +50,21 @@ Read [nodejs](https://nodejs.org/en/download/) for further information.
     $ cd kosmtik
     $ npm install
 
-Read [kosmtik](https://github.com/kosmtik/kosmtik) for further information.
+Read [kosmtik](https://github.com/kosmtik/kosmtik#install) for further information.
 
 ## Test Kosmtik
 
-    $ npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
+```
+cd
+cd kosmtik
+npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
+```
     
 See [Start Kosmtik](#start-kosmtik).
+
+Some test might not pass (this does not mean that the installation is necessarily failed)
     
-When running `npm test`, an error like the following indicates that your system does not have a modern enough libstdc++/gcc-base toolchain:
+Notice that, when running `npm test`, an error like the following indicates that your system does not have a modern enough libstdc++/gcc-base toolchain:
     
     `Error: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version GLIBCXX_3.4.20 not found (required by /node_modules/osrm/lib/binding/osrm.node)`
     
@@ -70,7 +76,7 @@ If you are running Ubuntu older than 16.04 you can easily upgrade your libstdc++
     sudo apt-get install -y libstdc++-5-dev
     ```
     
-Read [node-mapnik](https://github.com/mapnik/node-mapnik) for further information.
+Read [node-mapnik](https://github.com/mapnik/node-mapnik#depends) for further information.
 
 ## Check that [Python](https://www.python.org/) is installed:
 
@@ -91,6 +97,8 @@ The *Mapnik Utilities* package includes shapeindex.
     $ git clone https://github.com/gravitystorm/openstreetmap-carto.git
     $ cd openstreetmap-carto
 
+Read [installation notes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md) for further information.
+
 ## Install the fonts needed by openstreetmap-carto
 
 ```
@@ -101,11 +109,15 @@ sudo apt-get install fonts-dejavu-core fonts-droid-fallback ttf-unifont \
 
 If *fonts-droid-fallback* fails installing, replace it with *with fonts-droid*.
 
+Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#fonts) for further information.
+
 ## Create the *data* folder
 
     $ cd
     $ cd openstreetmap-carto
     $ scripts/get-shapefiles.py # or ./get-shapefiles.sh (if get-shapefiles.py is not available)
+
+Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.
 
 ## Create *localconfig.json*
 
@@ -150,6 +162,8 @@ Replace coordinates and zoom with your preferred ones within the following line:
 In this example, the default center is (9.111, 45.111) and the default zoom is 15.
 
 You can configure the other parameters (like the db ones: dbname, password, user, host). Replace localhost with a remote host name if the PostGIS instance is running remotely.
+
+Read [local config](https://github.com/kosmtik/kosmtik#local-config) for further information.
 
 ## Configure the firewall
 
@@ -233,6 +247,8 @@ cd openstreet-carto
 scripts/indexes.py | psql -U postgres -h $HOSTNAME -d gis
 ```
 
+Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
+
 ## Start Kosmtik
 
 Run Kosmtik from the openstreetmap-carto directory, supposing that the Kosmtik installation is in ../kosmtik.
@@ -242,11 +258,15 @@ Run Kosmtik from the openstreetmap-carto directory, supposing that the Kosmtik i
 
     $ node ../kosmtik/index.js serve project.yaml --host 0.0.0.0
 
+Read [Usage](https://github.com/kosmtik/kosmtik#usage) for further information.
+
+Notice that `--host 0.0.0.0` is needed to access Kosmtik installed on a remote server (not necessary when doing http://localhost:6789).
+
 ## Access the map from your browser:
 
     http://localhost:6789
 
-Https will not work.
+Notice that *Https* will not work (use http instead).
 
 Note: the following Kosmtik warnings can be ignored:
 
@@ -260,6 +280,8 @@ Mapnik LOG> ...: warning: unable to find face-name 'Arundina Bold' in FontSet 'f
 Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 'fontset-2'
 Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 'fontset-2'
 ```
+
+Accessing the database and rendering images is often a slow process (mainly depending on the amount of data to be managed, but also on the server performance and on the network), so give many seconds to Kosmtik to output or refresh the map.
 
 ## Edit the stylesheets
 
