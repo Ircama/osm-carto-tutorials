@@ -216,7 +216,7 @@ This topic branch *revised-feature* is now isolated and branched off the history
   $ git checkout revised-feature
   ```
   
-  You might get this error: if you have unstaged changes: "Please, commit your changes or stash them before you can switch branches.".
+  You might get this error if you have unstaged changes: "Please, commit your changes or stash them before you can switch branches.".
   If you want remove all local changes from your working copy, simply stash them:
   
   ```
