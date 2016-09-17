@@ -19,7 +19,7 @@ Basically, the Fork, Branch & Pull model adopted by OpenStreetMap Carto consider
 - Perform the OpenStreetMap Carto scripts (run scripts/yaml2mml.py in case of modification of project.yaml).
 - Commit the changes to the branch and add an appropriate comment.
 - Push the branch to GitHub.
-- Open a pull request (PR) from the new branch to the original repo (and not to your master, which will always have 0 pull requests)).
+- Open a pull request (PR) from the new branch to the original repo (and not to your master, which will always have 0 pull requests).
 - Add appropriate comments to your PR.
 - Your pull requests will then be reviewed and discussed.
 - You might be asked to rework your code (in case, you have to perform some update on your development folder, followed by stage, commit, rebase and push operations)
@@ -35,7 +35,7 @@ This document assumes UNIX syntax. With Windows, use \ for folders instead of /.
 
 ## Introduction
 
-We at OpenStreetMap Carto are happy about every piece of code that you contribute and we collected for you in this document relevant information that we think you should know before working on this repository. This is from one side to save us integration work, but from the other to save you frustration, in case the publishing workflow does not work as expected or if something is implemented in parallel.
+<We at OpenStreetMap Carto are happy about every piece of code that you contribute and we collected for you in this document relevant information that we think you should know before working on this repository. This is from one side to save us integration work, but from the other to save you frustration, in case the publishing workflow does not work as expected or if something is implemented in parallel.>
 
 A good habit to get into is using topic branches for your work, while keeping the master branch untouched. You can then keep the master branch up-to-date with the main repository without worrying about merge conflicts.
 
@@ -527,7 +527,7 @@ The following are useful monitoring elements offered by GitHub Desktop (the Wind
 
 * [PowerShell-based Git Shell](https://git-scm.com/book/it/v2/Git-in-Other-Environments-Git-in-Powershell) that comes with GitHub Desktop]
   It exploits [posh-git](https://github.com/dahlbyk/posh-git#posh-git).
-  * Cyan color: the branch matches its remote; the "=" shows that it is at the same commit level as the remote branch
+  * Cyan color: the branch matches its remote; the "=" shows that it is at the same commit level as the remote branch; a commit can be done
   * Green color with up arrow: branch ahead of its remote, needs a git push
   * Red with down arrow: branch is behind its remote, needs a git pull
   * Yellow color with up and down arrows: might need a git push --force
@@ -535,18 +535,6 @@ The following are useful monitoring elements offered by GitHub Desktop (the Wind
   If you change the branch via GitHub Desktop, press enter in the posh-git command line to reflect this in the prompt.
   
   Check [prompt description](https://github.com/dahlbyk/posh-git#the-prompt) for further useful information.
-  
-  You can also enter the following for better colors:
-  ```
-  git config --global color.status.header "black normal bold"
-  git config --global color.status.added "green normal bold"
-  git config --global color.status.updated "green normal bold"
-  git config --global color.status.changed "yellow normal bold"
-  git config --global color.status.untracked "cyan normal bold"
-  git config --global color.status.branch "magenta normal bold"
-  git config --global color.status.nobranch "normal normal bold"
-  git config --global color.status.unmerged "red normal bold"
-  ```
   
 * You also have the built-in git GUI: gitk
 
