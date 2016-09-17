@@ -215,9 +215,20 @@ This topic branch *revised-feature* is now isolated and branched off the history
   ```
   $ git checkout revised-feature
   ```
-
-  The above command is important and needs to be issued before working on a branch.
-
+  
+  You might get this error: if you have unstaged changes: "Please, commit your changes or stash them before you can switch branches.".
+  If you want remove all local changes from your working copy, simply stash them:
+  
+  ```
+  git stash save --keep-index
+  ```
+  
+  If you don't need them anymore, you now can drop that stash:
+  
+  ```
+  git stash drop
+  ```
+  
 - Create a new branch (e.g., named revised-feature) and checkout it:
 
   ```
