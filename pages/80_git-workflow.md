@@ -210,7 +210,7 @@ This topic branch *revised-feature* is now isolated and branched off the history
   $ git branch -a
   ```
 
-- Switch to a specific branch (e.g., named revised-feature):
+- Switch to a specific branch (e.g., named *revised-feature* here):
 
   ```
   $ git checkout revised-feature
