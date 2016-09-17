@@ -366,6 +366,12 @@ A good practice is to perform a dry-run before issuing the actual commit:
 
 No command is executed when the *--dry-run* option is used. Nevertheless, the produced output is useful to check that everything is ready to be committed. You can also add the *-v* option to show the differences.
 
+To use *vi* as editor (default would be *nano*):
+
+```
+git config --global core.editor "vim"
+```
+
 Commit command:
 
     $ git commit -a
