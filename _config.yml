@@ -15,11 +15,15 @@ paginate:            5
 # About/contact
 author:
   name:              ircama
-  url:               http://ircama.github.io
-#  email:             markdotto@gmail.com
+  url:               https://github.com/ircama
+  credits:           'Built with <a href="http://jekyllrb.com/" target="_blank">Jekyll</a> and with a modified <a href="http://lanyon.getpoole.com/" target="_blank">Lanyon</a> theme. Hosted by <a href="https://github.com" target="_blank">GitHub</a>.'
+  github_sources:    <a href="https://github.com/ircama/osm-carto-tutorials/tree/gh-pages" target="_blank">Source on GitHub</a>
+#  email:             my_email@gmail.com
 
 # Custom vars
 version:             1.0.1
+google_search:       011671119207917586318:jtx4jontd8i
+disqus_shortname:    ircama-github-io-osm-carto-tutorials
 
 # Gems
 gems:

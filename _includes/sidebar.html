@@ -31,8 +31,8 @@
       {% endif %}
     {% endfor %}
 
-    <span class="sidebar-nav-item">&copy; <a href="https://github.com/ircama" target="_blank">ircama</a> {{ site.time | date: '%Y' }} - v{{ site.version }}</span>
-    <span class="sidebar-nav-item">Built with <a href="http://jekyllrb.com/" target="_blank">Jekyll</a> and with a modified <a href="http://lanyon.getpoole.com/" target="_blank">Lanyon</a> theme. Hosted by <a href="https://github.com" target="_blank">GitHub</a>.</span>
-    <span class="sidebar-nav-item"><a href="https://github.com/ircama/osm-carto-tutorials/tree/gh-pages" target="_blank">Source on GitHub</a></span>
+    <span class="sidebar-nav-item">&copy; <a href="{{ site.author.url }}" target="_blank">{{ site.author.name }}</a> {{ site.time | date: '%Y' }} - v{{ site.version }}</span>
+    <span class="sidebar-nav-item">{{ site.author.credits }}</span>
+    <span class="sidebar-nav-item">{{ site.author.github_sources }}</span>
   </nav>
 </div>
