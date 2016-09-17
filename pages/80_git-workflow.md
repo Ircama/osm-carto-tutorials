@@ -528,9 +528,9 @@ The following are useful monitoring elements offered by GitHub Desktop (the Wind
 * [PowerShell-based Git Shell](https://git-scm.com/book/it/v2/Git-in-Other-Environments-Git-in-Powershell) that comes with GitHub Desktop]
   It exploits [posh-git](https://github.com/dahlbyk/posh-git#posh-git).
   * Cyan color: the branch matches its remote; the "=" shows that it is at the same commit level as the remote branch; a commit can be done
-  * Green color with up arrow: branch ahead of its remote, needs a git push
-  * Red with down arrow: branch is behind its remote, needs a git pull
-  * Yellow color with up and down arrows: might need a git push --force
+  * Green color, "↑": branch ahead of its remote, needs a git push
+  * Red color, "↓": branch is behind its remote, needs a git pull
+  * Yellow color, "↕": in case of rebase completed, might need a git push --force
   
   If you change the branch via GitHub Desktop, press enter in the posh-git command line to reflect this in the prompt.
   
