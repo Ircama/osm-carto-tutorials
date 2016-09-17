@@ -366,11 +366,13 @@ A good practice is to perform a dry-run before issuing the actual commit:
 
 No command is executed when the *--dry-run* option is used. Nevertheless, the produced output is useful to check that everything is ready to be committed. You can also add the *-v* option to show the differences.
 
-To use *vi* as editor (default would be *nano*):
+To use *vi* as editor (default would be *nano* for UNIX and notepad for Windows):
 
 ```
 git config --global core.editor "vim"
 ```
+
+Keeping the default editor is suggested with Windows.
 
 Commit command:
 
@@ -516,6 +518,38 @@ In this case, you just need to update your branch from the main repository and t
 
 Edit the pull request message from your GitHub account, after accessing your PR.
 
+## GitHub Desktop monitoring features
+
+The following are useful monitoring elements offered by GitHub Desktop (the Windows sowtware provided by GitHub):
+
+* [Comparison graph](https://help.github.com/desktop/guides/contributing/about-the-comparison-graph/)
+  You can easily monitor whether you are at the same level of gravitystorm:master, whether you branch might need a rebase, etc.
+
+* [PowerShell-based Git Shell](https://git-scm.com/book/it/v2/Git-in-Other-Environments-Git-in-Powershell) that comes with GitHub Desktop]
+  It exploits [posh-git](https://github.com/dahlbyk/posh-git#posh-git).
+  * Cyan color: the branch matches its remote; the "=" shows that it is at the same commit level as the remote branch
+  * Green color with up arrow: branch ahead of its remote, needs a git push
+  * Red with down arrow: branch is behind its remote, needs a git pull
+  * Yellow color with up and down arrows: might need a git push --force
+  
+  If you change the branch via GitHub Desktop, press enter in the posh-git command line to reflect this in the prompt.
+  
+  Check [prompt description](https://github.com/dahlbyk/posh-git#the-prompt) for further useful information.
+  
+  You can also enter the following for better colors:
+  ```
+  git config --global color.status.header "black normal bold"
+  git config --global color.status.added "green normal bold"
+  git config --global color.status.updated "green normal bold"
+  git config --global color.status.changed "yellow normal bold"
+  git config --global color.status.untracked "cyan normal bold"
+  git config --global color.status.branch "magenta normal bold"
+  git config --global color.status.nobranch "normal normal bold"
+  git config --global color.status.unmerged "red normal bold"
+  ```
+  
+* You also have the built-in git GUI: gitk
+
 ## Recommendations
 - Clone your GitHub repository, not gravitystorm/openstreetmap-carto
 - Do not use your local GitHub repository for development; just copy there the modified files
@@ -524,4 +558,3 @@ Edit the pull request message from your GitHub account, after accessing your PR.
 - Do not push a contribution to your master, but to the origin repository you are contributing for
 - Do no press keys mentioning "Close" by mistake, unless you really want to freeze an open discussion
 - Avoid too many commits: you might squash them by doing a `git rebase -i origin/master` to your branch (and subsequently `git push --force`).
-- You also have the built-in git GUI: gitk

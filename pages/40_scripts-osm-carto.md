@@ -174,4 +174,4 @@ The following scripts are provided to support coding. They are necessary and use
   $ scripts/index.py > index.sql
   ```
 
-  A goal with the indexes is to have them general-purpose enough to not need frequent changing with stylesheet changes, but to be usable with man y versions, and potentially other styles.
+  A goal with the indexes is to have them general-purpose enough to not need frequent changing with stylesheet changes, but to be usable with many versions, and potentially other styles.
