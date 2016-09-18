@@ -23,8 +23,8 @@ author:
 # Custom vars
 version:             1.0.1
 google_search:       011671119207917586318:jtx4jontd8i
-disqus_shortname:    ircama-github-io-osm-carto-tutorials
 google_analytics:    UA-84073284-1
+disqus_shortname:    ircama-github-io-osm-carto-tutorials
 
 # Gems
 gems:
