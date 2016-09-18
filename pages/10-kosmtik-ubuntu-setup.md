@@ -38,7 +38,7 @@ We suppose that `cd` defaults to your home directory, where the following subfol
 ## Install [Node.js - legacy](https://nodejs.org/en/)
 
     $ nodejs --version # to verify whether nodejs is already installed
-    $ sudo apt-get install nodejs
+    $ sudo apt-get install nodejs npm
 
 Read [nodejs](https://nodejs.org/en/download/) for further information.
 
@@ -212,6 +212,37 @@ Check also instruction [here]({{ site.baseurl }}/tilemill-osm-carto/#download-op
 ## Install [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql)
 
     $$ sudo apt-get install osm2pgsql
+
+### Alternative installation procedure
+
+This alternative installation procedure of osm2pgsql is suggested as generates the most updated executable by compiling the sources.
+
+```
+# Needed dependencies
+sudo apt-get install make cmake g++ libboost-dev libboost-system-dev \
+  libboost-filesystem-dev libexpat1-dev zlib1g-dev \
+  libbz2-dev libpq-dev libgeos-dev libgeos++-dev libproj-dev lua5.2 \
+  liblua5.2-dev
+
+# Download osm2pgsql
+cd /tmp
+git clone git://github.com/openstreetmap/osm2pgsql.git 
+
+# Prepare for compiling
+cd osm2pgsql
+mkdir build && cd build
+cmake ..
+
+# Compile
+make
+
+# Install
+sudo make install
+
+# Clean-out temporary files
+cd ../..
+rm -rf osm2pgsql
+```
 
 ## Load data to postgis
 

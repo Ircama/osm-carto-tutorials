@@ -8,10 +8,11 @@ Based on Jekyll theme:
 [dyndna/lanyon-plus](https://github.com/dyndna/lanyon-plus) forked from poole/lanyon.
 Based on Jekyll theme: [Lanyon](http://lanyon.getpoole.com) by [**Mark Otto**](https://github.com/mdo)
 
-Proprietary files:
+Proprietary files and data:
 
+- README.MD
 - public/apple-touch-icon-precomposed.png
 - public/favicon.ico
-- _config.yml
+- configuration of _config.yml
 - All files in "pages" directory
 - All files in "_posts" directory
