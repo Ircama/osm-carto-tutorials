@@ -3,11 +3,11 @@ layout: post
 title: Scope of this site
 ---
 
-This independent site includes unofficial tutorials to set-up a development environment and to manage [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) in order to exploit the style and also to be able to contribute to this project.
+This independent site includes unofficial tutorials to set-up a development environment of [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) and to manage this software; it will allow exploiting the style and also being able to contribute.
 
-The aim of this site is to keep track of technical notes that have been useful to me and that I hope will be also of help to newbies to master OpenStreetMap Carto fast, learning all most relevant aspects from the ground up and avoiding frustration on installation, on Git usage, on configuration and on other matters that generally need to be faced when approaching such project.
+To implement this site I kept track of technical notes that have been useful to me and that I hope will be also of help to newbies to master OpenStreetMap Carto fast, learning all most relevant aspects from the ground up and avoiding frustration on installation, Git usage, configuration and other matters that generally need to be faced when approaching such project.
 
-All pages of this site are in [blog](#disqus_thread) form, allowing anyone to add open comments. You can also [contribute]({{ site.baseurl }}/how-to-contribute/).
+All pages of this site are in [blog](#disqus_thread) form, allowing anyone to add open comments. You can also [contribute]({{ site.baseurl }}/how-to-contribute/) or open [issues](https://github.com/ircama/osm-carto-tutorials/issues).
 
 **DISCALIMER**: the independent documentation included in this site is not only **unofficial**, but also **unapproved** by *openstreetmap-carto*. The included information might be at early stage and could require several improvements that will be possibly addressed in the future. I strongly recommend referencing the official documentation for openstreetmap-carto, which is included [here](https://github.com/gravitystorm/openstreetmap-carto). Keep also in mind that some information might be only valid at the time of writing and could require possible updates that I have not been able to accomplish.
 
