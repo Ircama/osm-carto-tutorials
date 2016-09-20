@@ -214,7 +214,7 @@ sudo apt-get install postgresql postgis pgadmin3 postgresql-contrib
 
 Note: used PostgeSQL port is 5432 (default).
 
-## Set the password for the *postgress* user
+## Set the password for the *postgres* user
 
 ```
 sudo -u postgres psql postgres
@@ -222,6 +222,8 @@ sudo -u postgres psql postgres
 ```
 
 Enter the following password twice: postgres_007%
+
+This is just an example of password, you can use the one you prefer.
 
 ## Create the PostGIS instance
 
