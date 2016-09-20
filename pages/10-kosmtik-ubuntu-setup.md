@@ -42,17 +42,17 @@ We suppose that `cd` defaults to your home directory, where the following subfol
 To install [Node.js](https://nodejs.org/en/):
 
     $ nodejs --version # to verify whether nodejs is already installed
-    $ sudo apt-get install nodejs npm # this package mught not work, see notes in this paragraph
+    $ sudo apt-get install nodejs npm # this package might not support Kosmtik, see notes in this paragraph
 
 Read [nodejs](https://nodejs.org/en/download/) for further information.
 
-Notice that *nodejs-legacy* might be needed (at least required with Ubuntu 16.04 at the time of writing).
+Notice that *nodejs-legacy* might be needed for Kosmtik (at least required with Ubuntu 16.04 at the time of writing).
 
 ```
 sudo apt-get install nodejs-legacy npm
 ```
 
-The following error when running Kosmtik is related to compatibility issues with nodejs and should be fixed by installing nodejs-legacy.
+The following error when running Kosmtik is related to compatibility issues with nodejs and should be fixed by installing *nodejs-legacy*.
 
 ```
 npm ERR! Failed at the mapnik@3.5.13 install script 'node-pre-gyp install --fallback-to-build'.
