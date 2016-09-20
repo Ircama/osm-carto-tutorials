@@ -17,7 +17,7 @@ Notice that Kosmtik does not currently install on Windows (setup fails on *node-
 
 A PostGIS database is needed and can be installed locally (suggested) or remotely (might be slow, depending on the network).
 
-The here described installation procedure drives you to set-up Kosmtik with Ubuntu. We consider using Ubuntu 15.4 Vivid or Ubuntu 14.04.3 LTS Trusty (other versions should work).
+The here described installation procedure drives you to set-up Kosmtik with Ubuntu. We consider using Ubuntu 16.04.1 LTS Xenial, Ubuntu 15.4 Vivid or Ubuntu 14.04.3 LTS Trusty (other versions should work).
 
 ## Update Ubuntu
 
@@ -32,17 +32,32 @@ We suppose that `cd` defaults to your home directory, where the following subfol
 
 ## Install [Git](https://git-scm.com/)
 
+Git should be already installed on Ubuntu 16.04.
+
     $ git --version # to verify whether git is already installed
     $ sudo apt-get install git
 
-## Install [Node.js - legacy](https://nodejs.org/en/)
+## Install Node.js
+
+To install [Node.js](https://nodejs.org/en/):
 
     $ nodejs --version # to verify whether nodejs is already installed
-    $ sudo apt-get install nodejs npm
+    $ sudo apt-get install nodejs npm # this package mught not work, see notes in this paragraph
 
 Read [nodejs](https://nodejs.org/en/download/) for further information.
 
-(Alternatively: `sudo apt-get install nodejs-legacy`)
+Notice that nodejs-legacy might be needed (at least required with Ubuntu 16.04 at the time of writing).
+
+```
+sudo apt-get install nodejs-legacy npm
+```
+
+The following error when running Kosmtik is related to compatibility issues with nodejs and should be fixed by installing nodejs-legacy.
+
+```
+npm ERR! Failed at the mapnik@3.5.13 install script 'node-pre-gyp install --fallback-to-build'.
+npm ERR! Make sure you have the latest version of node.js and npm installed.
+```
 
 ## Install Kosmtik
 
@@ -85,6 +100,17 @@ Read [node-mapnik](https://github.com/mapnik/node-mapnik#depends) for further in
 
 Otherwise Python needs to be installed.
 
+## Install Yaml and Package Manager for Python
+
+This is necessary in order to run OpenStreetMap-Carto scripts/indexes.
+
+```
+sudo apt-get install python-yaml
+
+pip -V # to verify whether pip is already installed
+sudo apt-get install python-pip
+```
+
 ## Install Mapnik Utilities
 
 The *Mapnik Utilities* package includes shapeindex.
@@ -113,9 +139,12 @@ Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/maste
 
 ## Create the *data* folder
 
-    $ cd
-    $ cd openstreetmap-carto
-    $ scripts/get-shapefiles.py # or ./get-shapefiles.sh (if get-shapefiles.py is not available)
+```
+sudo apt install unzip
+cd
+cd openstreetmap-carto
+scripts/get-shapefiles.py # or ./get-shapefiles.sh (if get-shapefiles.py is not available)
+```
 
 Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.
 
@@ -194,12 +223,14 @@ Enter the following password twice: postgres_007%
 
 ## Create the PostGIS instance
 
+```
 export PGPASSWORD=postgres_007%
 HOSTNAME=localhost # set it to the actual ip address or host name
 psql -U postgres -h $HOSTNAME -c "create database gis"
 psql -U postgres -h $HOSTNAME -c "\connect gis"
 psql -U postgres -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
 psql -U postgres -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
+```
 
 ## Get an OpenStreetMap data extract
 
@@ -215,7 +246,7 @@ Check also instruction [here]({{ site.baseurl }}/tilemill-osm-carto/#download-op
 
 ### Alternative installation procedure
 
-This alternative installation procedure of osm2pgsql is suggested as generates the most updated executable by compiling the sources.
+This alternative installation procedure generates the most updated executable by compiling the sources.
 
 ```
 # Needed dependencies
