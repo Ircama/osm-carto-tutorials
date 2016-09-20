@@ -30,9 +30,9 @@ We suppose that `cd` defaults to your home directory, where the following subfol
 - kosmtik
 - openstreetmap-carto
 
-## Install [Git](https://git-scm.com/)
+## Install Git
 
-Git should be already installed on Ubuntu 16.04.
+[Git](https://git-scm.com/) should be already installed on Ubuntu 16.04.
 
     $ git --version # to verify whether git is already installed
     $ sudo apt-get install git
@@ -46,7 +46,7 @@ To install [Node.js](https://nodejs.org/en/):
 
 Read [nodejs](https://nodejs.org/en/download/) for further information.
 
-Notice that nodejs-legacy might be needed (at least required with Ubuntu 16.04 at the time of writing).
+Notice that *nodejs-legacy* might be needed (at least required with Ubuntu 16.04 at the time of writing).
 
 ```
 sudo apt-get install nodejs-legacy npm
@@ -93,7 +93,9 @@ If you are running Ubuntu older than 16.04 you can easily upgrade your libstdc++
     
 Read [node-mapnik](https://github.com/mapnik/node-mapnik#depends) for further information.
 
-## Check that [Python](https://www.python.org/) is installed:
+## Python installation
+
+Check that [Python](https://www.python.org/) is installed:
 
     $ python -V
     $ python3 -V
@@ -200,9 +202,9 @@ If you are preparing a remote virtual machine, configure the firewall to allow r
 
 If you run a cloud based VM, also the VM itself shall be set to open this port.
 
-## Install [PostgreSQL](https://www.postgresql.org/)
+## Install PostgreSQL and PostGIS
 
-Install PostgreSQL 9.5 and PostGIS 2.2 (supposing they are at the lastest available versions)
+Install [PostgreSQL](https://www.postgresql.org/) 9.5 and PostGIS 2.2 (supposing they are at the lastest available versions)
 Also older PostgreSQL version are suitable.
 
 ```
@@ -240,7 +242,9 @@ Get data from [Geofabrik](http://download.geofabrik.de/) or Mapzen [Metro-Extrac
 
 Check also instruction [here]({{ site.baseurl }}/tilemill-osm-carto/#download-openstreetmap-data).
 
-## Install [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql)
+## Install Osm2pgsql
+
+To install [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql):
 
     $$ sudo apt-get install osm2pgsql
 
