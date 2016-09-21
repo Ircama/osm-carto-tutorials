@@ -36,6 +36,9 @@ gems:
 markdown:    kramdown
 highlighter: rouge
 
+kramdown:
+  auto_ids: true # Auto-generate ID's for headings
+
 pages_list:
   Archive: '/z_archive'
   RSS: '/atom.xml'
