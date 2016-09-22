@@ -6,10 +6,6 @@ layout: default
 <script type="text/javascript">
 $(document).ready(function() {
 $('#toc').toc({ showEffect: 'slideDown' });
-anchors.options = {
-  placement: 'left',
-};
-anchors.add();
 });
 </script>
 <div class="page">
@@ -17,3 +13,9 @@ anchors.add();
   {{ page.date | date: '%B %d, %Y' }}
   {{ content }}
 </div>
+<script>
+anchors.options = {
+  placement: 'left',
+};
+anchors.add();
+</script>
