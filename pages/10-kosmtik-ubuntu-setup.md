@@ -330,7 +330,7 @@ Read [Usage](https://github.com/kosmtik/kosmtik#usage) for further information.
 
 Notice that `--host 0.0.0.0` is needed to access Kosmtik installed on a remote server (not necessary when doing http://localhost:6789).
 
-## Access the map from your browser:
+## Access the map from your browser
 
     http://localhost:6789
 

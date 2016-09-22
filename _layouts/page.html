@@ -1,7 +1,17 @@
 ---
 layout: default
 ---
-
+<script src="{{ site.baseurl }}/public/toc.js"></script>
+<script src="{{ site.baseurl }}/public/anchor.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+$('#toc').toc({ showEffect: 'slideDown' });
+anchors.options = {
+  placement: 'left',
+};
+anchors.add();
+});
+</script>
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
   {{ page.date | date: '%B %d, %Y' }}

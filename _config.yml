@@ -13,8 +13,6 @@ baseurl:             "/osm-carto-tutorials"
 paginate:            5
 
 # SEO stuff
-# google_author: ""
-# bing_webmastertools_id: ""
 google_site_verification: "IFVMiYBt3XHI4p6WW0TQRuTrXop3jVkDuNQVrBkN_CM"
 logo:                "{{ site.baseurl }}/public/apple-touch-icon-precomposed.png"
 
