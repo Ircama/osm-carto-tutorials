@@ -1,19 +1,15 @@
 ---
 layout: default
 ---
+<!--
+<nav id="toc" data-toggle="toc"></nav>
+-->
 <script src="{{ site.baseurl }}/public/anchor.min.js"></script>
-<script src="{{ site.baseurl }}/public/toc.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-$('#toc').toc({ showEffect: 'slideDown' });
-});
-</script>
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
   {{ page.date | date: '%B %d, %Y' }}
   {{ content }}
 </div>
-<nav id="toc" data-toggle="toc"></nav>
 <script>
 anchors.options = {
   placement: 'left',
