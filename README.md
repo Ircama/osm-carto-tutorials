@@ -9,7 +9,7 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
 * Lanyon theme: [Lanyon](http://lanyon.getpoole.com) by [**Mark Otto**](https://github.com/mdo)
 * [Jekyll](http://jekyllrb.com/)
 * [AnchorJS plugin](https://github.com/bryanbraun/anchorjs), Copyright (c) 2016 Bryan Braun; Licensed MIT
-* [Table of Contents plugin for Bootstrap](https://afeld.github.io/bootstrap-toc/) (ScrollSpy plugin)
+* [Table of Contents plugin for Bootstrap](https://afeld.github.io/bootstrap-toc/) (ScrollSpy plugin), Copyright 2015 Aidan Feldman, Licensed under MIT (https://github.com/afeld/bootstrap-toc/blob/gh-pages/LICENSE.md)
 * [Bootstrap](getbootstrap.com)
 * [jQuery](https://jquery.com/)
 
