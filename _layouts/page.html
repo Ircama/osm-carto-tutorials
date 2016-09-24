@@ -4,6 +4,9 @@ layout: default
 <!--
 <nav id="toc" data-toggle="toc"></nav>
 -->
+<div class="sticky">
+  <nav id="toc" data-toggle="toc"></nav>
+</div>
 <script src="{{ site.baseurl }}/public/anchor.min.js"></script>
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
@@ -15,4 +18,7 @@ anchors.options = {
   placement: 'left',
 };
 anchors.add();
+anchors.remove('.masthead-title');
+anchors.remove('.sticky');
+anchors.remove('.page-title');
 </script>

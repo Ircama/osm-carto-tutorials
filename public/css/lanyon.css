@@ -38,6 +38,44 @@
   margin-left: -1.125em !important;
 }
 
+/* Table of Content (TOC) */
+nav[data-toggle='toc'] {
+  margin-top: 30px;
+  border: .2rem solid #f5f5f5;
+}
+
+nav[data-toggle='toc'] ul{
+  padding: 1px 4px !important;
+  list-style:none !important;
+  list-style-type:none !important;
+  background-color: #fffcfc;
+}
+
+.sticky {
+  position:fixed !important;
+  position: absolute; /*ie6 */
+  bottom: 0;
+  top: 3em;
+  width: 20rem;
+  right: 0;
+  z-index: 100;
+  border-top: 0;
+  line-height: 1.1;
+  overflow: auto; display: inline-block; /* scrollbars */
+}
+
+/* show TOC only on large screens */
+@media (max-width: 1070px) {
+  nav[data-toggle='toc'] {
+    display: none;
+  }
+}
+
+#sidebar-checkbox:checked ~ .wrap
+.sticky {
+  display: none;
+}
+
 /*
  * Global resets
  *
