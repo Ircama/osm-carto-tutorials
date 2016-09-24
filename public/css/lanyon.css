@@ -40,7 +40,6 @@
 
 /* Table of Content (TOC) */
 nav[data-toggle='toc'] {
-  margin-top: 30px;
   border: .2rem solid #f5f5f5;
 }
 
@@ -55,7 +54,7 @@ nav[data-toggle='toc'] ul{
   position:fixed !important;
   position: absolute; /*ie6 */
   bottom: 0;
-  top: 3em;
+  top: 3.6em;
   width: 20rem;
   right: 0;
   z-index: 100;

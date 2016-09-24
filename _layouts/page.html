@@ -1,8 +1,7 @@
 ---
 layout: default
 ---
-<div class="sticky">
-  <nav id="toc" data-toggle="toc"></nav>
+<div class="sticky"><nav id="toc"></nav>
 </div>
 <script src="{{ site.baseurl }}/public/anchor.min.js"></script>
 <div class="page">
@@ -11,6 +10,15 @@ layout: default
   {{ content }}
 </div>
 <script>
+$(function() {
+  var navSelector = '#toc';
+  var $myNav = $(navSelector);
+  Toc.init($myNav);
+  $('body').scrollspy({
+    target: navSelector,
+    offset: 220
+  });
+});
 anchors.options = {
   placement: 'left',
 };
