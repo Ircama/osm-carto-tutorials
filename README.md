@@ -1,6 +1,6 @@
 ## https://ircama.github.io/osm-carto-tutorials/
 
-# OpenStreetMap Carto Tutorials (by ircama)
+# OpenStreetMap Carto Tutorials
 
 Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto).
 
@@ -9,15 +9,15 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
 * Lanyon theme: [Lanyon](http://lanyon.getpoole.com) by [**Mark Otto**](https://github.com/mdo)
 * [Jekyll](http://jekyllrb.com/)
 * [AnchorJS plugin](https://github.com/bryanbraun/anchorjs), Copyright (c) 2016 Bryan Braun; Licensed MIT
+* [ScrollSpy plugin](https://afeld.github.io/bootstrap-toc/)
 * [Bootstrap](getbootstrap.com)
 * [jQuery](https://jquery.com/)
-* [ScrollSpy plugin](https://afeld.github.io/bootstrap-toc/)
 
-* Licensed with the [MIT License](http://opensource.org/licenses/MIT)
+Licensed with the [MIT License](http://opensource.org/licenses/MIT)
 
-* Hosted by [GitHub](https://github.com)
+Hosted by [GitHub](https://github.com)
 
-This site can be cloned and reused freely. The following files and data are the ones specific for this site and need deletion or customization when forking this site for different purposes:
+This site can be cloned and reused freely. The following files and data are specific for this site and need deletion or customization when forking this site for different purposes:
 
 - README.MD (shall be customized)
 - public/apple-touch-icon-precomposed.png (shall be customized)
