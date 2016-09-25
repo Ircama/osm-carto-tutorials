@@ -89,15 +89,13 @@ MARKUP is the file extension representing the format used in the file. For examp
 Use this syntax:
 
 ```
-[Section name](other-document-permalink/#section-name-in-lowercase-with-spaces-convered-in-dashes)
+[Section name](../other-document-permalink/#section-name-in-lowercase-with-spaces-convered-in-dashes)
 ```
-
-Remember the initial /osm-carto-tutorials/
 
 Sample:
 
 ```
-Check also instruction [here](tilemill-osm-carto/#download-openstreetmap-data).
+Check also instructions [here](../tilemill-osm-carto/#download-openstreetmap-data).
 ```
 
 ### Link to a section of the same document
@@ -130,6 +128,33 @@ Sample:
 See [Start Kosmtik](#start-kosmtik).
 ```
 
+### Coloring a paragraph
+
+```
+This is a paragraph that for some reason we want yellow.
+{: .yellow}
+
+This is a paragraph that for some reason we want blue.
+{: .blue}
+
+This is a paragraph that for some reason we want red.
+{: .red}
+
+This is a paragraph that for some reason we want green.
+{: .green}
+```
+
+This is a paragraph that for some reason we want yellow.
+{: .yellow}
+
+This is a paragraph that for some reason we want blue.
+{: .blue}
+
+This is a paragraph that for some reason we want red.
+{: .red}
+
+This is a paragraph that for some reason we want green.
+{: .green}
 
 ## Publishing
 

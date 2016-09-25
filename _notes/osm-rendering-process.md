@@ -5,17 +5,9 @@ comments: true
 permalink: /osm-rendering-process/
 ---
 
-This is a paragraph that for some reason we want blue.
-{: .yellow}
+[a link to a site](#its-permalink)
 
-This is a paragraph that for some reason we want blue.
-{: .blue}
-
-This is a paragraph that for some reason we want blue.
-{: .red}
-
-This is a paragraph that for some reason we want blue.
-{: .green}
+# Its Permalink
 
 <figure class="video_container">
   <iframe src="https://www.youtube.com/embed/NoFLJLJ7abE" frameborder="0" allowfullscreen="true"> </iframe>
