@@ -14,8 +14,7 @@
 {% endfor %}
 
 {% assign note_counter = 0 %}
-{% assign note_list = site.notes | sort:"name" %}
-{% for node in note_list %}
+{% for node in site.notes %}
   {% if node.title != null %}
     {% if node.layout == "note" %}
       {% assign note_counter = note_counter | plus: 1 %}
