@@ -242,7 +242,7 @@ You need to download an appropriate .osm or .pbf file to be subsequently loaded 
 
 Get data from [Geofabrik](http://download.geofabrik.de/) or Mapzen [Metro-Extracts](https://mapzen.com/data/metro-extracts/).
 
-Check also instruction [here]({{ site.baseurl }}/tilemill-osm-carto/#download-openstreetmap-data).
+Check also instructions [here](tilemill-osm-carto/#download-openstreetmap-data).
 
 ## Install Osm2pgsql
 

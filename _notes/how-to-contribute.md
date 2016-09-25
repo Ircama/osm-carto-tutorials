@@ -66,7 +66,7 @@ The suggested process to add or update *pages* is directly from the GitHub site:
   
 - Press the *Preview* button to verify the correct rendering of the document.
 
-- Pay attention to relative links, which shall be contructed with {{ site.baseurl }}/my_relative_link (e.g., `[a link to a site]({{ site.baseurl }}/its_permalink/)`).
+- Relative links shall be contructed with my_relative_link (e.g., `[a link to a site](its_permalink/)`).
 
 ## Managing Posts
 
@@ -89,7 +89,7 @@ MARKUP is the file extension representing the format used in the file. For examp
 Use this syntax:
 
 ```
-[Section name]({{ site.baseurl }}/other-document-permalink/#section-name-in-lowercase-with-spaces-convered-in-dashes)
+[Section name](other-document-permalink/#section-name-in-lowercase-with-spaces-convered-in-dashes)
 ```
 
 Remember the initial /osm-carto-tutorials/
@@ -97,7 +97,7 @@ Remember the initial /osm-carto-tutorials/
 Sample:
 
 ```
-Check also instruction [here]({{ site.baseurl }}/tilemill-osm-carto/#download-openstreetmap-data).
+Check also instruction [here](tilemill-osm-carto/#download-openstreetmap-data).
 ```
 
 ### Link to a section of the same document
