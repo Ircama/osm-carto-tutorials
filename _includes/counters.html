@@ -13,6 +13,16 @@
   {% endif %}
 {% endfor %}
 
+{% assign note_counter = 0 %}
+{% assign note_list = site.notes | sort:"name" %}
+{% for node in note_list %}
+  {% if node.title != null %}
+    {% if node.layout == "note" %}
+      {% assign note_counter = note_counter | plus: 1 %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
 <div class="related">
-<span class="post">Total of {{ page_counter }} documents and {{ post_counter }} update notes in this site.</span>
+<span class="post">Total of {{ page_counter }} documents {{ note_counter }} note(s) and {{ post_counter }} update messages in this site.</span>
 </div>

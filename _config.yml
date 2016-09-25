@@ -32,6 +32,7 @@ gems:
   - jekyll-paginate
   - jekyll-seo-tag
   - jemoji
+  - jekyll-last-modified-at
 
 # Dependencies
 markdown:    kramdown
@@ -46,3 +47,8 @@ highlighter: rouge
 pages_list:
   Archive: '/z_archive'
   RSS: '/atom.xml'
+
+collections:
+  notes:
+    output: true
+    permalink: /notes/:path/

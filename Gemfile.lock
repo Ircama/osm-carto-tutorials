@@ -71,6 +71,8 @@ GEM
     jekyll-github-metadata (2.0.2)
       jekyll (~> 3.1)
       octokit (~> 4.0)
+    jekyll-last-modified-at (0.3.4)
+      jekyll
     jekyll-mentions (1.2.0)
       activesupport (~> 4.0)
       html-pipeline (~> 2.3)
@@ -134,6 +136,7 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  jekyll-last-modified-at
 
 BUNDLED WITH
    1.13.0

@@ -1,11 +1,9 @@
 ---
-layout: default
-title: How to contribute to this site for documents
+layout: note
+title: How to contribute to this site with new documents
 comments: true
 permalink: /how-to-contribute/
 ---
-# How to contribute to this site with new documents
-
 I’m happy to receive contributions and thanks for your effort.
 
 This document assists you in providing updates or additions to the documentation of the "OpenStreetMap Carto Tutorials" site.
