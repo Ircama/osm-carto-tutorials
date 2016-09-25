@@ -49,4 +49,5 @@ pages_list:
   RSS: '/atom.xml'
 
 collections:
-  notes
+  notes:
+    output: true
