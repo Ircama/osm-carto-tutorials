@@ -49,6 +49,4 @@ pages_list:
   RSS: '/atom.xml'
 
 collections:
-  notes:
-    output: true
-    permalink: /notes/:path/
+  notes
