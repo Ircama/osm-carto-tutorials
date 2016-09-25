@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<div class="sticky"><nav id="toc"></nav>
+</div>
+<script src="{{ site.baseurl }}/public/anchor.min.js"></script>
+<div class="page">
+  <h1 class="page-title">{{ page.title }}</h1>
+  <span class="post-date">Last modified on {{ page.last_modified_at | date_to_string }}</span>
+  {{ content }}
+</div>
+<script>
+try {
+  $(function() {
+    var navSelector = '#toc';
+    var $myNav = $(navSelector);
+    Toc.init($myNav);
+    $('body').scrollspy({
+      target: navSelector,
+      offset: 220
+    });
+  });
+}
+catch(e)
+  {
+  }
+anchors.options = {
+  placement: 'left',
+};
+anchors.add();
+anchors.remove('.masthead-title');
+anchors.remove('.sticky');
+anchors.remove('.page-title');
+</script>
