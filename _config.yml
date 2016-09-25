@@ -32,7 +32,6 @@ gems:
   - jekyll-paginate
   - jekyll-seo-tag
   - jemoji
-  - jekyll-last-modified-at
 
 # Dependencies
 markdown:    kramdown
