@@ -31,6 +31,19 @@
  * Themes
  */
 
+.blue {
+  color: blue;
+}
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}
+.yellow {
+  color: yellow;
+}
+
 .anchorjs-link {
   transition: all .25s linear;
 }

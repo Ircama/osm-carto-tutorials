@@ -11,6 +11,7 @@ This document assists you in providing updates or additions to the documentation
 There are three types of documents:
 
 - **pages** (`layout: page`): standard documentation (non-linear content), also indexed in the left sidebar of the site; generally stored in the *pages* folder; a title is not needed for *pages* (as automatically created by the `title` tag of the *Front Matter* - see below);
+- **notes** (`layout: note`): same rendering as *pages*, but NOT reported in the left sidebar of the site; generally stored in the *_notes* folder; a title is not needed for *notes* (as automatically created by the `title` tag of the *Front Matter* - see below);
 - **posts** (`layout: post`): entries (linear content) listed in chronological order in the main page, possibly linking *pages*; all stored in the *_posts* folder;
 - **general matters** (`layout: default`): pages that are NOT reported in the left sidebar of the site; they can be stored anyware in the site (even if the *pages* folder is suggested). Differently from *pages*, a specific title is needed within the document text.
 

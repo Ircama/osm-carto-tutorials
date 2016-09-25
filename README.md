@@ -24,5 +24,6 @@ This site can be cloned and reused freely. The following files and data are spec
 - public/favicon.ico (shall be customized)
 - configuration of _config.yml (shall be customized)
 - All files in "pages" directory (shall be removed)
+- All files in "_notes" directory (shall be removed)
 - All files in "_posts" directory (shall be removed)
 - googlec45135b10de87878.html (shall be removed)
