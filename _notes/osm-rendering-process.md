@@ -1,19 +1,14 @@
 ---
 layout: note
 title: Description of the OSM rendering process
-comments: true
 permalink: /osm-rendering-process/
 ---
+comments: true
 
-[a link to a site](#its-permalink)
+The following diagram from [OSM Component overview](http://wiki.openstreetmap.org/wiki/Component_overview "Click here for a description of all components") represents all main components of the OpenStreetMap architecture.
 
-# Its Permalink
+The relevant elements for the rendering process are the ones represented in *yellow*{:.highlight-yellow}.
 
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/NoFLJLJ7abE" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+![OSM Components](http://wiki.openstreetmap.org/w/images/1/15/OSM_Components.png)
 
-[https://github.com]
-
-https://github.com/Ircama/osm-carto-tutorials/tree/gh-pages/pages
-
+bla bla bla

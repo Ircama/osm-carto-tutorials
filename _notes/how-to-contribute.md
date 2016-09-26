@@ -134,6 +134,9 @@ See [Start Kosmtik](#start-kosmtik).
 This is a paragraph that for some reason we want yellow.
 {: .yellow}
 
+This is a paragraph that for some reason we want gold.
+{: .gold}
+
 This is a paragraph that for some reason we want blue.
 {: .blue}
 
@@ -147,6 +150,9 @@ This is a paragraph that for some reason we want green.
 This is a paragraph that for some reason we want yellow.
 {: .yellow}
 
+This is a paragraph that for some reason we want gold.
+{: .gold}
+
 This is a paragraph that for some reason we want blue.
 {: .blue}
 
@@ -155,6 +161,32 @@ This is a paragraph that for some reason we want red.
 
 This is a paragraph that for some reason we want green.
 {: .green}
+
+```
+This is a *yellow*{:.highlight-yellow} highlight.
+
+This is a *gold*{:.highlight-gold} highlight.
+
+This is a *blue*{:.highlight-blue} highlight.
+
+This is a *red*{:.highlight-red} highlight.
+
+This is a *green*{:.highlight-green} highlight.
+```
+
+This is a *yellow*{:.highlight-yellow} highlight.
+
+This is a *gold*{:.highlight-gold} highlight.
+
+This is a *blue*{:.highlight-blue} highlight.
+
+This is a *red*{:.highlight-red} highlight.
+
+This is a *green*{:.highlight-green} highlight.
+
+### Markdown
+
+[Markdown syntax](https://learn.getgrav.org/content/markdown)
 
 ## Publishing
 

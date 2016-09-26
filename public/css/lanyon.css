@@ -31,8 +31,13 @@
  * Themes
  */
 
+/* Color classes used by markdown */
+
 .blue {
   color: blue;
+}
+.gold {
+  color: gold;
 }
 .red {
   color: red;
@@ -42,6 +47,22 @@
 }
 .yellow {
   color: yellow;
+}
+
+.highlight-blue {
+  background-color: blue;
+}
+.highlight-gold {
+  background-color: gold;
+}
+.highlight-red {
+  background-color: red;
+}
+.highlight-green {
+  background-color: green;
+}
+.highlight-yellow {
+  background-color: yellow;
 }
 
 .anchorjs-link {
