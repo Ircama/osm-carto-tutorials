@@ -7,7 +7,7 @@ comments: true
 
 The following diagram from [OSM Component overview](http://wiki.openstreetmap.org/wiki/Component_overview "Click here for a description of all components") represents all main components of the OpenStreetMap architecture.
 
-The relevant elements for the rendering process are the ones represented in *yellow*{:.highlight-yellow}.
+The relevant elements for the rendering process are the ones represented in `yellow`{:.highlight-yellow}.
 
 ![OSM Components](http://wiki.openstreetmap.org/w/images/1/15/OSM_Components.png)
 
