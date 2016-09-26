@@ -204,7 +204,7 @@ If you run a cloud based VM, also the VM itself shall be set to open this port.
 
 ## Install PostgreSQL and PostGIS
 
-Install [PostgreSQL](https://www.postgresql.org/) 9.5 and PostGIS 2.2 (supposing they are at the lastest available versions)
+Install [PostgreSQL](https://www.postgresql.org/) 9.5 and [PostGIS](http://postgis.net/) 2.2 (supposing they are at the lastest available versions)
 Also older PostgreSQL version are suitable.
 
 ```

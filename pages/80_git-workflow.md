@@ -520,23 +520,23 @@ Edit the pull request message from your GitHub account, after accessing your PR.
 
 ## GitHub Desktop monitoring features
 
-The following are useful monitoring elements offered by GitHub Desktop (the Windows sowtware provided by GitHub):
+The following are useful monitoring elements offered by GitHub Desktop (the Windows/Mac sowtware provided by GitHub):
 
 * [Comparison graph](https://help.github.com/desktop/guides/contributing/about-the-comparison-graph/)
   You can easily monitor whether you are at the same level of gravitystorm:master, whether you branch might need a rebase, etc.
 
-* [PowerShell-based Git Shell](https://git-scm.com/book/it/v2/Git-in-Other-Environments-Git-in-Powershell) that comes with GitHub Desktop]
+* [PowerShell-based Git Shell](https://git-scm.com/book/it/v2/Git-in-Other-Environments-Git-in-Powershell) that comes with GitHub Desktop.
   It exploits [posh-git](https://github.com/dahlbyk/posh-git#posh-git).
-  * Cyan color: your local branch matches its remote; the "=" shows that it is at the same commit level as the remote branch; a commit can be done; notice that, just after opening the shell, the first git prompt might not be in sync with the remote and can show that your branch is up-to-date with your origin at GitHub even if it is not; a `git pull` would be appropriate to be checked.
+  * **`Cyan color`{:.cyan}**: your local branch matches its remote; the "=" shows that it is at the same commit level as the remote branch; a commit can be done; notice that, just after opening the shell, the first git prompt might not be in sync with the remote and can show that your branch is up-to-date with your origin at GitHub even if it is not; a `git pull` would be appropriate to be checked.
   * **`Green color`{:.green}**, "↑": branch ahead of its remote, meaning that you already performed a commit; needs a `git push`
   * **`Red color`{:.red}**, "↓": branch is behind its remote, needs a `git pull`
-  * **`Yellow color`{:.gold}**, "↕": if not rebasing, it might need a `git pull` and then `git push`; in case of rebase completed locally, might need a `git push --force`
+  * **`Yellow color`{:.gold}**, "↕": if not after rebasing, it might need `git pull` and then `git push`; in case of rebase completed locally, it might need a `git push --force`
   
   If you change the branch via GitHub Desktop, press enter in the posh-git command line to reflect this in the prompt.
   
   Check [prompt description](https://github.com/dahlbyk/posh-git#the-prompt) for further useful information.
   
-* You also have the built-in git GUI: gitk
+* You also have the built-in git GUI: `gitk`
 
 ## Recommendations
 - Clone your GitHub repository, not gravitystorm/openstreetmap-carto
