@@ -10,6 +10,15 @@ layout: default
   {{ content }}
 </div>
 <script>
+$(document).ready(function() {
+  var elem = $('table.drawing td');
+  $.each(elem, function() {
+    if ( ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) > 150 ) ) ||
+        ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) >255 ) ) ) {
+      $(this).addClass("arrow");
+    }
+  });
+});
 try {
   $(function() {
     var navSelector = '#toc';

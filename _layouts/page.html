@@ -7,10 +7,18 @@ layout: default
 <script src="{{ site.baseurl }}/public/anchor.min.js"></script>
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
-  {{ page.date | date: '%B %d, %Y' }}
   {{ content }}
 </div>
 <script>
+$(document).ready(function() {
+  var elem = $('table.drawing td');
+  $.each(elem, function() {
+    if ( ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) > 150 ) ) ||
+        ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) >255 ) ) ) {
+      $(this).addClass("arrow");
+    }
+  });
+});
 try {
   $(function() {
     var navSelector = '#toc';

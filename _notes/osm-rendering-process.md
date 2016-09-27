@@ -5,6 +5,8 @@ permalink: /osm-rendering-process/
 ---
 comments: true
 
+# OSM architecture
+
 The following description will help to understand the OSM [rendering](http://wiki.openstreetmap.org/wiki/Rendering) process and, even if possibly outdated in some part, it should allow to rationalize the implemented design.
 
 A map image shown in a browser is built up of many [tiles](https://en.wikipedia.org/wiki/Tiled_web_map), which are little square images all rendered with a variant of the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection) called [Web Mercator](https://en.wikipedia.org/wiki/Web_Mercator), identified as [EPSG:3857](http://wiki.openstreetmap.org/wiki/EPSG:3857) or [EPSG:900913](http://docs.openlayers.org/library/spherical_mercator.html). This produces a fast approximation to the truer, but heavier elliptical projection.
@@ -29,7 +31,7 @@ Tiles are then delivered through a custom Apache module named [mod_tile](http://
 
 [Apache](https://en.wikipedia.org/wiki/Apache_HTTP_Server) provides the front end web server that handles requests from your web browser and passes the request to *mod_tile*, which in turn checks if the tile has already been created and is ready for use or whether it needs to be updated due to not being in the cache already. If it is already available and doesn’t need to be rendered, then it immediately sends the tile back to the client. If it does need to be rendered, then it will add it to a *render request* queue, and when it gets to the top of the queue, a tile renderer will render it and send the tile back to the client.
 
-In order to efficiently distribute tiles over Internet, OSM exploits a [CDN](http://wiki.openstreetmap.org/wiki/Platform_Status) (Content Delivery Network) implemented through multiple cache servers via [TileCache](http://wiki.openstreetmap.org/wiki/TileCache) modules.
+In order to efficiently serve tiles over Internet, OSM exploits a [CDN](http://wiki.openstreetmap.org/wiki/Platform_Status) (Content Delivery Network) implemented through multiple frontend web caching proxies running [Squid](https://en.wikipedia.org/wiki/Squid_(software)) and/or [TileCache](http://wiki.openstreetmap.org/wiki/TileCache).
 
 ![OSM CDN](https://blog.openstreetmap.org/wp-content/uploads/2015/03/osm-cdn-2015-03.png)
 
@@ -43,6 +45,14 @@ project.yaml
 project.mml
 carto
 XML
+
+| I am text to the left | I am text to the middle | I am text to the right |
+{: .boxes}
+
+
+|↓|→|                           |↓|1|→||
+project.yaml|→|Kosmtik|→|Carto|→|Mapnik|
+{: .drawing}
 
 
 the Mercator projection distorts the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. So, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to land masses near the equator, such as Central Africa.
@@ -58,3 +68,21 @@ Instead of an impossible to edit JSON file, osm-carto switched to a YAML file wh
 yaml2mml.py if you make changes to the .yaml file, and want these to be reflected in the .mml file.
 
 Integra /get-shapefiles.sh 
+
+
+vial.openstreetmap.org
+Tile server
+
+https://hardware.openstreetmap.org/servers/vial.openstreetmap.org/
+
+vial is running Ubuntu 16.04.1 LTS
+All three tile servers are now running mapnik 3.0.9 with postgres 9.5 and postgis 2.2.
+I updated carto to the latest release when doing the upgrades so it is 0.16.3 currently. That is installed from npm anyway so is easily upgraded when necessary.
+
+
+List of servers
+https://github.com/openstreetmap/operations
+
+## Development architecture
+
+The development environment reflects the OSM architecture reproducing the process through a local toolchain.
