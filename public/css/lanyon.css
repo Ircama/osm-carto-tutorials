@@ -425,13 +425,13 @@ a.sidebar-nav-item:focus {
   background-image:         linear-gradient(to bottom, #fff, #fff 20%, #555 20%, #555 40%, #fff 40%, #fff 60%, #555 60%, #555 80%, #fff 80%, #fff 100%);
 }
 
-@media (min-width: 30.1em) {
+@media (min-width: 52em) {
   .sidebar-toggle {
     position: fixed;
   }
 }
 
-@media (max-width: 30.1em) {
+@media (max-width: 52em) {
   #sidebar-checkbox:not(:checked) ~ .sidebar-toggle {
     position: fixed;
     left: auto;
