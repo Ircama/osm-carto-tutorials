@@ -14,11 +14,10 @@ $(document).ready(function() {
   var elem = $('table.drawing td');
   $.each(elem, function() {
     if ( ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) > 150 ) ) ||
-        ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) >255 ) ) ) {
-      $(this).addClass("arrow");
+        ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) >255 ) ) )
+      $(this).addClass("darrow")
     else
-      $(this).css("background-color", "#80d4ff !important");
-    }
+      $(this).addClass("dcontent");
   });
 });
 try {

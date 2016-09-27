@@ -39,6 +39,12 @@ table.drawing, table.drawing td, table.drawing tr {
 }
 
 table.drawing td {
+    background-color: unset;
+    text-align: center;
+}
+
+table.drawing td.dcontent {
+    background-color: #80d4ff !important;
     text-align: center;
     border: 1px solid blue;
     margin: -1px;
@@ -49,17 +55,13 @@ table.drawing td {
     box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
 }
 
-table.drawing td.arrow {
+table.drawing td.darrow {
     color: black !important;
     background-color: unset !important;
     padding: 0 !important;
     border: 0px !important;
     margin: 0px !important;
     font-size: 2rem;
-
-    -webkit-box-shadow: none;
-    -moz-box-shadow:    none;
-    box-shadow:         none;
 }
 
 /* Color classes used by markdown */
