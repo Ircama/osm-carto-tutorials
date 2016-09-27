@@ -46,19 +46,69 @@ project.mml
 carto
 XML
 
-| I am text to the left | I am text to the middle | I am text to the right |
-{: .boxes}
 
 
-|↓|→|                           |↓|1|→||
-project.yaml|→|![Kosmtik][cylinder] Kosmtik2|→|Carto|→|Mapnik|
+# Structure of openstreetmap-carto
+
+openstreetmap-carto includes the following files and folders:
+
+* one project/layer description file in yaml format (project.yaml)
+* the same project/layer description file in json format (project.mml)
+* one or more CartoCSS stylesheets (style.mss and aall the others)
+* a *symbols* subdirectory for storing svg and png files
+* a *scripts* subdirectory including all scripts
+* openstreetmap-carto.style/openstreetmap-carto.lua: osm2pgsql configuration files
+* description files: README.md/preview.png/LICENSE.txt/CARTOGRAPHY.md/CONTRIBUTING.md/RELEASES.md/CODE_OF_CONDUCT.md/CHANGELOG.md/INSTALL.md
+* support files for the scripts: indexes.yml/road-colors.yaml/indexes.sql/get-shapefiles.sh/.travis.yml
+
+## Process to populate PostGIS with OSM data
+
+|                                     | |OSM data extract ![xml][xml]|
+|                                     | |↓|
+|openstreetmap-carto.style ![txt][txt]|→|**osm2pgsql** ![prg][prg]|→|PostgreSQL PostGIS ![db][db]|
+|                                     | |↑|
+|                                     | |openstreetmap-carto.lua ![lua][lua]|
 {: .drawing}
+.
 
+## Process to create the data shapefiles
 
+|shapefiles ![dl][dl]|→|**get-shapefiles.py** ![prg][prg]|→|shapefiles *data* directory ![shape][shape]|
+{: .drawing}
+.
+
+## Process to convert the project/layer description file 
+
+|project.yaml ![yml][yml]              | |                             | ||
+|                ↓                     | |                             | ||
+|**yaml2mml.py** ![prg][prg]           |→|project.mml ![json][json]    | ||
+|                                      | |         ↓                   | ||
+|osm-carto CartoCSS styles (.mml) ![css][css]|→|**carto** ![prg][prg]        |→|Mapnik XML ![xml][xml]|
+{: .drawing}
+.
+
+## Process to render data
+
+|                             | |Mapnik XML ![xml][xml]|
+|                             | |↓|
+|PostgreSQL PostGIS ![db][db] |→|**Mapnik**  ![prg][prg]|→|images ![png][png]|
+|                             | |↑|
+|                             | |shapefiles *data* directory ![shape][shape]|
+{: .drawing}
+.
 
 the Mercator projection distorts the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. So, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to land masses near the equator, such as Central Africa.
 
 ## Development and testing environment
+
+|project.yaml ![yml][yml]       | |osm-carto CartoCSS styles (.mml) ![css][css]|
+|                               |↘|↓|
+|PostgreSQL PostGIS ![db][db]   |→|**Kosmtik**  ![prg][prg]|→|Web images ![web][web]|
+|                               |↗|↑|
+|localconfig.json ![json][json] | |shapefiles *data* directory ![shape][shape]|
+{: .drawing}
+.
+
 
 Kosmtik uses [Carto](https://github.com/mapbox/carto)
 
@@ -84,8 +134,29 @@ I updated carto to the latest release when doing the upgrades so it is 0.16.3 cu
 List of servers
 https://github.com/openstreetmap/operations
 
+
+
+
+
 ## Development architecture
+
+
+
 
 The development environment reflects the OSM architecture reproducing the process through a local toolchain.
 
-[cylinder]: https://openclipart.org/image/2400px/svg_to_png/94723/db.png =25x25
+[db]: https://openclipart.org/image/2400px/svg_to_png/94723/db.png =25x25
+[xml]: http://image.flaticon.com/icons/png/128/55/55860.png
+[css]: http://image.flaticon.com/icons/png/512/55/55570.png
+[yml]: http://image.flaticon.com/icons/png/512/55/55699.png
+[txt]: http://image.flaticon.com/icons/png/512/55/55643.png
+[lua]: http://image.flaticon.com/icons/png/512/29/29488.png
+[app]: http://image.flaticon.com/icons/png/512/32/32230.png
+[prg]: http://image.flaticon.com/icons/png/512/33/33672.png
+[png]: http://image.flaticon.com/icons/png/512/29/29072.png
+[run]: http://image.flaticon.com/icons/png/128/149/149294.png
+[shape]: http://image.flaticon.com/icons/png/128/149/149229.png
+[files]: http://image.flaticon.com/icons/png/512/149/149344.png
+[dl]: http://image.flaticon.com/icons/png/512/51/51536.png
+[json]: http://image.flaticon.com/icons/png/512/136/136443.png
+[web]: http://image.flaticon.com/icons/png/512/186/186274.png
