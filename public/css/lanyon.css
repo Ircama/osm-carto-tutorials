@@ -41,6 +41,9 @@ table.drawing, table.drawing td, table.drawing tr {
 table.drawing td {
     background-color: unset;
     text-align: center;
+    padding: 0 !important;
+    border: 0px !important;
+    margin: 0px !important;
 }
 
 table.drawing td.dcontent {
@@ -49,7 +52,6 @@ table.drawing td.dcontent {
     border: 1px solid blue;
     margin: -1px;
     font-size: 1.2rem;
-
     -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
