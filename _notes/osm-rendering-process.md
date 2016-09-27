@@ -51,7 +51,7 @@ XML
 
 
 |↓|→|                           |↓|1|→||
-project.yaml|→|![Kosmtik](https://openclipart.org/image/2400px/svg_to_png/94723/db.png =25x)|→|Carto|→|Mapnik|
+project.yaml|→|![Kosmtik](https://openclipart.org/image/2400px/svg_to_png/94723/db.png =25x25)|→|Carto|→|Mapnik|
 {: .drawing}
 
 
