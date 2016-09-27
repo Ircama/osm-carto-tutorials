@@ -431,6 +431,14 @@ a.sidebar-nav-item:focus {
   }
 }
 
+@media (max-width: 30.1em) {
+  .sidebar-toggle {
+    position: fixed;
+    left: auto;
+    right: 0px;
+  }
+}
+
 @media print {
   .sidebar-toggle {
     display: none;
