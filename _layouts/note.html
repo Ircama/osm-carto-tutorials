@@ -16,6 +16,8 @@ $(document).ready(function() {
     if ( ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) > 150 ) ) ||
         ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) >255 ) ) ) {
       $(this).addClass("arrow");
+    else
+      $(this).css("background-color", "yellow");
     }
   });
 });
