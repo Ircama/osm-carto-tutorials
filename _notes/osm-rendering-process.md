@@ -51,8 +51,9 @@ XML
 
 
 |↓|→|                           |↓|1|→||
-project.yaml|→|![Kosmtik](https://openclipart.org/image/2400px/svg_to_png/94723/db.png =25x25)|→|Carto|→|Mapnik|
+project.yaml|→|![Kosmtik][cylinder] Kosmtik2|→|Carto|→|Mapnik|
 {: .drawing}
+
 
 
 the Mercator projection distorts the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. So, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to land masses near the equator, such as Central Africa.
@@ -86,3 +87,5 @@ https://github.com/openstreetmap/operations
 ## Development architecture
 
 The development environment reflects the OSM architecture reproducing the process through a local toolchain.
+
+[cylinder]: https://openclipart.org/image/2400px/svg_to_png/94723/db.png =25x25

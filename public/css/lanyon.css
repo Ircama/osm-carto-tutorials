@@ -44,6 +44,14 @@ table.drawing td {
     padding: 0 !important;
     border: 0px !important;
     margin: 0px !important;
+    border-spacing: 0px !important;
+}
+
+table.drawing td img {
+    width: 25px;
+    margin: auto;
+    float: left;
+    display: inline;
 }
 
 table.drawing td.dcontent {
