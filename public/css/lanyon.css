@@ -306,20 +306,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Google Custom Search section */
 
-.cse .gsc-control-cse, .gsc-control-cse {
-padding: 0em;
-}
-
-.cse .gsc-control-cse, .gsc-control-cse {
-border: 0em;
-}
-
-
-table.gsc-search-box td, table.gsc-search-box th {
-    padding: .0em 0rem;
-    border: 1px solid #e5e5e5;
-}
-
 .cse input.gsc-input, input.gsc-input {background-image:none !important;}
 .cse input.gsc-input:focus, input.gsc-input:focus { background-image:none !important; }
 
@@ -334,12 +320,22 @@ table.gsc-search-box td, table.gsc-search-box th {
 }
 
 /* Customize Google Custom Search */
+table.gsc-search-box td {
+  padding: 2px;
+}
+
 table.gsc-search-box td.gsc-search-button,
 table.gsc-search-box td.gsc-input {
 	background: #101010 !important;
   border-style: solid;
   border-color: #101010;
   background-color: #EEEEEF;
+  padding-right: 0px !important;
+}
+
+.cse input.gsc-search-button, input.gsc-search-button {
+  height: 21px !important;
+  margin-right: 2px;
 }
 
 /* Mobile scrollbar section */
