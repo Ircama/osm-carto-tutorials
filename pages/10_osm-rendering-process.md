@@ -3,6 +3,7 @@ layout: page
 title: Description of the OSM rendering process
 permalink: /osm-rendering-process/
 state: draft
+sitemap: false
 ---
 comments: true
 
