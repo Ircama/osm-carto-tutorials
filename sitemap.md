@@ -1,7 +1,7 @@
 ---
 layout: default
 title: List of all pages, notes and update messages
-permalink: /z_archive/
+permalink: /z_sitemap/
 ---
 
 ## List of all pages
