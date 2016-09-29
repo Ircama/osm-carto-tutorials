@@ -151,8 +151,6 @@ https://github.com/openstreetmap/operations
 
 
 
-
-
 ## Development architecture
 
 
