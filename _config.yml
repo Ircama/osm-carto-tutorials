@@ -45,7 +45,7 @@ highlighter: rouge
   #auto_ids: false
 
 pages_list:
-  Archive: '/z_archive'
+  Site map: '/z_sitemap'
   RSS: '/atom.xml'
 
 collections:
