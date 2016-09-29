@@ -306,6 +306,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Google Custom Search section */
 
+.cse input.gsc-input, input.gsc-input {background-image:none !important;}
+.cse input.gsc-input:focus, input.gsc-input:focus { background-image:none !important; }
+
 /* Hide the Google branding in search results */
 .gcsc-branding {
     display: none; 
