@@ -3,8 +3,9 @@ layout: default
 title: List of all pages, notes and update messages
 permalink: /sitemap/
 ---
+# Site map
 
-## List of all pages
+## Pages
 
 {% assign pages_list = site.pages | sort:"name" %}
 {% for node in pages_list %}
@@ -17,7 +18,7 @@ permalink: /sitemap/
   {% endif %}
 {% endfor %}
 
-## List of all notes
+## Notes
 
 {% for node in site.notes %}
   {% if node.title != null %}
@@ -29,7 +30,7 @@ permalink: /sitemap/
   {% endif %}
 {% endfor %}
 
-## List of all update messages
+## Update messages
 
 {% for post in site.posts %}
   {% if post.ref != null %}
