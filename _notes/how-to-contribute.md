@@ -83,7 +83,7 @@ MARKUP is the file extension representing the format used in the file. For examp
 2016-09-11-tilemill-osm-carto.md
 ```
 
-## Editing notes
+## Editing hints
 
 ### Link to a section of a different document in the same site
 
