@@ -11,7 +11,7 @@ permalink: /sitemap/
 {% for node in pages_list %}
   {% if node.title != null %}
     {% if node.layout == "page" %}
-      {% if node.state != "draft" %}
+      {% if node.sitemap != false %}
   * <a href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
       {% endif %}
     {% endif %}
@@ -23,7 +23,7 @@ permalink: /sitemap/
 {% for node in site.notes %}
   {% if node.title != null %}
     {% if node.layout == "note" %}
-      {% if node.state != "draft" %}
+      {% if node.sitemap != false %}
   * <a href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
       {% endif %}
     {% endif %}
@@ -34,7 +34,7 @@ permalink: /sitemap/
 
 {% for post in site.posts %}
   {% if post.ref != null %}
-    {% if node.state != "draft" %}
+    {% if node.sitemap != false %}
   * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ site.baseurl }}/{{ post.ref }})
     {% endif %}
   {% endif %}
