@@ -44,7 +44,7 @@ The suggested process to add or update *pages* is directly from the GitHub site:
   - `title`: provide an effective title; this will be automatically used as a short description in all references of the site
   - `comments`: only for `pages`, use `true` if you want to enable [Disqus commenting](https://disqus.com) at the end of your document
   - `permalink`: only for `pages`, recommended in order to define a path to reference the document in the site with a permanent link; suggestions: use a short set of characters, use the dash to separate letters; avoid upper case letters, set it once and avoid subsequent modifications (while the file name might be changed over the time, this link should remain unaltered).
-  - `sitemap`: if set and valued *false* (e.g., `sitemap: false`), the document is not linked in the sidebar, counters and site map.
+  - `sitemap`: if set and valued *false* (e.g., `sitemap: false`), the document is not linked to the sidebar, counters and site map.
 
 - Subsequently to the *Front Matter* section, you can write the document in *Markdown*; check related [Quick Reference Guide]( http://kramdown.gettalong.org/quickref.html) and [Syntax](http://kramdown.gettalong.org/syntax.html). As mentioned for `layout: page`, do not add a title to your document, but use the Front Matter *title* tag instead.
   
