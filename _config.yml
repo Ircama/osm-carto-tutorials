@@ -45,7 +45,7 @@ highlighter: rouge
   #auto_ids: false
 
 pages_list:
-  Site map: '/z_sitemap'
+  Site map: '/sitemap'
   RSS: '/atom.xml'
 
 collections:
