@@ -1,6 +1,6 @@
 ---
 layout: default
-title: List of all pages, notes and update messages
+title: Site map
 permalink: /sitemap/
 ---
 # Site map
