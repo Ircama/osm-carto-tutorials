@@ -5,9 +5,9 @@ permalink: /osm-rendering-process/
 ---
 comments: true
 
-# OSM architecture
+## OSM architecture
 
-The following description will help to understand the OSM [rendering](http://wiki.openstreetmap.org/wiki/Rendering) process and, even if possibly outdated in some part, it should allow to rationalize the implemented design.
+The following high level description will help to basically understand the OSM [rendering](http://wiki.openstreetmap.org/wiki/Rendering) process. Even if possibly imprecise or outdated in some part, it should allow to rationalize the implemented design.
 
 A map image shown in a browser is built up of many [tiles](https://en.wikipedia.org/wiki/Tiled_web_map), which are little square images all rendered with a variant of the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection) called [Web Mercator](https://en.wikipedia.org/wiki/Web_Mercator), identified as [EPSG:3857](http://wiki.openstreetmap.org/wiki/EPSG:3857) or [EPSG:900913](http://docs.openlayers.org/library/spherical_mercator.html). This produces a fast approximation to the truer, but heavier elliptical projection.
 
@@ -21,7 +21,42 @@ The relevant blocks for the rendering process are the ones represented in `yello
 
 ![OSM Components](http://wiki.openstreetmap.org/w/images/1/15/OSM_Components.png)
 
-The rendering process takes its data from a [PostgreSQL](https://www.postgresql.org/) database with [PostGIS](http://postgis.net/) spatial extension (yellow cylinder). This DB instance holds the constantly updated planet data in a different format to the database used on the core OSM database server (represented in green) and is populated by running an [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) script on minutely [diffs](http://wiki.openstreetmap.org/wiki/Planet.osm/diffs). Osm2pgsql acts as [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load), converting OpenStreetMap data to PostGIS-enabled PostgreSQL DB and is able to manage incremental updates of the database as well as to perform an initial load when needed, keeping the PostGIS instance updated or refreshing it.
+## Structure of openstreetmap-carto
+
+openstreetmap-carto includes the following files and folders:
+
+* one project/layer description file in yaml format (project.yaml)
+* the same project/layer description file in json format (project.mml)
+* one or more CartoCSS stylesheets (style.mss and aall the others)
+* a *symbols* subdirectory for storing svg and png files
+* a *scripts* subdirectory including all scripts
+* openstreetmap-carto.style/openstreetmap-carto.lua: osm2pgsql configuration files
+* description files: README.md/preview.png/LICENSE.txt/CARTOGRAPHY.md/CONTRIBUTING.md/RELEASES.md/CODE_OF_CONDUCT.md/CHANGELOG.md/INSTALL.md
+* support files for the scripts: indexes.yml/road-colors.yaml/indexes.sql/get-shapefiles.sh/.travis.yml
+
+## Description of the rendering process
+
+The rendering process takes its data from a [PostgreSQL](https://www.postgresql.org/) geodatabase with [spatial extension](https://en.wikipedia.org/wiki/Spatial_database) implemented through [PostGIS](http://postgis.net/) (yellow cylinder). This DB instance holds a constantly updated planet table space in a different format to the database used on the core OSM database server (represented in green) and is populated by running an [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) script on minutely [diffs](http://wiki.openstreetmap.org/wiki/Planet.osm/diffs). Osm2pgsql acts as [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load), converting OpenStreetMap incremental data to PostGIS-enabled PostgreSQL DB and is able to manage incremental updates of the database as well as to perform an initial load when needed, keeping the PostGIS instance updated or fully refreshing it (in case of periodic database re-import or following a possible major change in openstreetmap-carto that requires reloading the database).
+
+### Populating the PostGIS instance
+
+The following diagram represents the process to populate the PostGIS instance with OSM data though osm2pgsql.
+
+|                                     | |OSM data extract ![xml][xml]|
+|                                     | |↓|
+|openstreetmap-carto.style ![txt][txt]|→|**osm2pgsql** ![prg][prg]|→|PostgreSQL PostGIS ![db][db]|
+|                                     | |↑|
+|                                     | |openstreetmap-carto.lua ![lua][lua]|
+{: .drawing}
+.
+
+*openstreetmap-carto.lua* is a [Lua](https://www.lua.org/) script used by *osm2pgsql* for data transformation or aggregation. While some standard data management is hardcoded in *osm2pgsql*, most of the transformations are scripted in *openstreetmap-carto.lua*.
+
+*openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS db tables, to be used by the openstreetmap-carto rendering process. Specifically, any db field used in *project.yaml* shall be also mentioned in *openstreetmap-carto.style*.
+
+Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* need to be changed (e.g., to address some requirement of newly introduced db columns within openstreetmap-carto), a full database re-import process has to be accomplished (very unfrequent operation currently).
+
+### Mapnik rendering
 
 The core rendering software is [Mapnik](https://wiki.openstreetmap.org/wiki/Mapnik), which reads the PostGIS database and generates the tile raster images ([tiles](https://wiki.openstreetmap.org/wiki/Tiles)) basing on a proprietary XML [stylesheet](https://github.com/mapnik/mapnik/wiki/XMLConfigReference).
 
@@ -47,29 +82,6 @@ carto
 XML
 
 
-
-# Structure of openstreetmap-carto
-
-openstreetmap-carto includes the following files and folders:
-
-* one project/layer description file in yaml format (project.yaml)
-* the same project/layer description file in json format (project.mml)
-* one or more CartoCSS stylesheets (style.mss and aall the others)
-* a *symbols* subdirectory for storing svg and png files
-* a *scripts* subdirectory including all scripts
-* openstreetmap-carto.style/openstreetmap-carto.lua: osm2pgsql configuration files
-* description files: README.md/preview.png/LICENSE.txt/CARTOGRAPHY.md/CONTRIBUTING.md/RELEASES.md/CODE_OF_CONDUCT.md/CHANGELOG.md/INSTALL.md
-* support files for the scripts: indexes.yml/road-colors.yaml/indexes.sql/get-shapefiles.sh/.travis.yml
-
-## Process to populate PostGIS with OSM data
-
-|                                     | |OSM data extract ![xml][xml]|
-|                                     | |↓|
-|openstreetmap-carto.style ![txt][txt]|→|**osm2pgsql** ![prg][prg]|→|PostgreSQL PostGIS ![db][db]|
-|                                     | |↑|
-|                                     | |openstreetmap-carto.lua ![lua][lua]|
-{: .drawing}
-.
 
 ## Process to create the data shapefiles
 
@@ -100,6 +112,8 @@ openstreetmap-carto includes the following files and folders:
 the Mercator projection distorts the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. So, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to land masses near the equator, such as Central Africa.
 
 ## Development and testing environment
+
+The development environment reflects the OSM architecture reproducing the process through a local toolchain.
 
 |project.yaml ![yml][yml]       | |osm-carto CartoCSS styles (.mml) ![css][css]|
 |                               |↘|↓|
@@ -143,7 +157,6 @@ https://github.com/openstreetmap/operations
 
 
 
-The development environment reflects the OSM architecture reproducing the process through a local toolchain.
 
 [db]: https://openclipart.org/image/2400px/svg_to_png/94723/db.png =25x25
 [xml]: http://image.flaticon.com/icons/png/128/55/55860.png

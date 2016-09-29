@@ -122,15 +122,16 @@ table.drawing td.darrow {
 }
 
 /* Table of Content (TOC) */
+
 nav[data-toggle='toc'] {
-  border: .2rem solid #f5f5f5;
+  border: .1rem solid #f5f5f5;
+  background-color: #fffcfc;
 }
 
 nav[data-toggle='toc'] ul{
   padding: 1px 4px !important;
   list-style:none !important;
   list-style-type:none !important;
-  background-color: #fffcfc;
 }
 
 .sticky {
@@ -146,16 +147,67 @@ nav[data-toggle='toc'] ul{
   overflow: auto; display: inline-block; /* scrollbars */
 }
 
+/* show TOC title */
+
+.toc-title, .toc-title:link, .toc-title:hover, .toc-title:active, .toc-title:visited {
+  border: .1rem solid #f5f5f5;
+  position:fixed !important;
+  position: absolute; /*ie6 */
+  text-align: center;
+  padding: 1rem;
+  top: 0.4em;
+  height: 3.5rem;
+  width: 20rem;
+  right: 0;
+  font-size: 13px;
+  font-weight: bold;
+  color: #767676;
+  background-color: #fffcfc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  text-decoration: none;
+  }
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
 /* show TOC only on large screens */
+
 @media (max-width: 1070px) {
-  nav[data-toggle='toc'] {
-    display: none;
+  .sticky {
+  transform:translate(9999px);
+  opacity: 0;
+  }
+  .toc-title {
+  transform:translate(9999px);
+  opacity: 0;
   }
 }
 
-#sidebar-checkbox:checked ~ .wrap
-.sticky {
-  display: none;
+/* show TOC only when the navigation bar is hidden */
+
+#sidebar-checkbox:checked ~ .wrap .sticky,
+#sidebar-checkbox:checked ~ .wrap .toc-title {
+  transform:translate(9999px);
+  opacity: 0;
+}
+
+#sidebar-checkbox:not(:checked) ~ .wrap .sticky,
+#sidebar-checkbox:not(:checked) ~ .wrap .toc-title {
+	opacity: 1;
+  -webkit-transition-delay: 0.5s; /* Safari */
+  transition-delay: 0.5s;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.3s;
 }
 
 /*
@@ -163,12 +215,6 @@ nav[data-toggle='toc'] ul{
  *
  * Update the foundational and global aspects of the page.
  */
-
-/* Prevent scroll on narrow devices */
-html,
-body {
-  overflow-x: hidden;
-}
 
 html {
 /*   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
@@ -274,27 +320,30 @@ table.gsc-search-box td.gsc-input {
 }
 
 /* Mobile scrollbar section */
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-}
 
-::-webkit-scrollbar:vertical {
-    width: 7px;
-}
-
-::-webkit-scrollbar:horizontal {
-    height: 7px;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-
-::-webkit-scrollbar-track {
-    border-radius: 4px;  
-    background-color: #ffffff; 
+@media (max-width: 52em) {
+  ::-webkit-scrollbar {
+      -webkit-appearance: none;
+  }
+  
+  ::-webkit-scrollbar:vertical {
+      width: 7px;
+  }
+  
+  ::-webkit-scrollbar:horizontal {
+      height: 7px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0,0,0,.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }
+  
+  ::-webkit-scrollbar-track {
+      border-radius: 4px;  
+      background-color: #ffffff; 
+  }
 }
 
 /*
