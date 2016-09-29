@@ -3,7 +3,7 @@
 {% for node in pages_list %}
   {% if node.title != null %}
     {% if node.layout == "page" %}
-      {% if node.state != "draft" %}
+      {% if node.sitemap != "false" %}
         {% assign page_counter = page_counter | plus: 1 %}
       {% endif %}
     {% endif %}
@@ -14,7 +14,7 @@
 {% for node in site.notes %}
   {% if node.title != null %}
     {% if node.layout == "note" %}
-      {% if node.state != "draft" %}
+      {% if node.sitemap != "false" %}
         {% assign note_counter = note_counter | plus: 1 %}
       {% endif %}
     {% endif %}
@@ -24,7 +24,7 @@
 {% assign post_counter = 0 %}
 {% for node in site.posts %}
   {% if node.ref != null %}
-    {% if node.state != "draft" %}
+    {% if node.sitemap != "false" %}
     {% assign post_counter = post_counter | plus: 1 %}
     {% endif %}
   {% endif %}
