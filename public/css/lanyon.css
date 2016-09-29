@@ -216,6 +216,12 @@ nav[data-toggle='toc'] ul{
  * Update the foundational and global aspects of the page.
  */
 
+/* Prevent scroll on narrow devices */
+html,
+body {
+  overflow-x: hidden;
+}
+
 html {
 /*   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
   font-size: 14px;
