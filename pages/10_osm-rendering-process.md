@@ -6,15 +6,6 @@ sitemap: false
 ---
 comments: true
 
-<style>
-img {
-    width: 25px;
-    margin: auto;
-    float: left;
-    display: inline;
-}
-</style>
-
 ## OSM architecture
 
 The following high level description will help to basically understand the OSM [rendering](http://wiki.openstreetmap.org/wiki/Rendering) process. Even if possibly imprecise or outdated in some part, it should allow to rationalize the implemented design.
