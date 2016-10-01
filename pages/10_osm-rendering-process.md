@@ -7,7 +7,7 @@ sitemap: false
 comments: true
 
 <style>
-table.drawing td img {
+img {
     width: 25px;
     margin: auto;
     float: left;
