@@ -57,24 +57,24 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* need to be changed (e.g., to address some requirement of newly introduced db columns within openstreetmap-carto), a full database re-import process has to be accomplished (very unfrequent operation currently).
 
+Part of the transformations hardcoded in osm2pgsql might be rather invasive, like the one mentioned [here](https://github.com/gravitystorm/openstreetmap-carto/issues/2297) where tags from inner members are dropped if the outer has the "same" tags.
+
 ## Obtaining an indexed image of the shapefiles
 
-Processed coastline data derived from OSM data is also needed for rendering usable maps, and can be found in a single shapefile (360MB). 
+Part of the features in OSM needs a specific preprocessing because of their complexity or even to try fixing sparse issues which are currently present in the available data, like unclosed polygons for complex and relevant features or imprecisions of coastlines; also, assembling different parts into a usable whole is needed to simplify rendering. So, features like land polygons, antarctica icesheet outlines, world boundaries, country boundaries and offshore land lines are periodically processed offline and converted into shapefiles which need to be separately rendered instead of managing related data directly into PostgreSQL.
 
-http://wiki.openstreetmap.org/wiki/Coastline_error_checker
+For this, all periodically preprocessed shapefiles data derived from OSM shall be downloaded into a specific folder to be locally accessed by the rendering engine and also indexed for impoved search performance.
 
-http://planet.openstreetmap.org/
+Shapefiles currently used by OSM for rendering the standard map can be found in [OpenStreetMapData](http://openstreetmapdata.com/), [Natural Earth](http://www.naturalearthdata.com) and [Planet OSM](http://planet.openstreetmap.org/).
 
-http://wiki.openstreetmap.org/wiki/Planet.osm
+Additional information availabe [here](http://wiki.openstreetmap.org/wiki/Planet.osm), [here](http://wiki.openstreetmap.org/wiki/OSMCoastline) and [here](http://wiki.openstreetmap.org/wiki/Coastline_error_checker).
 
-Other than PostGIS database, the rendering process needs 
-
-
+The process adopted to download and index the needed shapefiles is the following:
 
 |shapefiles ![dl][dl]|→|**get-shapefiles.py** ![prg][prg]|→|shapefiles *data* directory ![shape][shape]|
 {: .drawing}
-.
 
+Alternatively to the Python script `get-shapefiles.py`, also the shell script `get-shapefiles.sh` might be available.
 
 ### Mapnik rendering
 
