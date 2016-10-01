@@ -6,6 +6,15 @@ sitemap: false
 ---
 comments: true
 
+<style>
+table.drawing td img {
+    width: 25px;
+    margin: auto;
+    float: left;
+    display: inline;
+}
+</style>
+
 ## OSM architecture
 
 The following high level description will help to basically understand the OSM [rendering](http://wiki.openstreetmap.org/wiki/Rendering) process. Even if possibly imprecise or outdated in some part, it should allow to rationalize the implemented design.
@@ -57,9 +66,28 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* need to be changed (e.g., to address some requirement of newly introduced db columns within openstreetmap-carto), a full database re-import process has to be accomplished (very unfrequent operation currently).
 
+## Obtaining an indexed image of the shapefiles
+
+Processed coastline data derived from OSM data is also needed for rendering usable maps, and can be found in a single shapefile (360MB). 
+
+http://wiki.openstreetmap.org/wiki/Coastline_error_checker
+
+http://planet.openstreetmap.org/
+
+http://wiki.openstreetmap.org/wiki/Planet.osm
+
+Other than PostGIS database, the rendering process needs 
+
+
+
+|shapefiles ![dl][dl]|→|**get-shapefiles.py** ![prg][prg]|→|shapefiles *data* directory ![shape][shape]|
+{: .drawing}
+.
+
+
 ### Mapnik rendering
 
-The core rendering software is [Mapnik](https://wiki.openstreetmap.org/wiki/Mapnik), which reads the PostGIS database and generates the tile raster images ([tiles](https://wiki.openstreetmap.org/wiki/Tiles)) basing on a proprietary XML [stylesheet](https://github.com/mapnik/mapnik/wiki/XMLConfigReference).
+The core rendering software is [Mapnik](https://wiki.openstreetmap.org/wiki/Mapnik), which reads the available fonts, including the PostGIS database and the data directory, and generates the tile raster images ([tiles](https://wiki.openstreetmap.org/wiki/Tiles)) basing on a proprietary XML [stylesheet](https://github.com/mapnik/mapnik/wiki/XMLConfigReference).
 
 Exploiting PostGIS allows efficient and flexible online retrieval from a large amounts of data, including the possibility to implement spatial queries.
 
@@ -71,7 +99,7 @@ In order to efficiently serve tiles over Internet, OSM exploits a [CDN](http://w
 
 ![OSM CDN](https://blog.openstreetmap.org/wp-content/uploads/2015/03/osm-cdn-2015-03.png)
 
-The web interface for browsing rendered OpenStreetMap data is named [Slippy Map](http://wiki.openstreetmap.org/wiki/Slippy_Map#OpenStreetMap_.22Standard.22_tile_server). The slippy map is an [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) JavaScript component running in the browser, which dynamically requests maps from the tile server in the background (without reloading the whole HTML page) to give a smooth slippy zoomy map browsing experience.
+The web interface for browsing the rendered OpenStreetMap data is named [Slippy Map](http://wiki.openstreetmap.org/wiki/Slippy_Map#OpenStreetMap_.22Standard.22_tile_server). The slippy map is an [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) JavaScript component running in the browser, which dynamically requests maps from the tile server in the background (without reloading the whole HTML page) to give a smooth slippy zoomy map browsing experience.
 
 Citare:
 
@@ -83,12 +111,6 @@ carto
 XML
 
 
-
-## Process to create the data shapefiles
-
-|shapefiles ![dl][dl]|→|**get-shapefiles.py** ![prg][prg]|→|shapefiles *data* directory ![shape][shape]|
-{: .drawing}
-.
 
 ## Process to convert the project/layer description file 
 
