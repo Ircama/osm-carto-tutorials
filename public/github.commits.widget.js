@@ -71,7 +71,7 @@ THE SOFTWARE.
 
                     if (simple)
                       var li = $('<a class="github-commit"></a>')
-                        .attr("title", 'Last commits: ' + commits.length + '. Last ' + cur.commit.message)
+                        .attr("title", 'Last commits: ' + commits.length + '. Last: ' + cur.commit.message)
                         .attr("href", 'https://github.com/' + user + repo + '/commits/' + branch + (path === undefined ? '' : '/' + path))
                         .attr("target","_blank")
                         .appendTo(element);
