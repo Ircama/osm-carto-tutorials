@@ -68,6 +68,7 @@ THE SOFTWARE.
 
                 if (!simple)
                   var list = $('<ul class="github-commits-list">').appendTo(element);
+
                 for (var c = 0; c < totalCommits; c++) {
                     var cur = commits[c];
 
@@ -156,8 +157,7 @@ THE SOFTWARE.
                 }
 
                 function timewhen(commitDate) {
-                    var commitTime = new Date(commitDate);
-                    var localedate = commitTime.toLocaleFormat('%d-%b-%Y');
+                    var localedate = new Date(commitDate).toISOString().slice(0, 10);
                     return localedate + ', ';
                 }
             });
