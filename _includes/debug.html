@@ -1,0 +1,61 @@
+<script src="{{ site.baseurl }}/public/github.commits.widget.js"></script>
+
+URL:
+{{ page.url }}
+<br />
+TITLE:
+{{ page.title }}
+<br />
+EXERPT:
+{{ page.excerpt }}
+<br />
+DATE:
+{{ page.date }}
+<br />
+ID:
+{{ page.id }}
+<br />
+CATEGORIES:
+{{ page.categories }}
+<br />
+TAGS:
+{{ page.tags }}
+<br />
+PATH:
+{{ page.path }}
+<br />
+NEXT:
+{{ page.next }}
+<br />
+PREVIOUS:
+{{ page.previous }}
+<br />
+AUTHOR:
+{{ site.author.name }}
+<br />
+BASEURL:
+{{ site.baseurl }}
+<br />
+BRANCH:
+{{ site.branch }}
+<br />
+<div id="page-mod">
+Last modification: 
+<span id="last-page-mod"></span>
+</div>
+<div id="site-mod">
+Site: 
+<span id="last-site-mod"></span>
+</div>
+
+<script>
+$(function() {
+	$('#last-page-mod').githubInfoWidget(
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', simple: 1, last: 1, limitMessageTo: 500 });
+});
+
+$(function() {
+	$('#last-site-mod').githubInfoWidget(
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', simple: 1, last: 1, limitMessageTo: 500 });
+});
+</script>

@@ -78,7 +78,7 @@ Alternatively to the Python script `get-shapefiles.py`, also the shell script `g
 
 ### Mapnik rendering
 
-The core rendering software is [Mapnik](https://wiki.openstreetmap.org/wiki/Mapnik), which reads the available fonts, including the PostGIS database and the data directory, and generates the tile raster images ([tiles](https://wiki.openstreetmap.org/wiki/Tiles)) basing on a proprietary XML [stylesheet](https://github.com/mapnik/mapnik/wiki/XMLConfigReference).
+The core rendering software currently used by OpenStreetMap is [Mapnik](https://wiki.openstreetmap.org/wiki/Mapnik), which reads the available data fonts, including the PostGIS database and the shapefiles included in the data directory and then generates the tile raster images ([tiles](https://wiki.openstreetmap.org/wiki/Tiles)) basing on a proprietary XML [stylesheet](https://github.com/mapnik/mapnik/wiki/XMLConfigReference).
 
 Exploiting PostGIS allows efficient and flexible online retrieval from a large amounts of data, including the possibility to implement spatial queries.
 

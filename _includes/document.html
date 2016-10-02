@@ -5,6 +5,10 @@
 <div><a class="toc-title" href="#">{{ page.title }}</a></div>
 <div class="page">
   <h1 data-toc-skip class="page-title">{{ page.title }}</h1>
+  <div class="post-date">
+  Last modification: 
+  <span id="last-page-mod"></span>
+  </div>
   {{ content }}
 </div>
 <script>
@@ -18,6 +22,15 @@ $(document).ready(function() {
       $(this).addClass("dcontent");
   });
 });
+try {
+$(function() {
+	$('#last-page-mod').githubInfoWidget(
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', simple: 1, last: 1, limitMessageTo: 500 });
+});
+}
+catch(e)
+  {
+  }
 try {
   $(function() {
     var navSelector = '#toc';
