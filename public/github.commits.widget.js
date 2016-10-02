@@ -1,5 +1,7 @@
 /*
 
+Modified by ircama
+
 https://github.com/alexanderbeletsky/github-commits-widget
 
 # Legal Info (MIT License)
@@ -71,7 +73,7 @@ THE SOFTWARE.
 
                     if (simple)
                       var li = $('<a class="github-commit"></a>')
-                        .attr("title", 'Last commits: ' + commits.length + '. Last: ' + cur.commit.message)
+                        .attr("title", ((simple < 2) ? 'Last commits: ' + commits.length + ', Last is ' : 'Last commit is ') + cur.commit.message)
                         .attr("href", 'https://github.com/' + user + repo + '/commits/' + branch + (path === undefined ? '' : '/' + path))
                         .attr("target","_blank")
                         .appendTo(element);
@@ -97,7 +99,7 @@ THE SOFTWARE.
                     if (!simple)
                       li.append(message(cur.commit.message, cur.sha));
 
-                    if (simple)
+                    if (simple<2)
                       li.append(timewhen(cur.commit.committer.date));
 
                     li.append(when(cur.commit.committer.date));
