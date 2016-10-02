@@ -108,7 +108,6 @@ THE SOFTWARE.
                     list.append(li);
                 }
 
-
                 callback(element);
 
                 function author(login) {

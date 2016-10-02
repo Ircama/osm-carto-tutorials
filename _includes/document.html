@@ -43,8 +43,13 @@ anchors.add();
 anchors.remove('.masthead-title');
 anchors.remove('.sticky');
 anchors.remove('.page-title');
+try {
 $(function() {
 	$('#last-page-mod').githubInfoWidget(
 		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', simple: 1, last: 1, limitMessageTo: 500 });
 });
+}
+catch(e)
+  {
+  }
 </script>
