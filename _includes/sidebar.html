@@ -35,14 +35,14 @@
 
     <span class="sidebar-nav-item">&copy; <a href="{{ site.author.url }}" target="_blank">{{ site.author.name }}</a> {{ site.time | date: '%Y' }} - v{{ site.version }} - {{ site.author.credits }}</span>
     <span class="sidebar-nav-item">{{ site.author.github_sources }}</span>
-    <span class="sidebar-nav-item">Last modification <span id="last-site-mod"></span></span>
+    <span class="sidebar-nav-item">Last modification<span id="last-site-mod"> unknown</span></span>
   </nav>
 </div>
 <script>
 try {
 $(function() {
 	$('#last-site-mod').githubInfoWidget(
-		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', simple: 2, last: 1, limitMessageTo: 500 });
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', nouser: true, nomsg: true, abstime: false, simple: 2, last: 1, limitMessageTo: 500 });
 });
 }
 catch(e)

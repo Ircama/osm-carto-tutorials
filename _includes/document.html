@@ -7,7 +7,7 @@
   <h1 data-toc-skip class="page-title">{{ page.title }}</h1>
   <div class="post-date">
   Last modification: 
-  <span id="last-page-mod"></span>
+  <span id="last-page-mod">unknown</span>
   </div>
   {{ content }}
 </div>
@@ -46,7 +46,7 @@ anchors.remove('.page-title');
 try {
 $(function() {
 	$('#last-page-mod').githubInfoWidget(
-		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', simple: 1, last: 1, limitMessageTo: 500 });
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', nouser: true, nomsg: true, abstime: true, simple: 1, last: 1, limitMessageTo: 500 });
 });
 }
 catch(e)

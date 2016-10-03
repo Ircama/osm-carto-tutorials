@@ -51,11 +51,10 @@ Site:
 <script>
 $(function() {
 	$('#last-page-mod').githubInfoWidget(
-		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', simple: 1, last: 1, limitMessageTo: 500 });
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', nouser: true, nomsg: true, abstime: true, simple: 1, last: 1, limitMessageTo: 500 });
 });
-
 $(function() {
 	$('#last-site-mod').githubInfoWidget(
-		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', simple: 1, last: 1, limitMessageTo: 500 });
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', nouser: true, nomsg: true, abstime: false, simple: 2, last: 1, limitMessageTo: 500 });
 });
 </script>

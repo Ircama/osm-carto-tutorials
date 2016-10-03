@@ -514,7 +514,7 @@ a.sidebar-nav-item:focus {
     max-width: 100%;
   }
   .masthead, .toc-title, .sticky, .sidebar, #sidebar-checkbox, .sidebar-checkbox,
-  .sidebar-toggle, .related, .pagination, .disqus_comment {
+  .sidebar-toggle, .related, .pagination, .noprint {
     display: none !important;
     opacity: 0;
   }
