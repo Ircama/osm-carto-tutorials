@@ -87,7 +87,7 @@ THE SOFTWARE.
 
                 element.empty();
 
-                if (totalCommits < 1)
+                if (totalCommits  === undefined)
                 {
                   element.append((simple < 2 ? ' ' : ': ') + '<span class="noprint">check ' + '<a class="github-commit" href="' + 'https://github.com/' + user + repo + '/commits/' + branch + (path === undefined ? '' : '/' + path) + '" target="_blank">here</a></span>');
                   return;
@@ -104,7 +104,7 @@ THE SOFTWARE.
                     element.append(' ');
 
                     var li = $('<a class="github-commit">')
-                      .attr("title", ((simple < 2) ? 'Last commits: ' + commits.length + ', ' : 'Last commit: ') + cur.commit.message)
+                      .attr("title", ((simple < 2) ? 'Last commits: ' + commits.length + '. Description:\n' : '') + cur.commit.message)
                       .attr("href", 'https://github.com/' + user + repo + '/commits/' + branch + (path === undefined ? '' : '/' + path))
                       .attr("target","_blank")
                       .appendTo(element);
