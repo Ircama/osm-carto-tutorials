@@ -4,9 +4,9 @@ Modified by ircama, 2016; added the following options:
 - nouser (true/false/unset): if set to true, does not show user
 - noavatar (true/false/unset): if set to true, does not show avatar
 - nomsg (true/false/unset): if set to true, does not show message
-- abstime (true/false/unset): if set to true, show absolute time
+- abstime (true/false/unset): if set to true, shows absolute time
 - noreltime (true/false/unset): if set to true, does not show relative time
-- simple (unset, 1, 2): if set, show a simple messabe without list
+- simple (unset, 1, 2): if set to 1, shows a simple message without list; if set to 2, also show the number of commits in the tooltip
 
 https://github.com/alexanderbeletsky/github-commits-widget
 
@@ -104,7 +104,7 @@ THE SOFTWARE.
                     element.append(' ');
 
                     var li = $('<a class="github-commit">')
-                      .attr("title", ((simple < 2) ? 'Last commits: ' + commits.length + '. Description:\n' : '') + cur.commit.message)
+                      .attr("title", ((simple < 2) ? 'Last commits: ' + commits.length + '. Message in last commit:\n' : '') + cur.commit.message)
                       .attr("href", 'https://github.com/' + user + repo + '/commits/' + branch + (path === undefined ? '' : '/' + path))
                       .attr("target","_blank")
                       .appendTo(element);
@@ -136,10 +136,10 @@ THE SOFTWARE.
 
                     if (abstime)
                     {
-                      li.append(timewhen(cur.commit.committer.date));
+                      li.append('<span class=github-commit-date>' + timewhen(cur.commit.committer.date) + '</span>');
                     }
                     if (!noreltime)
-                      li.append('<span class="noprint">' + (abstime ? ', ' : '') + when(cur.commit.committer.date) + '</span>');
+                      li.append('<span class="github-commit-reltime noprint">' + (abstime ? ', ' : '') + when(cur.commit.committer.date) + '</span>');
 
                     if (!simple)
                       list.append(li);
