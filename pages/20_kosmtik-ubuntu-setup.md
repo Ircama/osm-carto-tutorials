@@ -129,6 +129,14 @@ Read [installation notes](https://github.com/gravitystorm/openstreetmap-carto/bl
 
 ## Install the fonts needed by openstreetmap-carto
 
+Currently Noto Sans font is used and DejaVu Sans is used as an optional fallback:
+
+```
+sudo apt-get install fonts-noto ttf-unifont fonts-dejavu-core fonts-noto-cjk
+```
+
+Old fonts:
+
 ```
 sudo apt-get install fonts-dejavu-core fonts-droid-fallback ttf-unifont \
   fonts-sipa-arundina fonts-sil-padauk fonts-khmeros \

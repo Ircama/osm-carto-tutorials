@@ -178,6 +178,14 @@ THE SOFTWARE.
                     } else if (differenceInDays == 1) {
                         return 'yesterday';
                     }
+                    if (differenceInDays > 365)
+                    {
+                      return 'about ' + ( Math.round( differenceInDays / 365 * 10) / 10 )  + ' year(s) ago';
+                    }
+                    if (differenceInDays > 60)
+                    {
+                      return 'about ' + ( Math.round( differenceInDays / 30 * 10) / 10 )  + ' month(s) ago';
+                    }
                     return differenceInDays + ' days ago';
                 }
 
