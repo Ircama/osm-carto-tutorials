@@ -2,6 +2,7 @@
 
 Modified by ircama, 2016; added the following options:
 - nouser (true/false/unset): if set to true, does not show user
+- noavatar (true/false/unset): if set to true, does not show avatar
 - nomsg (true/false/unset): if set to true, does not show message
 - abstime (true/false/unset): if set to true, show absolute time
 - noreltime (true/false/unset): if set to true, does not show relative time
@@ -66,6 +67,7 @@ THE SOFTWARE.
             var element = widget.element;
             var user = widget.options.user;
             var nouser = widget.options.nouser === undefined ? 0 : nouser = widget.options.nouser;
+            var noavatar = widget.options.noavatar === undefined ? 0 : noavatar = widget.options.noavatar;
             var nomsg = widget.options.nomsg === undefined ? 0 : widget.options.nomsg;
             var abstime = widget.options.abstime === undefined ? 0 : widget.options.abstime;
             var noreltime = widget.options.noreltime === undefined ? 0 : widget.options.noreltime;
@@ -74,6 +76,7 @@ THE SOFTWARE.
               repo = '/' + repo;
             var branch = widget.options.branch;
             var path = widget.options.path;
+            var avatarSize = widget.options.avatarSize || 20;
             var simple = widget.options.simple === undefined ? 0 : widget.options.simple;
             var last = widget.options.last === undefined ? 0 : widget.options.last;
             var limitMessage = widget.options.limitMessageTo === undefined ? 0 : widget.options.limitMessageTo;
@@ -83,6 +86,12 @@ THE SOFTWARE.
                 var totalCommits = (last < commits.length ? last : commits.length);
 
                 element.empty();
+
+                if (totalCommits < 1)
+                {
+                  element.append((simple < 2 ? ' ' : ': ') + '<span class="noprint">check ' + '<a class="github-commit" href="' + 'https://github.com/' + user + repo + '/commits/' + branch + (path === undefined ? '' : '/' + path) + '" target="_blank">here</a></span>');
+                  return;
+                }
 
                 if (!simple)
                   var list = $('<ul class="github-commits-list">').appendTo(element);
@@ -108,8 +117,10 @@ THE SOFTWARE.
                     if (!nouser)
                     {
                       var e_user = $('<span class="github-user">');
-                      //add github link if possible
+                      //add avatar & github link if possible
                       if (cur.author !== null) {
+                          if (!noavatar)
+                            e_user.append(avatar(cur.author.gravatar_id, avatarSize));
                           e_user.append(author(cur.author.login));
                       }
                       else //otherwise just list the name
@@ -135,6 +146,12 @@ THE SOFTWARE.
                 }
 
                 callback(element);
+
+                function avatar(hash, size) {
+                    return $('<img>')
+                            .attr('class', 'github-avatar')
+                            .attr('src', 'https://www.gravatar.com/avatar/' + hash + '?s=' + size);
+                }
 
                 function author(login) {
                     return  $('<a>')
