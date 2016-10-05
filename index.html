@@ -5,16 +5,30 @@ comments: true
 ---
 
 <div class="posts">
-  {% for post in paginator.posts reversed %}
-  <div class="post">
+{% assign homepage = false %}
+{% for node in site.notes %}
+  {% if node.title != null and node.layout == "homepage" and node.sitemap != false %}
+    {% assign homepage = true %}
     <h1 class="post-title">
+    {{ node.title }}
+    </h1>
+    {{ node.content }}
+  {% endif %}
+{% endfor %}
+{% if homepage == true %}
+<hr /><br />
+{% endif %}
+  {% for post in paginator.posts %}
+  <div class="post">
+
+    <h2 class="post-title">
 <!--
       <a href="{{ site.baseurl }}/{{ post.url }}">
         {{ post.title }}
+      </a>
 -->
       {{ post.title }}
-      </a>
-    </h1>
+    </h2>
 
     <span class="post-date">{{ post.date | date_to_string }}</span>
 

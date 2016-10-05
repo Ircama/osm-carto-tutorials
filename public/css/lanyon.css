@@ -425,6 +425,8 @@ table.gsc-search-box td.gsc-input {
   display: block;
   padding: .5rem 1rem;
   border-top: 1px solid rgba(255,255,255,.1);
+  margin-left: 1.3rem;
+  text-indent: -1.3rem;
 }
 .sidebar-nav-item.active,
 a.sidebar-nav-item:hover,
@@ -508,6 +510,19 @@ a.sidebar-nav-item:focus {
 }
 
 @media print {
+
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{font-size:11pt; max-width:100%;}
+  a:not(.github-commit), a:not(.github-commit):visited { text-decoration: underline; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:not(.github-commit):after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+
   .container {
     overflow: hidden;
     max-height: 100%;
@@ -521,14 +536,20 @@ a.sidebar-nav-item:focus {
   pre code {
     display: block !important;
     overflow: hidden !important;
+    /* Need all the following to word wrap instead of scroll box */
+    /* This will override the overflow:auto if present */
     white-space: pre !important;
-    white-space: pre-wrap !important;
+    white-space: pre-wrap !important; /* css-3 */
+    white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
   }
   @page { 
       size: auto;   /* auto is the initial value */ 
   
       /* this affects the margin in the printer settings */ 
-      margin: 25mm 17mm 25mm 17mm;  
+      margin: 25mm 17mm 25mm 17mm;
   }
   h1, h2, h3, h4, h5 {
     page-break-after: avoid;

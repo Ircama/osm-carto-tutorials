@@ -33,9 +33,7 @@ permalink: /sitemap/
 ## Update messages
 
 {% for post in site.posts %}
-  {% if post.ref != null %}
-    {% if node.sitemap != false %}
+  {% if node.sitemap != false %}
   * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ site.baseurl }}/{{ post.ref }})
-    {% endif %}
   {% endif %}
 {% endfor %}

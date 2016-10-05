@@ -23,7 +23,7 @@ author:
 #  email:             my_email@gmail.com
 
 # Custom vars
-version:             1.0.2
+version:             1.1.0
 google_search:       011671119207917586318:jtx4jontd8i
 google_analytics:    UA-84073284-1
 disqus_shortname:    ircama-github-io-osm-carto-tutorials
@@ -47,7 +47,7 @@ highlighter: rouge
 
 pages_list:
   Site map: '/sitemap'
-  RSS: '/atom.xml'
+  <i class="iconside iconm-feed2"></i>: '/atom.xml'
 
 collections:
   notes:

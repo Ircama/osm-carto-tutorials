@@ -129,6 +129,14 @@ Sample:
 See [Start Kosmtik](#start-kosmtik).
 ```
 
+### Opening a link in a new window
+
+```
+This is [a link](http://example.com){:target="_blank"} that opens in a new window.
+```
+
+This is [a link](http://example.com){:target="_blank"} that opens in a new window.
+
 ### Coloring a paragraph
 
 ```

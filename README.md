@@ -13,8 +13,9 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
 * [Bootstrap](getbootstrap.com)
 * [jQuery](https://jquery.com/)
 * [github.commits.widget](https://github.com/alexanderbeletsky/github-commits-widget), (c) 2012 Alexander Beletsky
+* [lanyon-plus](https://github.com/dyndna/lanyon-plus)
 
-Licensed with the [MIT License](http://opensource.org/licenses/MIT)
+Licensed under the [MIT License](http://opensource.org/licenses/MIT)
 
 Hosted by [GitHub](https://github.com)
 

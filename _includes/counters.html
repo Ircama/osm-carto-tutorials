@@ -23,10 +23,8 @@
 
 {% assign post_counter = 0 %}
 {% for node in site.posts %}
-  {% if node.ref != null %}
-    {% if node.sitemap != false %}
+  {% if node.sitemap != false %}
     {% assign post_counter = post_counter | plus: 1 %}
-    {% endif %}
   {% endif %}
 {% endfor %}
 
