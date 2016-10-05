@@ -1,6 +1,6 @@
 ---
 layout: homepage
-title: Scope of this site
+title: OpenStreetMap Carto Tutorials
 ---
 This independent site includes unofficial tutorials to set-up a development environment of [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) and to manage this software. It will allow exploiting the style and also being able to contribute.
 
