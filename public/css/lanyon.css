@@ -425,17 +425,20 @@ table.gsc-search-box td.gsc-input {
   display: block;
   padding: .5rem 1rem;
   border-top: 1px solid rgba(255,255,255,.1);
-  margin-left: 1.3rem;
-  text-indent: -1.3rem;
+  margin-left: 0.8rem; /* use if .iconside */
+  text-indent: -1.3rem; /* use if .iconside */
 }
-.sidebar-nav-item.active,
-a.sidebar-nav-item:hover,
-a.sidebar-nav-item:focus {
+a.sidebar-nav-item:hover {
   text-decoration: none;
-  background-color: rgba(255,255,255,.1);
+  background-color: rgba(255,255,255,.22);
   border-color: transparent;
 }
-
+.sidebar-nav-item.active,
+a.sidebar-nav-item:focus {
+  text-decoration: none;
+  background-color: rgba(255,255,255,.12);
+  border-color: transparent;
+}
 @media (min-width: 48em) {
   .sidebar-item {
     padding: 1.5rem;
