@@ -34,6 +34,7 @@ gems:
   - jekyll-seo-tag
   - jemoji
   - jekyll-sitemap
+  - jekyll-feed
 
 # Dependencies
 markdown:    kramdown
