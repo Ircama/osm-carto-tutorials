@@ -31,6 +31,7 @@ Other information (from [Munin](http://munin.openstreetmap.org/)):
 
 Other useful references:
 
-* [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb)
+* [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb) and related [issues](https://github.com/openstreetmap/chef/issues)
 * List of servers, specifications and issues: [OSMF Server Info](https://hardware.openstreetmap.org/), [OpenStreetMap Operations](https://github.com/openstreetmap/operations)
 * [PostgreSQL indexes(https://github.com/openstreetmap/operations/issues/104)
+* [updates processed by osm2pgsql](https://github.com/openstreetmap/chef/blob/master/cookbooks/tile/templates/default/replicate.erb)
