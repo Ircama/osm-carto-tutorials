@@ -55,7 +55,7 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 *openstreetmap-carto.lua* is a [Lua](https://www.lua.org/) script used by *osm2pgsql* for data transformation and aggregation. While some standard data management is hardcoded in *osm2pgsql*, most of the transformations are scripted in *openstreetmap-carto.lua*.
 
-*openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.yaml* shall match a description in *openstreetmap-carto.style*.
+*openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.yaml* shall match a description in *openstreetmap-carto.style*. *openstreetmap-carto.style* is the *.style* file for OpenStreetMap Carto.
 
 Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* need to be changed (e.g., to address some requirement of newly introduced DB columns within openstreetmap-carto), a full database re-import process has to be accomplished (very unfrequent operation currently).
 
@@ -88,9 +88,9 @@ Produced tiles are then delivered through a custom Apache module named [mod_tile
 
 [Apache](https://en.wikipedia.org/wiki/Apache_HTTP_Server) provides the front end web server that handles requests from your web browser and passes the request to *mod_tile*, which in turn checks if the tile has already been created and is ready for use or whether it needs to be updated due to not being in the cache already. If it is already available and doesn’t need to be rendered, then it immediately sends the tile back to the client. If it does need to be rendered, then it will add it to a *render request* queue, and when it gets to the top of the queue, a tile renderer will render it and send the tile back to the client.
 
-In order to efficiently serve tiles over Internet, OSM exploits a [CDN](http://wiki.openstreetmap.org/wiki/Platform_Status) (Content Delivery Network) implemented through multiple frontend web caching proxies running [Squid](https://en.wikipedia.org/wiki/Squid_(software)) and/or [TileCache](http://wiki.openstreetmap.org/wiki/TileCache).
+In order to efficiently serve tiles over Internet, OSM exploits [more renderers](http://dns.openstreetmap.org/render.openstreetmap.org.html){:target="_blank"} and a [CDN](http://wiki.openstreetmap.org/wiki/Platform_Status) (Content Delivery Network) implemented through multiple frontend web caching proxies running [Squid](https://en.wikipedia.org/wiki/Squid_(software)) and/or [TileCache](http://wiki.openstreetmap.org/wiki/TileCache).
 
-![OSM CDN](https://blog.openstreetmap.org/wp-content/uploads/2015/03/osm-cdn-2015-03.png)
+[![OSM CDN](https://blog.openstreetmap.org/wp-content/uploads/2015/03/osm-cdn-2015-03.png)](http://dns.openstreetmap.org/tile.openstreetmap.org.html){:target="_blank"}
 
 The web interface for browsing the rendered OpenStreetMap data is named [Slippy Map](http://wiki.openstreetmap.org/wiki/Slippy_Map#OpenStreetMap_.22Standard.22_tile_server). The slippy map is an [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) JavaScript component running in the browser, which dynamically requests maps from the tile server in the background (without reloading the whole HTML page) to give a smooth slippy zoomy map browsing experience.
 

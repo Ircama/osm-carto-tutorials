@@ -17,7 +17,7 @@ Tile servers:
 * Main sw configuration of the tile servers (information from [Upgrade tileservers to mapnik3 - chef issue log](https://github.com/openstreetmap/chef/issues/39)):
 
   * O.S. version: Ubuntu 16.04.1 LTS (old outdated ref. [here](https://github.com/openstreetmap/operations/issues/104))
-  * Mapnik version: 3.0.9 in 2.x emulation
+  * Mapnik version: 3.0.9 in 2.1 compatibility ([reason](https://github.com/gravitystorm/openstreetmap-carto/pull/2383))
   * PostgreSQL version: 9.5
   * PostGIS version: 2.2
   * Carto version: 0.16.3 (it is installed from npm and can be easily upgraded when necessary)
