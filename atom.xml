@@ -8,8 +8,8 @@ title: Atom RSS feed
  <generator uri="{{ site.url }}{{ site.baseurl }}" version="1.0.0">{{ site.author.name }}</generator>
  <title>{{ site.title | strip_html | xml_escape }}</title>
  <subtitle>{{ site.description | strip_html | xml_escape }}</subtitle>
- <link href="{{ site.url }}{{ site.baseurl }}/atom.xml" rel="self" type="application/atom+xml"/>
  <link href="{{ site.url }}{{ site.baseurl }}/" rel="alternate" type="application/atom+xml" title="ATOM Feed for {{ site.title | strip_html | xml_escape }}"/>
+ <link href="{{ site.url }}{{ site.baseurl }}/atom.xml" rel="self" type="application/atom+xml"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
  <id>{{ site.url }}{{ site.baseurl }}/</id>
 {% if site.author.name != null %}
