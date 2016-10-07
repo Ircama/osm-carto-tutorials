@@ -21,11 +21,22 @@ Hosted by [GitHub](https://github.com)
 
 This site can be cloned and reused freely. The following files and data are specific for this site and need deletion or customization when forking this site for different purposes:
 
-- README.MD (shall be customized)
-- public/apple-touch-icon-precomposed.png (shall be customized)
-- public/favicon.ico (shall be customized)
 - configuration of _config.yml (shall be customized)
-- All files in "pages" directory (shall be removed)
-- All files in "_notes" directory (shall be removed)
-- All files in "_posts" directory (shall be removed)
+- README.MD (shall be customized)
+- public/favicon.ico and public/apple-touch-icon-precomposed.png (shall be customized)
+- All files in "pages", "_notes" and "_posts" directory (shall be removed)
 - googlec45135b10de87878.html (shall be removed)
+
+Main changes from the default Lanyon Theme:
+
+ * improved _config.yml
+ * improved sidebar
+ * site is fully responsive for smartphones, tablets and different desktop resolutions
+ * appropriate style for print
+ * added site map
+ * improved Atom rss
+ * Added Disqus, Google Search, Google Analytics
+ * Home page revised
+ * API integration with GitHub
+ * improved lanyon.css and poole.css
+ * And all features from [credits](https://github.com/ircama/osm-carto-tutorials/tree/gh-pages#credits) have been introduced
