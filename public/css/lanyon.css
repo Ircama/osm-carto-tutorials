@@ -439,13 +439,7 @@ a.sidebar-nav-item:hover {
     border-color: transparent;
     -webkit-user-select: none;
     -webkit-touch-callout: none;  
-    background-color: rgba(255,255,255,.3);
   }
-@media (min-width: 48em) {
-  a.sidebar-nav-item:hover {
-    background-color: rgba(255,255,255,.3);
-  }
-}
 .sidebar-nav-item.active,
 a.sidebar-nav-item:focus {
   text-decoration: none;
@@ -453,6 +447,9 @@ a.sidebar-nav-item:focus {
   border-color: transparent;
 }
 @media (min-width: 48em) {
+  a.sidebar-nav-item:hover {
+    background-color: rgba(255,255,255,.3);
+  }
   .sidebar-item {
     padding: 1.5rem;
   }
