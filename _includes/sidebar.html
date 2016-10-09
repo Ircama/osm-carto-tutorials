@@ -14,8 +14,8 @@
     <p>{{ site.description }}</p>
   </div>
 
-  <nav class="sidebar-nav" ontouchend="this.onclick=fix">
-    <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" ontouchend="this.onclick=fix" href="{{ site.baseurl }}/">
+  <nav class="sidebar-nav" ontouchstart="this.onclick=fix" ontouchend="this.onclick=fix">
+    <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" ontouchstart="this.onclick=fix" ontouchend="this.onclick=fix" href="{{ site.baseurl }}/">
 <i class="iconside iconm-home"></i> Home
     </a>
 
@@ -29,16 +29,16 @@
       {% if node.title != null %}
         {% if node.layout == "page" %}
           {% if node.sitemap != false %}
-          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" ontouchend="this.onclick=fix" href="{{ site.baseurl }}{{ node.url }}">
+          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" ontouchstart="this.onclick=fix" ontouchend="this.onclick=fix" href="{{ site.baseurl }}{{ node.url }}">
 <i class="iconside iconm-quill"></i> {{ node.title }}</a>
           {% endif %}
         {% endif %}
       {% endif %}
     {% endfor %}
 
-    <span class="sidebar-nav-item" ontouchend="this.onclick=fix">&copy; <a href="{{ site.author.url }}" target="_blank">{{ site.author.name }}</a> {{ site.time | date: '%Y' }} - v{{ site.version }} - {{ site.author.credits }}</span>
-    <span class="sidebar-nav-item" ontouchend="this.onclick=fix"><i class="iconside iconm-github2"></i> {{ site.author.github_sources }}</span>
-    <span class="sidebar-nav-item" ontouchend="this.onclick=fix">Last modification<span id="last-site-mod"> unknown</span></span>
+    <span class="sidebar-nav-item" ontouchstart="this.onclick=fix" ontouchend="this.onclick=fix">&copy; <a href="{{ site.author.url }}" target="_blank">{{ site.author.name }}</a> {{ site.time | date: '%Y' }} - v{{ site.version }} - {{ site.author.credits }}</span>
+    <span class="sidebar-nav-item" ontouchstart="this.onclick=fix" ontouchend="this.onclick=fix"><i class="iconside iconm-github2"></i> {{ site.author.github_sources }}</span>
+    <span class="sidebar-nav-item" ontouchstart="this.onclick=fix" ontouchend="this.onclick=fix">Last modification<span id="last-site-mod"> unknown</span></span>
   </nav>
 </div>
 <script>
