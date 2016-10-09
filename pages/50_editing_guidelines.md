@@ -8,7 +8,7 @@ comments: true
 
 This document includes the description of the development process and some best practices for managing the OpenStreetMap Carto style.
 
-## Development process to add a feature or to improve it
+## Development process to add a feature or improve it
 
 The process to add a new feature or to improve an existing one is described in the following chart.
 
@@ -48,8 +48,8 @@ maxzoom: 22
 srs: "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
 ```
 
-These lines define the rendering settings for Mapnik. Notice that latitude bounds exlude the poles, where the scale becomes infinite with Mercator projection.
-The *center* tag defines the starting centre point (0, 0) and zoom (4); these correspond to the default map image shown by Kosmtik.
+The above lines define the rendering settings for Mapnik. Notice that latitude bounds exlude the poles, where the scale becomes infinite with Mercator projection.
+The *center* tag defines the starting centre point (0, 0) and zoom (4); these correspond to the default map image shown by TileMill at startup.
 *srs* is the adopted spatial reference system.
 
 The following code defines the macros for the projection and for the datasource:
@@ -78,7 +78,7 @@ Description:
 
 * *extents*: PostGIS data and shapefiles in EPSG:900913 Web Mercator projection
 * *extents84*: Shapefiles in WGS84 projection
-* *osm2pgsql*: PostGIS plugin accessing the "gis" database with default parameters (host, user, password, etc.)
+* *osm2pgsql*: [PostGIS plugin](https://github.com/mapnik/mapnik/wiki/PostGIS) accessing the a PostgreSQL database named "gis" with default parameters (host, user, password, etc.)
 
 Refereces to all used *.mss* stylesheets to be integrated in the compiled Mapnik XML input file:
 
@@ -110,79 +110,61 @@ Layer:
 ...
 ```
 
+Layers are how sets of data are added to a map. Each layer references a single file (e.g., shapefile) or database query (e.g., a PostgreSQL query). Multiple layers can be combined over top of each other to create the final map. A basic description of their definition is reported in the [TimeMill documentation](https://tilemill-project.github.io/tilemill/docs/manual/adding-layers/).
 
-## Zoom definition in stylesheets
+## CartoCSS file format for *.mms* files
 
-Keep in mind that because Mercator is a variable scale projection there is no direct relationship between zoom level and scale. At a typical resolution computer screen z13 for example can be somewhere between about 1:70000 (Equator) and 1:8000 (northern Greenland).
+The CartoCSS reference manual (by Mapbox) can be found in the [Carto documentation](http://mapbox.com/carto/).
+
+## Note on zoom definition in stylesheets
+
+Because Mercator is a variable scale projection, there is no direct relationship between zoom level and scale. At a typical resolution computer screen, z13 for example can be somewhere between about 1:70000 (Equator) and 1:8000 (northern Greenland).
 
 ## Some suggestions
 
-When thinking about mapping and tagging it is usually best to completely 
-ignore the question of how something can be possibly rendered in a map 
-at first and simply consider how it can be represented in the database 
-in a way that allows following mappers visiting the area to objectively 
-verify if the mapping is accurate or not.
+When thinking about mapping and tagging it is usually best to completely ignore the question of how something can be possibly rendered in a map at first and simply consider how it can be represented in the database in a way that allows following mappers visiting the area to objectively verify if the mapping is accurate or not.
 
-On the other side, when rendering a feature it is essential to evaluate....
+Before starting to code the rendering of a feature, verify that you are rendering an appropriate tagging; check that the [Wiki](http://wiki.openstreetmap.org) supports it and that there is no case of missing or misunderstood tag. Also, verify its usage in different regions.
 
-First create an issue to present the idea and discuss
+When considering to implement an improvement to the style, it is suggested to first create an issue, presenting the idea, asking whether there is a reason for the current style and discuss the most appropriate way to address a solution.
 
-Avoid comments
+Count the number of uses for a tag you are going to render. If lower than 10k, the reason to introduce a new feature has to be deeply discussed.
 
-Keep the same format
+If you are new to OpenStreetMap Carto, consider solving an open issue first, before introducing a new feature.
 
-Smallest set of modifications at the cost of creating more branches
+Study the following documents:
+* [CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md)
+* [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md)
 
-Test with many zones
-
-Mercator
-
-Usage of the tags with wiki
-
-Verify that you are rendering an appropriate tagging and that the wiki supports it and that there is no case of missing or misunderstood tag
-
-Count number of use. If lower than 10k the reason to introduce a new feature has to be deeply discussed
-
-Consider solving an open issue first, before introducing a new feature
-
-Geometric Mean
-
-One feature per pr
-
-Allow the commenters and maintainers to challenge a new feature, support your idea and be ready to accept the decision not to merge it
-
-Text size and word wrap
-
-Add a short one line commit message. In the commit line, reference the issue Id (eg issue #1234) then a blank line, then a long description which has to be repeated in the pr text
-
-When making an improvement, try to reuse similar methods already included in the style for other features.
+When coding:
+* Avoid comments
+* Avoid including your name in the code
+* Always keep the same format, style and exactly the same coding conventions already adopted for the OpenStreetMap Carto project
+* Implement ths smallest set of modifications within a specific branch, at the cost of creating more branches; consider one feature per PR
+* Test your development with many zones
+* When making an improvement, try to reuse similar methods already included in the style for other features
+* If you are impementing different text sizes according to the zoom, consider also different wordwrap
+* Allow the commenters and maintainers to challenge a new feature, support your idea and be ready to accept the decision not to merge it.
 
 ## Map Icon Guidelines
 
-Icons for the submitted to the standard tile layer will be:
-* SVG only
-* flat (single colour [usually black], no gradients, no outlines)
-* clean (reduced complexity where possible)
+Some guidelines for the icons submitted to the standard tile layer could be the following:
+* use svg files for symbols
+* flat (single colour [usually black], no gradients, no outlines); colors shall be defined in the style
+* clean (reduced complexity where possible); keeps svg essential
 * sharp (aligned to pixel grid)
 * single point of view (avoid use of perspective where possible)
 * common canvas size (usually 14x14px)
+* no reference to a specific editor
+* no reference to a specific site
+* remove uneeded comments
+* do not add a copyrighted svg
 
 Read the [https://wiki.openstreetmap.org/wiki/Map_Icons/Map_Icons_Standards](Map Icon Standards)
 on how to approach designing clear icons.
 
 More information at [https://wiki.openstreetmap.org/wiki/Map_Icons](OSM wiki Map Icons)
 and information concerning icon color.
-
-
-SVG
-
-- use svg files for symbols
-## Best practices of svg symbols
-
-- keeps svg essential
-- remove uneeded comments
-- do not add a copyrighted svg
-
 
 ## OpenStreetMap Data structure
 

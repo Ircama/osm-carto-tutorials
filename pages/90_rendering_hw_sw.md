@@ -26,8 +26,8 @@ Tile servers:
 
 Other information (from [Munin](http://munin.openstreetmap.org/)):
 
-* tile servers are also running mod_tile and renderd
-* Tile cache servers are running squid [ref. [Chef service-specific tile role](https://github.com/openstreetmap/chef/blob/master/roles/tilecache.rb) and [Server Monitoring](http://munin.openstreetmap.org/)]
+* tile servers are also running [*mod_tile*](https://github.com/openstreetmap/mod_tile) and *renderd*.
+* *Tile cache servers* (separate systems from the *tile servers*) are running [squid](https://en.wikipedia.org/wiki/Squid_(software)) [ref. [Chef service-specific tile role](https://github.com/openstreetmap/chef/blob/master/roles/tilecache.rb) and [Server Monitoring](http://munin.openstreetmap.org/)]
 
 Other useful references:
 
