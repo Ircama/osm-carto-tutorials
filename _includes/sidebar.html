@@ -14,7 +14,7 @@
     <p>{{ site.description }}</p>
   </div>
 
-  <nav class="sidebar-nav">
+  <nav class="sidebar-nav" ontouchend={unhover}>
     <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" ontouchend={unhover} href="{{ site.baseurl }}/">
 <i class="iconside iconm-home"></i> Home
     </a>
