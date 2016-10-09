@@ -8,6 +8,8 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
 
 This [Jekyll](http://jekyllrb.com/)-based theme is specifically intended for static technical documentation deployable on [GitHub Pages](https://pages.github.com/).
 
+Information on how to use this theme can be found in [how to contribute] https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/_notes/how-to-contribute.md) document.
+
 ## Credits:
 
 * [Lanyon](http://lanyon.getpoole.com) theme, by [Mark Otto](https://github.com/mdo). Many modifications have been added on top.
@@ -29,6 +31,7 @@ This site can be cloned and reused freely. The following files and data are spec
 - public/favicon.ico and public/apple-touch-icon-precomposed.png (shall be customized)
 - All files in "pages", "_notes" and "_posts" directory (shall be removed)
 - googlec45135b10de87878.html (shall be removed)
+- the *pages* subdirectory inside *_includes*
 
 Summary of the main changes from the default Lanyon Theme:
 
@@ -43,4 +46,5 @@ Summary of the main changes from the default Lanyon Theme:
  * API integration with GitHub
  * improved lanyon.css and poole.css
  * Added features from [credits](https://github.com/ircama/osm-carto-tutorials/tree/gh-pages#credits): AnchorJS, Table of Contents (ScrollSpy), github.commits.widget, lanyon-plus icons, etc.
+ * Added an extension of the Lanyon stylesheet which supports drawings.
  

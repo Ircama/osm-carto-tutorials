@@ -4,6 +4,7 @@ title: How to contribute to this site with new documents
 comments: true
 permalink: /how-to-contribute/
 ---
+
 I’m happy to receive contributions and thanks for your effort.
 
 This document assists you in providing updates or additions to the documentation of the "OpenStreetMap Carto Tutorials" site.
@@ -16,6 +17,8 @@ There are three types of documents:
 - **general matters** (`layout: default`): pages that are NOT reported in the left sidebar of the site; they can be stored anyware in the site (even if the *pages* folder is suggested). Differently from *pages*, a specific title is needed within the document text.
 
 All documents can be written in [Markdown](http://kramdown.gettalong.org) (*.md* extension).
+
+All files shall be in UTF8 format.
 
 ## Managing Pages
 
@@ -84,6 +87,12 @@ MARKUP is the file extension representing the format used in the file. For examp
 ```
 
 ## Editing hints
+
+### Markdown
+
+The used Markdown format is [kramdown](http://kramdown.gettalong.org/quickref.html) with [Rouge](https://github.com/jneen/rouge) syntax highlighter.
+
+A good tutorial is included here: [Markdown syntax](https://learn.getgrav.org/content/markdown)
 
 ### Link to a section of a different document in the same site
 
@@ -193,9 +202,66 @@ This is a *red*{:.highlight-red} highlight.
 
 This is a *green*{:.highlight-green} highlight.
 
-### Markdown
+### Drawings
 
-[Markdown syntax](https://learn.getgrav.org/content/markdown)
+This theme includes an extension of the [Lanyon](https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/public/css/lanyon.css) stylesheet which supports drawings.
+
+Drawings are defined as standard Markdown tables including UTF8 arrows (or unicode ones in case the editor is able to convert them to UTF8) and followed by `{: .drawing}` when all cells are centered or by `{: .drawing .djustify}` when cells have to be justified.
+The file shall be in UTF8 format.
+
+Some examples:
+
+```
+|First information|
+|↓|
+|Second information|
+|↓|
+|Third information|
+|↓|
+|Final information|
+{: .drawing .djustify}
+```
+
+|First information|
+|↓|
+|Second information|
+|↓|
+|Third information|
+|↓|
+|Final information|
+{: .drawing .djustify}
+
+```
+|project.yaml ![yml][yml]       | |osm-carto CartoCSS styles (.mml) ![css][css]|
+|                               |↘|↓|
+|PostgreSQL PostGIS ![db][db]   |→|**Kosmtik**  ![prg][prg]|→|Web images ![web][web]|
+|                               |↗|↑|
+|localconfig.json ![json][json] | |shapefiles *data* directory ![shape][shape]|
+{: .drawing}
+
+{% raw  %}{% include pages/images.md %}{% endraw %}
+```
+
+|A YAML file ![yml][yml]       | |A CSS file ![css][css]|
+|                               |↘|↓|
+|DB tables ![db][db]   |→|**A program**  ![prg][prg]|→|Some web pages ![web][web]|
+|                               |↗|↑|
+|A JSON file ![json][json] | |Geographic data ![shape][shape]|
+{: .drawing}
+
+{% include pages/images.md %}
+
+Notice that the image references can be defined through the syntax:
+
+```
+{% raw  %}{% include pages/images.md %}{% endraw %}
+```
+
+or directly defining the images as follows:
+
+```
+{% include pages/images.md %}
+```
 
 ## Publishing
 

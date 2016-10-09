@@ -2,7 +2,6 @@
 layout: page
 title: Description of the OSM rendering process
 permalink: /osm-rendering-process/
-sitemap: false
 comments: true
 ---
 
@@ -26,18 +25,18 @@ The relevant blocks for the rendering process are the ones represented in `yello
 
 openstreetmap-carto includes the following files and folders:
 
-* one project/layer description file in yaml format ([project.yaml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/project.yaml))
-* the same project/layer description file in json format ([project.mml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/project.mml))
-* one or more CartoCSS stylesheets (style.mss and aall the others)
-* a *symbols* subdirectory for storing svg and png files
+* one project/layer description file in *yaml* format ([project.yaml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/project.yaml))
+* the same project/layer description file converted into the *json* format ([project.mml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/project.mml))
+* one or more CartoCSS stylesheets (e.g., style.mss and all the others)
+* a *symbols* subdirectory for storing *svg* and *png* files
 * a *scripts* subdirectory including all scripts
-* openstreetmap-carto.style/openstreetmap-carto.lua: osm2pgsql configuration files
+* *openstreetmap-carto.style*/*openstreetmap-carto.lua*: osm2pgsql configuration files
 * description files: README.md/preview.png/LICENSE.txt/CARTOGRAPHY.md/CONTRIBUTING.md/RELEASES.md/CODE_OF_CONDUCT.md/CHANGELOG.md/INSTALL.md
 * support files for the scripts: indexes.yml/road-colors.yaml/indexes.sql/get-shapefiles.sh/.travis.yml
 
 ## Description of the rendering process
 
-The rendering process takes its data from a [PostgreSQL](https://www.postgresql.org/) geodatabase with [spatial extension](https://en.wikipedia.org/wiki/Spatial_database) implemented through [PostGIS](http://postgis.net/) (yellow cylinder). This DB instance holds a constantly updated planet table space in a different format to the database used on the core OSM database server (represented in green) and is populated by running an [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) script on minutely [diffs](http://wiki.openstreetmap.org/wiki/Planet.osm/diffs). Osm2pgsql acts as [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load), converting OpenStreetMap incremental data to PostGIS-enabled PostgreSQL DB and is able to manage incremental updates of the database as well as to perform an initial load when needed, keeping the PostGIS instance updated or fully refreshing it (in case of periodic database re-import or following a possible major change in openstreetmap-carto that requires reloading the database).
+The rendering process takes its data from a [PostgreSQL](https://www.postgresql.org/) geodatabase with [spatial extension](https://en.wikipedia.org/wiki/Spatial_database) implemented through [PostGIS](http://postgis.net/) (yellow cylinder in the previous drawing). This DB instance holds a constantly updated planet table space in a different format to the database used on the core OSM database server (represented in green in the previous drawing) and is populated by running an [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) script on minutely [diffs](http://wiki.openstreetmap.org/wiki/Planet.osm/diffs). Osm2pgsql acts as [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load), converting OpenStreetMap incremental data to PostGIS-enabled PostgreSQL DB and is able to manage incremental updates of the database as well as to perform an initial load when needed, keeping the PostGIS instance updated or fully refreshing it (in case of periodic database re-import or following a possible major change in openstreetmap-carto that requires reloading the database).
 
 ### Populating the PostGIS instance
 
@@ -57,19 +56,19 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 *openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.yaml* shall match a description in *openstreetmap-carto.style*. *openstreetmap-carto.style* is the *.style* file for OpenStreetMap Carto.
 
-Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* need to be changed (e.g., to address some requirement of newly introduced DB columns within openstreetmap-carto), a full database re-import process has to be accomplished (very unfrequent operation currently).
+Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* need to be changed (e.g., to address some requirement of newly introduced DB columns within openstreetmap-carto), a full database re-import process has to be accomplished (very infrequent operation currently).
 
 Transformations hardcoded in osm2pgsql might be rather invasive, like the one mentioned [here](https://github.com/gravitystorm/openstreetmap-carto/issues/2297) where tags from inner members are dropped if the outer has the "same" tags.
 
 ## Obtaining an indexed image of the shapefiles
 
-Some features in OSM need a specific preprocessing because of their complexity or even to try fixing sparse issues which are currently present in the available data, like unclosed polygons for complex and relevant features or imprecisions of coastlines; also, assembling different parts into a usable whole is needed to simplify rendering. So, features like land polygons, antarctica icesheet outlines, world boundaries, country boundaries and offshore land lines are periodically processed offline and converted into shapefiles, which need to be separately rendered instead of managing related data directly into PostgreSQL.
+Some features in OSM need a specific preprocessing because of their complexity or even to try fixing sparse issues which are currently present in the available data, like unclosed polygons for complex and relevant features or imprecisions of coastlines; also, assembling different parts into a usable whole is needed to simplify rendering. So, features like land polygons, [Antarctic ice sheet](https://en.wikipedia.org/wiki/Antarctic_ice_sheet) outlines, world boundaries, country boundaries and offshore land lines are periodically processed offline and converted into shapefiles, which need to be separately rendered instead of managing related data directly into PostgreSQL.
 
-For this, all periodically preprocessed shapefiles data derived from OSM shall be downloaded into a specific folder to be locally accessed by the rendering engine and also indexed for impoved search performance.
+For this, all periodically preprocessed shapefiles data derived from OSM shall be downloaded into a specific folder to be locally accessed by the rendering engine and also indexed for improved search performance.
 
 Shapefiles currently used by OSM for rendering the standard map can be found in [OpenStreetMapData](http://openstreetmapdata.com/), [Natural Earth](http://www.naturalearthdata.com) and [Planet OSM](http://planet.openstreetmap.org/).
 
-Additional information availabe [here](http://wiki.openstreetmap.org/wiki/Planet.osm), [here](http://wiki.openstreetmap.org/wiki/OSMCoastline) and [here](http://wiki.openstreetmap.org/wiki/Coastline_error_checker).
+Additional information available [here](http://wiki.openstreetmap.org/wiki/Planet.osm), [here](http://wiki.openstreetmap.org/wiki/OSMCoastline) and [here](http://wiki.openstreetmap.org/wiki/Coastline_error_checker).
 
 The process adopted to download and index the needed shapefiles is the following:
 
@@ -86,17 +85,17 @@ Exploiting a PostGIS database as the backend provides efficient and flexible ret
 
 Produced tiles are then delivered through a custom Apache module named [mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile), which is responsible for serving tiles and for requesting the rendering of tiles if they aren't already available in cache or if they have changed since.
 
-[Apache](https://en.wikipedia.org/wiki/Apache_HTTP_Server) provides the front end web server that handles requests from your web browser and passes the request to *mod_tile*, which in turn checks if the tile has already been created and is ready for use or whether it needs to be updated due to not being in the cache already. If it is already available and doesn’t need to be rendered, then it immediately sends the tile back to the client. If it does need to be rendered, then it will add it to a *render request* queue, and when it gets to the top of the queue, a tile renderer will render it and send the tile back to the client.
+[Apache](https://en.wikipedia.org/wiki/Apache_HTTP_Server) provides the front end web server that handles requests from your web browser and passes the request to *mod_tile*, which in turn checks if the tile has already been created and is ready for use or whether it needs to be updated due to not being in the cache already. If it is already available and does not need to be rendered, then it immediately sends the tile back to the client. If it does need to be rendered, then it will add it to a *render request* queue, and when it gets to the top of the queue, a tile renderer will render it and send the tile back to the client.
 
 In order to efficiently serve tiles over Internet, OSM exploits [more renderers](http://dns.openstreetmap.org/render.openstreetmap.org.html){:target="_blank"} and a [CDN](http://wiki.openstreetmap.org/wiki/Platform_Status) (Content Delivery Network) implemented through multiple frontend web caching proxies running [Squid](https://en.wikipedia.org/wiki/Squid_(software)) and/or [TileCache](http://wiki.openstreetmap.org/wiki/TileCache).
 
-[![OSM CDN](https://blog.openstreetmap.org/wp-content/uploads/2015/03/osm-cdn-2015-03.png)](http://dns.openstreetmap.org/tile.openstreetmap.org.html){:target="_blank"}
+[![OSM CDN](https://blog.openstreetmap.org/wp-content/uploads/2015/03/osm-cdn-2015-03.png "Click to open the GeoDNS chart")](http://dns.openstreetmap.org/tile.openstreetmap.org.html){:target="_blank"}
 
 The web interface for browsing the rendered OpenStreetMap data is named [Slippy Map](http://wiki.openstreetmap.org/wiki/Slippy_Map#OpenStreetMap_.22Standard.22_tile_server). The slippy map is an [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) JavaScript component running in the browser, which dynamically requests maps from the tile server in the background (without reloading the whole HTML page) to give a smooth slippy zoomy map browsing experience.
 
 ## Process to convert the project/layer description file 
 
-OpenStreetMap Carto adopts file formats which are easier to maintain than the target XML file processed by Mapnik. These files can be directly edited by contributors and the code review can be performed via [GitHub](https://en.wikipedia.org/wiki/GitHub). OpenStreetMap Carto styles are in CartoCSS format. Besides, a *project definition file* contains the core metadata to the project as well as a reference to its sources (vector tiles, shapefiles, PostGIS, etc.) and the CartoCSS stylesheets it uses; it dscribes the layers and includes the PostGIS queries for each layer; this file is in [YAML](https://en.wikipedia.org/wiki/YAML) format and named *project.yaml*. The conversion of the OpenStreetMap Carto source files into the XML Mapnik file is made by a tool named [Carto](https://github.com/mapbox/carto). The old versions of Carto were able to process a project definition file in JSON format (and not YAML), so a preprocessing of *project.yaml* (YAML format, more readable) into *project.mml* was needed and the tool named [yaml2mml.py](https://github.com/gravitystorm/openstreetmap-carto/blob/master/scripts/yaml2mml.py) does this. The newer versions of Carto are directly capable of processing *project.yaml*. The output of Carto is the Mapnik XML file, merging the definitions in *project.mml* together with all referenced styles in *.mms* files and all shapefile links; the obtained XML file is in final format, to be directly processed by Mapnik.
+OpenStreetMap Carto adopts file formats that are much easier to maintain than the target XML file processed by Mapnik. These files can be directly edited by contributors and a code review can be performed via [GitHub](https://en.wikipedia.org/wiki/GitHub). OpenStreetMap Carto styles are in CartoCSS format. Besides, a *project definition file* contains the core metadata to the project as well as a reference to its sources (vector tiles, shapefiles, PostGIS, etc.) and the CartoCSS stylesheets it uses; it dscribes the layers and includes the PostGIS queries for each layer; this file is in [YAML](https://en.wikipedia.org/wiki/YAML) format and named *project.yaml*. The conversion of the OpenStreetMap Carto source files into the XML Mapnik file is made by a tool named [Carto](https://github.com/mapbox/carto). The old versions of Carto were able to process a project definition file in JSON format (and not YAML), so a preprocessing of *project.yaml* (YAML format, more readable) into *project.mml* was needed and the tool named [yaml2mml.py](https://github.com/gravitystorm/openstreetmap-carto/blob/master/scripts/yaml2mml.py) does this. The newer versions of Carto are directly capable of processing *project.yaml*. The output of Carto is the Mapnik XML file, merging the definitions in *project.mml* together with all referenced styles in *.mms* files and all shapefile links; the obtained XML file is in final format, to be directly processed by Mapnik.
 
 |project.yaml ![yml][yml]              | |                             | ||
 |                ↓                     | |                             | ||
@@ -108,13 +107,13 @@ OpenStreetMap Carto adopts file formats which are easier to maintain than the ta
 
 ## Process to render data
 
-The process to generate the Mapnik XML file from the OpenStreetMap Carto sources is the following:
-
 Mapnik reads the following sources to render the tiles:
 
-* Mapnik XML, generated by compiling the OpenStreetMap Carto files
-* PostGIS, via queries and configuration included in Mapnik XML
-* shapefiles, via configuration included in Mapnik XML
+* Mapnik XML, generated by compiling the OpenStreetMap Carto files and including all rendering definitions
+* PostGIS data, via queries and configuration included in Mapnik XML
+* Shapefiles data, via configuration included in Mapnik XML
+
+The process to generate the Mapnik XML file from the OpenStreetMap Carto sources is the following:
 
 |                             | |Mapnik XML ![xml][xml]|
 |                             | |↓|
@@ -124,7 +123,7 @@ Mapnik reads the following sources to render the tiles:
 {: .drawing}
 .
 
-The Mercator projection is defined project.yaml and then compiled within Mapnik XML file. It has the effect to distort the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. So, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to land masses near the equator, such as Central Africa.
+Notice that OpenStreetData uses the Web Mercator projection (defined in project.yaml and then compiled into the Mapnik XML file). It has the effect to distort the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. Therefore, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to landmasses near the equator, such as Central Africa.
 
 ## Development and testing environment
 
@@ -142,18 +141,4 @@ Kosmtik includes Carto, [node-mapnik](https://github.com/mapnik/node-mapnik) and
 
 Refer to [Installing Kosmtik and OpenStreetMap-Carto on Ubuntu](../kosmtik-ubuntu-setup) for further information on the Kosmtik configuration needed for OpenStreetMap Carto.
 
-[db]: https://openclipart.org/image/2400px/svg_to_png/94723/db.png =25x25
-[xml]: http://image.flaticon.com/icons/png/128/55/55860.png
-[css]: http://image.flaticon.com/icons/png/512/55/55570.png
-[yml]: http://image.flaticon.com/icons/png/512/55/55699.png
-[txt]: http://image.flaticon.com/icons/png/512/55/55643.png
-[lua]: http://image.flaticon.com/icons/png/512/29/29488.png
-[app]: http://image.flaticon.com/icons/png/512/32/32230.png
-[prg]: http://image.flaticon.com/icons/png/512/33/33672.png
-[png]: http://image.flaticon.com/icons/png/512/29/29072.png
-[run]: http://image.flaticon.com/icons/png/128/149/149294.png
-[shape]: http://image.flaticon.com/icons/png/128/149/149229.png
-[files]: http://image.flaticon.com/icons/png/512/149/149344.png
-[dl]: http://image.flaticon.com/icons/png/512/51/51536.png
-[json]: http://image.flaticon.com/icons/png/512/136/136443.png
-[web]: http://image.flaticon.com/icons/png/512/186/186274.png
+{% include pages/images.md %}

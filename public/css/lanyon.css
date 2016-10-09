@@ -77,6 +77,12 @@ table.drawing td.darrow {
     font-size: 1.8rem;
 }
 
+table.djustify td.dcontent {
+    text-align: justify !important;
+    line-height: 1.3em !important;
+    padding: 0.5em !important;
+}
+
 /* Color classes used by markdown */
 
 .blue {
@@ -576,6 +582,12 @@ a.sidebar-nav-item:focus {
       -webkit-transform: translateX(0) !important;
       -ms-transform: translateX(0) !important;
       transform: translateX(0) !important;
+  }
+  table.drawing td.dcontent {
+    border: 1px solid black !important;
+  }
+  table.drawing td img {
+    padding-left: 2px;
   }
 }
 
