@@ -8,13 +8,13 @@
 <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" {% if page.title =="Home" %}checked{% endif %}>
 
 <!-- Toggleable sidebar -->
-<div class="sidebar" id="sidebar">
+<div class="sidebar" id="sidebar" ontouchend="this.onclick=fix">
   <gcse:searchbox-only></gcse:searchbox-only>
   <div class="sidebar-item">
     <p>{{ site.description }}</p>
   </div>
 
-  <nav class="sidebar-nav">
+  <nav class="sidebar-nav" ontouchend="this.onclick=fix">
     <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" ontouchend="this.onclick=fix" href="{{ site.baseurl }}/">
 <i class="iconside iconm-home"></i> Home
     </a>
@@ -44,7 +44,11 @@
 <script>
 function fix()
 {
-  alert("ciao");
+    var el = this;
+    var par = el.parentNode;
+    var next = el.nextSibling;
+    par.removeChild(el);
+    setTimeout(function() {par.insertBefore(el, next);}, 0)
 }
 try {
 $(function() {
