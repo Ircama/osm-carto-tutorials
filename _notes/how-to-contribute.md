@@ -272,3 +272,23 @@ or directly defining the images as follows:
 If you have the option to select *"Create a new branch for this commit and start a pull request."*, use it and enter a valid branch name (very short, e.g., 15 chars).
 
 The created *pull request* will be revised in order to be published. Please, accept some time to accomplish the review process, thanks.
+
+## Homepage
+
+The home page includes all pages tagged with the following Front Matter:
+
+```
+---
+layout: homepage
+title: OpenStreetMap Carto Tutorials
+---
+
+...
+...
+```
+
+The title of the first shown page (*title:*) will be site main banner.
+
+Generally, a file named *homepage.md* inside the *_notes* directory includes the text of the home page.
+
+Subsequently to the home pages, all posts are listed.
