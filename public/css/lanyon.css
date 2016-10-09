@@ -437,6 +437,9 @@ table.gsc-search-box td.gsc-input {
 a.sidebar-nav-item:hover {
     text-decoration: none;
     border-color: transparent;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;  
+    background-color: rgba(255,255,255,.3);
   }
 @media (min-width: 48em) {
   a.sidebar-nav-item:hover {
