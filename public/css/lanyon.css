@@ -439,7 +439,7 @@ a.sidebar-nav-item:hover {
     background-color: rgba(255,255,255,.3);
     border-color: transparent;
   }
-@media (hover:none), (hover:on-demand) {
+@media (max-width: 48em) {
     a.sidebar-nav-item:hover {
         background-color: unset !important;
     }
