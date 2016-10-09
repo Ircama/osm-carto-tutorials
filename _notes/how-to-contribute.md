@@ -239,7 +239,7 @@ Some examples:
 |localconfig.json ![json][json] | |shapefiles *data* directory ![shape][shape]|
 {: .drawing}
 
-{% raw  %}{% include pages/images.md %}{% endraw %}
+{% raw %}{% include pages/images.md %}{% endraw %}
 ```
 
 |A YAML file ![yml][yml]       | |A CSS file ![css][css]|

@@ -60,7 +60,7 @@ Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* ne
 
 Transformations hardcoded in osm2pgsql might be rather invasive, like the one mentioned [here](https://github.com/gravitystorm/openstreetmap-carto/issues/2297) where tags from inner members are dropped if the outer has the "same" tags.
 
-## Obtaining an indexed image of the shapefiles
+### Obtaining an indexed image of the shapefiles
 
 Some features in OSM need a specific preprocessing because of their complexity or even to try fixing sparse issues which are currently present in the available data, like unclosed polygons for complex and relevant features or imprecisions of coastlines; also, assembling different parts into a usable whole is needed to simplify rendering. So, features like land polygons, [Antarctic ice sheet](https://en.wikipedia.org/wiki/Antarctic_ice_sheet) outlines, world boundaries, country boundaries and offshore land lines are periodically processed offline and converted into shapefiles, which need to be separately rendered instead of managing related data directly into PostgreSQL.
 
@@ -93,7 +93,7 @@ In order to efficiently serve tiles over Internet, OSM exploits [more renderers]
 
 The web interface for browsing the rendered OpenStreetMap data is named [Slippy Map](http://wiki.openstreetmap.org/wiki/Slippy_Map#OpenStreetMap_.22Standard.22_tile_server). The slippy map is an [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) JavaScript component running in the browser, which dynamically requests maps from the tile server in the background (without reloading the whole HTML page) to give a smooth slippy zoomy map browsing experience.
 
-## Process to convert the project/layer description file 
+### Process to convert the project/layer description file 
 
 OpenStreetMap Carto adopts file formats that are much easier to maintain than the target XML file processed by Mapnik. These files can be directly edited by contributors and a code review can be performed via [GitHub](https://en.wikipedia.org/wiki/GitHub). OpenStreetMap Carto styles are in CartoCSS format. Besides, a *project definition file* contains the core metadata to the project as well as a reference to its sources (vector tiles, shapefiles, PostGIS, etc.) and the CartoCSS stylesheets it uses; it dscribes the layers and includes the PostGIS queries for each layer; this file is in [YAML](https://en.wikipedia.org/wiki/YAML) format and named *project.yaml*. The conversion of the OpenStreetMap Carto source files into the XML Mapnik file is made by a tool named [Carto](https://github.com/mapbox/carto). The old versions of Carto were able to process a project definition file in JSON format (and not YAML), so a preprocessing of *project.yaml* (YAML format, more readable) into *project.mml* was needed and the tool named [yaml2mml.py](https://github.com/gravitystorm/openstreetmap-carto/blob/master/scripts/yaml2mml.py) does this. The newer versions of Carto are directly capable of processing *project.yaml*. The output of Carto is the Mapnik XML file, merging the definitions in *project.mml* together with all referenced styles in *.mms* files and all shapefile links; the obtained XML file is in final format, to be directly processed by Mapnik.
 
@@ -105,7 +105,7 @@ OpenStreetMap Carto adopts file formats that are much easier to maintain than th
 {: .drawing}
 .
 
-## Process to render data
+### Process to render data
 
 Mapnik reads the following sources to render the tiles:
 
