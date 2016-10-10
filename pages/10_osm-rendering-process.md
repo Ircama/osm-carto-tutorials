@@ -123,7 +123,7 @@ The process to generate the Mapnik XML file from the OpenStreetMap Carto sources
 {: .drawing}
 .
 
-Some description of the rendering with the standard tile layer is described [here]http://wiki.openstreetmap.org/wiki/Standard_tile_layer) and [here](http://wiki.openstreetmap.org/wiki/Coastline#Rendering_in_Standard_tile_layer_on_openstreetmap.org).
+Some description of the rendering with the standard tile layer is described [here](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) and [here](http://wiki.openstreetmap.org/wiki/Coastline#Rendering_in_Standard_tile_layer_on_openstreetmap.org).
 
 Notice that OpenStreetData uses the Web Mercator projection (defined in project.yaml and then compiled into the Mapnik XML file). It has the effect to distort the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. Therefore, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to landmasses near the equator, such as Central Africa.
 
