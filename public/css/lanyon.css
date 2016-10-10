@@ -439,7 +439,7 @@ a.sidebar-nav-item:hover {
     border-color: transparent;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
-    animation: sidebar-nav-item-highlight 2s step-start;
+    animation: sidebar-nav-item-highlight 1s step-start;
   }
 .sidebar-nav-item.active,
 a.sidebar-nav-item:focus {
@@ -454,7 +454,7 @@ a.sidebar-nav-item:focus {
 }
 @media (min-width: 48em) {
   a.sidebar-nav-item:hover {
-    animation: sidebar-nav-item-highlight 3s step-start;
+    animation: sidebar-nav-item-highlight 10s step-start;
   }
   .sidebar-item {
     padding: 1.5rem;
