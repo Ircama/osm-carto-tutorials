@@ -8,7 +8,7 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
 
 This [Jekyll](http://jekyllrb.com/)-based theme is specifically intended for static technical documentation deployable on [GitHub Pages](https://pages.github.com/).
 
-Information on how to use this theme can be found in [how to contribute](https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/_notes/how-to-contribute.md).
+Information on the usage of this theme can be found in [how to contribute](https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/_notes/how-to-contribute.md).
 
 ## Credits:
 
