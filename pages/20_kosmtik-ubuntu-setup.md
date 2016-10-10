@@ -244,13 +244,7 @@ psql -U postgres -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
 psql -U postgres -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
 ```
 
-## Get an OpenStreetMap data extract
-
-You need to download an appropriate .osm or .pbf file to be subsequently loaded into the previously created PostGIS instance via `osm2pgsql`.
-
-Get data from [Geofabrik](http://download.geofabrik.de/) or Mapzen [Metro-Extracts](https://mapzen.com/data/metro-extracts/).
-
-Check also instructions [here](../tilemill-osm-carto/#download-openstreetmap-data).
+{% include_relative _includes/download-osm-data.md %}
 
 ## Install Osm2pgsql
 
@@ -340,7 +334,7 @@ Notice that `--host 0.0.0.0` is needed to access Kosmtik installed on a remote s
 
 ## Access the map from your browser
 
-    http://localhost:6789
+With your browser, access the map through <http://localhost:6789>
 
 Notice that *Https* will not work (use http instead).
 
@@ -359,10 +353,4 @@ Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet '
 
 Accessing the database and rendering images is often a slow process (mainly depending on the amount of data to be managed, but also on the server performance and on the network), so give many seconds to Kosmtik to output or refresh the map.
 
-## Edit the stylesheets
-
-* Use your own text editor e.g. Atom, gedit, TextWrangler, Notepad++
-* Change the *.mss files
-* Kosmtik automatically updates rendering upon file change
-* View the changes in Kosmtik
-* If you change the layer definitions in *project.yaml*, you have to execute `scripts/yaml2mml.py`
+{% include_relative _includes/edit-the-stylesheets.md editor='*vi*' script='scripts/yaml2mml.py' program='Kosmtik' %}

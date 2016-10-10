@@ -37,7 +37,7 @@ Even if Tilemill has a GitHub repository (https://github.com/mapbox/tilemill) in
 
 ### Install PostgreSQL
 
-Download PostgreSQL (avoid using beta versions as also PostGis shall be needed (check first the PostGis compatibility with the version you are going to download):
+Download PostgreSQL (avoid using beta versions as also PostGIS shall be needed (check first the PostGIS compatibility with the version you are going to download):
 
 http://www.enterprisedb.com/products-services-training/pgdownload#windows
 
@@ -55,11 +55,11 @@ Use the following configuration steps for PostgreSQL:
 - Select the server (PostgreSQL at port 5432)
 - Expand Categories, Spatial Extensions; enable PostGIS (select the latest version for the appropriate architecture, 32 or 64 bit)
 
-### Install PostGis
+### Install PostGIS
 
-Installation of PostGis:
+Installation of PostGIS:
 
-- Select Components to install: PostGis (don't create spatial database)
+- Select Components to install: PostGIS (don't create spatial database)
 - Would you like us to register the GDAL_DATA environment variable for you? No
 - Raster drivers are disabled by default? ... No
 - Enable out db rasters? No
@@ -97,16 +97,7 @@ NOTE: To drop the database, in case of full data refresh, you can perform:
 
 Then all creation commands must be issued again.
 
-### Download OpenStreetMap data
-
-There are many ways to download the OSM data.
-
-It's probably easiest to grab an PBF of OSM data from [Mapzen](https://mapzen.com/metro-extracts/) or [geofabrik](http://download.geofabrik.de/).
-
-One method is directly with your browser. Check this page:
-http://wiki.openstreetmap.org/wiki/Downloading_data#Choose_your_region
-
-Alternatively, JOSM can be used (install it from https://josm.openstreetmap.de/. You should also have the java runtime installed and updated). Select the area to download the OSM data: JOSM menu, File, Download From OSM; tab Slippy map; drag the map with the right mouse button, zoom with the mouse wheel or Ctrl + arrow keys; drag a box with the left mouse button to select an area to download. The Continuous Download plugin is also suggested: http://wiki.openstreetmap.org/wiki/JOSM/Plugins/continuosDownload. When the desired region is locally available, select File, Save As, `<filename>.osm`. Give it a valid file name and check also the appropriate directory where this file is saved.
+#{% include_relative _includes/download-osm-data.md %}
 
 ### Install osm2pgsql
 
@@ -245,5 +236,8 @@ You shouldn't use the text editor built-in to TileMill: it doesn't work with the
 Tilemill automatically refreshes the rendering upon any file change, including all mss and project.mml (notice that also a change in project.yaml activates a new rendering; anyway, remember to also run `scripts\yaml2mml.py`).
 
 Note: to open Tilemill with a browser:
-- http://127.0.0.1:20009
-- http://127.0.0.1:20009/#/project/openstreetmap-carto
+
+- <http://127.0.0.1:20009>
+- <http://127.0.0.1:20009/#/project/openstreetmap-carto>
+
+{% include_relative _includes/edit-the-stylesheets.md editor='Atom, gedit, TextWrangler, Notepad++' script='scripts\yaml2mml.py' program='Tilemill' %}
