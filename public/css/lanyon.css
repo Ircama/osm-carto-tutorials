@@ -442,8 +442,8 @@ a.sidebar-nav-item:hover {
     border-color: transparent;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
-    -webkit-animation: sidebar-nav-item-highlight 0.8s step-start;
-    animation: sidebar-nav-item-highlight 0.8s step-start;
+    -webkit-animation: sidebar-nav-item-highlight 0.5s step-start;
+    animation: sidebar-nav-item-highlight 0.5s step-start;
   }
 .sidebar-nav-item.active,
 a.sidebar-nav-item:focus {
