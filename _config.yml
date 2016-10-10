@@ -11,7 +11,7 @@ description:         'Unofficial tutorials for <a href="https://github.com/gravi
 url:                 http://ircama.github.io
 baseurl:             "/osm-carto-tutorials"
 branch:              "gh-pages"
-paginate:            5
+paginate:            4
 logo:                "/public/apple-touch-icon-precomposed.png"
 
 # About/contact
