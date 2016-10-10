@@ -455,8 +455,8 @@ a.sidebar-nav-item:focus {
 }
 @media (min-width: 48em) {
   a.sidebar-nav-item:hover {
-    -webkit-animation: sidebar-nav-item-highlight 5s step-start;
-    animation: sidebar-nav-item-highlight 5s step-start;
+    -webkit-animation: sidebar-nav-item-highlight 3s step-start;
+    animation: sidebar-nav-item-highlight 3s step-start;
   }
   .sidebar-item {
     padding: 1.5rem;
