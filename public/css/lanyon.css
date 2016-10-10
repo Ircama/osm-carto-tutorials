@@ -12,13 +12,16 @@
  * Designed, built, and released under MIT license by @mdo. Learn more at
  * https://github.com/poole/lanyon.
  *
- * Revised by ircama
+ * Revised and improved by @ircama
  */
 
 
 /*
  * Contents
  *
+ * Drawings used by markdown
+ * Color classes used by markdown
+ * Table of Content (TOC)
  * Global resets
  * Masthead
  * Google Custom Search
@@ -31,7 +34,7 @@
  * Themes
  */
 
-/* Drawing used by markdown */
+/* Drawings used by markdown */
 
 table.drawing, table.drawing td, table.drawing th {
     border-collapse: separate !important;
