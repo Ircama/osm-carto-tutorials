@@ -270,7 +270,7 @@ Some examples:
 
 |A YAML file ![yml][yml]       | |A CSS file ![css][css]| |An image ![png][png]|
 |                               |↘|↓|↙|
-|DB tables ![db][db]   |→|**A program**  ![prg][prg]|→|Some web pages ![web][web]|
+|DB tables ![db][db]   |→|**A program**  ![prg][prg]|←|Some web pages ![web][web]|
 |                               |↗|↑|↖|
 |A JSON file ![json][json] | |Geographic data ![shape][shape]| |An XML ![xml][xml]|
 {: .drawing}
