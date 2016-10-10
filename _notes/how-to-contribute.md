@@ -5,22 +5,40 @@ comments: true
 permalink: /how-to-contribute/
 ---
 
-I’m happy to receive contributions and thanks for your effort.
+I’m happy to receive contributions and thanks for your effort in improving this theme and the tutorial documentation included in "OpenStreetMap Carto Tutorials" site.
 
-This document assists you in providing updates or additions to the documentation of the "OpenStreetMap Carto Tutorials" site.
+This document assists you in providing updates or additions to the documentation.
 
-There are three types of documents:
+## General notes
+
+All documents can be written in [Markdown](https://en.wikipedia.org/wiki/Markdown) and this theme uses the [kramdown](http://kramdown.gettalong.org) processor. Markdown documents should have the *.md* extension.
+
+Pages have to be saved in the *pages* directory; there are other types of documents, like *notes* and *posts*.
 
 - **pages** (`layout: page`): standard documentation (non-linear content), also indexed in the left sidebar of the site; generally stored in the *pages* folder; a title is not needed for *pages* (as automatically created by the `title` tag of the *Front Matter* - see below);
 - **notes** (`layout: note`): same rendering as *pages*, but NOT reported in the left sidebar of the site; generally stored in the *_notes* folder; a title is not needed for *notes* (as automatically created by the `title` tag of the *Front Matter* - see below);
 - **posts** (`layout: post`): entries (linear content) listed in chronological order in the main page, possibly linking *pages*; all stored in the *_posts* folder;
 - **general matters** (`layout: default`): pages that are NOT reported in the left sidebar of the site; they can be stored anyware in the site (even if the *pages* folder is suggested). Differently from *pages*, a specific title is needed within the document text.
 
-All documents can be written in [Markdown](http://kramdown.gettalong.org) (*.md* extension).
+A special type of layout is *homepage*, which is [subsequently](#homepage) described.
+
+Markdown documents can include parts which are common to more pages. A common part (e.g., named *common-part.md*) can be referenced with the following [Liquid](http://shopify.github.io/liquid/) markup:
+
+{% raw %}
+```raw
+{% include pages/common-part.md %}
+```
+{% endraw %}
+
+Common parts have to be saved in the *_includes/pages* directory and should also be written in Markdown.
 
 All files shall be in UTF8 format.
 
+Liquid documentation can be found in [Liquid for Designers](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers).
+
 ## Managing Pages
+
+All pages are provided with a tag in their bottom part, to directly link to their respective the GitHub editing page.
 
 The suggested process to add or update *pages* is directly from the GitHub site:
 
@@ -146,7 +164,11 @@ This is [a link](http://example.com){:target="_blank"} that opens in a new windo
 
 This is [a link](http://example.com){:target="_blank"} that opens in a new window.
 
-### Coloring a paragraph
+### Coloring
+
+This theme includes an extension of the [Lanyon](https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/public/css/lanyon.css) stylesheet which easily supports some colors.
+
+#### Sample of coloring a paragraph:
 
 ```
 This is a paragraph that for some reason we want yellow.
@@ -179,6 +201,8 @@ This is a paragraph that for some reason we want red.
 
 This is a paragraph that for some reason we want green.
 {: .green}
+
+#### Sample of inline coloring:
 
 ```
 This is a *yellow*{:.highlight-yellow} highlight.
@@ -231,35 +255,39 @@ Some examples:
 |Final information|
 {: .drawing .djustify}
 
-```
-|project.yaml ![yml][yml]       | |osm-carto CartoCSS styles (.mml) ![css][css]|
-|                               |↘|↓|
-|PostgreSQL PostGIS ![db][db]   |→|**Kosmtik**  ![prg][prg]|→|Web images ![web][web]|
-|                               |↗|↑|
-|localconfig.json ![json][json] | |shapefiles *data* directory ![shape][shape]|
+{% raw %}
+```raw
+|A YAML file ![yml][yml]       | |A CSS file ![css][css]| |An image ![png][png]|
+|                               |↘|↓|↙|
+|DB tables ![db][db]   |→|**A program**  ![prg][prg]|→|Some web pages ![web][web]|
+|                               |↗|↑|↖|
+|A JSON file ![json][json] | |Geographic data ![shape][shape]| |An XML ![xml][xml]|
 {: .drawing}
 
-{% raw %}{% include pages/images.md %}{% endraw %}
+{% include pages/images.md %}
 ```
+{% endraw %}
 
-|A YAML file ![yml][yml]       | |A CSS file ![css][css]|
-|                               |↘|↓|
+|A YAML file ![yml][yml]       | |A CSS file ![css][css]| |An image ![png][png]|
+|                               |↘|↓|↙|
 |DB tables ![db][db]   |→|**A program**  ![prg][prg]|→|Some web pages ![web][web]|
-|                               |↗|↑|
-|A JSON file ![json][json] | |Geographic data ![shape][shape]|
+|                               |↗|↑|↖|
+|A JSON file ![json][json] | |Geographic data ![shape][shape]| |An XML ![xml][xml]|
 {: .drawing}
 
 {% include pages/images.md %}
 
 Notice that the image references can be defined through the syntax:
 
+{% raw %}
+```raw
+{% include pages/images.md %}
 ```
-{% raw  %}{% include pages/images.md %}{% endraw %}
-```
+{% endraw %}
 
 or directly defining the images as follows:
 
-```
+```raw
 {% include pages/images.md %}
 ```
 
