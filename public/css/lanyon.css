@@ -438,7 +438,8 @@ a.sidebar-nav-item:hover {
     text-decoration: none;
     border-color: transparent;
     -webkit-user-select: none;
-    -webkit-touch-callout: none;  
+    -webkit-touch-callout: none;
+    animation: sidebar-nav-item-highlight 2s step-start;
   }
 .sidebar-nav-item.active,
 a.sidebar-nav-item:focus {
@@ -446,9 +447,14 @@ a.sidebar-nav-item:focus {
   background-color: rgba(255,255,255,.2);
   border-color: transparent;
 }
+@keyframes sidebar-nav-item-highlight {
+100% {
+    background-color: rgba(255,255,255,.3);
+  }
+}
 @media (min-width: 48em) {
   a.sidebar-nav-item:hover {
-    background-color: rgba(255,255,255,.3);
+    animation: sidebar-nav-item-highlight 3s step-start;
   }
   .sidebar-item {
     padding: 1.5rem;
