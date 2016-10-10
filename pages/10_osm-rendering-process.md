@@ -44,7 +44,7 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 |                                     | |OSM data extract ![xml][xml]|
 |                                     | |↓|
-|openstreetmap-carto.style ![txt][txt]|→|**osm2pgsql**<br />![prg][prg]|→|PostgreSQL PostGIS ![db][db]|
+|openstreetmap-carto.style ![txt][txt]|→|**osm2pgsql** ![prg][prg]|→|PostgreSQL PostGIS ![db][db]|
 |                                     | |↑|
 |                                     | |openstreetmap-carto.lua ![lua][lua]|
 {: .drawing}
