@@ -240,4 +240,9 @@ Note: to open Tilemill with a browser:
 - <http://127.0.0.1:20009>
 - <http://127.0.0.1:20009/#/project/openstreetmap-carto>
 
+## TileMill documentation
+
+* [TileMill GitHub project](https://github.com/tilemill-project/tilemill)
+* [TileMill GitHub Documentation](http://tilemill-project.github.io/tilemill/)
+
 {% include_relative _includes/edit-the-stylesheets.md editor='Atom, gedit, TextWrangler, Notepad++' script='scripts\yaml2mml.py' program='Tilemill' %}

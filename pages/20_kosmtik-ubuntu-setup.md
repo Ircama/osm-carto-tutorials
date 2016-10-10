@@ -283,7 +283,7 @@ cd ../..
 rm -rf osm2pgsql
 ```
 
-## Load data to postgis
+## Load data to PostGIS
 
 ```
 cd
