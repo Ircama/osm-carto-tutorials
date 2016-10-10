@@ -527,8 +527,6 @@ a.sidebar-nav-item:focus {
     position: fixed;
     left: auto;
     right: 0px;
-  }
-  .sidebar-toggle {
     padding: .85rem .7rem;
   }
 }
