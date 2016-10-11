@@ -53,8 +53,10 @@ Read [installation notes](https://github.com/gravitystorm/openstreetmap-carto/bl
 Currently Noto Sans font is used and DejaVu Sans is used as an optional fallback:
 
 ```
-sudo apt-get install fonts-noto ttf-unifont fonts-dejavu-core fonts-noto-cjk
+sudo apt-get install fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted ttf-unifont
 ```
+
+DejaVu is packaged as fonts-dejavu-core.
 
 Old fonts:
 

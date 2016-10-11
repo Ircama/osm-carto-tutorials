@@ -71,12 +71,6 @@ export PGPASSWORD=postgres_007%
 
 Notice that `--server=true` is only needed in case of server based startup, to avoid the local user interface. Besides, `--listenHost=0.0.0.0` is needed to access TileMill installed on a remote server (not necessary when doing http://localhost:20009).
 
-## Access the map from your browser
-
-With your browser, access the map through <http://localhost:20009>
-
-Notice that *Https* will not work (use http instead).
-
-Accessing the database and rendering images is often a slow process (mainly depending on the amount of data to be managed, but also on the server performance and on the network), so give many seconds to TileMill to output or refresh the map.
+{% include_relative _includes/start-tilemill.md os='Ubuntu' script='scripts\yaml2mml.py' program='TileMill' %}
 
 {% include_relative _includes/edit-the-stylesheets.md editor='*vi*' script='scripts/yaml2mml.py' program='TileMill' %}

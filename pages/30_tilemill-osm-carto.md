@@ -31,7 +31,7 @@ When downloading the software reported in this procedure, always verify that you
 ### Install Tilemill
 
 Install Tilemill; the latest working version at the moment should be
-http://tilemill.s3.amazonaws.com/dev/TileMill-v0.10.1-291-g31027ed-Setup.exe
+<http://tilemill.s3.amazonaws.com/dev/TileMill-v0.10.1-291-g31027ed-Setup.exe>
 
 Even if Tilemill has a GitHub repository (https://github.com/mapbox/tilemill) including the most recent updates, with Windows it is suggested to proceed with the standard setup, which automatically installs and configures Mapnik/node-mapnik. A procedure to upgrade Tilemill and Mapnik over Windows without recompiling is not currently documented.
 
@@ -39,7 +39,7 @@ Even if Tilemill has a GitHub repository (https://github.com/mapbox/tilemill) in
 
 Download PostgreSQL (avoid using beta versions as also PostGIS shall be needed (check first the PostGIS compatibility with the version you are going to download):
 
-http://www.enterprisedb.com/products-services-training/pgdownload#windows
+<http://www.enterprisedb.com/products-services-training/pgdownload#windows>
 
 For instance: postgresql-9.5.3-1-windows-x64.exe (for a Windows 64 bit system)
 
@@ -66,7 +66,7 @@ Installation of PostGIS:
 
 Open pgAdmin and store the above mentioned password.
 
-Open a CMD (Command Prompt). Change directory (cd) to %programfiles%\PostgreSQL\*version*\bin (e.g., cd C:\Program Files\PostgreSQL\9.5\bin) and run these commands:
+Open a CMD (Command Prompt). Change directory (cd) to `%programfiles%\PostgreSQL\*version*\bin` (e.g., `cd C:\Program Files\PostgreSQL\9.5\bin`) and run these commands:
 
 ```batchfile
 setx PGHOST localhost
@@ -101,11 +101,11 @@ Then all creation commands must be issued again.
 
 ### Install osm2pgsql
 
-Download osm2pgsql for Windows (http://wiki.openstreetmap.org/wiki/Osm2pgsql#Windows):
+Download osm2pgsql for Windows (<http://wiki.openstreetmap.org/wiki/Osm2pgsql#Windows>):
 
-https://lists.openstreetmap.org/pipermail/dev/2013-February/026525.html
+<https://lists.openstreetmap.org/pipermail/dev/2013-February/026525.html>
 
-https://github.com/openstreetmap/osm2pgsql/issues/17
+<https://github.com/openstreetmap/osm2pgsql/issues/17>
 
 Check the appropriate version running on your OS architecture.
 
@@ -113,7 +113,7 @@ Put it to the same directory of the saved .osm file
 
 ### Install Python
 
-Install Python 2.7 from https://www.python.org/downloads/
+Install Python 2.7 from <https://www.python.org/downloads/>
 
 Run the setup: when it comes to the point of adding environment variables, say Yes.
 
@@ -121,7 +121,7 @@ Python is needed to convert project.yaml (from openstreetmap-carto) to project.m
 
 ### Install openstreetmap-carto
 
-Open https://github.com/gravitystorm/openstreetmap-carto and press "Download ZIP"
+Open <https://github.com/gravitystorm/openstreetmap-carto> and press "Download ZIP"
 
 Save it to `%USERPROFILE%\Documents\MapBox\project\`
 (this path should conform to Tilemill Settings: `~\Documents\MapBox`)
@@ -178,7 +178,7 @@ alternatively:
 
 Create a folder to place shapeindex.exe.
 
-Download the Win32 ZIP package of Mapnik from http://mapnik.org/pages/downloads.html, open it with 7Zip (install it from http://www.7-zip.org) and extract `shapeindex.exe`; move this file and all related DLL files to the previously created folder. This is needed by `get-shapefiles.py` to speed-up the access to the shapefiles. Notice that the DLL files can be found in the lib directory of the ZIP file; all them have to be saved to the bin directory together with `shapeindex.exe`.
+Download the Win32 ZIP package of Mapnik from <http://mapnik.org/pages/downloads.html>, open it with 7Zip (install it from http://www.7-zip.org) and extract `shapeindex.exe`; move this file and all related DLL files to the previously created folder. This is needed by `get-shapefiles.py` to speed-up the access to the shapefiles. Notice that the DLL files can be found in the lib directory of the ZIP file; all them have to be saved to the bin directory together with `shapeindex.exe`.
 
 Set the PATH appropriately:
 
@@ -221,28 +221,7 @@ Revise all points.
 
 Check in detail the content of [INSTALL.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md).
 
-### Tilemill
-
-Start Tilemill. The application needs a few seconds to start, so be patient.
-
-Select project *Openstreetmap Carto*
-
-Give Tilemill the time to render the map (this might take many seconds); zoom out to the entire world shape (zoom level 1), then progressively zoom into the region where you downloaded the map data. You might use the double click and wait for the next zoom level to appear.
-
-On the right pane, it is normal that only the first 4 tabs are displayed; this is an issue of the installed old Tilemill version. (Check https://github.com/mapbox/tilemill/pull/2184)
-
-You shouldn't use the text editor built-in to TileMill: it doesn't work with the number of .mss files in the style. Instead, hide the right pane and use an external text editor.
-
-Tilemill automatically refreshes the rendering upon any file change, including all mss and project.mml (notice that also a change in project.yaml activates a new rendering; anyway, remember to also run `scripts\yaml2mml.py`).
-
-Note: to open Tilemill with a browser:
-
-- <http://127.0.0.1:20009>
-- <http://127.0.0.1:20009/#/project/openstreetmap-carto>
-
-## TileMill documentation
-
-* [TileMill GitHub project](https://github.com/tilemill-project/tilemill)
-* [TileMill GitHub Documentation](http://tilemill-project.github.io/tilemill/)
+## Start TileMill
+{% include_relative _includes/start-tilemill.md os='Windows' script='scripts\yaml2mml.py' program='TileMill' %}
 
 {% include_relative _includes/edit-the-stylesheets.md editor='Atom, gedit, TextWrangler, Notepad++' script='scripts\yaml2mml.py' program='Tilemill' %}
