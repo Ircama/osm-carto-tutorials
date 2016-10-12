@@ -73,7 +73,6 @@ Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/maste
 ## Create the *data* folder
 
 ```
-sudo apt install unzip
 cd
 cd openstreetmap-carto
 scripts/get-shapefiles.py # or ./get-shapefiles.sh (if get-shapefiles.py is not available)

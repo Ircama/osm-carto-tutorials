@@ -93,7 +93,7 @@ You can configure the other parameters (like the db ones: dbname, password, user
 
 Read [local config](https://github.com/kosmtik/kosmtik#local-config) for further information.
 
-{% include_relative _includes/firewall-postgis-inst.md %}
+{% include_relative _includes/firewall-postgis-inst.md port=6789 %}
 
 ## Start Kosmtik
 

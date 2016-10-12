@@ -1,6 +1,6 @@
 ## Configure the firewall
 
-If you are preparing a remote virtual machine, configure the firewall to allow remote access to the local port 6789.
+If you are preparing a remote virtual machine, configure the firewall to allow remote access to the local port {{ include.program }}.
 
 If you run a cloud based VM, also the VM itself shall be set to open this port.
 
@@ -12,12 +12,16 @@ Currently the tested versions are PostgreSQL 9.5 and PostGIS 2.2:
 
 Also older PostgreSQL version should be suitable.
 
+On Ubuntu there are pre-packaged versions of both postgis and postgresql, so these can simply be installed via the Ubuntu package manager.
+
 ```
 sudo apt-get update
 sudo apt-get install postgresql postgis pgadmin3 postgresql-contrib
 ```
 
 Note: used PostgeSQL port is 5432 (default).
+
+A user named postgres will be created during the installation process.
 
 ## Set the password for the *postgres* user
 
@@ -32,14 +36,18 @@ This is just an example of password, you can use the one you prefer.
 
 ## Create the PostGIS instance
 
+Now you need to create a postgis database. The defaults of various programs including openstreetmap-carto (ref. project.yaml) assume the database is called *gis*. You need to set up PostGIS on the PostgreSQL database.
+
 ```
 export PGPASSWORD=postgres_007%
 HOSTNAME=localhost # set it to the actual ip address or host name
-psql -U postgres -h $HOSTNAME -c "create database gis"
+psql -U postgres -h $HOSTNAME -c "create database gis" # alternative command: createdb -E UTF8 -O postgres gis
 psql -U postgres -h $HOSTNAME -c "\connect gis"
 psql -U postgres -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
 psql -U postgres -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
 ```
+
+The character encoding scheme to be used in the database is UTF8.
 
 {% include_relative _includes/download-osm-data.md %}
 

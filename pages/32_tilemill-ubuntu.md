@@ -63,7 +63,7 @@ export PGUSER=postgres
 export PGPASSWORD=postgres_007%
 ```
 
-{% include_relative _includes/firewall-postgis-inst.md %}
+{% include_relative _includes/firewall-postgis-inst.md port=20009 %}
 
 ## Start TileMill
 
