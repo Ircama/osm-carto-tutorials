@@ -71,7 +71,7 @@ Otherwise (with Ubuntu):
 
     $ sudo apt-get update
     $ sudo apt-get install build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip
-    $ sudo apt-get install git
+    $ sudo apt-get install git unzip curl
 
 Windows or Mac users might install [GitHub Desktop](https://desktop.github.com/), which includes *git*.
 

@@ -14,7 +14,7 @@ Tile servers:
   * [orm.openstreetmap](https://hardware.openstreetmap.org/servers/orm.openstreetmap.org/)
   * [yevaud.openstreetmap](https://hardware.openstreetmap.org/servers/yevaud.openstreetmap.org/)
 
-* Main sw configuration of the tile servers (information from [Upgrade tileservers to mapnik3 - chef issue log](https://github.com/openstreetmap/chef/issues/39)):
+* Main sw configuration of the tile servers (information from [Upgrade tileservers to mapnik3 - chef issue log](https://github.com/openstreetmap/chef/issues/39) and from [here](https://github.com/gravitystorm/openstreetmap-carto/issues/2080#issuecomment-249390120)):
 
   * O.S. version: Ubuntu 16.04.1 LTS (old outdated ref. [here](https://github.com/openstreetmap/operations/issues/104))
   * Mapnik version: 3.0.9 in 2.1 compatibility ([reason](https://github.com/gravitystorm/openstreetmap-carto/pull/2383))

@@ -129,7 +129,9 @@ Notice that OpenStreetData uses the Web Mercator projection (defined in project.
 
 ## Development and testing environment
 
-The development environment based on [Kosmtik](https://github.com/kosmtik) reflects the OSM architecture through a local toolchain.
+The best platform to perform CartoCSS customizations is [Kosmtik](https://github.com/kosmtik). Also [TileMill](../tilemill-ubuntu) can be used.
+
+The development environment based on Kosmtik reflects the OSM architecture through a local toolchain.
 
 |project.yaml ![yml][yml]       | |osm-carto CartoCSS styles (.mml) ![css][css]|
 |                               |↘|↓|
