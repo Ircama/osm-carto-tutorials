@@ -10,9 +10,7 @@ sitemap: false
 
 The following step-by-step procedure can be used to install, setup and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu.
 
-Software installation
-
-The OSM tile server stack is a collection of programs and libraries that work together to create a tile server. As so often with OpenStreetMap, there are many ways to achieve this goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the most standard version that is also used on the main OpenStreetMap.org tile server.
+The OSM tile server stack is a collection of programs and libraries chained together to create a tile server. As so often with OpenStreetMap, there are many ways to achieve this goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the most standard version that is also used on the main OpenStreetMap.org tile server.
 
 It consists of the following main components:
 
@@ -25,8 +23,6 @@ It consists of the following main components:
 * openstreetmap-carto
 
 Mod_tile is an apache module that serves cached tiles and decides which tiles need re-rendering either because they are not yet cached or because they are outdated. Renderd provides a priority queueing system for rendering requests to manage and smooth out the load from rendering requests. Mapnik is the software library that does the actual rendering and is used by renderd.
-
-We consider using Ubuntu 16.04.1 LTS Xenial, Ubuntu 15.4 Vivid or Ubuntu 14.04.3 LTS Trusty (other versions should work).
 
 {% include_relative _includes/update-ubuntu.md %}
 
@@ -60,7 +56,23 @@ If python replies with the second chevron prompt >>> and without errors, then Ma
 
 >>> quit()
 
+## Install Apache HTTP Server
 
+The [Apache](https://en.wikipedia.org/wiki/Apache_HTTP_Server) free open source HTTP Server is among the most popular web servers in the world. It's [well-documented](https://httpd.apache.org/), and has been in wide use for much of the history of the web, which makes it a great default choice for hosting a website.
+
+To install apache:
+
+    sudo apt-get install apache2 apache2-dev
+
+To check if Apache is installed, direct your browser to your server’s IP address (eg. http://localhost). The page should display the default Apache home page. Also this command allows checking correct working:
+
+    curl localhost| grep 'It works!'
+
+## How to Find your Server’s IP address
+
+You can run the following command to reveal your server’s IP address on its main Ethernet interface.
+
+    ifconfig eth0 | grep inet | awk '{ print $2 }'
 
 ## Install mod_tile
 
@@ -107,7 +119,7 @@ export PGUSER=postgres
 export PGPASSWORD=postgres_007%
 ```
 
-{% include_relative _includes/firewall-postgis-inst.md port=80 %}
+{% include_relative _includes/firewall-postgis-inst.md port='80 and local port 443' %}
 
 
 

@@ -1,4 +1,6 @@
-## General recommendations for Ubuntu
+We consider using Ubuntu 16.04.1 LTS Xenial, Ubuntu 15.4 Vivid or Ubuntu 14.04.3 LTS Trusty Tahr (other versions should work).
+
+## General setup for Ubuntu
 
 ### Update Ubuntu
 
@@ -10,7 +12,7 @@ Make sure your Ubuntu system is fully up-to-date:
 
 ### Install essential tools
 
-    sudo apt-get install curl unzip gdal-bin
+    sudo apt-get install curl unzip gdal-bin tar wget bzip2
 
 ### Configure a swap
 

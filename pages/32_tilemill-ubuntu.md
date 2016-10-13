@@ -20,8 +20,6 @@ Additional information:
 
 A PostGIS database is needed and can be installed locally (suggested) or remotely (might be slow, depending on the network).
 
-We consider using Ubuntu 16.04.1 LTS Xenial, Ubuntu 15.4 Vivid or Ubuntu 14.04.3 LTS Trusty (other versions should work).
-
 {% include_relative _includes/update-ubuntu.md %}
 
 {% include_relative _includes/install-git-nodejs.md program='TileMill' %}
