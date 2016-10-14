@@ -535,7 +535,6 @@ a.sidebar-nav-item:focus {
 }
 
 @media print {
-
   * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
   body{font-size:11pt; max-width:100%;}
   a:not(.github-commit), a:not(.github-commit):visited { text-decoration: underline; }
@@ -605,6 +604,54 @@ a.sidebar-nav-item:focus {
   table.drawing td img {
     padding-left: 2px;
   }
+
+  h1 {
+      text-align: left !important;
+      counter-increment: c1;
+      counter-reset: c4;
+      counter-reset: c3;
+      counter-reset: c2;
+  }
+  
+  h2 {
+      counter-increment: c2;
+      counter-reset: c3;
+      counter-reset: c4;
+  }
+  
+  h3 {
+      counter-increment: c3;
+      counter-reset: c4;
+  }
+
+  h4 {
+      counter-increment: c4;
+  }
+  
+  h1:before,
+  h2:before,
+  h3:before,
+  h4:before {
+      padding-right: 0.25cm;
+  }
+
+  h1:before {
+      content: "Chapter " counter(c1) "\a\a";
+      white-space: pre;
+  }
+  
+  h2:before {
+      content: counter(c1) "." counter(c2);
+  }
+  
+  h3:before {
+      content: counter(c1) "." counter(c2) "." counter(c3);
+  }
+
+  h4:before {
+      content: counter(c1) "." counter(c2) "." counter(c3) "." counter(c4);
+  }
+
 }
 
 /* Slide effect

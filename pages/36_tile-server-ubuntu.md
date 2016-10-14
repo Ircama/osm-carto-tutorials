@@ -26,25 +26,36 @@ Mod_tile is an apache module that serves cached tiles and decides which tiles ne
 
 {% include_relative _includes/update-ubuntu.md %}
 
-
-
-
 ## Install Mapnik library
 
-We need to install the Mapnik library. Mapnik is used to render the OpenStreetMap data into the tiles used for an OpenLayers web map.
+We need to install the Mapnik library. Mapnik is used to render the OpenStreetMap data into the tiles managed by the Apache web server through *renderd* and *mod_tile*.
 
 Build the Mapnik library from source:
 
-cd
-git clone git://github.com/mapnik/mapnik
-cd mapnik
-git branch 2.2 origin/2.2.x
-git checkout 2.2
+    cd
+    git clone https://github.com/mapnik/mapnik.git --depth 10
+    cd mapnik
+    git submodule update --init
+    sudo apt-get install python zlib1g-dev clang make pkg-config curl
+    #source bootstrap.sh
+    ./configure
+    make
 
-python scons/scons.py configure INPUT_PLUGINS=all OPTIMIZATION=3 SYSTEM_FONTS=/usr/share/fonts/truetype/
-make
-sudo make install
-sudo ldconfig
+    make test # test Mapnik without needing to install
+    
+    sudo make install # install Mapnik
+
+
+
+
+
+
+
+
+
+
+
+
 
 Verify that Mapnik has been installed correctly:
 
@@ -110,14 +121,7 @@ Compile and install
     scripts/yaml2mml.py
     carto project.mml > style.xml
 
-## Set the environment variables
-
-```
-export PGHOST=localhost
-export PGPORT=5432
-export PGUSER=postgres
-export PGPASSWORD=postgres_007%
-```
+{% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
 {% include_relative _includes/firewall-postgis-inst.md port='80 and local port 443' %}
 

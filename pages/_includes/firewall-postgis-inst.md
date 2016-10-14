@@ -21,16 +21,16 @@ sudo apt-get install postgresql postgis pgadmin3 postgresql-contrib
 
 Note: used PostgeSQL port is 5432 (default).
 
-A user named postgres will be created during the installation process.
+A user named {{ pg_user }} will be created during the installation process.
 
-## Set the password for the *postgres* user
+## Set the password for the *{{ pg_user }}* user
 
 ```
-sudo -u postgres psql postgres
-\password postgres
+sudo -u {{ pg_user }} psql postgres
+\password {{ pg_user }}
 ```
 
-Enter the following password twice: postgres_007%
+Enter the following password twice: {{ pg_password }}
 
 This is just an example of password, you can use the one you prefer.
 
@@ -39,12 +39,12 @@ This is just an example of password, you can use the one you prefer.
 Now you need to create a postgis database. The defaults of various programs including openstreetmap-carto (ref. project.yaml) assume the database is called *gis*. You need to set up PostGIS on the PostgreSQL database.
 
 ```
-export PGPASSWORD=postgres_007%
+export PGPASSWORD={{ pg_password }}
 HOSTNAME=localhost # set it to the actual ip address or host name
-psql -U postgres -h $HOSTNAME -c "create database gis" # alternative command: createdb -E UTF8 -O postgres gis
-psql -U postgres -h $HOSTNAME -c "\connect gis"
-psql -U postgres -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
-psql -U postgres -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
+psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis" # alternative command: createdb -E UTF8 -O {{ pg_user }} gis
+psql -U {{ pg_user }} -h $HOSTNAME -c "\connect gis"
+psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
+psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
 ```
 
 The character encoding scheme to be used in the database is UTF8.
@@ -96,7 +96,7 @@ rm -rf osm2pgsql
 cd
 cd openstreetmap-carto
 HOSTNAME=localhost # set it to the actual ip address or host name
-osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style -H $HOSTNAME -U postgres [.osm or .pbf file]
+osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
 
 Note: if you get the following error:
@@ -127,7 +127,7 @@ openstreet-carto shall be installed first.
 HOSTNAME=localhost # set it to the actual ip address or host name
 cd
 cd openstreet-carto
-scripts/indexes.py | psql -U postgres -h $HOSTNAME -d gis
+scripts/indexes.py | psql -U {{ pg_user }} -h $HOSTNAME -d gis
 ```
 
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.

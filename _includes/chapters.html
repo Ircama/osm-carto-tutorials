@@ -1,0 +1,46 @@
+{% assign counter = -1 %}
+{% assign chapter = 0 %}
+
+{% assign node_list = site.notes | sort:"name" %}
+{% assign pages_list = site.pages | sort:"name" %}
+
+{% for node in node_list %}
+  {% if node.title != null %}
+    {% if node.layout == "homepage" %}
+      {% if node.sitemap != false %}
+        {% assign counter = counter | plus: 1 %}
+      {% endif %}
+      {% if page.path == node.path %}
+        {% assign chapter = counter %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% for node in pages_list %}
+  {% if node.title != null %}
+    {% if node.layout == "page" %}
+      {% if node.sitemap != false %}
+        {% assign counter = counter | plus: 1 %}
+      {% endif %}
+      {% if page.path == node.path %}
+        {% assign chapter = counter %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% for node in node_list %}
+  {% if node.title != null %}
+    {% if node.layout == "note" %}
+      {% if node.sitemap != false %}
+        {% assign counter = counter | plus: 1 %}
+      {% endif %}
+      {% if page.path == node.path %}
+        {% assign chapter = counter %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<style>@media print { h1 { counter-reset: c1 {{ chapter }}; } }</style>

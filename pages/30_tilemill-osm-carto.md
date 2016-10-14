@@ -47,7 +47,7 @@ For instance: postgresql-9.5.3-1-windows-x64.exe (for a Windows 64 bit system)
 
 Use the following configuration steps for PostgreSQL:
 
-- Password: postgres_007%
+- Password: {{ pg_password }}
 - Port: 5432 (default)
 - Default locale
 - Next (install)
@@ -68,12 +68,7 @@ Open pgAdmin and store the above mentioned password.
 
 Open a CMD (Command Prompt). Change directory (cd) to `%programfiles%\PostgreSQL\*version*\bin` (e.g., `cd C:\Program Files\PostgreSQL\9.5\bin`) and run these commands:
 
-```batchfile
-setx PGHOST localhost
-setx PGPORT 5432
-setx PGUSER postgres
-setx PGPASSWORD postgres_007%
-```
+{% include_relative _includes/configuration-variables.md os='Windows' %}
 
 The above mentioned commands are needed by Tilemill to connect to the PostgreSQL db with the default settings of openstreetmap-carto.
 
@@ -83,17 +78,17 @@ Notice that 'setx' should be used to configure variables (defining variables wit
 
 ```batchfile
 psql --help (to verify that psql works)
-psql -h localhost -U postgres -c "create database gis"
-psql -h localhost -U postgres -c "\connect gis"
-psql -h localhost -U postgres -d gis -c "CREATE EXTENSION postgis"
-psql -h localhost -U postgres -d gis -c "CREATE EXTENSION hstore"
+psql -h localhost -U {{ pg_user }} -c "create database gis"
+psql -h localhost -U {{ pg_user }} -c "\connect gis"
+psql -h localhost -U {{ pg_user }} -d gis -c "CREATE EXTENSION postgis"
+psql -h localhost -U {{ pg_user }} -d gis -c "CREATE EXTENSION hstore"
 ```
 
 Notice that, in order to get compatibility with project.yaml, the dbname shall remain "gis" and cannot be changed via the variables.
 
 NOTE: To drop the database, in case of full data refresh, you can perform:
 
-`psql -h localhost -U postgres -c "drop database gis"`
+`psql -h localhost -U {{ pg_user }} -c "drop database gis"`
 
 Then all creation commands must be issued again.
 

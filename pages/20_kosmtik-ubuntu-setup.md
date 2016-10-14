@@ -48,6 +48,8 @@ See [Start Kosmtik](#start-kosmtik).
 
 {% include_relative _includes/complete-inst-osm-carto.md cdprogram='' %}
 
+{% include_relative _includes/configuration-variables.md os='none' %}
+
 ## Create *localconfig.json*
 
 Using your favourite editor, create a file named *localconfig.json* in the *openstreetmap-carto* directory, including the following:
@@ -65,8 +67,8 @@ Using your favourite editor, create a file named *localconfig.json* in the *open
         },
         "then": {
             "Datasource.dbname": "gis",
-            "Datasource.password": "postgres_007%",
-            "Datasource.user": "postgres",
+            "Datasource.password": "{{ pg_password }}",
+            "Datasource.user": "{{ pg_user }}",
             "Datasource.host": "localhost"
         }
     },

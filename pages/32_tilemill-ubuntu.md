@@ -52,14 +52,7 @@ See [Start TileMill](#start-tilemill).
 
 {% include_relative _includes/complete-inst-osm-carto.md cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
 
-## Set the environment variables
-
-```
-export PGHOST=localhost
-export PGPORT=5432
-export PGUSER=postgres
-export PGPASSWORD=postgres_007%
-```
+{% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
 {% include_relative _includes/firewall-postgis-inst.md port=20009 %}
 
