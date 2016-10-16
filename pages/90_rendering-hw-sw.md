@@ -2,9 +2,10 @@
 layout: page
 title: Hw and sw configuration of OSM production tile servers
 permalink: /rendering-hw-sw/
-sitemap: false
 comments: true
 ---
+
+Summary of the hardware and software configuration of the OpenStreetMap production tile servers as found in some GitHub posts and sites.
 
 Tile servers:
 

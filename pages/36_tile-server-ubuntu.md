@@ -27,180 +27,11 @@ Mod_tile is an apache module that serves cached tiles and decides which tiles ne
 
 {% include_relative _includes/update-ubuntu.md %}
 
-## Install Mapnik library
+{% include_relative _includes/install-git-nodejs.md program='OpenStreetMap Tile Server' %}
 
-We need to install the Mapnik library. Mapnik is used to render the OpenStreetMap data into the tiles managed by the Apache web server through *renderd* and *mod_tile*.
+{% include_relative _includes/install-mapnik.md %}
 
-We report some alternative procedures to install Mapnik (in the consideration to run an updated version of Ubuntu).
-
-### Install Mapnik library from package
-
-Tested with Ubuntu 16.04 and Ubuntu 14.04; suggested as the preferred option to install Mapnik.
-
-    sudo apt-get install -y git autoconf libtool libxml2-dev libbz2-dev \
-      libgeos-dev libgeos++-dev libproj-dev gdal-bin libgdal1-dev g++ \
-      libmapnik-dev mapnik-utils python-mapnik
-
-This will most probably install Mapnik 2.2 on Ubuntu 14.04.3 LTS and Mapnik 3.0.9 on Ubuntu 16.04.1 LTS.
-
-Go to [check Mapnik installation](#verify-that-mapnik-has-been-correctly-installed).
-
-### Alternatively, install the lastest version of Mapnik from the GitHub nightly build
-
-First, remove any other old Mapnik packages:
-
-    sudo apt-get purge -y libmapnik* mapnik-* python-mapnik
-
-The [nightly build from master](https://launchpad.net/~mapnik/+archive/ubuntu/nightly-trunk) is directly from the [GitHub repository]https://github.com/mapnik/mapnik/commits/master):
-
-    sudo add-apt-repository ppa:mapnik/nightly-trunk
-    sudo apt-get update
-    sudo apt-get install -y git autoconf libtool libxml2-dev libbz2-dev \
-      libgeos-dev libgeos++-dev libproj-dev gdal-bin libgdal1-dev g++ \
-      libmapnik-dev mapnik-utils python-mapnik
-
-This will most probably install Mapnik 2.2 on Ubuntu 14.04.3 LTS and Mapnik 3.0.12 on Ubuntu 16.04.1 LTS.
-
-### Alternatively, install Mapnik from sources
-
-Refer to [Mapnik Ubuntu Installation](https://github.com/mapnik/mapnik/wiki/UbuntuInstallation) to for specific documentation.
-
-Refer to [Mapnik Releases](https://github.com/mapnik/mapnik/releases) for the latest version and changelog.
-
-Remove any other old Mapnik packages:
-
-    sudo apt-get purge -y libmapnik* mapnik-* python-mapnik
-    sudo add-apt-repository --remove -y ppa:mapnik/nightly-trunk
-
-Install prerequisites; first create a directory to load the sources:
-
-    test -d ~/src || mkdir  ~/src ; cd ~/src
-
-    sudo apt-get install -y libxml2-dev libfreetype6-dev \
-      libjpeg-dev libpng-dev libproj-dev libtiff-dev \
-      libcairo2 libcairo2-dev python-cairo python-cairo-dev \
-      libgdal1-dev git
-
-    sudo apt-get install -y build-essential python-dev libbz2-dev libicu-dev
-
-We need to install [Boost](http://www.boost.org/) either from package or from source.
-
-#### Install Boost from package
-
-    sudo apt-get install libboost-all-dev
-
-#### Alternatively, install the latest version of Boost from source
-
-    sudo apt-get purge -y libboost-all-dev # remove installation from package
-    cd ~/src
-    wget -O boost.tar.bz2 https://sourceforge.net/projects/boost/files/latest/download?source=files
-    tar xjf boost.tar.bz2
-    rm boost.tar.bz2
-    cd boost_*
-    ./bootstrap.sh
-    ./b2 stage toolset=gcc --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 -sICU_PATH=/usr/ --with-program_options --with-system link=shared
-    sudo ./b2 install toolset=gcc --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 -sICU_PATH=/usr/ --with-program_options --with-system link=shared -d0
-    sudo ldconfig && cd ~/
-
-#### Alternatively, install Boost from Mapnik PPA
-
-    sudo add-apt-repository ppa:mapnik/boost
-    sudo apt-get update
-    sudo apt-get install libboost-dev libboost-filesystem-dev libboost-program-options-dev libboost-python-dev libboost-regex-dev libboost-system-dev libboost-thread-dev 
-    sudo apt-get install \
-        libboost-filesystem-dev \
-        libboost-program-options-dev \
-        libboost-python-dev libboost-regex-dev \
-        libboost-system-dev libboost-thread-dev
-    sudo apt-get upgrade
-
-#### Install HarfBuzz from source
-
-[HarfBuzz](https://www.freedesktop.org/wiki/Software/HarfBuzz/) is an [OpenType](http://www.microsoft.com/typography/otspec/) text shaping engine.
-
-Check the lastest version [here](https://www.freedesktop.org/software/harfbuzz/release/)
-
-    cd ~/src
-    wget https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.3.2.tar.bz2
-    tar xf harfbuzz-1.3.2.tar.bz2
-    rm harfbuzz-1.3.2.tar.bz2
-    cd harfbuzz-1.3.2
-    ./configure && make && sudo make install
-    sudo ldconfig
-    cd ~/
-
-#### Build the Mapnik library from source
-
-    cd ~/src
-    git clone https://github.com/mapnik/mapnik.git --depth 10
-    cd mapnik
-    git submodule update --init
-    bash
-    source bootstrap.sh
-    ./configure && make
-
-If you get the error "`C++ compiler does not support C++11 standard (-std=c++11), which is required. Please upgrade your compiler`", check the following (it might happen on Ubuntu 14.4):
-
-    ./configure CXX=g++-4.8 CC=gcc-4.8 && make
-
-Alternative procedure (only if problems in the previous one):
-
-    cd ~/src
-    git clone https://github.com/mapnik/mapnik.git --depth 10
-    cd mapnik
-    git submodule update --init
-    ./configure
-    make
-
-Test Mapnik (without needing to install):
-
-    make test # some test might not pass
-    
-Install Mapnik:
-
-    sudo make install
-    cd ~/
-
-Python bindings are not included by default. You'll need to add those separately.
-
-    cd ~/src
-    git clone https://github.com/mapnik/python-mapnik.git
-    cd python-mapnik
-    sudo apt-get install python-setuptools
-    sudo apt-get install python3-setuptools
-    sudo apt-get install libboost-python-dev
-    sudo python setup.py develop
-    sudo python setup.py install
-
-## Verify that Mapnik has been correctly installed
-
-Report Mapnik version number:
-
-    mapnik-config -v
-
-Check then with Python:
-
-    python -c "import mapnik;print mapnik.__file__"
-
-It should return the path to the python bindings. If python replies without errors, then Mapnik library was found by Python.
-
-## Install Apache HTTP Server
-
-The [Apache](https://en.wikipedia.org/wiki/Apache_HTTP_Server) free open source HTTP Server is among the most popular web servers in the world. It's [well-documented](https://httpd.apache.org/), and has been in wide use for much of the history of the web, which makes it a great default choice for hosting a website.
-
-To install apache:
-
-    sudo apt-get install apache2 apache2-dev
-
-To check if Apache is installed, direct your browser to your server’s IP address (eg. http://localhost). The page should display the default Apache home page. Also this command allows checking correct working:
-
-    curl localhost| grep 'It works!'
-
-## How to Find your Server’s IP address
-
-You can run the following command to reveal your server’s IP address on its main Ethernet interface.
-
-    ifconfig eth0 | grep inet | awk '{ print $2 }'
+{% include_relative _includes/install-apache.md %}
 
 ## Install Mod_tile
 
@@ -218,8 +49,6 @@ You can run the following command to reveal your server’s IP address on its ma
     cd ~/
 
 {% include_relative _includes/complete-inst-osm-carto.md cdprogram='' %}
-
-{% include_relative _includes/install-git-nodejs.md program='OpenStreetMap Tile Server' %}
 
 ## Install carto and build the Mapnik xml stylesheet
 
