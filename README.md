@@ -14,7 +14,7 @@ Information on the usage of this theme can be found in [how to contribute](https
 
 * [Lanyon](http://lanyon.getpoole.com) theme, by [Mark Otto](https://github.com/mdo). Many modifications have been added on top.
 * [AnchorJS plugin](https://github.com/bryanbraun/anchorjs), (c) 2016 Bryan Braun; licensed MIT
-* [Table of Contents plugin for Bootstrap](https://afeld.github.io/bootstrap-toc/) (ScrollSpy plugin), (c) 2015 Aidan Feldman, licensed MIT (https://github.com/afeld/bootstrap-toc/blob/gh-pages/LICENSE.md), with some improvements
+* [Table of Contents plugin for Bootstrap](https://afeld.github.io/bootstrap-toc/) (ScrollSpy plugin), (c) 2015 Aidan Feldman, licensed MIT (https://github.com/afeld/bootstrap-toc/blob/gh-pages/LICENSE.md), with some improvements to support all headers from h1 to h6
 * [Bootstrap](getbootstrap.com)
 * [jQuery](https://jquery.com/)
 * [github.commits.widget](https://github.com/alexanderbeletsky/github-commits-widget), (c) 2012 Alexander Beletsky, with some improvements
@@ -36,15 +36,14 @@ This site can be cloned and reused freely. The following files and data are spec
 Summary of the main changes from the default Lanyon Theme:
 
  * additional settings in _config.yml
- * improved sidebar
+ * developed improved sidebar
  * revised css and js to allow fully responsive site for smartphones, tablets and different desktop resolutions
- * added appropriate style for print
- * added a smart site map
+ * developed extensive style for print including automatic chapter numbering
+ * developed a smart site map
  * improved Atom RSS
- * Added integration with Disqus, Google Search Custom, Google Analytics
+ * added integration with Disqus, Google Search Custom, Google Analytics
  * Home page revised
- * API integration with GitHub
  * improved lanyon.css and poole.css
- * Added features from [credits](https://github.com/ircama/osm-carto-tutorials/tree/gh-pages#credits): AnchorJS, Table of Contents (ScrollSpy), github.commits.widget, lanyon-plus icons, etc.
- * Added an extension of the Lanyon stylesheet which supports drawings.
+ * Added features from [credits](https://github.com/ircama/osm-carto-tutorials/tree/gh-pages#credits): AnchorJS, Table of Contents (ScrollSpy), github.commits.widget, lanyon-plus icons, etc. Developed a feature to support all headers from h1 to h6 in ToC. Developed an upgrade to github.commits.widget to support a one-line page commit summary through API integration with GitHub.
+ * Developed an extension of the Lanyon stylesheet which supports drawings.
  
