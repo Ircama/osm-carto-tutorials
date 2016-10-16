@@ -12,7 +12,7 @@ Make sure your Ubuntu system is fully up-to-date:
 
 ### Install essential tools
 
-    sudo apt-get install curl unzip gdal-bin tar wget bzip2
+    sudo apt-get -y install curl unzip gdal-bin tar wget bzip2
 
 ### Configure a swap
 
@@ -20,7 +20,7 @@ Importing and managing map data takes a lot of RAM and a swap is generally neede
 
 To check whether a swap partition is already configured on your system, use one of the following two commands:
 
-    swapon -s # reports the swap summary
+    swapon -s # reports the swap summary (no output means missing swap)
     
     free -h # check the line specifying 'Swap'
 

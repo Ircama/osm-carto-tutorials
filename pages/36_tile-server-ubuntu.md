@@ -14,11 +14,12 @@ The OSM tile server stack is a collection of programs and libraries chained toge
 
 It consists of the following main components:
 
+* Mapnik
+* Apache
 * Mod_tile
 * renderd
-* Mapnik
 * osm2pgsql
-* PostgreSQL/PostGIS database to be installed locally (suggested) or remotely (might be slow, depending on the network).
+* PostgreSQL/PostGIS database, to be installed locally (suggested) or remotely (might be slow, depending on the network).
 * carto
 * openstreetmap-carto
 
@@ -30,42 +31,162 @@ Mod_tile is an apache module that serves cached tiles and decides which tiles ne
 
 We need to install the Mapnik library. Mapnik is used to render the OpenStreetMap data into the tiles managed by the Apache web server through *renderd* and *mod_tile*.
 
-Build the Mapnik library from source:
+We report some alternative procedures to install Mapnik (in the consideration to run an updated version of Ubuntu).
 
-    cd
+### Install Mapnik library from package
+
+Tested with Ubuntu 16.04 and suggested as the preferred option to install Mapnik.
+
+    sudo apt-get install -y git autoconf libtool libxml2-dev libbz2-dev \
+      libgeos-dev libgeos++-dev libproj-dev gdal-bin libgdal1-dev g++ \
+      libmapnik-dev mapnik-utils python-mapnik
+
+This will most probably install Mapnik 2.2 on Ubuntu 14.04.3 LTS and Mapnik 3.0.9 on Ubuntu 16.04.1 LTS.
+
+Go to [check Mapnik installation](#verify-that-mapnik-has-been-correctly-installed).
+
+### Alternatively, install the lastest version of Mapnik from the GitHub nightly build
+
+First, remove any other old Mapnik packages:
+
+    sudo apt-get purge -y libmapnik* mapnik-* python-mapnik
+
+The [nightly build from master](https://launchpad.net/~mapnik/+archive/ubuntu/nightly-trunk) is directly from the [GitHub repository]https://github.com/mapnik/mapnik/commits/master):
+
+    sudo add-apt-repository ppa:mapnik/nightly-trunk
+    sudo apt-get update
+    sudo apt-get install -y git autoconf libtool libxml2-dev libbz2-dev \
+      libgeos-dev libgeos++-dev libproj-dev gdal-bin libgdal1-dev g++ \
+      libmapnik-dev mapnik-utils python-mapnik
+
+This will most probably install Mapnik 2.2 on Ubuntu 14.04.3 LTS and Mapnik 3.0.12 on Ubuntu 16.04.1 LTS.
+
+### Alternatively, install Mapnik from sources
+
+Refer to [Mapnik Ubuntu Installation](https://github.com/mapnik/mapnik/wiki/UbuntuInstallation) to for specific documentation.
+
+Refer to [Mapnik Releases](https://github.com/mapnik/mapnik/releases) for the latest version and changelog.
+
+Remove any other old Mapnik packages:
+
+    sudo apt-get purge -y libmapnik* mapnik-* python-mapnik
+    sudo add-apt-repository --remove -y ppa:mapnik/nightly-trunk
+
+Install prerequisites
+
+We need to install [Boost](http://www.boost.org/) either from package or from source.
+
+#### Install Boost from package
+
+    sudo apt-get install libboost-all-dev
+
+#### Alternatively, install the latest version of Boost from source
+
+    sudo apt-get purge -y libboost-all-dev # remove installation from package
+    test -d ~/src || mkdir  ~/src ; cd  ~/src
+    sudo apt-get install -y build-essential python-dev libbz2-dev libicu-dev
+    wget -O boost.tar.bz2 https://sourceforge.net/projects/boost/files/latest/download?source=files
+    tar xjvf boost.tar.bz2
+    rm boost.tar.bz2
+    cd boost_*
+    ./bootstrap.sh
+    ./b2 stage toolset=gcc --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 -sICU_PATH=/usr/ --with-program_options --with-system link=shared
+    sudo ./b2 install toolset=gcc --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 -sICU_PATH=/usr/ --with-program_options --with-system link=shared -d0
+    sudo ldconfig && cd ~/
+
+#### Alternatively, install Boost from Mapnik PPA
+
+    sudo add-apt-repository ppa:mapnik/boost
+    sudo apt-get update
+    sudo apt-get install libboost-dev libboost-filesystem-dev libboost-program-options-dev libboost-python-dev libboost-regex-dev libboost-system-dev libboost-thread-dev 
+    sudo apt-get install \
+        libboost-filesystem-dev \
+        libboost-program-options-dev \
+        libboost-python-dev libboost-regex-dev \
+        libboost-system-dev libboost-thread-dev
+    sudo apt-get upgrade
+
+#### Install other prerequisites
+
+    sudo apt-get install -y libxml2-dev libfreetype6-dev \
+      libjpeg-dev libpng-dev libproj-dev libtiff-dev \
+      libcairo2 libcairo2-dev python-cairo python-cairo-dev \
+      libgdal1-dev
+
+#### Install HarfBuzz from source
+
+[HarfBuzz](https://www.freedesktop.org/wiki/Software/HarfBuzz/) is an [OpenType](http://www.microsoft.com/typography/otspec/) text shaping engine.
+
+Check the lastest version [here](https://www.freedesktop.org/software/harfbuzz/release/)
+
+    cd ~/src
+    wget https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.3.2.tar.bz2
+    tar xf harfbuzz-1.3.2.tar.bz2
+    rm harfbuzz-1.3.2.tar.bz2
+    cd harfbuzz-1.3.2
+    ./configure && make && sudo make install
+    sudo ldconfig
+    cd ~/
+
+#### Build the Mapnik library from source
+
+    cd ~/src
     git clone https://github.com/mapnik/mapnik.git --depth 10
     cd mapnik
     git submodule update --init
-    sudo apt-get install python zlib1g-dev clang make pkg-config curl
-    #source bootstrap.sh
+    bash
+    source bootstrap.sh
     ./configure
     make
 
-    make test # test Mapnik without needing to install
+Alternative procedure (if problems in the previous one):
+
+    cd ~/src
+    git clone https://github.com/mapnik/mapnik.git --depth 10
+    cd mapnik
+    git submodule update --init
+    ./configure
+    make
+
+If you get the error "`C++ compiler does not support C++11 standard (-std=c++11), which is required. Please upgrade your compiler`", check the following:
+
+    sudo apt-get update -y
+    sudo apt-get install -y clang-3.6
+    export CXX="clang++-3.6" CC="clang-3.6"
+    ./configure CXX=${CXX} CC=${CC}
+    make
+
+Test Mapnik (without needing to install):
+
+    make test # some test might not pass
     
-    sudo make install # install Mapnik
+Install Mapnik:
 
+    sudo make install
+    cd ~/
 
+Python bindings are not included by default. You'll need to add those separately.
 
+    cd ~/src
+    git clone https://github.com/mapnik/python-mapnik.git
+    cd python-mapnik
+    sudo apt-get install python-setuptools
+    sudo apt-get install python3-setuptools
+    sudo apt-get install libboost-python-dev
+    sudo python setup.py develop
+    sudo python setup.py install
 
+## Verify that Mapnik has been correctly installed
 
+Report Mapnik version number:
 
+    mapnik-config -v
 
+Check then with Python:
 
+    python -c "import mapnik;print mapnik.__file__"
 
-
-
-
-
-Verify that Mapnik has been installed correctly:
-
-python
->>> import mapnik
->>>
-
-If python replies with the second chevron prompt >>> and without errors, then Mapnik library was found by Python. Congratulations! You can leave Python with this command:
-
->>> quit()
+It should return the path to the python bindings. If python replies without errors, then Mapnik library was found by Python.
 
 ## Install Apache HTTP Server
 
@@ -85,28 +206,20 @@ You can run the following command to reveal your server’s IP address on its ma
 
     ifconfig eth0 | grep inet | awk '{ print $2 }'
 
-## Install mod_tile
+## Install Mod_tile
 
-[Mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module that is required to serve tiles. We can compile it from Github repository.
+[Mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik. We can compile it from Github repository.
 
-First install build dependency.
-
-    sudo apt install git autoconf libtool libmapnik-dev apache2-dev
-
-Then clone the repository from Github.
-
+    cd ~/src
     git clone https://github.com/openstreetmap/mod_tile.git
-    
-    cd mod_tile/
-
-Compile and install
-
+    cd mod_tile
     ./autogen.sh
     ./configure
     make
     sudo make install
     sudo make install-mod_tile
     sudo ldconfig
+    cd ~/
 
 {% include_relative _includes/complete-inst-osm-carto.md cdprogram='' %}
 
@@ -355,6 +468,7 @@ sudo nano /var/www/osm/index.html
 
 Paste the following HTML code in the file. Replace red-colored text and adjust the longitude, latitude and zoom level according to your needs.
 
+```html
 <html>
 <head>
 <title>My first osm</title>
@@ -373,6 +487,7 @@ Paste the following HTML code in the file. Replace red-colored text and adjust t
 </script>
 </body>
 </html>
+```
 
 Save and close the file. Now you can view your slippy map by typing your server IP address in browser.
 
@@ -514,3 +629,19 @@ Finally, let’s wire this into the rest of our script. After we’ve added the 
 // then add this as a new function...
 function onMapMove(e) { askForPlots(); }
 ```
+
+
+
+
+
+
+
+
+
+
+
+Cose da controllare:
+http://tilemill-project.github.io/tilemill/docs/source/
+
+https://blog.gravitystorm.co.uk/
+https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/
