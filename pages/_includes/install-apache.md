@@ -4,7 +4,7 @@ The [Apache](https://en.wikipedia.org/wiki/Apache_HTTP_Server) free open source 
 
 To install apache:
 
-    sudo apt-get install apache2 apache2-dev
+    sudo apt-get install -y apache2 apache2-dev
 
 To check if Apache is installed, direct your browser to the IP address of your server (eg. http://localhost). The page should display the default Apache home page. Also this command allows checking correct working:
 

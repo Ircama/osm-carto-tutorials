@@ -46,7 +46,9 @@ npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
     
 See [Start Kosmtik](#start-kosmtik).
 
-{% include_relative _includes/complete-inst-osm-carto.md cdprogram='' %}
+{% include_relative _includes/test-app.md cdprogram='' %}
+
+{% include_relative _includes/inst-osm-carto.md cdprogram='' %}
 
 {% include_relative _includes/configuration-variables.md os='none' %}
 
@@ -96,7 +98,7 @@ You can configure the other parameters (like the db ones: dbname, password, user
 
 Read [local config](https://github.com/kosmtik/kosmtik#local-config) for further information.
 
-{% include_relative _includes/firewall-postgis-inst.md port=6789 %}
+{% include_relative _includes/firewall-postgis-inst.md port=6789 cdprogram='' %}
 
 ## Start Kosmtik
 

@@ -125,13 +125,9 @@ The currently produced files are related to *motorway*, *trunk*, *primary*, *sec
 + Installation of prerequisite components with Ubuntu:
 
   ```
-    $ sudo apt-get install python-pip
-    $ sudo apt-get install python3-pip
-    $ sudo apt-get install libxml2-dev libxslt1-dev python-dev
-    $ sudo apt-get install python-lxml
-    $ sudo apt-get install python-colormath
-    $ sudo pip install colormath
-    $ sudo pip install lxml
+  sudo apt-get install -y python-pip python3-pip libxml2-dev libxslt1-dev python-dev python-lxml python-colormath
+  sudo pip install colormath
+  sudo pip install lxml
   ```
   
     Running the script:

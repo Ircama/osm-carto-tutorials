@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Installing the OpenStreetMap Tile Server on Ubuntu
+title: Installing an OpenStreetMap Tile Server on Ubuntu
 comments: true
 permalink: /tile-server-ubuntu/
 sitemap: false
@@ -37,62 +37,43 @@ Mod_tile is an apache module that serves cached tiles and decides which tiles ne
 
 [Mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik. We can compile it from Github repository.
 
-    cd ~/src
+    test -d ~/src || mkdir  ~/src ; cd ~/src
     git clone https://github.com/openstreetmap/mod_tile.git
     cd mod_tile
-    ./autogen.sh
-    ./configure
-    make
-    sudo make install
-    sudo make install-mod_tile
-    sudo ldconfig
+    ./autogen.sh && ./configure && make && sudo make install && sudo make install-mod_tile && sudo ldconfig
     cd ~/
 
-{% include_relative _includes/complete-inst-osm-carto.md cdprogram='' %}
+{% include_relative _includes/inst-osm-carto.md cdprogram='~/src' %}
 
 ## Install carto and build the Mapnik xml stylesheet
 
-    sudo apt-get install node-carto
+    sudo apt-get install -y node-carto
 
-    cd
+    cd ~/src
     cd openstreetmap-carto
     scripts/yaml2mml.py
     carto project.mml > style.xml
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
-{% include_relative _includes/firewall-postgis-inst.md port='80 and local port 443' %}
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% include_relative _includes/firewall-postgis-inst.md port='80 and local port 443' cdprogram='~/src' %}
 
 ## Configure *renderd*
 
 Next we need to plug renderd and mod_tile into the Apache webserver, ready to receive tile requests.
 
-Continuare da qui:
-https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/
+Edit *renderd* configuration file with your preferite editor:
 
-Edit renderd config file.
+    sudo vi /usr/local/etc/renderd.conf
 
-sudo nano /usr/local/etc/renderd.conf
+In the `[default]` section, change the value of XML and HOST to the following.
 
-In the [default] section, change the value of XML and HOST to the following.
+    XML=/home/tileserver/src/openstreetmap-carto/style.xml
+    HOST=localhost
 
-XML=/home/osm/openstreetmap-carto-2.41.0/style.xml
-HOST=localhost
+We suppose in the above example that your home directory is */home/tileserver*. Change it to your actual home directory.
 
-In [mapnik] section, change the value of plugins_dir.
+In `[mapnik]` section, change the value of `plugins_dir`.
 
 plugins_dir=/usr/lib/mapnik/3.0/input/
 
@@ -100,72 +81,82 @@ Save the file.
 
 Install renderd init script by copying the sample init script.
 
-sudo cp mod_tile/debian/renderd.init /etc/init.d/renderd
+    sudo cp ~/src/mod_tile/debian/renderd.init /etc/init.d/renderd
 
 Grant execute permission.
 
-sudo chmod a+x /etc/init.d/renderd
+    sudo chmod a+x /etc/init.d/renderd
 
 Edit the init script file
 
-sudo nano /etc/init.d/renderd
+    sudo vi /etc/init.d/renderd
 
 Change the following variable.
 
 DAEMON=/usr/local/bin/$NAME
 DAEMON_ARGS="-c /usr/local/etc/renderd.conf"
-RUNASUSER=osm
+RUNASUSER=tileserver
 
 Save the file.
 
-Create the following file and set osm the owner.
+We suppose in the above example that your user is *tileserver*. Change it to your actual user name.
 
-sudo mkdir -p /var/lib/mod_tile
+Create the following file and set tileserver the owner.
 
-sudo chown osm:osm /var/lib/mod_tile
+    sudo mkdir -p /var/lib/mod_tile
+
+    sudo chown tileserver:tileserver /var/lib/mod_tile
+
+Again change it to your actual user name.
 
 Then start renderd service
 
-sudo systemctl daemon-reload
+    sudo systemctl daemon-reload
+    
+    sudo systemctl start renderd
 
-sudo systemctl start renderd
+    sudo systemctl enable renderd
 
-sudo systemctl enable renderd
+## Configure Apache
 
-Step 8: Configure Apache
 
-Install apache web server
 
-sudo apt install apache2
+
+
+
+
+Continuare da qui:
+https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/
+
 
 Create a module load file.
 
-sudo nano /etc/apache2/mods-available/mod_tile.load
+    sudo vi /etc/apache2/mods-available/mod_tile.load
 
 Paste the following line into the file.
 
-LoadModule tile_module /usr/lib/apache2/modules/mod_tile.so
+    LoadModule tile_module /usr/lib/apache2/modules/mod_tile.so
 
 Create a symlink.
 
-sudo ln -s /etc/apache2/mods-available/mod_tile.load /etc/apache2/mods-enabled/
+    sudo ln -s /etc/apache2/mods-available/mod_tile.load /etc/apache2/mods-enabled/
 
 Then edit the default virtual host file.
 
-sudo nano /etc/apache2/sites-enabled/000-default.conf
+    sudo vi /etc/apache2/sites-enabled/000-default.conf
 
 Past the following line in <VirtualHost *:80>
 
-LoadTileConfigFile /usr/local/etc/renderd.conf
-ModTileRenderdSocketName /var/run/renderd/renderd.sock
-# Timeout before giving up for a tile to be rendered
-ModTileRequestTimeout 0
-# Timeout before giving up for a tile to be rendered that is otherwise missing
-ModTileMissingRequestTimeout 30
+    LoadTileConfigFile /usr/local/etc/renderd.conf
+    ModTileRenderdSocketName /var/run/renderd/renderd.sock
+    # Timeout before giving up for a tile to be rendered
+    ModTileRequestTimeout 0
+    # Timeout before giving up for a tile to be rendered that is otherwise missing
+    ModTileMissingRequestTimeout 30
 
 Save and close the file. Restart Apache.
 
-sudo systemctl restart apache2
+    sudo systemctl restart apache2
 
 Then in your web browser address bar, type
 
@@ -192,6 +183,7 @@ sudo nano /var/www/osm/index.html
 
 Paste the following HTML code in the file. Replace red-colored text and adjust the longitude, latitude and zoom level according to your needs.
 
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -260,6 +252,7 @@ Paste the following HTML code in the file. Replace red-colored text and adjust t
 </script>
 </body>
 </html>
+```
 
 Save and close the file. Now you can view your slippy map by typing your server IP address in browser.
 

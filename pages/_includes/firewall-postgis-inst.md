@@ -16,7 +16,7 @@ On Ubuntu there are pre-packaged versions of both postgis and postgresql, so the
 
 ```
 sudo apt-get update
-sudo apt-get install postgresql postgis pgadmin3 postgresql-contrib
+sudo apt-get install -y postgresql postgis pgadmin3 postgresql-contrib
 ```
 
 Note: used PostgeSQL port is 5432 (default).
@@ -33,6 +33,8 @@ sudo -u {{ pg_user }} psql postgres
 Enter the following password twice: {{ pg_password }}
 
 This is just an example of password, you can use the one you prefer.
+
+Exit with Control-D.
 
 ## Create the PostGIS instance
 
@@ -57,7 +59,7 @@ Osm2pgsql is an OpenStreetMap specific software used to load the OSM data into t
 
 To install [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql):
 
-    sudo apt-get install osm2pgsql
+    sudo apt-get install -y osm2pgsql
 
 ### Alternative installation procedure
 
@@ -65,7 +67,7 @@ This alternative installation procedure generates the most updated executable by
 
 ```
 # Needed dependencies
-sudo apt-get install make cmake g++ libboost-dev libboost-system-dev \
+sudo apt-get install -y make cmake g++ libboost-dev libboost-system-dev \
   libboost-filesystem-dev libexpat1-dev zlib1g-dev \
   libbz2-dev libpq-dev libgeos-dev libgeos++-dev libproj-dev lua5.2 \
   liblua5.2-dev
@@ -93,7 +95,7 @@ rm -rf osm2pgsql
 ## Load data to PostGIS
 
 ```
-cd
+cd {{ include.cdprogram }}
 cd openstreetmap-carto
 HOSTNAME=localhost # set it to the actual ip address or host name
 osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
@@ -119,14 +121,24 @@ Information taken from [switch2osm](https://switch2osm.org/loading-osm-data).
 
 The default PostgreSQL settings aren’t great for very large databases like OSM databases. Proper tuning can just about double the performance you’re getting. The most important PostgreSQL settings to change are `maintenance_work_mem` and `work_mem`, both which should be increased for faster data loading and faster queries while rendering respectively. Conservative settings for a 2GB VM are `work_mem=16MB` and `maintenance_work_mem=128MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`. An overview to tuning PostgreSQL can be found on the [PostgreSQL Wiki](https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server), but adjusting `maintenance_work_mem` and `work_mem` are probably enough on a development or testing machine.
 
+To edit the PostgreSQL configuration file with *vi* editor:
+
+    sudo vi /etc/postgresql/9.5/main/postgresql.conf
+
+To stop and start the database:
+
+    sudo /etc/init.d/postgresql stop
+
+    sudo /etc/init.d/postgresql start
+
 ## Create indexes
 
 openstreet-carto shall be installed first.
 
 ```
 HOSTNAME=localhost # set it to the actual ip address or host name
-cd
-cd openstreet-carto
+cd {{ include.cdprogram }}
+cd openstreetmap-carto
 scripts/indexes.py | psql -U {{ pg_user }} -h $HOSTNAME -d gis
 ```
 

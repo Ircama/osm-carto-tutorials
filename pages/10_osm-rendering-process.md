@@ -48,7 +48,8 @@ The following diagram represents the process to populate the PostGIS instance wi
 |                                     | |↑|
 |                                     | |openstreetmap-carto.lua ![lua][lua]|
 {: .drawing}
-.
+
+<br />
 
 *OSM data extract* is a `.osm` file in XML format ([JOSM file format](http://wiki.openstreetmap.org/wiki/JOSM_file_format)) created with [JOSM](https://josm.openstreetmap.de/) or [downloaded from OSM]((http://wiki.openstreetmap.org/wiki/Downloading_data)); alternatively it can be a `.pbf` file in compressed binary format ([Protocolbuffer Binary Format](http://wiki.openstreetmap.org/wiki/PBF_Format)), downloaded from sites like [Geofabrik](http://download.geofabrik.de/).
 
@@ -103,7 +104,19 @@ OpenStreetMap Carto adopts file formats that are [much easier to maintain](https
 |                                      | |         ↓                   | ||
 |osm-carto CartoCSS styles (.mml) ![css][css]|→|**carto** ![prg][prg]        |→|Mapnik XML ![xml][xml]|
 {: .drawing}
-.
+
+<br />
+
+As an example, at the time of writing these are the sizes of the three files:
+
+| 113189 bytes|project.yaml![yml][yml]||all **.mms*: 234773 bytes ![css][css]|
+|       |        ↓   |||
+| 138485 bytes|project.mml ![json][json]||all **.mms*: 234773 bytes ![css][css]|
+|       |        ↓   |||
+|2077776 bytes|style.xml   ![xml][xml]|||
+{: .drawing}
+
+<br />
 
 ### Process to render data
 
@@ -121,7 +134,8 @@ The process to generate the Mapnik XML file from the OpenStreetMap Carto sources
 |                             | |↑|
 |                             | |shapefiles *data* directory ![shape][shape]|
 {: .drawing}
-.
+
+<br />
 
 Some description of the rendering with the standard tile layer is described [here](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) and [here](http://wiki.openstreetmap.org/wiki/Coastline#Rendering_in_Standard_tile_layer_on_openstreetmap.org).
 
@@ -139,7 +153,8 @@ The development environment based on Kosmtik reflects the OSM architecture throu
 |                               |↗|↑|
 |localconfig.json ![json][json] | |shapefiles *data* directory ![shape][shape]|
 {: .drawing}
-.
+
+<br />
 
 Kosmtik includes Carto, [node-mapnik](https://github.com/mapnik/node-mapnik) and an internal node-js tileset web service.
 

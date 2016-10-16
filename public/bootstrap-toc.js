@@ -1,7 +1,41 @@
 /*!
  * Bootstrap Table of Contents v<%= version %> (http://afeld.github.io/bootstrap-toc/)
  * Copyright 2015 Aidan Feldman
- * Licensed under MIT (https://github.com/afeld/bootstrap-toc/blob/gh-pages/LICENSE.md) */
+ * Licensed under MIT (https://github.com/afeld/bootstrap-toc/blob/gh-pages/LICENSE.md)
+ *
+ * Modified by Ircama, 2016; added the following options:
+ * - headings (string or unset): if set to a list of headers, all of them
+ *   are searched instead of the first one declared and of its subsequent heading.
+ *   example: headings: 'h1,h2,h3,h4,h5,h6' (in this case, all of them are searched and
+ *   not only h2 and h3 in case h2 is the first found header in the document.
+ * - class: (string or unset): if set to a string, the name is used as class basename
+ *   for each description; related extension is the header level. If not set, the
+ *   default baseline is 'toc-nav-h'. Example: a first level description (h1) has class
+ *   toc-nav-h1, a second level description (h2) has class toc-nav-h2, etc. If the
+ *   option is set to e.g. 'my-class', a first level description (h1) will have class
+ *   my-class-h1, a second level description (h2) will have class my-class-h2, etc.
+ * Example of usage:
+ *     Toc.init($myNav, {
+ *       headings: 'h1,h2,h3,h4,h5,h6',
+ *       class: 'my-class'
+ *     });
+ * Other full usage example, where also scrollspy 'target' and 'offset' options are used:
+ *     <script>
+ *     try {
+ *       $(function() {
+ *         var navSelector = '#toc';
+ *         var $myNav = $(navSelector);
+ *         Toc.init($myNav, { headings: 'h1,h2,h3,h4,h5,h6' } );
+ *         $('body').scrollspy({
+ *           target: navSelector,
+ *           offset: 220
+ *         });
+ *       });
+ *     }
+ *     catch(e) {
+ *     }
+ *     </script>
+ */
 (function() {
   'use strict';
 
@@ -56,8 +90,8 @@
         return $childList;
       },
 
-      generateNavEl: function(anchor, text, navLevel) {
-        var $a = $('<a class=toc-nav-h' + navLevel + '></a>');
+      generateNavEl: function(anchor, text, navLevel, hClass) {
+        var $a = $('<a class=' + hClass + navLevel + '></a>');
         $a.attr('href', '#' + anchor);
         $a.text(text);
         var $li = $('<li></li>');
@@ -65,11 +99,11 @@
         return $li;
       },
 
-      generateNavItem: function(headingEl, navLevel) {
+      generateNavItem: function(headingEl, navLevel, hClass) {
         var anchor = this.generateAnchor(headingEl);
         var $heading = $(headingEl);
         var text = $heading.data('toc-text') || $heading.text();
-        return this.generateNavEl(anchor, text, navLevel);
+        return this.generateNavEl(anchor, text, navLevel, hClass);
       },
 
       // Find the first heading level (`<h1>`, then `<h2>`, etc.) that has more than one element. Defaults to 1 (for `<h1>`).
@@ -85,28 +119,31 @@
       },
 
       // returns the elements for the top level, and the next below it
-      getHeadings: function($scope, topLevel) {
-        return this.findOrFilter($scope, 'h1,h2,h3,h4,h5,h6');
-        var topSelector = 'h' + topLevel;
-
-        var secondaryLevel = topLevel + 1;
-        var secondarySelector = 'h' + secondaryLevel;
-
-        return this.findOrFilter($scope, topSelector + ',' + secondarySelector);
+      getHeadings: function($scope, topLevel, headingList) {
+          if (headingList === undefined) {
+          var topSelector = 'h' + topLevel;
+  
+          var secondaryLevel = topLevel + 1;
+          var secondarySelector = 'h' + secondaryLevel;
+  
+          return this.findOrFilter($scope, topSelector + ',' + secondarySelector);
+        } else {
+          return this.findOrFilter($scope, headingList);
+        }
       },
 
       getNavLevel: function(el) {
         return parseInt(el.tagName.charAt(1), 10);
       },
 
-      populateNav: function($topContext, topLevel, $headings) {
+      populateNav: function($topContext, topLevel, $headings, hClass) {
         var $context = $topContext;
         var $prevNav;
 
         var helpers = this;
         $headings.each(function(i, el) {
           var navLevel = helpers.getNavLevel(el);
-          var $newNav = helpers.generateNavItem(el, navLevel);
+          var $newNav = helpers.generateNavItem(el, navLevel, hClass);
 
           // determine the proper $context
           if (navLevel <= topLevel) {
@@ -138,16 +175,18 @@
     },
 
     // accepts a jQuery object, or an options object
-    init: function(opts) {
+    init: function(opts, conf) {
       opts = this.helpers.parseOps(opts);
+      var headingList = conf === undefined ? undefined : conf.headings;
+      var hClass = conf === undefined || conf.class === undefined || conf.class == '' ? 'toc-nav-h' : conf.class;
 
       // ensure that the data attribute is in place for styling
       opts.$nav.attr('data-toggle', 'toc');
 
       var $topContext = this.helpers.createChildNavList(opts.$nav);
       var topLevel = this.helpers.getTopLevel(opts.$scope);
-      var $headings = this.helpers.getHeadings(opts.$scope, topLevel);
-      this.helpers.populateNav($topContext, topLevel, $headings);
+      var $headings = this.helpers.getHeadings(opts.$scope, topLevel, headingList);
+      this.helpers.populateNav($topContext, topLevel, $headings, hClass);
     }
   };
 

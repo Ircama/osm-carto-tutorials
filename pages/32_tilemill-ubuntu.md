@@ -28,10 +28,8 @@ A PostGIS database is needed and can be installed locally (suggested) or remotel
 
 Optional elements (needed for the topcube module related to the client user interface, not needed if TileMill will only be run in server mode):
 
-    # steps to install the topcube module, UI prerequisite to TileMill:
-    sudo apt-get install libgtk2.0-dev
-    sudo apt-get install libwebkit-dev
-    sudo apt-get install libwebkitgtk-dev
+    # Install the topcube module, UI prerequisite to TileMill:
+    sudo apt-get install -y libgtk2.0-dev libwebkit-dev libwebkitgtk-dev
 
 Installation of TileMill:
 
@@ -50,11 +48,13 @@ npm test # you can also run TileMill to test: see "Start TileMill" below.
     
 See [Start TileMill](#start-tilemill).
 
-{% include_relative _includes/complete-inst-osm-carto.md cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
+{% include_relative _includes/test-app.md cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
+
+{% include_relative _includes/inst-osm-carto.md cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
-{% include_relative _includes/firewall-postgis-inst.md port=20009 %}
+{% include_relative _includes/firewall-postgis-inst.md port=20009 cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
 
 ## Start TileMill
 

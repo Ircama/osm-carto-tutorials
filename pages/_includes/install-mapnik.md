@@ -44,7 +44,7 @@ We need to install [Boost](http://www.boost.org/) either from package or from so
 
 #### Install Boost from package
 
-    sudo apt-get install libboost-all-dev
+    sudo apt-get install -y libboost-all-dev
 
 #### Alternatively, install the latest version of Boost from source
 
@@ -98,9 +98,7 @@ Python bindings are not included by default. You'll need to add those separately
     cd ~/src
     git clone https://github.com/mapnik/python-mapnik.git
     cd python-mapnik
-    sudo apt-get install python-setuptools
-    sudo apt-get install python3-setuptools
-    sudo apt-get install libboost-python-dev
+    sudo apt-get install -y python-setuptools python3-setuptools libboost-python-dev
     sudo python setup.py develop
     sudo python setup.py install
 
