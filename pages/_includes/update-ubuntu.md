@@ -14,6 +14,8 @@ Make sure your Ubuntu system is fully up-to-date:
 
     sudo apt-get -y install curl unzip gdal-bin tar wget bzip2
 
+For the subsequent installation steps, we suppose that `cd` defaults to your home directory.
+
 ### Configure a swap
 
 Importing and managing map data takes a lot of RAM and a swap is generally needed.
@@ -39,13 +41,3 @@ Format it to swap:
 Enable the swap file
 
     sudo swapon /swapfile
-
-### Configure SSH keepalive
-
-It is recommended to configure SSH keepalive so that you do not lose the SSH connection. Edit the SSH client configuration file `/etc/ssh/ssh_config` with your preferred editor and paste the following text at the end of the file:
-
-    ServerAliveInterval 60
-
-Then save the file and connect to your Ubuntu server.
-
-For the subsequent installation steps, we suppose that `cd` defaults to your home directory.

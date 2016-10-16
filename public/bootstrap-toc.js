@@ -56,8 +56,8 @@
         return $childList;
       },
 
-      generateNavEl: function(anchor, text) {
-        var $a = $('<a></a>');
+      generateNavEl: function(anchor, text, navLevel) {
+        var $a = $('<a class=toc-nav-h' + navLevel + '></a>');
         $a.attr('href', '#' + anchor);
         $a.text(text);
         var $li = $('<li></li>');
@@ -65,11 +65,11 @@
         return $li;
       },
 
-      generateNavItem: function(headingEl) {
+      generateNavItem: function(headingEl, navLevel) {
         var anchor = this.generateAnchor(headingEl);
         var $heading = $(headingEl);
         var text = $heading.data('toc-text') || $heading.text();
-        return this.generateNavEl(anchor, text);
+        return this.generateNavEl(anchor, text, navLevel);
       },
 
       // Find the first heading level (`<h1>`, then `<h2>`, etc.) that has more than one element. Defaults to 1 (for `<h1>`).
@@ -86,12 +86,13 @@
 
       // returns the elements for the top level, and the next below it
       getHeadings: function($scope, topLevel) {
+        return this.findOrFilter($scope, 'h1,h2,h3,h4,h5,h6');
         var topSelector = 'h' + topLevel;
 
         var secondaryLevel = topLevel + 1;
         var secondarySelector = 'h' + secondaryLevel;
 
-        return this.findOrFilter($scope, topSelector + ',' + secondarySelector + ',h4');
+        return this.findOrFilter($scope, topSelector + ',' + secondarySelector);
       },
 
       getNavLevel: function(el) {
@@ -104,11 +105,11 @@
 
         var helpers = this;
         $headings.each(function(i, el) {
-          var $newNav = helpers.generateNavItem(el);
           var navLevel = helpers.getNavLevel(el);
+          var $newNav = helpers.generateNavItem(el, navLevel);
 
           // determine the proper $context
-          if (navLevel === topLevel) {
+          if (navLevel <= topLevel) {
             // use top level
             $context = $topContext;
           } else if ($prevNav && $context === $topContext) {

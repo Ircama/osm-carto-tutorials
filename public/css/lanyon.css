@@ -220,6 +220,30 @@ nav[data-toggle='toc'] ul{
 }
 
 /*
+ * Customizations of Bootstrap Table of Contents v0.4.1
+ */
+nav[data-toggle='toc'] .nav .nav > li > a {
+  padding-bottom: 3px !important;
+}
+.toc-nav-h1 {
+  text-decoration: navy dotted underline;
+  font-size: 15px !important;
+  padding-left: 15px !important;
+}
+.toc-nav-h4 {
+  font-size: 11px !important;
+  padding-left: 40px !important;
+}
+.toc-nav-h5 {
+  font-size: 11px !important;
+  padding-left: 46px !important;
+}
+.toc-nav-h6 {
+  font-size: 11px !important;
+  padding-left: 52px !important;
+}
+
+/*
  * Global resets
  *
  * Update the foundational and global aspects of the page.
