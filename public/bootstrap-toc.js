@@ -3,38 +3,9 @@
  * Copyright 2015 Aidan Feldman
  * Licensed under MIT (https://github.com/afeld/bootstrap-toc/blob/gh-pages/LICENSE.md)
  *
- * Modified by Ircama, 2016; added the following options:
- * - headings (string or unset): if set to a list of headers, all of them
- *   are searched instead of the first one declared and of its subsequent heading.
- *   example: headings: 'h1,h2,h3,h4,h5,h6' (in this case, all of them are searched and
- *   not only h2 and h3 in case h2 is the first found header in the document.
- * - class: (string or unset): if set to a string, the name is used as class basename
- *   for each description; related extension is the header level. If not set, the
- *   default baseline is 'toc-nav-h'. Example: a first level description (h1) has class
- *   toc-nav-h1, a second level description (h2) has class toc-nav-h2, etc. If the
- *   option is set to e.g. 'my-class', a first level description (h1) will have class
- *   my-class-h1, a second level description (h2) will have class my-class-h2, etc.
- * Example of usage:
- *     Toc.init($myNav, {
- *       headings: 'h1,h2,h3,h4,h5,h6',
- *       class: 'my-class'
- *     });
- * Other full usage example, where also scrollspy 'target' and 'offset' options are used:
- *     <script>
- *     try {
- *       $(function() {
- *         var navSelector = '#toc';
- *         var $myNav = $(navSelector);
- *         Toc.init($myNav, { headings: 'h1,h2,h3,h4,h5,h6' } );
- *         $('body').scrollspy({
- *           target: navSelector,
- *           offset: 220
- *         });
- *       });
- *     }
- *     catch(e) {
- *     }
- *     </script>
+ * Modified by Ircama, 2016, adding the following options:
+ * - headings
+ * - class
  */
 (function() {
   'use strict';
