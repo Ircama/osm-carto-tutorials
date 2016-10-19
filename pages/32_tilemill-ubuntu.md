@@ -56,7 +56,9 @@ See [Start TileMill](#start-tilemill).
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
-{% include_relative _includes/firewall-postgis-inst.md port=20009 cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
+{% include_relative _includes/firewall.md port=20009 cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
+
+{% include_relative _includes/postgis-inst.md port=20009 cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
 
 ## Start TileMill
 

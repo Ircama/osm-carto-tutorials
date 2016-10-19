@@ -5,7 +5,7 @@ comments: true
 permalink: /how-to-contribute/
 ---
 
-I’m happy to receive contributions and thanks for your effort in improving this theme and the tutorial documentation included in "OpenStreetMap Carto Tutorials" site.
+I’m happy to receive contributions and thanks for your effort in improving the tutorial documentation included in this site and its related theme.
 
 This document assists you in providing updates or additions to the documentation.
 
@@ -22,17 +22,25 @@ Pages have to be saved in the *pages* directory; there are other types of docume
 
 A special type of layout is *homepage*, which is [subsequently](#homepage) described.
 
+All files shall be in UTF8 format.
+
 Markdown documents can include parts which are common to more pages. A common part (e.g., named *common-part.md*) can be referenced with the following [Liquid](http://shopify.github.io/liquid/) markup:
+
+{% raw %}
+```raw
+{% include_relative _includes/common-part.md %}
+```
+{% endraw %}
+
+Common parts have to be saved in the *_includes* subdirectory of the *pages* directory and should also be written in Markdown.
+
+A common page that has more general reference than the site content can be saved to the *_includes/pages* directory and should also be written in Markdown. Its related reference is the following:
 
 {% raw %}
 ```raw
 {% include pages/common-part.md %}
 ```
 {% endraw %}
-
-Common parts have to be saved in the *_includes/pages* directory and should also be written in Markdown.
-
-All files shall be in UTF8 format.
 
 Liquid documentation can be found in [Liquid for Designers](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers).
 

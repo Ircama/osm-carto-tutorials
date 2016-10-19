@@ -22,9 +22,13 @@ Importing and managing map data takes a lot of RAM and a swap is generally neede
 
 To check whether a swap partition is already configured on your system, use one of the following two commands:
 
-    swapon -s # reports the swap summary (no output means missing swap)
-    
-    free -h # check the line specifying 'Swap'
+* Reports the swap usage summary (no output means missing swap):
+
+      swapon -s
+
+* Display amount of free and used memory in the system (check the line specifying *Swap*):
+
+      free -h
 
 If you do not have an active swap partition, especially if your physical memory is small, you should add a swap file. First we use `fallocate` command to create a file. For example, create a file named *swapfile* with 2G capacity in root file system:
 

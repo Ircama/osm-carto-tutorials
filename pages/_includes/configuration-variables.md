@@ -1,3 +1,4 @@
+{% assign pg_login = 'tileserver' %}
 {% assign pg_user = 'postgres' %}
 {% assign pg_password = 'postgres_007%' %}
 

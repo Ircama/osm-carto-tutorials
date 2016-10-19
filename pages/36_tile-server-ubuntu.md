@@ -8,7 +8,7 @@ sitemap: false
 
 ## Introduction
 
-The following step-by-step procedure can be used to install, setup and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu.
+The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu.
 
 The OSM tile server stack is a collection of programs and libraries chained together to create a tile server. As so often with OpenStreetMap, there are many ways to achieve this goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the most standard version that is also used on the main OpenStreetMap.org tile server.
 
@@ -27,24 +27,15 @@ Mod_tile is an apache module that serves cached tiles and decides which tiles ne
 
 {% include_relative _includes/update-ubuntu.md %}
 
-
-
-
-
-
-verificare ip address
-
-
-
-
-
-
-
 {% include_relative _includes/install-git.md program='OpenStreetMap Tile Server' %}
 
 {% include_relative _includes/install-mapnik.md %}
 
+{% include_relative _includes/firewall.md port='80 and local port 443' cdprogram='~/src' %}
+
 {% include_relative _includes/install-apache.md %}
+
+You can test Apache by accessing it through a browser at http://your-server-ip.
 
 ## Install Mod_tile
 
@@ -71,7 +62,7 @@ The rendering process implemented by mod_tile and renderd is well explained [her
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
-{% include_relative _includes/firewall-postgis-inst.md port='80 and local port 443' cdprogram='~/src' %}
+{% include_relative _includes/postgis-inst.md port='80 and local port 443' cdprogram='~/src' %}
 
 ## Configure *renderd*
 
@@ -83,18 +74,18 @@ Edit *renderd* configuration file with your preferite editor:
 
 In the `[default]` section, change the value of XML and HOST to the following.
 
-    XML=/home/tileserver/src/openstreetmap-carto/style.xml
+    XML=/home/{{ pg_login }}/src/openstreetmap-carto/style.xml
     HOST=localhost
 
-We suppose in the above example that your home directory is */home/tileserver*. Change it to your actual home directory.
+We suppose in the above example that your home directory is */home/{{ pg_login }}*. Change it to your actual home directory.
 
 In `[mapnik]` section, change the value of `plugins_dir`.
 
-plugins_dir=/usr/lib/mapnik/3.0/input/
+    plugins_dir=/usr/lib/mapnik/3.0/input/
 
 Save the file.
 
-Install renderd init script by copying the sample init script.
+Install *renderd* init script by copying the sample init script included in its package.
 
     sudo cp ~/src/mod_tile/debian/renderd.init /etc/init.d/renderd
 
@@ -110,7 +101,9 @@ Change the following variables:
 
     DAEMON=/usr/local/bin/$NAME
     DAEMON_ARGS="-c /usr/local/etc/renderd.conf"
-    RUNASUSER=tileserver
+    RUNASUSER={{ pg_login }}
+
+In `RUNASUSER={{ pg_login }}` we suppose that your user is *{{ pg_login }}*. Change it to your actual user name.
 
 Add then the following variables:
 
@@ -118,13 +111,11 @@ Add then the following variables:
 
 Save the file.
 
-We suppose in the above example that your user is *tileserver*. Change it to your actual user name.
-
-Create the following file and set tileserver the owner.
+Create the following file and set *{{ pg_login }}* (your actual user) the owner.
 
     sudo mkdir -p /var/lib/mod_tile
 
-    sudo chown tileserver:tileserver /var/lib/mod_tile
+    sudo chown {{ pg_login }}:{{ pg_login }} /var/lib/mod_tile
 
 Again change it to your actual user name.
 
@@ -135,6 +126,11 @@ Then start renderd service
     sudo systemctl start renderd
 
     sudo systemctl enable renderd
+
+The following output is regular:
+
+    renderd.service is not a native service, redirecting to systemd-sysv-install
+    Executing /lib/systemd/systemd-sysv-install enable renderd
 
 ## Configure Apache
 
@@ -161,7 +157,7 @@ Past the following lines after the line `<VirtualHost *:80>`
     # Timeout before giving up for a tile to be rendered
     ModTileRequestTimeout 0
     # Timeout before giving up for a tile to be rendered that is otherwise missing
-    ModTileMissingRequestTimeout 30
+    ModTileMissingRequestTimeout 2000
 
 Save and close the file. Restart Apache.
 
@@ -200,6 +196,18 @@ Tail log:
 
     tail -f /var/log/apache2/error.log
 
+Most of the configuration issues can discovered by analyzing the debug log of *renderd*; we need to stop the daemon and start *renderd* in foreground:
+
+{% include_relative _includes/configuration-variables.md os='Ubuntu' notitle='yes' %}
+    sudo systemctl stop renderd
+    /usr/local/bin/renderd -fc /usr/local/etc/renderd.conf
+
+Ignore errors related to `iniparser: syntax error in /usr/local/etc/renderd.conf` when referring to commented out variables (e.g., beginning with `;`).
+
+Press Control-C to kill the program. After fixing the error, the daemon can be restarted with:
+
+    sudo systemctl start renderd
+
 To fully remove Apache, mod_tile and renderd and reinstall the service:
 
     sudo rm -r ~/src/mod_tile/
@@ -222,7 +230,7 @@ Page [Deploying your own Slippy Map](http://wiki.openstreetmap.org/wiki/Deployin
 
 ### Google Maps API
 
-OpenStreetMap tiles can be presented within Google Maps API v3 through the following [example](http://harrywood.co.uk/maps/examples/google-maps/apiv3.view.html), where you need to change *your-server-ip* with the actual IP address of the previously installed map server:
+OpenStreetMap tiles can be presented through Google Maps API v3 basing on the following [example](http://harrywood.co.uk/maps/examples/google-maps/apiv3.view.html), where you need to change *your-server-ip* with the actual IP address of the previously installed map server:
 
 ```html
 <!DOCTYPE html>

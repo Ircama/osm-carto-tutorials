@@ -12,6 +12,6 @@ To check if Apache is installed, direct your browser to the IP address of your s
 
 ## How to Find the IP address of your server
 
-You can run the following command to reveal the IP address of your server on its main Ethernet interface.
+You can run the following command to reveal the public IP address of your server:
 
-    ifconfig eth0 | grep inet | awk '{ print $2 }'
+    wget http://ipinfo.io/ip -qO -

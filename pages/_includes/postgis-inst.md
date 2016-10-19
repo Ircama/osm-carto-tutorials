@@ -1,9 +1,3 @@
-## Configure the firewall
-
-If you are preparing a remote virtual machine, configure the firewall to allow remote access to the local port {{ include.port }}.
-
-If you run a cloud based VM, also the VM itself shall be set to open this port.
-
 ## Install PostgreSQL and PostGIS
 
 [PostgreSQL](https://www.postgresql.org/) is a relational database, and [PostGIS](http://postgis.net/) is its spatial extender, which allow you to store geographic objects like map data in it. PostgreSQL + PostGIS are used for a wide variety of uses such as rendering maps, geocoding, and analysis. It serves a similar function to ESRI’s SDE or Oracle’s Spatial extension.
@@ -30,11 +24,27 @@ sudo -u {{ pg_user }} psql postgres
 \password {{ pg_user }}
 ```
 
-Enter the following password twice: {{ pg_password }}
+Alternative procedure (useful if you get authentication issues with the previous one):
+
+```
+sudo su -
+sudo -i -u {{ pg_user}}
+psql {{ pg_user}}
+\password {{ pg_user }}
+```
+
+Enter the following password twice: `{{ pg_password }}`
 
 This is just an example of password, you can use the one you prefer.
 
-Exit with Control-D.
+After entering the password, exit from *psql* with:
+
+    \q
+
+With the second procedure, also isssue:
+
+    exit # from 'sudo -i -u postgres'
+    exit # from 'sudo su -'
 
 ## Create the PostGIS instance
 
@@ -51,7 +61,27 @@ psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
 
 The character encoding scheme to be used in the database is UTF8.
 
-{% include_relative _includes/download-osm-data.md %}
+## Tuning the database
+
+Information taken from [switch2osm](https://switch2osm.org/loading-osm-data).
+
+The default PostgreSQL settings aren’t great for very large databases like OSM databases. Proper tuning can just about double the performance you’re getting. The most important PostgreSQL settings to change are `maintenance_work_mem` and `work_mem`, both which should be increased for faster data loading and faster queries while rendering respectively. Conservative settings for a 2GB VM are `work_mem=16MB` and `maintenance_work_mem=128MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`. An overview to tuning PostgreSQL can be found on the [PostgreSQL Wiki](https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server), but adjusting `maintenance_work_mem` and `work_mem` are probably enough on a development or testing machine.
+
+To edit the PostgreSQL configuration file with *vi* editor:
+
+    sudo vi /etc/postgresql/9.5/main/postgresql.conf
+
+Suggested settings:
+
+    shared_buffers = 128MB
+    maintenance_work_mem = 256MB
+    autovacuum = off
+
+To stop and start the database:
+
+    sudo /etc/init.d/postgresql stop
+
+    sudo /etc/init.d/postgresql start
 
 ## Install Osm2pgsql
 
@@ -92,6 +122,8 @@ cd ../..
 rm -rf osm2pgsql
 ```
 
+{% include_relative _includes/download-osm-data.md %}
+
 ## Load data to PostGIS
 
 ```
@@ -114,29 +146,6 @@ sed "s/action='modify' //" < original.osm | > fixedfile.osm
 ```
 
 Then process *fixedfile.osm*.
-
-## Tuning
-
-Information taken from [switch2osm](https://switch2osm.org/loading-osm-data).
-
-The default PostgreSQL settings aren’t great for very large databases like OSM databases. Proper tuning can just about double the performance you’re getting. The most important PostgreSQL settings to change are `maintenance_work_mem` and `work_mem`, both which should be increased for faster data loading and faster queries while rendering respectively. Conservative settings for a 2GB VM are `work_mem=16MB` and `maintenance_work_mem=128MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`. An overview to tuning PostgreSQL can be found on the [PostgreSQL Wiki](https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server), but adjusting `maintenance_work_mem` and `work_mem` are probably enough on a development or testing machine.
-
-To edit the PostgreSQL configuration file with *vi* editor:
-
-    sudo vi /etc/postgresql/9.5/main/postgresql.conf
-
-Suggested settings:
-
-    shared_buffers = 128MB
-    checkpoint_segments = 20
-    maintenance_work_mem = 256MB
-    autovacuum = off
-
-To stop and start the database:
-
-    sudo /etc/init.d/postgresql stop
-
-    sudo /etc/init.d/postgresql start
 
 ## Create indexes
 
