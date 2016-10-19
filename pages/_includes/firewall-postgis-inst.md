@@ -125,6 +125,13 @@ To edit the PostgreSQL configuration file with *vi* editor:
 
     sudo vi /etc/postgresql/9.5/main/postgresql.conf
 
+Suggested settings:
+
+    shared_buffers = 128MB
+    checkpoint_segments = 20
+    maintenance_work_mem = 256MB
+    autovacuum = off
+
 To stop and start the database:
 
     sudo /etc/init.d/postgresql stop

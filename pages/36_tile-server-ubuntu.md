@@ -27,7 +27,20 @@ Mod_tile is an apache module that serves cached tiles and decides which tiles ne
 
 {% include_relative _includes/update-ubuntu.md %}
 
-{% include_relative _includes/install-git-nodejs.md program='OpenStreetMap Tile Server' %}
+
+
+
+
+
+verificare ip address
+
+
+
+
+
+
+
+{% include_relative _includes/install-git.md program='OpenStreetMap Tile Server' %}
 
 {% include_relative _includes/install-mapnik.md %}
 
@@ -42,6 +55,8 @@ Mod_tile is an apache module that serves cached tiles and decides which tiles ne
     cd mod_tile
     ./autogen.sh && ./configure && make && sudo make install && sudo make install-mod_tile && sudo ldconfig
     cd ~/
+
+The rendering process implemented by mod_tile and renderd is well explained [here](https://github.com/openstreetmap/mod_tile).
 
 {% include_relative _includes/inst-osm-carto.md cdprogram='~/src' %}
 
@@ -91,11 +106,15 @@ Edit the init script file
 
     sudo vi /etc/init.d/renderd
 
-Change the following variable.
+Change the following variables:
 
-DAEMON=/usr/local/bin/$NAME
-DAEMON_ARGS="-c /usr/local/etc/renderd.conf"
-RUNASUSER=tileserver
+    DAEMON=/usr/local/bin/$NAME
+    DAEMON_ARGS="-c /usr/local/etc/renderd.conf"
+    RUNASUSER=tileserver
+
+Add then the following variables:
+
+{% include_relative _includes/configuration-variables.md os='Ubuntu' notitle='yes' %}
 
 Save the file.
 
@@ -119,16 +138,6 @@ Then start renderd service
 
 ## Configure Apache
 
-
-
-
-
-
-
-Continuare da qui:
-https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/
-
-
 Create a module load file.
 
     sudo vi /etc/apache2/mods-available/mod_tile.load
@@ -145,7 +154,7 @@ Then edit the default virtual host file.
 
     sudo vi /etc/apache2/sites-enabled/000-default.conf
 
-Past the following line in <VirtualHost *:80>
+Past the following lines after the line `<VirtualHost *:80>`
 
     LoadTileConfigFile /usr/local/etc/renderd.conf
     ModTileRenderdSocketName /var/run/renderd/renderd.sock
@@ -160,14 +169,143 @@ Save and close the file. Restart Apache.
 
 Then in your web browser address bar, type
 
-your-server-ip/osm_tiles/0/0/0.png
+    your-server-ip/osm_tiles/0/0/0.png
+
+where you need to change *your-server-ip* with the actual IP address of the installed map server.
 
 You should see the tile of world map. Congrats! You just successfully built your own OSM tile server.
 
+## Debugging Apache, mod_tile and renderd
 
-## Display Your Tiled Web Map
+To clear all osm tiles cache, remove /var/lib/mod_tile/default (using rm -rf if you dare) and restart renderd daemon:
 
-Tiled web map is also known as slippy map in OpenStreetMap terminology. There are two free and open source JavaScript map libraries you can use for your tile server: OpenLayer and Leaflet. The advantage of Leaflet is that it is simple to use and your map will be mobile-friendly.
+    rm -rf /var/lib/mod_tile/default
+    sudo systemctl restart renderd
+
+Show Apache loaded modules:
+
+    apache2ctl -M
+
+You should find `tile_module (shared)`
+
+Show Apache configuration:
+
+    apache2ctl -S
+
+You should get the following messages within the log:
+
+    Loading tile config default at /osm_tiles/ for zooms 0 - 20 from tile directory /var/lib/mod_tile with extension .png and mime type image/png
+
+Tail log:
+
+    tail -f /var/log/apache2/error.log
+
+To fully remove Apache, mod_tile and renderd and reinstall the service:
+
+    sudo rm -r ~/src/mod_tile/
+    sudo apt-get purge apache2 apache2-dev
+    sudo rm -r /etc/apache2/mods-available
+    sudo rm /usr/local/etc/renderd.conf
+    sudo rm  /etc/init.d/renderd
+    sudo rm -rf /var/lib/mod_tile
+    sudo rm -rf /usr/lib/apache2
+    sudo rm -rf /etc/apache2/
+    sudo rm -rf /var/run/renderd
+    sudo apt-get --reinstall install apache2-bin
+    sudo apt-get install apache2 apache2-dev
+    
+## Deploying Your Tiled Web Map
+
+Tiled web map is also known as slippy map in OpenStreetMap terminology.
+
+Page [Deploying your own Slippy Map](http://wiki.openstreetmap.org/wiki/Deploying_your_own_Slippy_Map) illustrates how to embed the previously installed map server into a website. A number of possible map libraries are mentioned, including some relevant ones ([Leaflet](leafletjs.com), [OpenLayers](openlayers.org), [Google Maps API](https://developers.google.com/maps/)) as well as many alternatives.
+
+### Google Maps API
+
+OpenStreetMap tiles can be presented within Google Maps API v3 through the following [example](http://harrywood.co.uk/maps/examples/google-maps/apiv3.view.html), where you need to change *your-server-ip* with the actual IP address of the previously installed map server:
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>OpenStreetMap in Google Maps v3 API Example</title>
+        <style>
+            html, body, #map {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            div#footer {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 18px;
+                margin: 0;
+                padding: 6px;
+                z-index: 2;
+                background: WHITE;
+            }
+        </style> 
+    </head>
+    <body>
+        <div id="map" style="float: left;"></div>
+        
+        <div id="footer">&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div>
+        
+        <!-- bring in the google maps library -->
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        
+        <script type="text/javascript">
+            //Google maps API initialisation
+            var element = document.getElementById("map");
+ 
+            var map = new google.maps.Map(element, {
+                center: new google.maps.LatLng(57, 21),
+                zoom: 3,
+                mapTypeId: "OSM",
+                mapTypeControl: false,
+                streetViewControl: false
+            });
+ 
+            //Define OSM map type pointing at the OpenStreetMap tile server
+            map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                getTileUrl: function(coord, zoom) {
+                    return "your-server-ip/osm_tiles/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+                },
+                tileSize: new google.maps.Size(256, 256),
+                name: "OpenStreetMap",
+                maxZoom: 18
+            }));
+        </script>
+        
+    </body>
+</html>
+```
+
+There are two free and open source JavaScript map libraries you can use for your tile server: OpenLayer and Leaflet. The advantage of Leaflet is that it is simple to use and your map will be mobile-friendly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Continuare da qui:
+https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/
+https://www.linuxbabe.com/linux-server/openstreetmap-tile-server-ubuntu-16-04
+
+
 
 ### OpenLayer
 

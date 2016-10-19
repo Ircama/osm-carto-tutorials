@@ -26,7 +26,9 @@ The following subfolders will be created:
 - kosmtik
 - openstreetmap-carto
 
-{% include_relative _includes/install-git-nodejs.md program='Kosmtik' %}
+{% include_relative _includes/install-git.md program='Kosmtik' %}
+
+{% include_relative _includes/install-nodejs.md program='Kosmtik' %}
 
 ## Install Kosmtik
 
@@ -50,7 +52,7 @@ See [Start Kosmtik](#start-kosmtik).
 
 {% include_relative _includes/inst-osm-carto.md cdprogram='' %}
 
-{% include_relative _includes/configuration-variables.md os='none' %}
+{% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
 ## Create *localconfig.json*
 

@@ -22,7 +22,9 @@ A PostGIS database is needed and can be installed locally (suggested) or remotel
 
 {% include_relative _includes/update-ubuntu.md %}
 
-{% include_relative _includes/install-git-nodejs.md program='TileMill' %}
+{% include_relative _includes/install-git.md program='TileMill' %}
+
+{% include_relative _includes/install-nodejs.md program='TileMill' %}
 
 ## Install TileMill
 
