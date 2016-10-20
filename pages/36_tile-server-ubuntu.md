@@ -35,7 +35,7 @@ Mod_tile is an apache module that serves cached tiles and decides which tiles ne
 
 {% include_relative _includes/install-apache.md %}
 
-You can test Apache by accessing it through a browser at http://your-server-ip.
+You can test Apache by accessing it through a browser at *http://your-server-ip*.
 
 ## Install Mod_tile
 

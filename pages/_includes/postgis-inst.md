@@ -61,6 +61,16 @@ psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
 
 The character encoding scheme to be used in the database is UTF8.
 
+If you get the following error
+
+    ERROR:  could not open extension control file "/usr/share/postgresql/9.3/extension/postgis.control": No such file or directory
+
+then you might be installing PostgreSQL 9.3, for which you should also need:
+
+    sudo apt-get install postgis postgresql-9.3-postgis-scripts
+
+Install it and repeat the create extension commands.
+
 ## Tuning the database
 
 Information taken from [switch2osm](https://switch2osm.org/loading-osm-data).
@@ -70,6 +80,10 @@ The default PostgreSQL settings aren’t great for very large databases like OSM
 To edit the PostgreSQL configuration file with *vi* editor:
 
     sudo vi /etc/postgresql/9.5/main/postgresql.conf
+
+and if you are running PostgreSQL 9.3:
+
+    sudo vi /etc/postgresql/9.3/main/postgresql.conf
 
 Suggested settings:
 
@@ -90,6 +104,8 @@ Osm2pgsql is an OpenStreetMap specific software used to load the OSM data into t
 To install [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql):
 
     sudo apt-get install -y osm2pgsql
+
+Go to [Get an OpenStreetMap data extract](#get-an-openstreetmap-data-extract).
 
 ### Alternative installation procedure
 
@@ -147,9 +163,19 @@ sed "s/action='modify' //" < original.osm | > fixedfile.osm
 
 Then process *fixedfile.osm*.
 
+If you get the following error:
+
+    Error reading style file line 79 (fields=4)
+    flag 'phstore' is invalid in non-hstore mode
+    Error occurred, cleaning up
+
+then you need to add the *hstore* flag to *osm2pgsql*:
+
+    osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style --hstore -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
+
 ## Create indexes
 
-openstreet-carto shall be installed first.
+Add the indexes indicated by *openstreetmap-carto*:
 
 ```
 HOSTNAME=localhost # set it to the actual ip address or host name
