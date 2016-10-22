@@ -8,7 +8,7 @@ sitemap: false
 
 ## Introduction
 
-The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu.
+The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu 16.4 or 14.4.
 
 The OSM tile server stack is a collection of programs and libraries chained together to create a tile server. As so often with OpenStreetMap, there are many ways to achieve this goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the most standard version that is also used on the main OpenStreetMap.org tile server.
 
@@ -24,6 +24,8 @@ It consists of the following main components:
 * openstreetmap-carto
 
 Mod_tile is an apache module that serves cached tiles and decides which tiles need re-rendering either because they are not yet cached or because they are outdated. Renderd provides a priority queueing system for rendering requests to manage and smooth out the load from rendering requests. Mapnik is the software library that does the actual rendering and is used by renderd.
+
+Even if both operating system versions have been tested, Ubuntu 16.4 is strongly suggested.
 
 {% include_relative _includes/update-ubuntu.md %}
 
@@ -83,6 +85,10 @@ In `[mapnik]` section, change the value of `plugins_dir`.
 
     plugins_dir=/usr/lib/mapnik/3.0/input/
 
+Pay attention to the mapnik version: if it is at version 2.2 (Ubuntu 14.4):
+
+    plugins_dir=/usr/lib/mapnik/2.2/input/
+
 Save the file.
 
 Install *renderd* init script by copying the sample init script included in its package.
@@ -132,6 +138,12 @@ The following output is regular:
     renderd.service is not a native service, redirecting to systemd-sysv-install
     Executing /lib/systemd/systemd-sysv-install enable renderd
 
+If *systemctl* is not installed (e.g., Ubuntu 14.4) use these commands respectively:
+
+    sudo update-rc.d renderd defaults
+    
+    sudo service renderd start
+
 ## Configure Apache
 
 Create a module load file.
@@ -163,13 +175,25 @@ Save and close the file. Restart Apache.
 
     sudo systemctl restart apache2
 
+If *systemctl* is not installed (e.g., Ubuntu 14.4):
+
+    sudo service apache2 restart
+
+Test access to tiles locally:
+
+    wget --spider http://localhost/osm_tiles/0/0/0.png
+
+You should get `Remote file exists.` if everything is correctly configured.
+
 Then in your web browser address bar, type
 
     your-server-ip/osm_tiles/0/0/0.png
 
 where you need to change *your-server-ip* with the actual IP address of the installed map server.
 
-You should see the tile of world map. Congrats! You just successfully built your own OSM tile server.
+You should see the tile of world map.
+
+Congratulations! You just successfully built your own OSM tile server.
 
 ## Debugging Apache, mod_tile and renderd
 
@@ -177,6 +201,10 @@ To clear all osm tiles cache, remove /var/lib/mod_tile/default (using rm -rf if 
 
     rm -rf /var/lib/mod_tile/default
     sudo systemctl restart renderd
+
+If *systemctl* is not installed (e.g., Ubuntu 14.4):
+
+    sudo service renderd restart
 
 Show Apache loaded modules:
 
@@ -200,15 +228,30 @@ Most of the configuration issues can discovered by analyzing the debug log of *r
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' notitle='yes' %}
     sudo systemctl stop renderd
+
+If *systemctl* is not installed (e.g., Ubuntu 14.4):
+
+    sudo service renderd stop
+
+Then:
+
     /usr/local/bin/renderd -fc /usr/local/etc/renderd.conf
 
-Ignore errors related to `iniparser: syntax error in /usr/local/etc/renderd.conf` when referring to commented out variables (e.g., beginning with `;`).
+Ignore the five errors related to `iniparser: syntax error in /usr/local/etc/renderd.conf` when referring to commented out variables (e.g., beginning with `;`).
 
 Press Control-C to kill the program. After fixing the error, the daemon can be restarted with:
 
     sudo systemctl start renderd
 
-To fully remove Apache, mod_tile and renderd and reinstall the service:
+If *systemctl* is not installed (e.g., Ubuntu 14.4):
+
+    sudo service renderd start
+
+If everything in the configuration looks fine, but the map is still not rendered without any particular message produced by *renderd*, try performing a system restart:
+
+    sudo shutdown -r now
+
+As exceptional case, the following commands allow to fully remove Apache, mod_tile and renderd and reinstall the service:
 
     sudo rm -r ~/src/mod_tile/
     sudo apt-get purge apache2 apache2-dev
@@ -221,12 +264,15 @@ To fully remove Apache, mod_tile and renderd and reinstall the service:
     sudo rm -rf /var/run/renderd
     sudo apt-get --reinstall install apache2-bin
     sudo apt-get install apache2 apache2-dev
-    
-## Deploying Your Tiled Web Map
+
+
+## Deploying your own Slippy Map
 
 Tiled web map is also known as slippy map in OpenStreetMap terminology.
 
 Page [Deploying your own Slippy Map](http://wiki.openstreetmap.org/wiki/Deploying_your_own_Slippy_Map) illustrates how to embed the previously installed map server into a website. A number of possible map libraries are mentioned, including some relevant ones ([Leaflet](leafletjs.com), [OpenLayers](openlayers.org), [Google Maps API](https://developers.google.com/maps/)) as well as many alternatives.
+
+<script async src="//jsfiddle.net/ircama/8sypcx7o/embed/"></script>
 
 ### Google Maps API
 

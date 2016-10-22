@@ -19,6 +19,7 @@
 /*
  * Contents
  *
+ * JSFiddle
  * Drawings used by markdown
  * Color classes used by markdown
  * Table of Content (TOC)
@@ -33,6 +34,14 @@
  * Reverse layout
  * Themes
  */
+
+/* JSFiddle */
+
+#JSFEMB_17096 {
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+}
 
 /* Drawings used by markdown */
 
