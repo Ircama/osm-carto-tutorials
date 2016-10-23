@@ -306,7 +306,9 @@ To display your slippy map with OpenLayer, create a file named *ol.html* under *
 
     sudo vi /var/www/html/ol.html
 
-Paste the following HTML code in the file. Replace *your-server-ip* with your IP Address and adjust the longitude, latitude and zoom level according to your needs.
+Paste the following HTML code in the file.
+
+You might wish to adjust the longitude, latitude and zoom level according to your needs. Check `var map = L.map('map').setView([45, 10], 3);` which in this sample defaults to (45, 10) for the center and zoom is set to 3.
 
 ```html
 <!DOCTYPE html>
@@ -315,6 +317,7 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
 <title>OpenStreetMap with OpenLayers</title>
 <link rel="stylesheet" href="https://openlayers.org/en/v3.19.0/css/ol.css" type="text/css">
 <script src="https://openlayers.org/en/v3.19.0/build/ol.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <style>
   html,
   body,
@@ -329,7 +332,7 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
     left: auto;
     right: 0;
     top: 40px;
-  }
+  }  
   .ol-custom-fullscreen {
     bottom: auto;
     left: auto;
@@ -361,23 +364,44 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
     position: absolute;
     top: auto;
     left: 10px;
-    bottom: 2em;
+    bottom: 2.5em;
     text-decoration: none;
+    font-family: "Arial";
     font-size: 10pt;
     text-shadow: 0 0 0.5em #FFE, 0 0 0.5em #FFE, 0 0 0.5em #FFE;
+  }
+  #layer-select {
+    position: absolute;
+    top: 11px;
+    left: 43px;
   }
 </style>
 </head>
 <body>
   <div tabindex="0" id="map" class="map"></div>
   <a class="mapZoom" id="ZoomElement"></a>
+  <select id="layer-select">
+    <option value="Tile Server">Tile Server</option>
+    <option value="OpenStreetMap" selected>OpenStreetMap</option>
+  </select>
   <script>
-    // Set up the OSM layer
+    // Set up the Tile Server layer
     var myTileServer = new ol.layer.Tile({
+      visible: false,
+      preload: Infinity,
       source: new ol.source.OSM({
         crossOrigin: null,
-        url: 'http://your-server-ip/osm_tiles/{z}/{x}/{y}.png'
-        // url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png' // use this URL for OpenStreetMap
+        url: 'osm_tiles/{z}/{x}/{y}.png'
+      })
+    });
+    
+    // Set up the OSM layer
+    var openStreetMap = new ol.layer.Tile({
+      visible: false,
+      preload: Infinity,
+      source: new ol.source.OSM({
+        crossOrigin: null,
+        url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       })
     });
     
@@ -387,9 +411,19 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
       zoom: 4
     });
     
+    // Push layers
+    var styles = [
+      'Tile Server',
+      'OpenStreetMap'
+    ];
+    var layers = [];
+    layers.push(myTileServer);
+    layers.push(openStreetMap);
+    
     // Create the map
     var map = new ol.Map({
-      layers: [myTileServer],
+      layers: layers,
+      loadTilesWhileInteracting: true,
       target: 'map',
       controls: ol.control.defaults().extend([
         new ol.control.ScaleLine(),
@@ -431,6 +465,15 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
       var zoomInfo = 'Zoom level = ' + zoom;
       document.getElementById('ZoomElement').innerHTML = zoomInfo;
     });
+    
+    $('#layer-select').change(function() {
+      var style = $(this).find(':selected').val();
+      var i, ii;
+      for (i = 0, ii = layers.length; i < ii; ++i) {
+        layers[i].setVisible(styles[i] == style);
+      }
+    });
+    $('#layer-select').trigger('change');
   </script>
 </body>
 </html>
@@ -440,13 +483,13 @@ Save and close the file. Now you can view your slippy map by typing the followin
 
     http://your-server-ip/ol.html
 
-<script async src="//jsfiddle.net/ircama/r3a4t201/embed/"></script>
+<script async src="//jsfiddle.net/ircama/r3a4t201/embed/html,js,resources,css,result/"></script>
 
 ### Leaflet
 
 Leaflet is a JavaScript library for embedding maps. It is simpler and smaller than OpenLayers.
 
-To display your slippy map with Leaflet, create a file named *lf.html* under */var/www/html*.
+The easiest example to display your slippy map with Leaflet consists in creating a file named *lf.html* under */var/www/html*.
 
     sudo vi /var/www/html/lf.html
 
@@ -473,7 +516,7 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
   <div id="map" class="map"></div>
   <script>
     // Create the map
-    var map = L.map('map').setView([45, 10], 4);
+    var map = L.map('map').setView([45, 10], 3);
     
     // Set up the OSM layer
     L.tileLayer(
@@ -484,7 +527,7 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
 </html>
 ```
 
-Save and close the file. Now you can view your slippy map by typing the following URL in browser.
+Save and close the file. Now you can view your slippy map by typing the following URL in the browser.
 
     http://your-server-ip/lf.html
 
