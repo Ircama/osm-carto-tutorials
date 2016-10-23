@@ -71,13 +71,15 @@ table.drawing td img {
 }
 
 table.drawing td.dcontent {
-    background-color: #80d4ff !important;
+    background-color: #9DDDFF !important;
     text-align: center;
-    border: 1px solid blue;
     margin: -1px;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+    border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
 }
 
 table.drawing td.darrow {

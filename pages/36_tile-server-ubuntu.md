@@ -24,7 +24,25 @@ It consists of the following main components:
 
 Mod_tile is an apache module that serves cached tiles and decides which tiles need re-rendering either because they are not yet cached or because they are outdated. Renderd provides a priority queueing system for rendering requests to manage and smooth out the load from rendering requests. Mapnik is the software library that does the actual rendering and is used by renderd.
 
-Even if both operating system versions have been tested, Ubuntu 16.4 is strongly suggested.
+A description of the rendering process of OpenStreetMap can be found at [OSM architecture](../rendering-process), including general components and tools, populating the PostGIS instance, converting the CartoCSS style sources to Mapnik XML and the Mapnik rendering process.
+
+The process to generate tiles is the following:
+
+|                   | |client browser  ![web][web]| | |
+|                   | |↓                   | | |
+|Disk Cache (tiles)![png][png]| |Apache Web Server ![prg][prg]|→|Web page ![html][html]|
+|                   |↘|↓                   | | |
+|renderd ![prg][prg]|←|mod_tile ![prg][prg]|←|tiles ![png][png]|
+|  ↑                |↘|                      |↗|
+|Mapnik XML ![xml][xml]|→|Mapnik ![prg][prg]| | |
+|                      |↗|↑| | |
+|PostgreSQL PostGIS ![db][db]| |shapefiles *data* directory ![shape][shape]| | |
+{: .drawing}
+
+<br />
+
+
+Even if different operating system versions have been tested, Ubuntu 16.4 is strongly suggested.
 
 {% include_relative _includes/update-ubuntu.md %}
 
@@ -305,27 +323,113 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
     margin: 0;
     padding: 0;
   }
+  .ol-custom-overviewmap,
+  .ol-custom-overviewmap.ol-uncollapsible {
+    bottom: auto;
+    left: auto;
+    right: 0;
+    top: 40px;
+  }
+  .ol-custom-fullscreen {
+    bottom: auto;
+    left: auto;
+    right: 0;
+    top: 5px;
+  }
+  .ol-custom-mouse-positionXY {
+    top: auto;
+    bottom: 3em;
+    font-family: "Arial";
+    font-size: 12px;
+    text-shadow: 0 0 0.5em #FFE, 0 0 0.5em #FFE, 0 0 0.5em #FFE;
+  }
+  .ol-custom-mouse-positionHDMS {
+    top: auto;
+    bottom: 4em;
+    font-family: "Arial";
+    font-size: 12px;
+    text-shadow: 0 0 0.5em #FFE, 0 0 0.5em #FFE, 0 0 0.5em #FFE;
+  }
+  .ol-custom-mouse-position3857 {
+    top: auto;
+    bottom: 5em;
+    font-family: "Arial";
+    font-size: 12px;
+    text-shadow: 0 0 0.5em #FFE, 0 0 0.5em #FFE, 0 0 0.5em #FFE;
+  }
+  .mapZoom {
+    position: absolute;
+    top: auto;
+    left: 10px;
+    bottom: 2em;
+    text-decoration: none;
+    font-size: 10pt;
+    text-shadow: 0 0 0.5em #FFE, 0 0 0.5em #FFE, 0 0 0.5em #FFE;
+  }
 </style>
 </head>
 <body>
-  <div id="map" class="map"></div>
+  <div tabindex="0" id="map" class="map"></div>
+  <a class="mapZoom" id="ZoomElement"></a>
   <script>
     // Set up the OSM layer
     var myTileServer = new ol.layer.Tile({
       source: new ol.source.OSM({
         crossOrigin: null,
         url: 'http://your-server-ip/osm_tiles/{z}/{x}/{y}.png'
+        // url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png' // use this URL for OpenStreetMap
       })
+    });
+    
+    // Set up the default view
+    var myTileView = new ol.View({
+      center: ol.proj.transform([10, 45], 'EPSG:4326', 'EPSG:3857'),
+      zoom: 4
     });
     
     // Create the map
     var map = new ol.Map({
-      layers: [ myTileServer ],
+      layers: [myTileServer],
       target: 'map',
-      view: new ol.View({
-        center: ol.proj.transform([10, 45], 'EPSG:4326', 'EPSG:3857'),
-        zoom: 4
-      })
+      controls: ol.control.defaults().extend([
+        new ol.control.ScaleLine(),
+        new ol.control.Zoom(),
+        new ol.control.ZoomSlider(),
+        new ol.control.ZoomToExtent(),
+        new ol.control.FullScreen({
+          className: 'ol-fullscreen ol-custom-fullscreen'
+        }),
+        new ol.control.OverviewMap({
+          className: 'ol-overviewmap ol-custom-overviewmap'
+        }),
+        new ol.control.MousePosition({
+          className: 'ol-mouse-position ol-custom-mouse-position3857',
+          coordinateFormat: ol.coordinate.createStringXY(4),
+          projection: 'EPSG:3857',
+          undefinedHTML: '&nbsp;'
+        }),
+        new ol.control.MousePosition({
+          coordinateFormat: function(coord) {
+            return ol.coordinate.toStringHDMS(coord);
+          },
+          projection: 'EPSG:4326',
+          className: 'ol-mouse-position ol-custom-mouse-positionHDMS',
+          target: document.getElementById('mouse-position'),
+          undefinedHTML: '&nbsp;'
+        }),
+        new ol.control.MousePosition({
+          className: 'ol-mouse-position ol-custom-mouse-positionXY',
+          coordinateFormat: ol.coordinate.createStringXY(4),
+          projection: 'EPSG:4326',
+          undefinedHTML: '&nbsp;'
+        }),
+      ]),
+      view: myTileView
+    });
+    map.on("moveend", function() {
+      var zoom = map.getView().getZoom();
+      var zoomInfo = 'Zoom level = ' + zoom;
+      document.getElementById('ZoomElement').innerHTML = zoomInfo;
     });
   </script>
 </body>
@@ -335,6 +439,8 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
 Save and close the file. Now you can view your slippy map by typing the following URL in browser.
 
     http://your-server-ip/ol.html
+
+<script async src="//jsfiddle.net/ircama/r3a4t201/embed/"></script>
 
 ### Leaflet
 
@@ -382,6 +488,8 @@ Save and close the file. Now you can view your slippy map by typing the followin
 
     http://your-server-ip/lf.html
 
-A rapid way to test the slippy map is through a simple JSFiddle template.
+A rapid way to test the slippy map is through an online source code playground like this JSFiddle template.
 
 {% include_relative _includes/leaflet.md os='Ubuntu' %}
+
+{% include pages/images.md %}

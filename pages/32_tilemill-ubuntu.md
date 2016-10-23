@@ -9,13 +9,13 @@ permalink: /tilemill-ubuntu/
 
 The following step-by-step procedure can be used to install a working development environment of *openstreetmap-carto* exploiting [TileMill](http://wiki.openstreetmap.org/wiki/TileMill) on an Ubuntu PC.
 
-TileMill moved out of the Mapbox profile and shifted to an open source community-driven organization, with its own organization and contributor model: [tilemill-project](https://github.com/tilemill-project/tilemill).
+TileMill moved out of the [Mapbox profile](https://www.mapbox.com/help/osm-and-mapbox/) and shifted to an open source community-driven organization, with its own organization and contributor model: [tilemill-project](https://github.com/tilemill-project/tilemill).
 
 Additional information:
 
-* [TileMill moved to a community-driven organization](https://www.mapbox.com/blog/fall-cleaning/)
 * [Official TileMill project](https://github.com/tilemill-project/tilemill)
 * [Official TileMill documentation](http://tilemill-project.github.io/tilemill/docs/manual/)
+* [Documentation to install TileMill](http://tilemill-project.github.io/tilemill/docs/source/)
 * [Documentation to build TileMill from source](http://tilemill-project.github.io/tilemill/docs/source/)
 
 A PostGIS database is needed and can be installed locally (suggested) or remotely (might be slow, depending on the network).
