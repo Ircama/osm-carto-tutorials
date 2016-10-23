@@ -3,7 +3,6 @@ layout: page
 title: Installing an OpenStreetMap Tile Server on Ubuntu
 comments: true
 permalink: /tile-server-ubuntu/
-sitemap: false
 ---
 
 ## Introduction
@@ -195,6 +194,18 @@ You should see the tile of world map.
 
 Congratulations! You just successfully built your own OSM tile server.
 
+## Pre-rendering tiles
+
+To pre-render tiles instead of rendering on the fly, use *render_list* command. Pre-rendered tiles will be cached in */var/lib/mod_tile directory*.
+
+To show all command line option of render_list:
+
+    render_list --help
+
+Example usage:
+
+    render_list -a
+
 ## Debugging Apache, mod_tile and renderd
 
 To clear all osm tiles cache, remove /var/lib/mod_tile/default (using rm -rf if you dare) and restart renderd daemon:
@@ -265,393 +276,112 @@ As exceptional case, the following commands allow to fully remove Apache, mod_ti
     sudo apt-get --reinstall install apache2-bin
     sudo apt-get install apache2 apache2-dev
 
-
 ## Deploying your own Slippy Map
 
 Tiled web map is also known as slippy map in OpenStreetMap terminology.
 
 Page [Deploying your own Slippy Map](http://wiki.openstreetmap.org/wiki/Deploying_your_own_Slippy_Map) illustrates how to embed the previously installed map server into a website. A number of possible map libraries are mentioned, including some relevant ones ([Leaflet](leafletjs.com), [OpenLayers](openlayers.org), [Google Maps API](https://developers.google.com/maps/)) as well as many alternatives.
 
-<script async src="//jsfiddle.net/ircama/8sypcx7o/embed/"></script>
-
-### Google Maps API
-
-OpenStreetMap tiles can be presented through Google Maps API v3 basing on the following [example](http://harrywood.co.uk/maps/examples/google-maps/apiv3.view.html), where you need to change *your-server-ip* with the actual IP address of the previously installed map server:
-
-```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>OpenStreetMap in Google Maps v3 API Example</title>
-        <style>
-            html, body, #map {
-                height: 100%;
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            div#footer {
-                position: fixed;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                width: 100%;
-                height: 18px;
-                margin: 0;
-                padding: 6px;
-                z-index: 2;
-                background: WHITE;
-            }
-        </style> 
-    </head>
-    <body>
-        <div id="map" style="float: left;"></div>
-        
-        <div id="footer">&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div>
-        
-        <!-- bring in the google maps library -->
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-        
-        <script type="text/javascript">
-            //Google maps API initialisation
-            var element = document.getElementById("map");
- 
-            var map = new google.maps.Map(element, {
-                center: new google.maps.LatLng(57, 21),
-                zoom: 3,
-                mapTypeId: "OSM",
-                mapTypeControl: false,
-                streetViewControl: false
-            });
- 
-            //Define OSM map type pointing at the OpenStreetMap tile server
-            map.mapTypes.set("OSM", new google.maps.ImageMapType({
-                getTileUrl: function(coord, zoom) {
-                    return "your-server-ip/osm_tiles/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
-                },
-                tileSize: new google.maps.Size(256, 256),
-                name: "OpenStreetMap",
-                maxZoom: 18
-            }));
-        </script>
-        
-    </body>
-</html>
-```
-
-There are two free and open source JavaScript map libraries you can use for your tile server: OpenLayer and Leaflet. The advantage of Leaflet is that it is simple to use and your map will be mobile-friendly.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Continuare da qui:
-https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/
-https://www.linuxbabe.com/linux-server/openstreetmap-tile-server-ubuntu-16-04
-
-
-
 ### OpenLayer
 
-To display your slippy map with OpenLayer, first create a web folder.
+To display your slippy map with OpenLayer, create a file named *ol.html* under */var/www/html*.
 
-sudo mkdir /var/www/osm
+    sudo vi /var/www/html/ol.html
 
-Then download JavaScript and CSS from openlayer.org and extract it to the web root folder.
-
-Next, create the index.html file.
-
-sudo nano /var/www/osm/index.html
-
-Paste the following HTML code in the file. Replace red-colored text and adjust the longitude, latitude and zoom level according to your needs.
+Paste the following HTML code in the file. Replace *your-server-ip* with your IP Address and adjust the longitude, latitude and zoom level according to your needs.
 
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-<title>Accessible Map</title>
-<link rel="stylesheet" href="http://your-ip/ol.css" type="text/css">
-<script src="http://your-ip/ol.js"></script>
+<title>OpenStreetMap with OpenLayers</title>
+<link rel="stylesheet" href="https://openlayers.org/en/v3.19.0/css/ol.css" type="text/css">
+<script src="https://openlayers.org/en/v3.19.0/build/ol.js"></script>
 <style>
-  a.skiplink {
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
+  html,
+  body,
+  #map {
+    height: 100%;
+    margin: 0;
     padding: 0;
-    border: 0;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-  }
-  a.skiplink:focus {
-    clip: auto;
-    height: auto;
-    width: auto;
-    background-color: #fff;
-    padding: 0.3em;
-  }
-  #map:focus {
-    outline: #4A74A8 solid 0.15em;
   }
 </style>
 </head>
 <body>
-  <a class="skiplink" href="#map">Go to map</a>
-  <div id="map" class="map" tabindex="0"></div>
-  <button id="zoom-out">Zoom out</button>
-  <button id="zoom-in">Zoom in</button>
+  <div id="map" class="map"></div>
   <script>
+    // Set up the OSM layer
+    var myTileServer = new ol.layer.Tile({
+      source: new ol.source.OSM({
+        crossOrigin: null,
+        url: 'http://your-server-ip/osm_tiles/{z}/{x}/{y}.png'
+      })
+    });
+    
+    // Create the map
     var map = new ol.Map({
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM({
-             url: 'http://your-ip/osm_tiles/{z}/{x}/{y}.png'
-          })
-       })
-     ],
-     target: 'map',
-     controls: ol.control.defaults({
-        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-          collapsible: false
-        })
-     }),
-    view: new ol.View({
-       center: [244780.24508882355, 7386452.183179816],
-       zoom:5
-    })
- });
-
-  document.getElementById('zoom-out').onclick = function() {
-    var view = map.getView();
-    var zoom = view.getZoom();
-    view.setZoom(zoom - 1);
-  };
-
-  document.getElementById('zoom-in').onclick = function() {
-     var view = map.getView();
-     var zoom = view.getZoom();
-     view.setZoom(zoom + 1);
-  };
-</script>
+      layers: [ myTileServer ],
+      target: 'map',
+      view: new ol.View({
+        center: ol.proj.transform([10, 45], 'EPSG:4326', 'EPSG:3857'),
+        zoom: 4
+      })
+    });
+  </script>
 </body>
 </html>
 ```
 
-Save and close the file. Now you can view your slippy map by typing your server IP address in browser.
+Save and close the file. Now you can view your slippy map by typing the following URL in browser.
 
-your-ip/index.html           or          your-ip
-
-
-
-
+    http://your-server-ip/ol.html
 
 ### Leaflet
 
 Leaflet is a JavaScript library for embedding maps. It is simpler and smaller than OpenLayers.
 
-To display your slippy map with Leftlet, first create a web folder.
+To display your slippy map with Leaflet, create a file named *lf.html* under */var/www/html*.
 
-    sudo mkdir /var/www/osm
+    sudo vi /var/www/html/lf.html
 
-You can download Leaflet (JavaScript and CSS) from its own site at leftletjs.com or better from GitHub:
-
-    cd
-    git clone https://github.com/Leaflet/Leaflet.git
-
-Copy the dist/ directory to the place on your webserver where the embedding page will be served from, and rename it leaflet/ .
-
-    cd Leaflet
-    cp -r *
-
-Next, create the index.html file.
-
-sudo nano /var/www/osm/index.html
-
-Paste the following HTML code in the file. Replace red-colored text and adjust the longitude, latitude and zoom level according to your needs.
+Paste the following HTML code in the file. Replace *your-server-ip* with your IP Address and adjust the longitude, latitude and zoom level according to your needs.
 
 ```html
+<!DOCTYPE html>
 <html>
 <head>
-<title>My first osm</title>
-<link rel="stylesheet" type="text/css" href="leaflet.css"/>
-<script type="text/javascript" src="leaflet.js"></script>
+<title>OpenStreetMap with Leaflet</title>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" type="text/css">
+<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 <style>
-   #map{width:100%;height:100%}
+  html,
+  body,
+  #map {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 </style>
 </head>
-
 <body>
-  <div id="map"></div>
+  <div id="map" class="map"></div>
   <script>
-    var map = L.map('map').setView([53.555,9.899],5);
-    L.tileLayer('http://your-ip/osm_tiles/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
-</script>
+    // Create the map
+    var map = L.map('map').setView([45, 10], 4);
+    
+    // Set up the OSM layer
+    L.tileLayer(
+    'http://your-server-ip/osm_tiles/{z}/{x}/{y}.png'
+    ).addTo(map);
+  </script>
 </body>
 </html>
 ```
 
-Save and close the file. Now you can view your slippy map by typing your server IP address in browser.
+Save and close the file. Now you can view your slippy map by typing the following URL in browser.
 
-To pre-render tiles instead of rendering on the fly, use render_list command. Pre-rendered tiles will be cached in /var/lib/mod_tile directory. -z and -Z flag specify the zoom level.
+    http://your-server-ip/lf.html
 
-render_list -m default -a -z 0 -Z 10
+A rapid way to test the slippy map is through a simple JSFiddle template.
 
-
-
-## Embedding Leaflet in your page
-
-For ease of use, we’ll create a .js file with all our map code in it. You can of course put this inline in the main page if you like. Create this page in your *leaflet/* directory and call it *leafletembed.js*.
-
-Use the following code in *leafletembed.js*:
-
-```javascript
-var map;
-var ajaxRequest;
-var plotlist;
-var plotlayers=[];
-
-function initmap() {
-	// set up the map
-	map = new L.Map('map');
-
-	// create the tile layer with correct attribution
-	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-	var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 12, attribution: osmAttrib});		
-
-	// start the map in South-East England
-	map.setView(new L.LatLng(51.3, 0.7),9);
-	map.addLayer(osm);
-}
-```
-
-Then include it in your embedding page like this:
-
-```html
-<link rel="stylesheet" type="text/css" href="leaflet/leaflet.css" />
-<script type="text/javascript" src="leaflet/leaflet.js"></script>
-<script type="text/javascript" src="leaflet/leafletembed.js"></script>
-```
-
-Add an appropriately-sized *div* called ‘map‘ to your embedding page; then, finally, add some JavaScript to your embedding page to initialise the map, either at the end of the page or on an *onload* event:
-
-    initmap();
-
-Congratulations; you have embedded your first map with Leaflet.
-
-## Showing markers as the user pans around the map
-
-There are several [excellent examples on the Leaflet website](http://leaflet.cloudmade.com/examples.html). Here we’ll demonstrate one more common case: showing clickable markers on the map, where the marker locations are reloaded from the server as the user pans around.
-
-First, we’ll add the standard AJAX code of the type you’ll have seen a thousand times before. At the top of the *initmap* function in *leafletembed.js*, add:
-
-```javascript
-// set up AJAX request
-ajaxRequest=getXmlHttpObject();
-if (ajaxRequest==null) {
-	alert ("This browser does not support HTTP Request");
-	return;
-}
-```
-
-then add this new function elsewhere in *leafletembed.js*:
-
-```javascript
-function getXmlHttpObject() {
-	if (window.XMLHttpRequest) { return new XMLHttpRequest(); }
-	if (window.ActiveXObject)  { return new ActiveXObject("Microsoft.XMLHTTP"); }
-	return null;
-}
-```
-
-Next, we’ll add a function to request the list of markers (in JSON) for the current map viewport:
-
-```
-function askForPlots() {
-	// request the marker info with AJAX for the current bounds
-	var bounds=map.getBounds();
-	var minll=bounds.getSouthWest();
-	var maxll=bounds.getNorthEast();
-	var msg='leaflet/findbybbox.cgi?format=leaflet&bbox='+minll.lng+','+minll.lat+','+maxll.lng+','+maxll.lat;
-	ajaxRequest.onreadystatechange = stateChanged;
-	ajaxRequest.open('GET', msg, true);
-	ajaxRequest.send(null);
-}
-```
-
-This talks to a serverside script which simply returns a JSON array of the properties we want to display on the map, like this:
-
-```json
-[{"name":"Tunbridge Wells, Langton Road, Burnt Cottage",
-  "lon":"0.213102",
-  "lat":"51.1429",
-  "details":"A Grade II listed five bedroom wing in need of renovation."}]
-```
-
-(etc.)
-
-When this arrives, we’ll clear the existing markers and display the new ones, creating a rudimentary pop-up window for each one:
-
-```javascript
-function stateChanged() {
-	// if AJAX returned a list of markers, add them to the map
-	if (ajaxRequest.readyState==4) {
-		//use the info here that was returned
-		if (ajaxRequest.status==200) {
-			plotlist=eval("(" + ajaxRequest.responseText + ")");
-			removeMarkers();
-			for (i=0;i<plotlist.length;i++) {
-				var plotll = new L.LatLng(plotlist[i].lat,plotlist[i].lon, true);
-				var plotmark = new L.Marker(plotll);
-				plotmark.data=plotlist[i];
-				map.addLayer(plotmark);
-				plotmark.bindPopup("<h3>"+plotlist[i].name+"</h3>"+plotlist[i].details);
-				plotlayers.push(plotmark);
-			}
-		}
-	}
-}
-
-function removeMarkers() {
-	for (i=0;i<plotlayers.length;i++) {
-		map.removeLayer(plotlayers[i]);
-	}
-	plotlayers=[];
-}
-```
-
-Finally, let’s wire this into the rest of our script. After we’ve added the map in *initmap*, let’s ask for the first load of markers, and set up an event to do this every time the map is panned. Add this just at the end of *initmap*:
-
-```javascript
-	askForPlots();
-	map.on('moveend', onMapMove);
-}
-
-// then add this as a new function...
-function onMapMove(e) { askForPlots(); }
-```
-
-
-
-
-
-
-
-
-
-
-
-Cose da controllare:
-http://tilemill-project.github.io/tilemill/docs/source/
-
-https://blog.gravitystorm.co.uk/
-https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/
+{% include_relative _includes/leaflet.md os='Ubuntu' %}

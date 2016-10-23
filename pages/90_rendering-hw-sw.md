@@ -25,6 +25,8 @@ Tile servers:
   * osm2pgsql version: [0.88.1 for Ubuntu 16.04 (and 0.90.1 for yakkety)](https://github.com/gravitystorm/openstreetmap-carto/issues/657#issuecomment-247884068)
   * openstreetmap-carto version at the time of writing: v2.44.0 (check [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb), section *:styles* for the actual version).
 
+The [Operations Working Group log](https://gravitystorm.github.io/owg-log/) reports updated information regarding versions.
+
 Other information (from [Munin](http://munin.openstreetmap.org/)):
 
 * tile servers are also running [*mod_tile*](https://github.com/openstreetmap/mod_tile) and *renderd*.
