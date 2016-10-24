@@ -46,7 +46,7 @@ To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel mo
 
 ## Bing Maps
 
-[Example](http://jsfiddle.net/ircama/yj19xkpd/) of using [Bing Maps](https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx) to show OpenStreetMap data.
+[Example](http://fiddle.jshell.net/ircama/L3v8g0eh/) of using [Bing Maps](https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx) to show OpenStreetMap data.
 
 Default tiles can be replaced with your tile server ones by changing
 
@@ -58,7 +58,7 @@ to `http://your-server-ip/osm_tiles/`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//jsfiddle.net/ircama/yj19xkpd/embed/"></script>
+<script async src="//fiddle.jshell.net/ircama/L3v8g0eh/embed/"></script>
 
 ## Mapbox API
 
@@ -78,7 +78,7 @@ To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel mo
 
 ## Carto API
 
-[Example](https://jsfiddle.net/ircama/eLb09na5/) of using [Carto API](https://carto.com/docs/) to show OpenStreetMap data.
+[Example](https://jsfiddle.net/ircama/d80w7hb1/) of using [Carto API](https://carto.com/docs/) to show OpenStreetMap data.
 
 Default tiles can be replaced with your tile server ones by changing
 
@@ -90,11 +90,11 @@ to `http://your-server-ip/osm_tiles/{z}/{x}/{y}.png`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//jsfiddle.net/ircama/Lzmyhu9q/embed/"></script>
+<script async src="//jsfiddle.net/ircama/d80w7hb1/embed/"></script>
 
 ## ESRI ArcGIS API
 
-[Example](http://jsfiddle.net/ircama/8sypcx7o/) of using [ESRI ArcGIS API](http://developers.arcgis.com/en/javascript/) to show OpenStreetMap data.
+[Example](http://jsfiddle.net/ircama/7m427rr7/) of using [ESRI ArcGIS API](http://developers.arcgis.com/en/javascript/) to show OpenStreetMap data.
 
 Default tiles can be replaced with your tile server ones by changing
 
@@ -106,4 +106,4 @@ to `http://your-server-ip/osm_tiles/`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//jsfiddle.net/ircama/8sypcx7o/embed/"></script>
+<script async src="//jsfiddle.net/ircama/7m427rr7/embed/"></script>

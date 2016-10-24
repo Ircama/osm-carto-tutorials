@@ -12,7 +12,7 @@
 [files]: http://image.flaticon.com/icons/png/512/149/149344.png "Files"
 [dl]: http://image.flaticon.com/icons/png/512/51/51536.png "Download"
 [json]: http://image.flaticon.com/icons/png/512/136/136443.png "JSON format"
-[web]: http://imageog.flaticon.com/icons/png/512/60/60912.png "Web pages"
+[web]: http://imageog.flaticon.com/icons/png/512/60/60912.png "Web browser"
 [csv]: http://image.flaticon.com/icons/png/128/28/28842.png "CSV file"
 [jpg]: http://image.flaticon.com/icons/png/128/29/29264.png "JPG image"
 [html]: http://image.flaticon.com/icons/png/128/29/29104.png "HTML page"

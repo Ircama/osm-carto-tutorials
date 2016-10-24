@@ -65,4 +65,18 @@ for (var i = 0; i < links.length; i++) {
         } 
     }
 }
+
+/* Auto-move the table of content scroll div while scrolling the main window */
+$(window).scroll(function(){
+  var scrollPos = $("div.sticky").offset().top / $(document.body).prop('scrollHeight');
+  if (scrollPos < 0.3)
+    scrollPos=0;
+  if (scrollPos < 0.5)
+    scrollPos=scrollPos * 0.9;
+  if (scrollPos > 0.6)
+    scrollPos=scrollPos * 1.2;
+  if (scrollPos > 0.75)
+    scrollPos=1;
+  $("div.sticky").scrollTop(scrollPos * ($("div.sticky").prop('scrollHeight') - $("div.sticky").innerHeight()));
+})
 </script>
