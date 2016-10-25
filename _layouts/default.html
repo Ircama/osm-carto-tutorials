@@ -41,7 +41,7 @@ Homepage: {{ site.url }}{{ site.baseurl }}
         var toggle = document.querySelector('.sidebar-toggle');
         var sidebar = document.querySelector('#sidebar');
         var checkbox = document.querySelector('#sidebar-checkbox');
-        var sticky = document.querySelector('#sticky');
+        var sticky = document.querySelector('.sticky');
 
         document.addEventListener('touchstart', function(e) { // Automatically close the sidebar when tapping the page content
           var target = e.target;
@@ -50,8 +50,7 @@ Homepage: {{ site.url }}{{ site.baseurl }}
               target === toggle)
             return;
           checkbox.checked = false;
-          if (typeof sticky !== "undefined")
-            sticky.visible = false;
+          sticky.visible = false;
         }, false);
         
         document.addEventListener('click', function(e) { // Automatically close the sidebar when clicking on the page content
@@ -62,8 +61,7 @@ Homepage: {{ site.url }}{{ site.baseurl }}
              (target === checkbox || target === toggle)) return;
 
           checkbox.checked = false;
-          if (typeof sticky !== "undefined")
-            sticky.visible = false;
+          sticky.visible = false;
         }, false);
       })(document);
     </script>
