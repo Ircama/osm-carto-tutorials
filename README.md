@@ -1,4 +1,4 @@
-## {{ site.url }}{{ site.baseurl }}
+## https://ircama.github.io/osm-carto-tutorials/
 
 # OpenStreetMap Carto Tutorials
 
