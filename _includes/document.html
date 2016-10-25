@@ -66,8 +66,8 @@ for (var i = 0; i < links.length; i++) {
     }
 }
 
+$(window).on('load resize scroll', function () {
 /* Auto-move the table of content scroll div while scrolling the main window */
-$(window).scroll(function(){
   var scrollPos = $("div.sticky").offset().top / $(document.body).prop('scrollHeight');
   if (scrollPos < 0.3)
     scrollPos=0;
@@ -78,5 +78,11 @@ $(window).scroll(function(){
   if (scrollPos > 0.75)
     scrollPos=1;
   $("div.sticky").scrollTop(scrollPos * ($("div.sticky").prop('scrollHeight') - $("div.sticky").innerHeight()));
+
+/* Dynamically set bottom position of div.sticky only when toc overflows to avoid conflicts between box-shadow and scrollbar */
+if ($(window).height() < $('nav[data-toggle="toc"]').height() + $("div.sticky").position().top)
+  $("div.sticky").css("bottom","0")
+else
+  $("div.sticky").css("bottom","unset");
 })
 </script>

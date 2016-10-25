@@ -143,9 +143,9 @@ table.djustify td.dcontent {
 
 /* Table of Content (TOC) */
 
-nav[data-toggle='toc'] {
+nav[data-toggle='toc'], .toc-title {
   border: .1rem solid #f5f5f5;
-  background-color: #fffcfc;
+  background-color: #ffffff;
 }
 
 nav[data-toggle='toc'] ul{
@@ -157,7 +157,6 @@ nav[data-toggle='toc'] ul{
 .sticky {
   position:fixed !important;
   position: absolute; /*ie6 */
-  bottom: 0;
   top: 3.6em;
   width: 20rem;
   right: 0;
@@ -165,12 +164,12 @@ nav[data-toggle='toc'] ul{
   border-top: 0;
   line-height: 1.1;
   overflow: auto; display: inline-block; /* scrollbars */
+  box-shadow: -3px 6px 8px 0px rgba(0,0,0,0.1);
 }
 
 /* show TOC title */
 
 .toc-title, .toc-title:link, .toc-title:hover, .toc-title:active, .toc-title:visited {
-  border: .1rem solid #f5f5f5;
   position:fixed !important;
   position: absolute; /*ie6 */
   text-align: center;
@@ -182,12 +181,12 @@ nav[data-toggle='toc'] ul{
   font-size: 13px;
   font-weight: bold;
   color: #767676;
-  background-color: #fffcfc;
   display: flex;
   align-items: center;
   justify-content: center;
   outline: none;
   text-decoration: none;
+  box-shadow: -3px 6px 8px 0px rgba(0,0,0,0.1);
   }
 
 @keyframes fadeInOpacity {
@@ -308,6 +307,11 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 45em) {
   .container {
     max-width: 45rem;
+  }
+}
+@media (min-width: 70em) {
+  .container {
+    max-width: 50rem;
   }
 }
 

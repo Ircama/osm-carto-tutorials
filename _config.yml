@@ -8,7 +8,7 @@ permalink:           pretty
 title:               OpenStreetMap Carto Tutorials
 tagline:             'Unofficial documentation'
 description:         'Unofficial tutorials for <a href="https://github.com/gravitystorm/openstreetmap-carto" target="_blank">openstreetmap-carto</a>'
-url:                 http://ircama.github.io
+url:                 https://ircama.github.io
 baseurl:             "/osm-carto-tutorials"
 branch:              "gh-pages"
 paginate:            4
@@ -23,7 +23,7 @@ author:
 #  email:             my_email@gmail.com
 
 # Custom vars
-version:             1.1.4
+version:             1.1.5
 google_search:       011671119207917586318:jtx4jontd8i
 google_analytics:    UA-84073284-1
 disqus_shortname:    ircama-github-io-osm-carto-tutorials

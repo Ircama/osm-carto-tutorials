@@ -31,7 +31,16 @@ openstreetmap-carto includes the following files and folders:
 * a *symbols* subdirectory for storing *svg* and *png* files
 * a *scripts* subdirectory including all scripts
 * *openstreetmap-carto.style*/*openstreetmap-carto.lua*: osm2pgsql configuration files
-* description files: README.md/preview.png/LICENSE.txt/CARTOGRAPHY.md/CONTRIBUTING.md/RELEASES.md/CODE_OF_CONDUCT.md/CHANGELOG.md/INSTALL.md
+* description files:
+  * README.md
+  * preview.png
+  * LICENSE.txt
+  * CARTOGRAPHY.md
+  * CONTRIBUTING.md
+  * RELEASES.md
+  * CODE_OF_CONDUCT.md
+  * CHANGELOG.md
+  * INSTALL.md
 * support files for the scripts: indexes.yml/road-colors.yaml/indexes.sql/get-shapefiles.sh/.travis.yml
 
 ## Description of the rendering process

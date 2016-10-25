@@ -51,7 +51,7 @@ All pages are provided with a tag in their bottom part, to directly link to thei
 The suggested process to add or update *pages* is directly from the GitHub site:
 
 - Log on to [GitHub](https://github.com) with your account (create one if you do not have it)
-- Access [osm-carto-tutorials](https://github.com/Ircama/osm-carto-tutorials/tree/gh-pages/pages)
+- Access [osm-carto-tutorials]({{ site.author.url }}{{ site.baseurl }}/tree/gh-pages/pages)
 - Navigate to the *pages* folder; you can edit an existing file, upload files (produced elsewere) or create a new one directly through the GitHub Web; to exploit the Web, open a file and press the pencil icon to update it, or press *Create new file*, for a new one; give a valid name to your new file, including *.md* extension (e.g., *osm-carto-tutorials/pages/50_new-file.md*).
 - For *pages*, conventionally the file name should start with two digits followed by underscore, so that it defines a list ordering used by the auto-generated navigation menu within the left sidebar of the site.
 - When creating a new file, remember to add the *.md* extension (without this, the *Preview* does not work). A name initiating with underscore will remain hidden (e.g., *_hidden-name.md*).
@@ -98,6 +98,26 @@ The suggested process to add or update *pages* is directly from the GitHub site:
 
 - Relative links shall be contructed with my_relative_link (e.g., `[a link to a site](its_permalink/)`).
 
+## Homepage
+
+The home page includes all pages tagged with the following Front Matter:
+
+```
+---
+layout: homepage
+title: OpenStreetMap Carto Tutorials
+---
+
+...
+...
+```
+
+The title of the first shown page (*title:*) will be site main banner.
+
+Generally, a file named *homepage.md* inside the *_notes* directory includes the text of the home page.
+
+Subsequently to the home pages, all posts are listed.
+
 ## Managing Posts
 
 You might limit your contribution to pages, while I'll create appropriate posts during revision. I'll keep anyway a description on how to manage them.
@@ -134,6 +154,8 @@ Sample:
 Check also instructions [here](../tilemill-osm-carto/#download-openstreetmap-data).
 ```
 
+By default, links to a different document in the same site open in the same window.
+
 ### Link to a section of the same document
 
 Use this syntax:
@@ -164,17 +186,23 @@ Sample:
 See [Start Kosmtik](#start-kosmtik).
 ```
 
-### Opening a link in a new window
+By default, links to a section of the same document open in the same window.
+
+### Opening a link in a separate tab
 
 ```
-This is [a link](http://example.com){:target="_blank"} that opens in a new window.
+This is [a link]({{ site.url }}{{ site.baseurl }}){:target="_blank"} that opens in a separate tab.
 ```
 
-This is [a link](http://example.com){:target="_blank"} that opens in a new window.
+This is [a link]({{ site.url }}{{ site.baseurl }}){:target="_blank"} that opens in a separate tab.
+
+### External links
+
+By default, external links open in a separate tab. Therefore, for those links `{:target="_blank"}` is automatically added.
 
 ### Coloring
 
-This theme includes an extension of the [Lanyon](https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/public/css/lanyon.css) stylesheet which easily supports some colors.
+This theme includes an extension of the [Lanyon]({{ site.author.url }}{{ site.baseurl }}/blob/gh-pages/public/css/lanyon.css) stylesheet which easily supports some colors.
 
 #### Sample of coloring a paragraph:
 
@@ -236,7 +264,7 @@ This is a *green*{:.highlight-green} highlight.
 
 ### Drawings
 
-This theme includes an extension of the [Lanyon](https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/public/css/lanyon.css) stylesheet which supports drawings.
+This theme includes an extension of the [Lanyon]({{ site.author.url }}{{ site.baseurl }}/blob/gh-pages/public/css/lanyon.css) stylesheet which supports drawings.
 
 Drawings are defined as standard Markdown tables including UTF8 arrows (or unicode ones in case the editor is able to convert them to UTF8) and followed by `{: .drawing}` when all cells are centered or by `{: .drawing .djustify}` when cells have to be justified.
 The file shall be in UTF8 format.
@@ -309,22 +337,19 @@ If you have the option to select *"Create a new branch for this commit and start
 
 The created *pull request* will be revised in order to be published. Please, accept some time to accomplish the review process, thanks.
 
-## Homepage
+## Other standard recommendations for contributors
 
-The home page includes all pages tagged with the following Front Matter:
-
-```
----
-layout: homepage
-title: OpenStreetMap Carto Tutorials
----
-
-...
-...
-```
-
-The title of the first shown page (*title:*) will be site main banner.
-
-Generally, a file named *homepage.md* inside the *_notes* directory includes the text of the home page.
-
-Subsequently to the home pages, all posts are listed.
+* Keep the pull request small, and narrowly scoped (one bug fix, one feature, etc.)
+* Focus comments on technical guides (e.g., setting up a rendering server), avoiding specific interests
+* Avoid lock-in with specific vendors or services
+* Do not require specific external services, aside from OpenStreetMap itself
+* Use multiple steps to build understanding, rather than one big shell script
+* Does not present bad practices, even in a demo
+* Add building from sources only as alternative to standard installation
+* Avoids binary blobs
+* Adapt instructions to different OSs or distributions
+* Use instructions crafted to work in the future, and to the extent possible, on future distributions
+* Avoid hardcoding paths
+* Put reusable framework to the *pages/_includes* directory
+* Use OS distribution methods for software when possible
+* Please don't be offended if some feature request is politely declined.

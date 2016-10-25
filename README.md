@@ -1,4 +1,4 @@
-## https://ircama.github.io/osm-carto-tutorials/
+## {{ site.url }}{{ site.baseurl }}
 
 # OpenStreetMap Carto Tutorials
 
@@ -8,7 +8,7 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
 
 This [Jekyll](http://jekyllrb.com/)-based theme is specifically intended for static technical documentation deployable on [GitHub Pages](https://pages.github.com/).
 
-Information on the usage of this theme can be found in [how to contribute](https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/_notes/how-to-contribute.md).
+Information on the usage of this theme can be found in [how to contribute]({{ site.author.url }}{{ site.baseurl }}/blob/gh-pages/_notes/how-to-contribute.md).
 
 ## Credits:
 
@@ -44,6 +44,6 @@ Summary of the main changes from the default Lanyon Theme:
  * added integration with Disqus, Google Search Custom, Google Analytics
  * Home page revised
  * improved lanyon.css and poole.css
- * Added features from [credits](https://github.com/ircama/osm-carto-tutorials/tree/gh-pages#credits): AnchorJS, Table of Contents (ScrollSpy), github.commits.widget, lanyon-plus icons, etc. Developed a feature to support all headers from h1 to h6 in ToC. Developed an upgrade to github.commits.widget to support a one-line page commit summary through API integration with GitHub.
+ * Added features from [credits]({{ site.author.url }}{{ site.baseurl }}/tree/gh-pages#credits): AnchorJS, Table of Contents (ScrollSpy), github.commits.widget, lanyon-plus icons, etc. Developed a feature to support all headers from h1 to h6 in ToC. Developed an upgrade to github.commits.widget to support a one-line page commit summary through API integration with GitHub.
  * Developed an extension of the Lanyon stylesheet which supports drawings.
  
