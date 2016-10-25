@@ -19,6 +19,7 @@ Information on the usage of this theme can be found in [how to contribute]({{ si
 * [jQuery](https://jquery.com/)
 * [github.commits.widget](https://github.com/alexanderbeletsky/github-commits-widget), (c) 2012 Alexander Beletsky, with some improvements
 * [lanyon-plus](https://github.com/dyndna/lanyon-plus)
+* Icons from <www.flaticons.com> and from <openclipart.org>
 
 Licensed under the [MIT License](http://opensource.org/licenses/MIT)
 
