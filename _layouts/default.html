@@ -50,7 +50,8 @@ Homepage: {{ site.url }}{{ site.baseurl }}
               target === toggle)
             return;
           checkbox.checked = false;
-          sticky.visible = false;
+          if (typeof sticky !== "undefined")
+            sticky.visible = false;
         }, false);
         
         document.addEventListener('click', function(e) { // Automatically close the sidebar when clicking on the page content
@@ -61,7 +62,8 @@ Homepage: {{ site.url }}{{ site.baseurl }}
              (target === checkbox || target === toggle)) return;
 
           checkbox.checked = false;
-          sticky.visible = false;
+          if (typeof sticky !== "undefined")
+            sticky.visible = false;
         }, false);
       })(document);
     </script>
