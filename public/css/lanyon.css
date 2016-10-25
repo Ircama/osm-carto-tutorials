@@ -186,7 +186,7 @@ nav[data-toggle='toc'] ul{
   justify-content: center;
   outline: none;
   text-decoration: none;
-  box-shadow: -3px 6px 8px 0px rgba(0,0,0,0.1);
+  box-shadow: -3px 6px 8px 0px rgba(0,0,0,0.1), -2px -3px 3px 1px rgba(0,0,0,0.05) inset;
   }
 
 @keyframes fadeInOpacity {
