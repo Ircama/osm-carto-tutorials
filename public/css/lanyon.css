@@ -285,9 +285,22 @@ h1, h2, h3, h4, h5, h6 {
  * regular page content.
  */
 
-.wrap {
-  position: relative;
-  width: 90%;
+@media (min-width: 1070px) {
+  .wrap {
+    width: 88%;
+  }
+}
+@media (max-width: 1070px) {
+  div.wrap[fullscreen='yes'] {
+    width: 100%;
+    -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+  }
+  div.wrap:not([fullscreen='yes']) {
+    width: 80%;
+    -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+  }
 }
 
 /*
@@ -304,14 +317,14 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 42rem;
   }
 }
-@media (min-width: 45em) {
+@media (min-width: 51em) {
   .container {
     max-width: 45rem;
   }
 }
 @media (min-width: 75em) {
   .container {
-    max-width: 53rem;
+    max-width: 54rem;
   }
 }
 
@@ -563,7 +576,6 @@ a.sidebar-nav-item:focus {
     position: fixed;
   }
 }
-
 @media (max-width: 52em) {
   #sidebar-checkbox:not(:checked) ~ .sidebar-toggle {
     position: fixed;

@@ -19,7 +19,8 @@ Information on the usage of this theme can be found in [how to contribute]({{ si
 * [jQuery](https://jquery.com/)
 * [github.commits.widget](https://github.com/alexanderbeletsky/github-commits-widget), (c) 2012 Alexander Beletsky, with some improvements
 * [lanyon-plus](https://github.com/dyndna/lanyon-plus)
-* Icons from http://www.flaticon.com, https://openclipart.org/ and https://icomoon.io
+* [A Jekyll layout that compresses HTML in pure Liquid](https://github.com/penibelst/jekyll-compress-html), © 2014–2015 Anatol Broder. Released under the MIT License.
+* Fonts and icons from http://fontawesome.io/, http://www.flaticon.com, https://openclipart.org/ and https://icomoon.io
 
 Licensed under the [MIT License](http://opensource.org/licenses/MIT)
 

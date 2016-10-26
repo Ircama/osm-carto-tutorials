@@ -1,6 +1,9 @@
+---
+layout: compress
+---
 <!DOCTYPE html>
 <html lang="en-us">
-<!-- 
+<!--
 ====================================================
 Homepage: {{ site.url }}{{ site.baseurl }}
 ====================================================
@@ -37,28 +40,46 @@ Homepage: {{ site.url }}{{ site.baseurl }}
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <script>
+      function checkFullScreen() {
+        $("div.wrap").offset().left > 0 ? $("div.wrap").removeAttr("fullscreen") : $("div.wrap").attr("fullscreen", "yes");
+      };
+      function delayCheckFullScreen() {
+        setTimeout(checkFullScreen, 100);
+        setTimeout(checkFullScreen, 300);
+        setTimeout(checkFullScreen, 600);
+        setTimeout(checkFullScreen, 1200);
+        setTimeout(checkFullScreen, 2000);
+      };
+      delayCheckFullScreen();
+
       (function(document) {
         var toggle = document.querySelector('.sidebar-toggle');
         var sidebar = document.querySelector('#sidebar');
         var checkbox = document.querySelector('#sidebar-checkbox');
         var sticky = document.querySelector('.sticky');
 
-        document.addEventListener('touchstart', function(e) { // Automatically close the sidebar when tapping the page content
+        document.addEventListener('touchstart', function(e) { /* Automatically close the sidebar when tapping the page content */
+
+          delayCheckFullScreen();
           var target = e.target;
           if((!checkbox.checked) ||
               sidebar.contains(target) ||
               target === toggle)
             return;
+
           checkbox.checked = false;
           sticky.visible = false;
         }, false);
-        
-        document.addEventListener('click', function(e) { // Automatically close the sidebar when clicking on the page content
+
+        document.addEventListener('click', function(e) { /* Automatically close the sidebar when clicking on the page content */
+
+          delayCheckFullScreen();
           var target = e.target;
 
           if(!checkbox.checked ||
-             sidebar.contains(target) ||
-             (target === checkbox || target === toggle)) return;
+              sidebar.contains(target) ||
+              (target === checkbox || target === toggle))
+            return;
 
           checkbox.checked = false;
           sticky.visible = false;
