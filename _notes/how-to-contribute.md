@@ -75,7 +75,7 @@ The suggested process to add or update *pages* is directly from the GitHub site:
   - `permalink`: only for `pages`, recommended in order to define a path to reference the document in the site with a permanent link; suggestions: use a short set of characters, use the dash to separate letters; avoid upper case letters, set it once and avoid subsequent modifications (while the file name might be changed over the time, this link should remain unaltered).
   - `sitemap`: if set and valued *false* (e.g., `sitemap: false`), the document is not linked to the sidebar, counters and site map.
 
-- Subsequently to the *Front Matter* section, you can write the document in *Markdown*; check related [Quick Reference Guide]( http://kramdown.gettalong.org/quickref.html) and [Syntax](http://kramdown.gettalong.org/syntax.html). As mentioned for `layout: page`, do not add a title to your document, but use the Front Matter *title* tag instead.
+- Subsequently to the *Front Matter* section, you can write the document in *Markdown*; check related [Quick Reference Guide]( http://kramdown.gettalong.org/quickref.html) and [Syntax](http://kramdown.gettalong.org/syntax.html). As mentioned for `layout: page`, do not add a first level title to your document (`#`), but use the Front Matter *title* tag instead.
   
   Example:
 
@@ -112,11 +112,13 @@ title: OpenStreetMap Carto Tutorials
 ...
 ```
 
-The title of the first shown page (*title:*) will be site main banner.
-
 Generally, a file named *homepage.md* inside the *_notes* directory includes the text of the home page.
 
 Subsequently to the home pages, all posts are listed.
+
+The title of the page (*title:*) will be site main banner. All paragraphs shall use second level titles as the top level ones (`##`).
+
+All paragraph titles automatically generates permanent links. Avoid modifying paragraph titles after publishing pages (end users could have already referenced the link in other sites) and avoid using links in paragraph titles (as they will be part of the automatically generated permanent link).
 
 ## Managing Posts
 
@@ -139,6 +141,14 @@ MARKUP is the file extension representing the format used in the file. For examp
 The used Markdown format is [kramdown](http://kramdown.gettalong.org/quickref.html) with [Rouge](https://github.com/jneen/rouge) syntax highlighter.
 
 A good tutorial is included here: [Markdown syntax](https://learn.getgrav.org/content/markdown)
+
+### Page compressor
+
+This site includes an [HTML compressor](http://jch.penibelst.de/) which removes unnecessary lines consisting of whitespaces (including the ones produced by Liquid markup) as well as comments. Withespaces are left for all lines including code.
+
+HTML comments included in pages with Front Matter will be automatically stripped only if including at least one space (` `) after the opening tag ( `<!--`) and at least one space (` `) before the closing tag (`-->`). If no spaces are used, the comment will appear within produced HTML page. Pay attention to avoid mixed formats that will *corrupt* pages: when starting comment with `<!-- ` (`<|--` followed by at least one space ` `), the closing comment shall *always* be ` -->` (`-->` preceeded by at least one space ` `).
+
+Javascript comments (e.g., `/* this comment */` and `// this other mode`) included in pages with Front Matter (as well as all information included in <PRE> code) are not stripped out and will appear within produced HTML page.
 
 ### Link to a section of a different document in the same site
 

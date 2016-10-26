@@ -18,7 +18,7 @@ logo:                "/public/apple-touch-icon-precomposed.png"
 author:
   name:              ircama
   url:               https://github.com/ircama
-  credits:           '<a href="https://github.com/Ircama/osm-carto-tutorials/blob/gh-pages/README.md#httpsircamagithubioosm-carto-tutorials" target="_blank">Credits</a>'
+  credits:           '<a href="https://github.com/ircama/osm-carto-tutorials/tree/gh-pages#openstreetmap-carto-tutorials" target="_blank">Credits</a>'
   github_sources:    '<a href="https://github.com/ircama/osm-carto-tutorials/tree/gh-pages" target="_blank">Source</a> on GitHub'
 #  email:             my_email@gmail.com
 
@@ -54,6 +54,7 @@ collections:
   notes:
     output: true
 
+# HTML Compress - http://jch.penibelst.de/
 compress_html:
   clippings: all
   blanklines: true
