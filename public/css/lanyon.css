@@ -290,7 +290,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 88%;
   }
 }
-@media (max-width: 1070px) {
+@media (min-width: 38em) and (max-width: 1070px) {
   div.wrap[fullscreen='yes'] {
     width: 100%;
     -webkit-transition: all 0.3s ease-in-out;
@@ -302,7 +302,10 @@ h1, h2, h3, h4, h5, h6 {
             transition: all 0.3s ease-in-out;
   }
 }
-
+@media (max-width: 38em) {
+  width: 100%;
+}
+ 
 /*
  * Container
  *
