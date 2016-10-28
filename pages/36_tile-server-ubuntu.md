@@ -296,9 +296,9 @@ As exceptional case, the following commands allow to fully remove Apache, mod_ti
 
 ## Tile names format of OpenStreetMap tile server
 
-The file naming and image format used by mod_tile is described at [Slippy map tilenames](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames). Similar format is also used by Google Maps and many other map providers.
+The file naming and image format used by mod_tile is described at [Slippy map tilenames](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames). Similar format is also used by [Google Maps](https://developers.google.com/maps/documentation/javascript/maptypes) and many other map providers.
 
-[TMS](http://wiki.openstreetmap.org/wiki/TMS) and [WMS](http://wiki.openstreetmap.org/wiki/WMS) are other protocols for serving maps as tiles. [TileCache](http://tilecache.org/) is one Python-based open source server performing rendering backend and tile caching with WMS-C and TMS compliance.
+[TMS](http://wiki.openstreetmap.org/wiki/TMS) and [WMS](http://wiki.openstreetmap.org/wiki/WMS) are other protocols for serving maps as tiles. [TileCache](http://tilecache.org/) for instance is one Python-based open source server performing rendering backend and tile caching with WMS-C and TMS compliance.
 
 ## Deploying your own Slippy Map
 
