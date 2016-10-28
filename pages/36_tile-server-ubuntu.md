@@ -294,15 +294,23 @@ As exceptional case, the following commands allow to fully remove Apache, mod_ti
     sudo apt-get --reinstall install apache2-bin
     sudo apt-get install apache2 apache2-dev
 
+## Tile names format of OpenStreetMap tile server
+
+The file naming and image format used by mod_tile is described at [Slippy map tilenames](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames). Similar format is also used by Google Maps and many other map providers.
+
+[TMS](http://wiki.openstreetmap.org/wiki/TMS) and [WMS](http://wiki.openstreetmap.org/wiki/WMS) are other protocols for serving maps as tiles. [TileCache](http://tilecache.org/) is one Python-based open source server performing rendering backend and tile caching with WMS-C and TMS compliance.
+
 ## Deploying your own Slippy Map
 
-Tiled web map is also known as slippy map in OpenStreetMap terminology.
+[Tiled web map](https://en.wikipedia.org/wiki/Tiled_web_map) is also known as [slippy map](http://wiki.openstreetmap.org/wiki/Slippy_Map) in OpenStreetMap terminology.
+
+OpenStreetMap does not provide an “official” JavaScript library which you are required to use. Rather, you can use any library that meets your needs. The two most popular are OpenLayers and Leaflet. Both are open source.
 
 Page [Deploying your own Slippy Map](http://wiki.openstreetmap.org/wiki/Deploying_your_own_Slippy_Map) illustrates how to embed the previously installed map server into a website. A number of possible map libraries are mentioned, including some relevant ones ([Leaflet](leafletjs.com), [OpenLayers](openlayers.org), [Google Maps API](https://developers.google.com/maps/)) as well as many alternatives.
 
-### OpenLayer
+### OpenLayers
 
-To display your slippy map with OpenLayer, create a file named *ol.html* under */var/www/html*.
+To display your slippy map with OpenLayers, create a file named *ol.html* under */var/www/html*.
 
     sudo vi /var/www/html/ol.html
 
