@@ -43,7 +43,7 @@ After entering the password, exit from *psql* with:
 
 With the second procedure, also isssue:
 
-    exit # from 'sudo -i -u postgres'
+    exit # from 'sudo -i -u {{ pg_user}}'
     exit # from 'sudo su -'
 
 ## Create the PostGIS instance
@@ -70,6 +70,45 @@ then you might be installing PostgreSQL 9.3, for which you should also need:
     sudo apt-get install postgis postgresql-9.3-postgis-scripts
 
 Install it and repeat the create extension commands.
+
+## Add a user and grant access to gis DB
+
+In order for the application to access the *gis* database, a DB user with the same name of your UNIX user is needed. Let's suppose your UNIX ue is *{{ pg_login }}*.
+
+```
+sudo su -
+sudo -i -u {{ pg_user}}
+createuser {{ pg_login }}
+psql
+grant all privileges on database gis to {{ pg_login }};
+\q
+exit
+exit
+```
+
+## Enabling remote access to PostgreSQL
+
+To remotely access PostgreSQL, you need to edit *pg_hba.conf*:
+
+    sudo vi /etc/postgresql/9.5/main/pg_hba.conf
+
+and add the following line:
+
+    host    all             all             <your IP set>/<your netmask>             md5
+
+`host all all 0.0.0.0/0 md5` is an access control rule that let anybody login in from any address if providing a valid password (md5 keyword).
+
+Then edit *postgresql.conf*:
+
+    sudo vi /etc/postgresql/9.5/main/postgresql.conf
+
+and change the following line:
+
+    set `listen_addresses = '*'`
+
+Finally, the DB shall be restarted:
+
+    sudo /etc/init.d/postgresql restart
 
 ## Tuning the database
 

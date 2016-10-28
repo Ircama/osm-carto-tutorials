@@ -46,6 +46,8 @@ Even if different operating system versions have been tested, Ubuntu 16.4 is str
 
 {% include_relative _includes/update-ubuntu.md %}
 
+{% include_relative _includes/unix-user.md %}
+
 {% include_relative _includes/install-git.md program='OpenStreetMap Tile Server' %}
 
 {% include_relative _includes/install-mapnik.md %}
@@ -127,10 +129,6 @@ Change the following variables:
     RUNASUSER={{ pg_login }}
 
 In `RUNASUSER={{ pg_login }}` we suppose that your user is *{{ pg_login }}*. Change it to your actual user name.
-
-Add then the following variables:
-
-{% include_relative _includes/configuration-variables.md os='Ubuntu' notitle='yes' %}
 
 Save the file.
 
@@ -255,7 +253,6 @@ Tail log:
 
 Most of the configuration issues can discovered by analyzing the debug log of *renderd*; we need to stop the daemon and start *renderd* in foreground:
 
-{% include_relative _includes/configuration-variables.md os='Ubuntu' notitle='yes' %}
     sudo systemctl stop renderd
 
 If *systemctl* is not installed (e.g., Ubuntu 14.4):
@@ -280,6 +277,10 @@ If everything in the configuration looks fine, but the map is still not rendered
 
     sudo shutdown -r now
 
+If the problem persists, you might have a problem with your UNIX user. Try debugging again, after setting these variables:
+
+{% include_relative _includes/configuration-variables.md os='Ubuntu' notitle='yes' %}
+
 As exceptional case, the following commands allow to fully remove Apache, mod_tile and renderd and reinstall the service:
 
     sudo rm -r ~/src/mod_tile/
@@ -298,7 +299,7 @@ As exceptional case, the following commands allow to fully remove Apache, mod_ti
 
 The file naming and image format used by mod_tile is described at [Slippy map tilenames](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames). Similar format is also used by Google Maps and many other map providers.
 
-[TMS](http://wiki.openstreetmap.org/wiki/TMS) and [WMS](http://wiki.openstreetmap.org/wiki/WMS) are other protocols for serving maps as tiles. [TileCache](http://tilecache.org/) is one Python-based open source server performing rendering backend and tile caching with WMS-C and TMS compliance.
+[TMS](http://wiki.openstreetmap.org/wiki/TMS) and [WMS](http://wiki.openstreetmap.org/wiki/WMS) are other protocols for serving maps as tiles, managed by different rendering backends.
 
 ## Deploying your own Slippy Map
 

@@ -4,11 +4,13 @@
 <script src="{{ site.baseurl }}/public/anchor.min.js"></script>
 <div><a class="toc-title" href="#">{{ page.title }}</a></div>
 <div class="page">
+{% if include.ispage == "yes" %}
   <h1 data-toc-skip class="page-title">{{ page.title }}</h1>
   <div class="post-date">
   Last modification: 
   <span id="last-page-mod">unknown</span>
   </div>
+{% endif %}
   {{ content }}
 </div>
 <script>
