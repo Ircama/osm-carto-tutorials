@@ -18,10 +18,21 @@ comments: true
 {% if homepage == true %}
 <hr /><br />
 {% endif %}
+{% assign post_counter = 0 %}
+{% for node in site.posts %}
+  {% if node.sitemap != false %}
+    {% assign post_counter = post_counter | plus: 1 %}
+  {% endif %}
+{% endfor %}
+{% if post_counter > 0 %}
+<h2>
+Site update notes
+</h2>
+<br />
   {% for post in paginator.posts %}
   <div class="post">
 
-    <h2 class="post-title">
+    <h3 class="post-title">
 <!-- 
       <a href="{{ site.baseurl }}/{{ post.url }}">
         {{ post.title }}
@@ -53,6 +64,8 @@ comments: true
     <span class="pagination-item newer">Newer</span>
   {% endif %}
 </div>
+{% endif %}
 <div class="posts">
 {% include counters.html %}
 </div>
+{% include document.html ispage='no' %}

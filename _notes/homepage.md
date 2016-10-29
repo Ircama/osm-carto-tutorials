@@ -16,7 +16,7 @@ All pages of this site are in [blog](#disqus_thread) form, allowing anyone to ad
 
 OpenStreetMap is a collaborative project to create a free editable map of the world. It consists of [open data](http://wiki.openstreetmap.org/wiki/Contribute_map_data) and open source software; both can be [contributed](http://wiki.openstreetmap.org/wiki/How_to_contribute).
 
-A [Beginners' guide](http://wiki.openstreetmap.org/wiki/Beginners%27_guide) provides basic information on how to add data to OpenStreetMap.
+A [Beginners' guide](http://wiki.openstreetmap.org/wiki/Beginners%27_guide) is available in the [OpenStreetMap Wiki](http://wiki.openstreetmap.org), providing basic information on how to add data to OpenStreetMap.
 
 Technical details to maintain and develop the OpenStreetMap open source software, from portal to rendering and other backend platforms, can be found at the [Develop](http://wiki.openstreetmap.org/wiki/Develop) page.
 
@@ -24,4 +24,4 @@ Technical details to maintain and develop the OpenStreetMap open source software
 
 [OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) includes the [CartoCSS map stylesheets](http://wiki.openstreetmap.org/wiki/CartoCSS) for the [Standard map layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) of [OpenStreetMap](http://www.openstreetmap.org). The styles can be converted from CartoCSS to [XML](https://github.com/mapnik/mapnik/wiki/XMLConfigReference) and then processed by [Mapnik](http://wiki.openstreetmap.org/wiki/Mapnik).
 
-CartoCSS is a [CSS-like](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) language for map design developed by [MapBox](https://en.wikipedia.org/wiki/Mapbox) and adopted by OpenStreetMap through OpenStreetMap Carto.
+CartoCSS is a [CSS-like](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) language for map design developed by [MapBox](https://en.wikipedia.org/wiki/Mapbox) and currently adopted by OpenStreetMap.
