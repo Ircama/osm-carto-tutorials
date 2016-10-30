@@ -6,7 +6,7 @@
 [lua]: http://image.flaticon.com/icons/png/512/29/29488.png "LUA script"
 [app]: http://image.flaticon.com/icons/png/512/32/32230.png "Application"
 [prg]: http://image.flaticon.com/icons/png/512/33/33672.png "Program"
-[png]: http://image.flaticon.com/icons/png/128/29/29072.png "Image format"
+[png]: http://image.flaticon.com/icons/png/128/29/29072.png "PNG images"
 [run]: http://image.flaticon.com/icons/png/128/149/149294.png "Software"
 [shape]: http://image.flaticon.com/icons/png/128/149/149229.png "Shapefiles"
 [files]: http://image.flaticon.com/icons/png/512/149/149344.png "Files"

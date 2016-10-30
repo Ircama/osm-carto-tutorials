@@ -6,11 +6,11 @@ title: OpenStreetMap Carto Tutorials
 
 This independent site includes unofficial tutorials to set-up a development environment of OpenStreetMap Carto and to manage this software. It will allow exploiting the style and also being able to contribute.
 
-To implement this site I kept track of technical notes that have been useful to me and that I hope will also be of help to master OpenStreetMap Carto fast, learning all most relevant aspects from the ground up and avoiding frustration on many matters that generally need to be faced when approaching such project, like installation and configuration, Git usage, etc.
+To implement this site I kept track of technical notes that have been useful to me and that I hope will also be of help to master OpenStreetMap Carto fast, learning all most relevant aspects from the ground up.
 
 All pages of this site are in [blog](#disqus_thread) form, allowing anyone to add open comments. You can also [contribute](how-to-contribute/) or create [GitHup issues]({{ site.author.url }}{{ site.baseurl }}/issues). Opening GitHup issues is the most effective way for correction requests.
 
-**DISCALIMER**: the independent documentation included in this site is not only **unofficial**, but also **unapproved** by *openstreetmap-carto*. The included information might be at early stage and could require several improvements that will be possibly addressed in the future. I strongly recommend referencing the official documentation for openstreetmap-carto, which is included [here](https://github.com/gravitystorm/openstreetmap-carto#installation). Keep also in mind that some information might be only valid at the time of writing and could require possible updates.
+**DISCALIMER**: the documentation included in this site is **unofficial**, might be at early stage and could require several improvements that will be possibly addressed in the future. I strongly recommend referencing the [official documentation](https://github.com/gravitystorm/openstreetmap-carto#installation) for openstreetmap-carto. Keep also in mind that some information might be only valid at the time of writing and could require possible updates.
 
 ## Contributing to OpenStreetMap
 
