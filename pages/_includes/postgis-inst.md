@@ -127,6 +127,7 @@ and if you are running PostgreSQL 9.3:
 Suggested settings:
 
     shared_buffers = 128MB
+    checkpoint_segments = 20
     maintenance_work_mem = 256MB
     autovacuum = off
 

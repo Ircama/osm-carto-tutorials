@@ -14,7 +14,7 @@ All pages of this site are in [blog](#disqus_thread) form, allowing anyone to ad
 
 ## Contributing to OpenStreetMap
 
-OpenStreetMap is a collaborative project to create a free editable map of the world. It consists of [open data](http://wiki.openstreetmap.org/wiki/Contribute_map_data) and open source software; both can be [contributed](http://wiki.openstreetmap.org/wiki/How_to_contribute).
+OpenStreetMap, the Wikipedia of maps, is a collaborative project to create a free editable map of the world. It consists of [open data](http://wiki.openstreetmap.org/wiki/Contribute_map_data) and open source software; both can be [contributed](http://wiki.openstreetmap.org/wiki/How_to_contribute).
 
 A [Beginners' guide](http://wiki.openstreetmap.org/wiki/Beginners%27_guide) is available in the [OpenStreetMap Wiki](http://wiki.openstreetmap.org), providing basic information on how to add data to OpenStreetMap.
 

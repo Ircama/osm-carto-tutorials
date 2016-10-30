@@ -1,5 +1,5 @@
 
-We consider using Ubuntu 16.04.1 LTS Xenial, Ubuntu 15.4 Vivid or Ubuntu 14.04.3 LTS Trusty Tahr (other versions should work).
+We consider using [Ubuntu](https://en.wikipedia.org/wiki/Ubuntu_(operating_system)) 16.04.1 LTS [Xenial Xerus](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_16.04_LTS_.28Xenial_Xerus.29), Ubuntu 15.4 [Vivid Vervet](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_15.04_.28Vivid_Vervet.29) or Ubuntu 14.04.3 LTS [Trusty Tahr](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29) (other versions should work). All should be [64-bit](https://en.wikipedia.org/wiki/64-bit_computing) computing architecture.
 
 ## General setup for Ubuntu
 

@@ -3,10 +3,9 @@ layout: page
 title: JavaScript libraries for implementing OpenStreetMap interactive maps
 comments: true
 permalink: /map-client/
-sitemap: false
 ---
 
-A number of client libraries can be used to interactively show OpenStreetMap data within tiled web maps.
+A number of client libraries can be used to interactively show OpenStreetMap tiled web maps. Each configuration in this document points to the OSM tile server (*tile.openstreetmap.org*) with a note on how to reconfigure the related script to connect your own tile server (*http://your-server-ip/osm_tiles*).
 
 ## Leaflet
 

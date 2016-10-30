@@ -186,6 +186,11 @@ Past the following lines after the line `<VirtualHost *:80>`
     # Timeout before giving up for a tile to be rendered that is otherwise missing
     ModTileMissingRequestTimeout 2000
 
+Note: the default settings, which are the following, should already be a good tuning:
+
+    ModTileRequestTimeout 3
+    ModTileMissingRequestTimeout 30
+
 Save and close the file. Restart Apache.
 
     sudo systemctl restart apache2
