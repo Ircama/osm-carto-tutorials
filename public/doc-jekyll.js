@@ -135,7 +135,7 @@ pinch.recognizeWith(rotate);
 mc.add([pinch, rotate]);
 
 mc.on("pinch rotate", function(ev) {
-    alert(ev.type);
+    document.title = ev.type;
 });
 
 /*----------------------------------------------------------------------------------------------*/
