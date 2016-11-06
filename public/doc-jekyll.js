@@ -110,7 +110,6 @@ else
 /* Pinch-to-zoom switches off the Table of Content */
 
 $(window).on('gestureend', function (e) {
-    document.title=e.scale;
     if (e.scale < 1.0) {
         // User moved fingers closer together
         $("div.sticky").css("opacity","1");
