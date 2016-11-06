@@ -6,9 +6,11 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
 
 -------------
 
+```
   ┌┬┐┌─┐┌─┐   ┬┌─┐┬┌─┬ ┬┬  ┬
    │││ ││  ── │├┤ ├┴┐└┬┘│  │
   ─┴┘└─┘└─┘  └┘└─┘┴ ┴ ┴ ┴─┘┴─┘
+```
 
 This [Jekyll](http://jekyllrb.com/)-based theme is specifically intended for static technical documentation deployable on [GitHub Pages](https://pages.github.com/).
 
