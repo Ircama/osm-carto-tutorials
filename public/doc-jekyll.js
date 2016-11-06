@@ -118,7 +118,7 @@ $(window).on('gestureend', function () {
         $("div.sticky").css("opacity","0");
     }
 })
-
+/*
 var HammerId = document.getElementById('pinch');
 
 var mc = new Hammer.Manager(HammerId);
@@ -137,7 +137,7 @@ mc.add([pinch, rotate]);
 mc.on("pinch rotate", function(ev) {
     document.title = ev.type;
 });
-
+*/
 /*----------------------------------------------------------------------------------------------*/
 
 /* Functions to dynamically manage the sidebar */
