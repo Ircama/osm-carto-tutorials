@@ -11,7 +11,7 @@ Otherwise Python needs to be installed.
 
 This is necessary in order to run OpenStreetMap-Carto scripts/indexes.
 
-```
+```shell
 sudo apt-get install -y python-yaml
 
 pip -V # to verify whether pip is already installed
@@ -56,10 +56,12 @@ Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/maste
 
 ## Create the *data* folder
 
-```
+```shell
 cd {{ include.cdprogram }}
 cd openstreetmap-carto
 scripts/get-shapefiles.py # or ./get-shapefiles.sh (if get-shapefiles.py is not available)
 ```
 
 Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.
+
+[^1]: information taken from [Rendering of OSM data on Windows - Quickstart](https://sourceforge.net/p/topomapcreator/wiki/TileMill/)

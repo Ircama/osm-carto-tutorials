@@ -2,8 +2,10 @@
 
 To install [Node.js](https://nodejs.org/en/):
 
-    nodejs --version # to verify whether nodejs is already installed
-    sudo apt-get install -y nodejs npm # this package might not support {{ include.program }}, see notes in this paragraph
+```shell
+nodejs --version # to verify whether nodejs is already installed
+sudo apt-get install -y nodejs npm # this package might not support {{ include.program }}, see notes in this paragraph
+```
 
 Read [nodejs](https://nodejs.org/en/download/) for further information.
 

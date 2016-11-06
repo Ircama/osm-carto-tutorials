@@ -28,18 +28,13 @@
     {% endfor %}
     <span class="sidebar-nav-item">&copy; <a href="{{ site.author.url }}" target="_blank">{{ site.author.name }}</a> {{ site.time | date: '%Y' }} - v{{ site.version }} - {{ site.author.credits }}</span>
     <span class="sidebar-nav-item"><i class="iconside iconm-github2"></i> {{ site.author.github_sources }}</span>
-    <span class="sidebar-nav-item">Last modification<span id="last-site-mod"> unknown</span></span>
+    <span class="sidebar-nav-item"><i class="iconside iconm-blog"></i> Last modification<span id="last-site-mod"> unknown</span></span>
   </nav>
 </div>
 <script>
-try {
 /* Get site update from Github */
 $(function() {
 	$('#last-site-mod').githubInfoWidget(
 		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', nouser: true, nomsg: true, abstime: false, simple: 2, last: 1, limitMessageTo: 500 });
 });
-}
-catch(e)
-  {
-  }
 </script>

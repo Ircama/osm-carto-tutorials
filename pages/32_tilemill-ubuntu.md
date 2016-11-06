@@ -7,7 +7,7 @@ permalink: /tilemill-ubuntu/
 
 ## Introduction
 
-The following step-by-step procedure can be used to install a working development environment of *openstreetmap-carto* exploiting [TileMill](http://wiki.openstreetmap.org/wiki/TileMill) on an Ubuntu PC.
+The following step-by-step procedure can be used to install a working development environment of *openstreetmap-carto* exploiting [TileMill](http://wiki.openstreetmap.org/wiki/TileMill) on an Ubuntu PC.[^1]
 
 TileMill moved out of the [Mapbox profile](https://www.mapbox.com/help/osm-and-mapbox/) and shifted to an open source community-driven organization, with its own organization and contributor model: [tilemill-project](https://github.com/tilemill-project/tilemill).
 
@@ -73,3 +73,5 @@ An error message like *role ... does not exist...* might be possibly related to 
 {% include_relative _includes/start-tilemill.md os='Ubuntu' script='scripts\yaml2mml.py' program='TileMill' %}
 
 {% include_relative _includes/edit-the-stylesheets.md editor='*vi*' script='scripts/yaml2mml.py' program='TileMill' %}
+
+[^1]: Part of the documentation is taken from [Openstreetmap-carto Provide installation script #657](https://github.com/gravitystorm/openstreetmap-carto/issues/657) and from [TileMill](https://hackpad.com/TileMill-I6rxRVszKMv).

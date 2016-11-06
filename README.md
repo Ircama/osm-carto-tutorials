@@ -6,6 +6,10 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
 
 -------------
 
+  ┌┬┐┌─┐┌─┐   ┬┌─┐┬┌─┬ ┬┬  ┬
+   │││ ││  ── │├┤ ├┴┐└┬┘│  │
+  ─┴┘└─┘└─┘  └┘└─┘┴ ┴ ┴ ┴─┘┴─┘
+
 This [Jekyll](http://jekyllrb.com/)-based theme is specifically intended for static technical documentation deployable on [GitHub Pages](https://pages.github.com/).
 
 Information on the usage of this theme can be found in [how to contribute]({{ site.author.url }}{{ site.baseurl }}/blob/gh-pages/_notes/how-to-contribute.md).
@@ -19,8 +23,9 @@ Information on the usage of this theme can be found in [how to contribute]({{ si
 * [jQuery](https://jquery.com/)
 * [github.commits.widget](https://github.com/alexanderbeletsky/github-commits-widget), (c) 2012 Alexander Beletsky, with some improvements
 * [lanyon-plus](https://github.com/dyndna/lanyon-plus)
-* [A Jekyll layout that compresses HTML in pure Liquid](https://github.com/penibelst/jekyll-compress-html), � 2014�2015 Anatol Broder. Released under the MIT License.
+* [A Jekyll layout that compresses HTML in pure Liquid](https://github.com/penibelst/jekyll-compress-html), © 2014–2015 Anatol Broder. Released under the MIT License. The compressor has been modified in order to also obtain a very basic Liquid Javascript compressor.
 * Fonts and icons from http://fontawesome.io/, http://www.flaticon.com, https://openclipart.org/ and https://icomoon.io
+* Usage of compressed scss styles
 
 Licensed under the [MIT License](http://opensource.org/licenses/MIT)
 
@@ -48,4 +53,8 @@ Summary of the main changes from the default Lanyon Theme:
  * improved lanyon.css and poole.css
  * Added features from [credits]({{ site.author.url }}{{ site.baseurl }}/tree/gh-pages#credits): AnchorJS, Table of Contents (ScrollSpy), github.commits.widget, lanyon-plus icons, etc. Developed a feature to support all headers from h1 to h6 in ToC. Developed an upgrade to github.commits.widget to support a one-line page commit summary through API integration with GitHub.
  * Developed an extension of the Lanyon stylesheet which supports drawings.
+ * Single style.css style compiled and compressed afer merging all scss/css styles
+ * Integrated a Liquid HTML compressor
+ * Added a very basic Liquid Javascript compressor
+ * Added footnotes management
  

@@ -7,9 +7,11 @@ We consider using [Ubuntu](https://en.wikipedia.org/wiki/Ubuntu_(operating_syste
 
 Make sure your Ubuntu system is fully up-to-date:
 
-    lsb_release -a # to get the Ubuntu version
-    sudo apt-get update
-    sudo apt-get -y upgrade
+```shell
+lsb_release -a # to get the Ubuntu version
+sudo apt-get update
+sudo apt-get -y upgrade
+```
 
 ### Install essential tools
 

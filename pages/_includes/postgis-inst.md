@@ -8,7 +8,7 @@ Also older PostgreSQL version should be suitable.
 
 On Ubuntu there are pre-packaged versions of both postgis and postgresql, so these can simply be installed via the Ubuntu package manager.
 
-```
+```shell
 sudo apt-get update
 sudo apt-get install -y postgresql postgis pgadmin3 postgresql-contrib
 ```
@@ -19,14 +19,14 @@ A user named {{ pg_user }} will be created during the installation process.
 
 ## Set the password for the *{{ pg_user }}* user
 
-```
+```shell
 sudo -u {{ pg_user }} psql postgres
 \password {{ pg_user }}
 ```
 
 Alternative procedure (useful if you get authentication issues with the previous one):
 
-```
+```shell
 sudo su -
 sudo -i -u {{ pg_user}}
 psql {{ pg_user}}
@@ -43,14 +43,16 @@ After entering the password, exit from *psql* with:
 
 With the second procedure, also isssue:
 
-    exit # from 'sudo -i -u {{ pg_user}}'
-    exit # from 'sudo su -'
+```shell
+exit # from 'sudo -i -u {{ pg_user}}'
+exit # from 'sudo su -'
+```
 
 ## Create the PostGIS instance
 
 Now you need to create a postgis database. The defaults of various programs including openstreetmap-carto (ref. project.yaml) assume the database is called *gis*. You need to set up PostGIS on the PostgreSQL database.
 
-```
+```shell
 export PGPASSWORD={{ pg_password }}
 HOSTNAME=localhost # set it to the actual ip address or host name
 psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis" # alternative command: createdb -E UTF8 -O {{ pg_user }} gis
@@ -75,7 +77,7 @@ Install it and repeat the create extension commands.
 
 In order for the application to access the *gis* database, a DB user with the same name of your UNIX user is needed. Let's suppose your UNIX ue is *{{ pg_login }}*.
 
-```
+```shell
 sudo su -
 sudo -i -u {{ pg_user}}
 createuser {{ pg_login }}
@@ -112,9 +114,9 @@ Finally, the DB shall be restarted:
 
 ## Tuning the database
 
-Information taken from [switch2osm](https://switch2osm.org/loading-osm-data).
+The [PostgreSQL wiki](http://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server) has a page on database tuning. The important settings are shared_buffers, checkpoint_segments, and the write-ahead-log settings. There are also some settings you want to change specifically for the import.
 
-The default PostgreSQL settings aren’t great for very large databases like OSM databases. Proper tuning can just about double the performance you’re getting. The most important PostgreSQL settings to change are `maintenance_work_mem` and `work_mem`, both which should be increased for faster data loading and faster queries while rendering respectively. Conservative settings for a 2GB VM are `work_mem=16MB` and `maintenance_work_mem=128MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`. An overview to tuning PostgreSQL can be found on the [PostgreSQL Wiki](https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server), but adjusting `maintenance_work_mem` and `work_mem` are probably enough on a development or testing machine.
+The default PostgreSQL settings aren’t great for very large databases like OSM databases. Proper tuning can just about double the performance you’re getting. The most important PostgreSQL settings to change are `maintenance_work_mem` and `work_mem`, both which should be increased for faster data loading and faster queries while rendering respectively. Conservative settings for a 2GB VM are `work_mem=16MB` and `maintenance_work_mem=128MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`. An overview to tuning PostgreSQL can be found on the [PostgreSQL Wiki](https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server), but adjusting `maintenance_work_mem` and `work_mem` are probably enough on a development or testing machine.[^1]
 
 To edit the PostgreSQL configuration file with *vi* editor:
 
@@ -130,12 +132,33 @@ Suggested settings:
     checkpoint_segments = 20
     maintenance_work_mem = 256MB
     autovacuum = off
+    fsync = off
+
+The latter two ones allow a faster import.
+
+The first turns off auto-vacuum during the import and allows you to run a vacuum at the end. The second will introduce data corruption in case of a power outage and is dangerous. If you have a power outage while importing the data you will have to drop the data from the database and re-import, but it’s faster. Just remember to change these settings back after importing. fsync has no effect on query times once the data is loaded.
+
+Suggested settings for a system with 16GB of RAM:
+
+    shared_buffers = 2GB
+    work_mem = 128MB
+    maintenance_work_mem = 1GB
+    wal_level = minimal
+    synchronous_commit = off
+    checkpoint_segments = 64
+    checkpoint_timeout = 15min
+    checkpoint_completion_target = 0.9
+    default_statistics_target = 1000
+    autovacuum = off
+    fsync = off
 
 To stop and start the database:
 
     sudo /etc/init.d/postgresql stop
 
     sudo /etc/init.d/postgresql start
+
+You may get an error and need to increase the shared memory size. Edit */etc/sysctl.d/30-postgresql-shm.conf* and run `sudo sysctl -p /etc/sysctl.d/30-postgresql-shm.conf`. A parameter like `kernel.shmmax=17179869184` and `kernel.shmall=4194304` could be appropriate for a 16GB segment size.[^2]
 
 ## Install Osm2pgsql
 
@@ -151,7 +174,7 @@ Go to [Get an OpenStreetMap data extract](#get-an-openstreetmap-data-extract).
 
 This alternative installation procedure generates the most updated executable by compiling the sources.
 
-```
+```shell
 # Needed dependencies
 sudo apt-get install -y make cmake g++ libboost-dev libboost-system-dev \
   libboost-filesystem-dev libexpat1-dev zlib1g-dev \
@@ -182,7 +205,7 @@ rm -rf osm2pgsql
 
 ## Load data to PostGIS
 
-```
+```shell
 cd {{ include.cdprogram }}
 cd openstreetmap-carto
 HOSTNAME=localhost # set it to the actual ip address or host name
@@ -191,13 +214,13 @@ osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style -H $HOSTNAME 
 
 Note: if you get the following error:
 
-```
+```shell
 node_changed_mark failed: ERROR:  prepared statement "node_changed_mark" does not exist
 ```
 
 do the following command on your *original.osm*:
 
-```
+```shell
 sed "s/action='modify' //" < original.osm | > fixedfile.osm
 ```
 
@@ -217,7 +240,7 @@ then you need to add the *hstore* flag to *osm2pgsql*:
 
 Add the indexes indicated by *openstreetmap-carto*:
 
-```
+```shell
 HOSTNAME=localhost # set it to the actual ip address or host name
 cd {{ include.cdprogram }}
 cd openstreetmap-carto
@@ -225,3 +248,6 @@ scripts/indexes.py | psql -U {{ pg_user }} -h $HOSTNAME -d gis
 ```
 
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
+
+[^1]: Information taken from [switch2osm](https://switch2osm.org/loading-osm-data).
+[^2]: [Information from Paul Norman’s Blog](http://www.paulnorman.ca/blog/2011/11/loading-a-pgsnapshot-schema-with-a-planet-take-2/).

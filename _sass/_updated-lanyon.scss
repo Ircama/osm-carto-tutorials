@@ -19,14 +19,8 @@
 /*
  * Contents
  *
- * JSFiddle
- * Drawings used by markdown
- * Color classes used by markdown
- * Table of Content (TOC)
  * Global resets
  * Masthead
- * Google Custom Search
- * Mobile scrollbar
  * Sidebar
  * Slide effect
  * Posts and pages
@@ -35,223 +29,6 @@
  * Themes
  */
 
-/* JSFiddle */
-
-iframe[id^='JSFEMB_'] {
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
-}
-
-/* Drawings used by markdown */
-
-table.drawing, table.drawing td, table.drawing th {
-    border-collapse: separate !important;
-    border: 0px !important;
-}
-
-table.drawing tbody tr:nth-child(2n+1) td, table.drawing tbody tr:nth-child(2n+1) th {
-    background-color: transparent;
-}
-
-table.drawing th, table.drawing td {
-    background-color: transparent;
-    text-align: center;
-    padding: 0 !important;
-    border: 0px !important;
-    margin: 0px !important;
-    border-spacing: 0px !important;
-}
-
-table.drawing td img {
-    width: 25px;
-    margin: auto;
-    float: left;
-    display: inline;
-}
-
-table.drawing td.dcontent {
-    background-color: #9DDDFF !important;
-    text-align: center;
-    margin: -1px;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
-    border-radius: 5px; 
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px; 
-}
-
-table.drawing td.darrow {
-    color: black !important;
-    background-color: transparent !important;
-    padding: 0 !important;
-    border: 0px !important;
-    margin: 0px !important;
-    font-size: 1.8rem;
-}
-
-table.djustify td.dcontent {
-    text-align: justify !important;
-    line-height: 1.3em !important;
-    padding: 0.5em !important;
-}
-
-/* Color classes used by markdown */
-
-.blue {
-  color: blue;
-}
-.cyan {
-  color: cyan;
-}
-.gold {
-  color: gold;
-}
-.red {
-  color: red;
-}
-.green {
-  color: green;
-}
-.yellow {
-  color: yellow;
-}
-
-.highlight-blue {
-  background-color: blue;
-}
-.highlight-gold {
-  background-color: gold;
-}
-.highlight-red {
-  background-color: red;
-}
-.highlight-green {
-  background-color: green;
-}
-.highlight-yellow {
-  background-color: yellow;
-}
-
-.anchorjs-link {
-  transition: all .25s linear;
-}
-*:hover > .anchorjs-link {
-  margin-left: -1.125em !important;
-}
-
-/* Table of Content (TOC) */
-
-nav[data-toggle='toc'], .toc-title {
-  border: .1rem solid #f5f5f5;
-  background-color: #ffffff;
-}
-
-nav[data-toggle='toc'] ul{
-  padding: 1px 4px !important;
-  list-style:none !important;
-  list-style-type:none !important;
-}
-
-.sticky {
-  position:fixed !important;
-  position: absolute; /*ie6 */
-  top: 3.6em;
-  width: 20rem;
-  right: 0;
-  z-index: 100;
-  border-top: 0;
-  line-height: 1.1;
-  overflow: auto; display: inline-block; /* scrollbars */
-  box-shadow: -3px 6px 8px 0px rgba(0,0,0,0.1);
-}
-
-/* show TOC title */
-
-.toc-title, .toc-title:link, .toc-title:hover, .toc-title:active, .toc-title:visited {
-  position:fixed !important;
-  position: absolute; /*ie6 */
-  text-align: center;
-  padding: 1rem;
-  top: 0.4em;
-  height: 3.5rem;
-  width: 20rem;
-  right: 0;
-  font-size: 13px;
-  font-weight: bold;
-  color: #767676;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  text-decoration: none;
-  box-shadow: -3px 6px 8px 0px rgba(0,0,0,0.1), 0px -5px 4px 0px rgba(0,0,0,0.05) inset;
-  }
-
-@keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-/* show TOC only on large screens */
-
-@media (max-width: 1070px) {
-  .sticky {
-  transform:translate(9999px);
-  opacity: 0;
-  }
-  .toc-title {
-  transform:translate(9999px);
-  opacity: 0;
-  }
-}
-
-/* show TOC only when the navigation bar is hidden */
-
-#sidebar-checkbox:checked ~ .wrap .sticky,
-#sidebar-checkbox:checked ~ .wrap .toc-title {
-  transform:translate(9999px);
-  opacity: 0;
-}
-
-#sidebar-checkbox:not(:checked) ~ .wrap .sticky,
-#sidebar-checkbox:not(:checked) ~ .wrap .toc-title {
-	opacity: 1;
-  -webkit-transition-delay: 0.5s; /* Safari */
-  transition-delay: 0.5s;
-	animation-name: fadeInOpacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
-	animation-duration: 0.3s;
-}
-
-/*
- * Customizations of Bootstrap Table of Contents v0.4.1
- */
-nav[data-toggle='toc'] .nav .nav > li > a {
-  padding-bottom: 3px !important;
-}
-.toc-nav-h1 {
-  text-decoration: navy dotted underline;
-  font-size: 15px !important;
-  padding-left: 15px !important;
-}
-.toc-nav-h4 {
-  font-size: 11px !important;
-  padding-left: 40px !important;
-}
-.toc-nav-h5 {
-  font-size: 11px !important;
-  padding-left: 46px !important;
-}
-.toc-nav-h6 {
-  font-size: 11px !important;
-  padding-left: 52px !important;
-}
 
 /*
  * Global resets
@@ -297,7 +74,7 @@ h1, h2, h3, h4, h5, h6 {
             transition: all 0.3s ease-in-out;
   }
   div.wrap:not([fullscreen='yes']) {
-    width: 80%;
+    width: 68%;
     -webkit-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
   }
@@ -359,7 +136,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0;
 }
 
-@media (max-width: 48em) {
+@media (max-width: 61em) {
   .masthead-title {
     text-align: center;
   }
@@ -368,66 +145,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Google Custom Search section */
-
-.cse input.gsc-input, input.gsc-input {background-image:none !important;}
-.cse input.gsc-input:focus, input.gsc-input:focus { background-image:none !important; }
-
-/* Hide the Google branding in search results */
-.gcsc-branding {
-    display: none; 
-}
-    
-/* Hide the Clear button of Google Custom Search */
-.gsc-clear-button {
-	display: none;
-}
-
-/* Customize Google Custom Search */
-table.gsc-search-box td {
-  padding: 2px;
-}
-
-table.gsc-search-box td.gsc-search-button,
-table.gsc-search-box td.gsc-input {
-	background: #101010 !important;
-  border-style: solid;
-  border-color: #101010;
-  background-color: #EEEEEF;
-  padding-right: 0px !important;
-}
-
-.cse input.gsc-search-button, input.gsc-search-button {
-  height: 21px !important;
-  margin-right: 2px;
-}
-
-/* Mobile scrollbar section */
-
-@media (max-width: 52em) {
-  ::-webkit-scrollbar {
-      -webkit-appearance: none;
-  }
-  
-  ::-webkit-scrollbar:vertical {
-      width: 7px;
-  }
-  
-  ::-webkit-scrollbar:horizontal {
-      height: 7px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-      border-radius: 4px;
-      background-color: rgba(0,0,0,.5);
-      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-  }
-  
-  ::-webkit-scrollbar-track {
-      border-radius: 4px;  
-      background-color: #ffffff; 
-  }
-}
 
 /*
  * Sidebar
@@ -472,7 +189,7 @@ table.gsc-search-box td.gsc-input {
   color: #fff;
 }
 .sidebar-item {
-  padding: 0.7rem;
+  padding: 0.5rem;
   font-size: 1.2rem;
   text-align: center;
   background-color: #2c1112;
@@ -487,7 +204,7 @@ table.gsc-search-box td.gsc-input {
 }
 .sidebar-nav-item {
   display: block;
-  padding: .5rem 1rem;
+  padding: .4rem 1rem;
   border-top: 1px solid rgba(255,255,255,.1);
   text-indent: -1.3rem; /* use if .iconside */
   padding-left: 1.5rem !important; /* use if .iconside */
@@ -515,9 +232,6 @@ a.sidebar-nav-item:focus {
   a.sidebar-nav-item:hover {
     -webkit-animation: sidebar-nav-item-highlight 3s step-start;
     animation: sidebar-nav-item-highlight 3s step-start;
-  }
-  .sidebar-item {
-    padding: 1.5rem;
   }
   .sidebar-nav-item {
     padding-left:  1rem;
@@ -588,125 +302,6 @@ a.sidebar-nav-item:focus {
   }
 }
 
-@media print {
-  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
-  body{font-size:11pt; max-width:100%;}
-  a:not(.github-commit), a:not(.github-commit):visited { text-decoration: underline; }
-  hr { height: 1px; border:0; border-bottom:1px solid black; }
-  a[href]:not(.github-commit):after { content: " (" attr(href) ")"; }
-  abbr[title]:after { content: " (" attr(title) ")"; }
-  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
-  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
-  tr, img { page-break-inside: avoid; }
-  img { max-width: 100% !important; }
-  p, h2, h3 { orphans: 3; widows: 3; }
-
-  .container {
-    overflow: hidden;
-    max-height: 100%;
-    max-width: 100%;
-  }
-  .masthead, .toc-title, .sticky, .sidebar, #sidebar-checkbox, .sidebar-checkbox,
-  .sidebar-toggle, .related, .pagination, .noprint {
-    display: none !important;
-    opacity: 0;
-  }
-  pre code {
-    display: block !important;
-    overflow: hidden !important;
-    /* Need all the following to word wrap instead of scroll box */
-    /* This will override the overflow:auto if present */
-    white-space: pre !important;
-    white-space: pre-wrap !important; /* css-3 */
-    white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
-    white-space: -pre-wrap; /* Opera 4-6 */
-    white-space: -o-pre-wrap; /* Opera 7 */
-    word-wrap: break-word; /* Internet Explorer 5.5+ */
-  }
-  @page { 
-      size: auto;   /* auto is the initial value */ 
-  
-      /* this affects the margin in the printer settings */ 
-      margin: 25mm 17mm 25mm 17mm;
-  }
-  h1, h2, h3, h4, h5 {
-    page-break-after: avoid;
-  }
-  table, figure {
-    page-break-inside: avoid;
-  }
-  body {
-    margin: 0px;
-    padding: 0px;
-    overflow: hidden !important;
-    overflow-x: hidden !important;
-  }
-  #element::-webkit-scrollbar { 
-    display: none; 
-  }
-  .wrap {
-    width: 100%;
-  }
-  #sidebar-checkbox:checked ~ .sidebar, #sidebar-checkbox:checked ~ .wrap, #sidebar-checkbox:checked ~ .sidebar-toggle {
-      -webkit-transform: translateX(0) !important;
-      -ms-transform: translateX(0) !important;
-      transform: translateX(0) !important;
-  }
-  table.drawing td.dcontent {
-    border: 1px solid black !important;
-  }
-  table.drawing td img {
-    padding-left: 2px;
-  }
-
-  h1 {
-      text-align: left !important;
-      counter-increment: c1;
-      counter-reset: c4;
-      counter-reset: c3;
-      counter-reset: c2;
-  }
-  
-  h2 {
-      counter-increment: c2;
-      counter-reset: c3;
-      counter-reset: c4;
-  }
-  
-  h3 {
-      counter-increment: c3;
-      counter-reset: c4;
-  }
-
-  h4 {
-      counter-increment: c4;
-  }
-  
-  h1:before,
-  h2:before,
-  h3:before,
-  h4:before {
-      padding-right: 0.25cm;
-  }
-
-  h1:before {
-      content: "Chapter " counter(c1) "\a\a";
-      white-space: pre;
-  }
-  
-  h2:before {
-      content: counter(c1) "." counter(c2);
-  }
-  
-  h3:before {
-      content: counter(c1) "." counter(c2) "." counter(c3);
-  }
-
-  h4:before {
-      content: counter(c1) "." counter(c2) "." counter(c3) "." counter(c4);
-  }
-
-}
 
 /* Slide effect
  *

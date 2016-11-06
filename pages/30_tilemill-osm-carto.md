@@ -7,7 +7,7 @@ permalink: /tilemill-osm-carto/
 
 ## Introduction
 
-The following step-by-step procedure can be used to install a working development environment of openstreetmap-carto exploiting Tilemill on a Windows PC. It has been tested on Windows 7 32-bit and Windows 7 64-bit.
+The following step-by-step procedure can be used to install a working development environment of openstreetmap-carto exploiting Tilemill on a Windows PC. It has been tested on Windows 7 32-bit and Windows 7 64-bit.[^1]
 
 At the time of writing, Tilemill is the only tool supporting Windows (win32 and win64). Alternative software like Kosmtik (the preferred tool for openstreetmap-carto) needs Mapnik 3.5 and recent versions of *node-mapnik*, which at the moment cannot be installed on Windows. Mapbox Studio Classic uses a different technology and does not work with OpenStreetMap Carto. Mapbox Studio should implement a vector based rendering engine instead of Mapnik. Command line tools are not comfortable.
 
@@ -173,7 +173,7 @@ alternatively:
 
 Create a folder to place shapeindex.exe.
 
-Download the Win32 ZIP package of Mapnik from <http://mapnik.org/pages/downloads.html>, open it with 7Zip (install it from http://www.7-zip.org) and extract `shapeindex.exe`; move this file and all related DLL files to the previously created folder. This is needed by `get-shapefiles.py` to speed-up the access to the shapefiles. Notice that the DLL files can be found in the lib directory of the ZIP file; all them have to be saved to the bin directory together with `shapeindex.exe`.
+Download the Win32 ZIP package of Mapnik from <http://mapnik.org/pages/downloads.html> (other [Shapeindex link](http://mapnik.s3.amazonaws.com/dist/archive/shapeindex-2.2.0-win-x86_32.zip)), open it with 7Zip (install it from http://www.7-zip.org) and extract `shapeindex.exe`; move this file and all related DLL files to the previously created folder. This is needed by `get-shapefiles.py` to speed-up the access to the shapefiles. Notice that the DLL files can be found in the lib directory of the ZIP file; all them have to be saved to the bin directory together with `shapeindex.exe`.
 
 Set the PATH appropriately:
 
@@ -220,3 +220,5 @@ Check in detail the content of [INSTALL.md](https://github.com/gravitystorm/open
 {% include_relative _includes/start-tilemill.md os='Windows' script='scripts\yaml2mml.py' program='TileMill' %}
 
 {% include_relative _includes/edit-the-stylesheets.md editor='Atom, gedit, TextWrangler, Notepad++' script='scripts\yaml2mml.py' program='Tilemill' %}
+
+[^1]: Most of the documentation is taken from [Rendering of OSM data on Windows - Quickstart](https://sourceforge.net/p/topomapcreator/wiki/TileMill/).

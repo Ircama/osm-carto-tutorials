@@ -1,0 +1,105 @@
+// Code
+//
+// Inline and block-level code snippets. Includes tweaks to syntax highlighted
+// snippets from Pygments/Rouge and Gist embeds.
+
+code,
+pre {
+  font-family: $code-font-family;
+}
+
+code {
+  padding: .25em .5em;
+  font-size: 85%;
+  color: $code-color;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+}
+/* Make code block overflow */
+.highlight pre {
+  display: inline-block;
+}
+
+pre {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-size: .8rem;
+  line-height: 1.4;
+/* scrollbars */
+/*
+  white-space: pre;
+  white-space: pre-wrap;
+*/
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f9f9f9;
+  overflow: auto;
+  white-space: pre;
+  display: inline-block;
+  width: 100%;
+ /* scrollbars */;
+}
+
+pre code {
+  padding: 0;
+  font-size: 100%;
+  color: inherit;
+  background-color: transparent;
+
+  overflow: auto;
+  white-space: pre;
+  display: inline-block;
+  width: 100%;
+ /* scrollbars */;
+}
+
+// Pygments via Jekyll
+.highlight {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: .8rem;
+  line-height: 1.4;
+  background-color: #f9f9f9;
+  border-radius: .25rem;
+
+  pre {
+    margin-bottom: 0;
+    overflow-x: auto;
+  }
+
+  .lineno {
+    display: inline-block; // Ensures the null space also isn't selectable
+    padding-right: .75rem;
+    padding-left: .25rem;
+    color: #999;
+    // Make sure numbers aren't selectable
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+  }
+}
+
+
+// Gist via GitHub Pages
+// .gist .gist-file {
+//   font-family: Menlo, Monaco, "Courier New", monospace !important;
+// }
+// .gist .markdown-body {
+//   padding: 15px;
+// }
+// .gist pre {
+//   padding: 0;
+//   background-color: transparent;
+// }
+// .gist .gist-file .gist-data {
+//   font-size: .8rem !important;
+//   line-height: 1.4;
+// }
+// .gist code {
+//   padding: 0;
+//   color: inherit;
+//   background-color: transparent;
+//   border-radius: 0;
+// }

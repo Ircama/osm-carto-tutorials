@@ -7,7 +7,7 @@ permalink: /tile-server-ubuntu/
 
 ## Introduction
 
-The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu 16.4 or 14.4.
+The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu 16.4 or 14.4.[^1]
 
 The OSM tile server stack is a collection of programs and libraries chained together to create a tile server. As so often with OpenStreetMap, there are many ways to achieve this goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the most standard version that is also used on the main OpenStreetMap.org tile server.
 
@@ -179,12 +179,14 @@ Then edit the default virtual host file.
 
 Past the following lines after the line `<VirtualHost *:80>`
 
-    LoadTileConfigFile /usr/local/etc/renderd.conf
-    ModTileRenderdSocketName /var/run/renderd/renderd.sock
-    # Timeout before giving up for a tile to be rendered
-    ModTileRequestTimeout 0
-    # Timeout before giving up for a tile to be rendered that is otherwise missing
-    ModTileMissingRequestTimeout 2000
+```shell
+LoadTileConfigFile /usr/local/etc/renderd.conf
+ModTileRenderdSocketName /var/run/renderd/renderd.sock
+# Timeout before giving up for a tile to be rendered
+ModTileRequestTimeout 0
+# Timeout before giving up for a tile to be rendered that is otherwise missing
+ModTileMissingRequestTimeout 2000
+```
 
 Note: the default settings, which are the following, should already be a good tuning:
 
@@ -550,3 +552,10 @@ A rapid way to test the slippy map is through an online source code playground l
 {% include_relative _includes/leaflet.md os='Ubuntu' %}
 
 {% include pages/images.md %}
+
+[^1]: sources used for this document are the following:
+    
+    * [switch2osm.org - Manually building a tile server (14.04)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/)
+    * [OSM Wiki - Mod tile/Setup of your own tile server](http://wiki.openstreetmap.org/wiki/Mod_tile/Setup_of_your_own_tile_server)
+    * [Build Your Own OpenStreetMap Tile Server on Ubuntu 16.04](https://www.linuxbabe.com/linux-server/openstreetmap-tile-server-ubuntu-16-04)
+    * [OSM tile server jessie](https://wiki.debian.org/OSM/tileserver/jessie)

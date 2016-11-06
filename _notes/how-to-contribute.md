@@ -27,7 +27,7 @@ All files shall be in UTF8 format.
 Markdown documents can include parts which are common to more pages. A common part (e.g., named *common-part.md*) can be referenced with the following [Liquid](http://shopify.github.io/liquid/) markup:
 
 {% raw %}
-```raw
+```liquid
 {% include_relative _includes/common-part.md %}
 ```
 {% endraw %}
@@ -37,7 +37,7 @@ Common parts have to be saved in the *_includes* subdirectory of the *pages* dir
 A common page that has more general reference than the site content can be saved to the *_includes/pages* directory and should also be written in Markdown. Its related reference is the following:
 
 {% raw %}
-```raw
+```liquid
 {% include pages/common-part.md %}
 ```
 {% endraw %}
@@ -58,7 +58,7 @@ The suggested process to add or update *pages* is directly from the GitHub site:
 - Notice that, when applying a change, the *OpenStreetMap Carto Tutorials* repository is automatically forked to your site. (The most effective process would be to [fork](https://help.github.com/articles/working-with-forks) *OpenStreetMap Carto Tutorials*, create a branch and perform there the [modifications](https://help.github.com/articles/proposing-changes-to-a-project-with-pull-requests)).
 - Start the document with the following [Front Matter]( https://jekyllrb.com/docs/frontmatter/) tags:
   
-  ```
+  ```yaml
   ---
   layout: page
   title: Title Name
@@ -79,7 +79,7 @@ The suggested process to add or update *pages* is directly from the GitHub site:
   
   Example:
 
-  ```
+  ```yaml
   ---
   layout: page
   title: Installation description of a new important application to help in developing styles
@@ -102,7 +102,7 @@ The suggested process to add or update *pages* is directly from the GitHub site:
 
 The home page includes all pages tagged with the following Front Matter:
 
-```
+```yaml
 ---
 layout: homepage
 title: OpenStreetMap Carto Tutorials
@@ -119,6 +119,8 @@ Subsequently to the home pages, all posts are listed.
 The title of the page (*title:*) will be site main banner. All paragraphs shall use second level titles as the top level ones (`##`).
 
 All paragraph titles automatically generates permanent links. Avoid modifying paragraph titles after publishing pages (end users could have already referenced the link in other sites) and avoid using links in paragraph titles (as they will be part of the automatically generated permanent link).
+
+When footnotes are added in the markdown document (e.g., `[^1]`), they are all included in a `<h2>` paragraph named *Footnotes* at the bottom, separated from the body of the document by an horizontal line.
 
 ## Managing Posts
 
@@ -144,23 +146,35 @@ A good tutorial is included here: [Markdown syntax](https://learn.getgrav.org/co
 
 ### Page compressor
 
-This site includes an [HTML compressor](http://jch.penibelst.de/) which removes unnecessary lines consisting of whitespaces (including the ones produced by Liquid markup) as well as comments. Withespaces are left for all lines including code.
+This site includes an [HTML compressor](http://jch.penibelst.de/) which removes unnecessary lines consisting of whitespaces (including the ones produced by Liquid markup) as well as comments. Withespaces are left for all lines including code. Related processor is _layouts/compress.html. The adopted settings are tested for compatibility with the HTML structure used for this site.
 
 HTML comments included in pages with Front Matter will be automatically stripped only if including at least one space (` `) after the opening tag ( `<!--`) and at least one space (` `) before the closing tag (`-->`). If no spaces are used, the comment will appear within produced HTML page. Pay attention to avoid mixed formats that will *corrupt* pages: when starting comment with `<!-- ` (`<|--` followed by at least one space ` `), the closing comment shall *always* be ` -->` (`-->` preceeded by at least one space ` `).
 
 Javascript comments (e.g., `/* this comment */` and `// this other mode`) included in pages with Front Matter (as well as all information included in <PRE> code) are not stripped out and will appear within produced HTML page.
 
+### Javascript compressor
+
+This site includes a Javascript compressor (at very early stage) based on modifications to the previously mentioned HTML compressor. Related processor is _layouts/js-compress.html (configured as a special layout).
+
+In order to be compressed, a Javascript shall include the following Front Matter:
+
+```yaml
+---
+layout: js-compress
+---
+```
+
 ### Link to a section of a different document in the same site
 
 Use this syntax:
 
-```
+```markdown
 [Section name](../other-document-permalink/#section-name-in-lowercase-with-spaces-convered-in-dashes)
 ```
 
 Sample:
 
-```
+```markdown
 Check also instructions [here](../tilemill-osm-carto/#download-openstreetmap-data).
 ```
 
@@ -170,13 +184,13 @@ By default, links to a different document in the same site open in the same wind
 
 Use this syntax:
 
-```
+```markdown
 [here](#section-name-in-lowercase-with-spaces-convered-in-dashes)
 ```
 
 Sample:
 
-```
+```markdown
     # Contents
      - [Specification](#specification)
      - [Dependencies Title](#dependencies-title)
@@ -192,7 +206,7 @@ Example text blah. Example text blah. Example text blah. Example text blah.
 
 Sample:
 
-```
+```markdown
 See [Start Kosmtik](#start-kosmtik).
 ```
 
@@ -200,7 +214,7 @@ By default, links to a section of the same document open in the same window.
 
 ### Opening a link in a separate tab
 
-```
+```markdown
 This is [a link]({{ site.url }}{{ site.baseurl }}){:target="_blank"} that opens in a separate tab.
 ```
 
@@ -212,11 +226,11 @@ By default, external links open in a separate tab. Therefore, for those links `{
 
 ### Coloring
 
-This theme includes an extension of the [Lanyon]({{ site.author.url }}{{ site.baseurl }}/blob/gh-pages/public/css/lanyon.css) stylesheet which easily supports some colors.
+This theme includes a stylesheet which easily supports some colors.
 
 #### Sample of coloring a paragraph:
 
-```
+```markdown
 This is a paragraph that for some reason we want yellow.
 {: .yellow}
 
@@ -250,7 +264,7 @@ This is a paragraph that for some reason we want green.
 
 #### Sample of inline coloring:
 
-```
+```markdown
 This is a *yellow*{:.highlight-yellow} highlight.
 
 This is a *gold*{:.highlight-gold} highlight.
@@ -274,14 +288,14 @@ This is a *green*{:.highlight-green} highlight.
 
 ### Drawings
 
-This theme includes an extension of the [Lanyon]({{ site.author.url }}{{ site.baseurl }}/blob/gh-pages/public/css/lanyon.css) stylesheet which supports drawings.
+This theme includes a stylesheet which supports drawings.
 
 Drawings are defined as standard Markdown tables including UTF8 arrows (or unicode ones in case the editor is able to convert them to UTF8) and followed by `{: .drawing}` when all cells are centered or by `{: .drawing .djustify}` when cells have to be justified.
 The file shall be in UTF8 format.
 
 Some examples:
 
-```
+```markdown
 |First information|
 |↓|
 |Second information|
@@ -302,7 +316,7 @@ Some examples:
 {: .drawing .djustify}
 
 {% raw %}
-```raw
+```markdown
 |A YAML file ![yml][yml]       | |A CSS file ![css][css]| |An image ![png][png]|
 |                               |↘|↓|↙|
 |DB tables ![db][db]   |→|**A program**  ![prg][prg]|→|Some web pages ![web][web]|
@@ -321,19 +335,41 @@ Some examples:
 |A JSON file ![json][json] | |Geographic data ![shape][shape]| |An XML ![xml][xml]|
 {: .drawing}
 
+Line breaks within tables and drawings can be obtained by adding the tag `<span>`, like in these examples:
+
+```markdown
+|Description|Quantity|
+|-----------|:------:|
+|This is the first line for the first table raw<span>and this is its second line|10|
+|This is the first line for the second table raw<span>and this is its second line|20|
+```
+
+|Description|Quantity|
+|-----------|:------:|
+|This is the first line for the first table raw<span>and this is its second line|10|
+|This is the first line for the second table raw<span>and this is its second line|20|
+
+```markdown
+|This is the first line<span>and this is the second line|
+{: .drawing .djustify}
+```
+
+|This is the first line<span>and this is the second line|
+{: .drawing .djustify}
+
 {% include pages/images.md %}
 
 Notice that the image references can be defined through the syntax:
 
 {% raw %}
-```raw
+```liquid
 {% include pages/images.md %}
 ```
 {% endraw %}
 
 or directly defining the images as follows:
 
-```raw
+```liquid
 {% include pages/images.md %}
 ```
 

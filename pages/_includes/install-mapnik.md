@@ -48,16 +48,18 @@ We need to install [Boost](http://www.boost.org/) either from package or from so
 
 #### Alternatively, install the latest version of Boost from source
 
-    sudo apt-get purge -y libboost-all-dev # remove installation from package
-    cd ~/src
-    wget -O boost.tar.bz2 https://sourceforge.net/projects/boost/files/latest/download?source=files
-    tar xjf boost.tar.bz2
-    rm boost.tar.bz2
-    cd boost_*
-    ./bootstrap.sh
-    ./b2 stage toolset=gcc --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 -sICU_PATH=/usr/ --with-program_options --with-system link=shared
-    sudo ./b2 install toolset=gcc --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 -sICU_PATH=/usr/ --with-program_options --with-system link=shared -d0
-    sudo ldconfig && cd ~/
+```shell
+sudo apt-get purge -y libboost-all-dev # remove installation from package
+cd ~/src
+wget -O boost.tar.bz2 https://sourceforge.net/projects/boost/files/latest/download?source=files
+tar xjf boost.tar.bz2
+rm boost.tar.bz2
+cd boost_*
+./bootstrap.sh
+./b2 stage toolset=gcc --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 -sICU_PATH=/usr/ --with-program_options --with-system link=shared
+sudo ./b2 install toolset=gcc --with-thread --with-filesystem --with-python --with-regex -sHAVE_ICU=1 -sICU_PATH=/usr/ --with-program_options --with-system link=shared -d0
+sudo ldconfig && cd ~/
+```
 
 #### Install HarfBuzz from source
 

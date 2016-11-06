@@ -1,3 +1,6 @@
+---
+layout: js-compress
+---
 /*
 
 Modified by ircama, 2016; added the following options:

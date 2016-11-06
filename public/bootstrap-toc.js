@@ -1,3 +1,6 @@
+---
+layout: js-compress
+---
 /*!
  * Bootstrap Table of Contents v<%= version %> (http://afeld.github.io/bootstrap-toc/)
  * Copyright 2015 Aidan Feldman

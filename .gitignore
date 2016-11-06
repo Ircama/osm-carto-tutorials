@@ -2,6 +2,7 @@
 _gh_pages
 _site
 .ruby-version
+Gemfile.lock
 
 # Numerous always-ignore extensions
 *.diff
@@ -16,10 +17,12 @@ _site
 *~
 
 # OS or Editor folders
+.sass-cache
 .DS_Store
 ._*
 Thumbs.db
 .cache
+.jekyll-metadata
 .project
 .settings
 .tmproj

@@ -1,7 +1,6 @@
 <base href="{{ site.baseurl }}{{ page.url }}" />
 <div class="sticky"><nav id="toc"></nav>
 </div>
-<script src="{{ site.baseurl }}/public/anchor.min.js"></script>
 <div><a class="toc-title" href="#">{{ page.title }}</a></div>
 {% if include.ispage == "yes" %}
 <div class="page">
@@ -10,82 +9,16 @@
   Last modification: 
   <span id="last-page-mod">unknown</span>
   </div>
-  {{ content }}
+  {{ content | replace:'<div class="footnotes">','<hr />
+<h2 id="footnotes">
+Footnotes
+</h2>
+<div class="foot-notes">' }}
 </div>
 {% endif %}
 <script>
-$(document).ready(function() {
-  var elem = $('table.drawing td');
-  $.each(elem, function() {
-    if ( ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) > 150 ) ) ||
-        ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) >255 ) ) )
-      $(this).addClass("darrow")
-    else
-      $(this).addClass("dcontent");
-  });
-});
-try {
-  $(function() {
-    var navSelector = '#toc';
-    var $myNav = $(navSelector);
-    Toc.init($myNav, { headings: 'h1,h2,h3,h4,h5,h6' } );
-    $('body').scrollspy({
-      target: navSelector,
-      offset: 220
-    });
-  });
-}
-catch(e)
-  {
-  }
-anchors.options = {
-  placement: 'left',
-};
-anchors.add();
-anchors.remove('.masthead-title');
-anchors.remove('.sticky');
-anchors.remove('.page-title');
-anchors.remove('.post-title');
-try {
 $(function() {
 	$('#last-page-mod').githubInfoWidget(
 		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', nouser: true, nomsg: true, abstime: true, simple: 1, last: 1, limitMessageTo: 500 });
 });
-}
-catch(e)
-  {
-  }
-
-/* Add target="_blank" to all external links */
-var links = document.links;
-for (var i = 0; i < links.length; i++) {
-    if (!links[i].target) {
-        if (
-            links[i].hostname !== window.location.hostname || 
-            /\.(?!html?)([a-z]{0,3}|[a-zt]{0,4})$/.test(links[i].pathname)
-        ) {
-            links[i].target = '_blank';
-        } 
-    }
-}
-
-$(window).on('load resize scroll', function () {
-/* Auto-move the table of content scroll div while scrolling the main window */
-  var scrollPos = $("div.sticky").offset().top / $(document.body).prop('scrollHeight');
-  if (scrollPos < 0.3)
-    scrollPos=0;
-  if (scrollPos < 0.5)
-    scrollPos=scrollPos * 0.9;
-  if (scrollPos > 0.6)
-    scrollPos=scrollPos * 1.2;
-  if (scrollPos > 0.75)
-    scrollPos=1;
-  $("div.sticky").scrollTop(scrollPos * ($("div.sticky").prop('scrollHeight') - $("div.sticky").innerHeight()));
-
-/* Dynamically set bottom position of div.sticky only when toc overflows to avoid conflicts between box-shadow and scrollbar */
-if ($(window).height() < $('nav[data-toggle="toc"]').height() + $("div.sticky").position().top)
-  $("div.sticky").css("bottom","0")
-else
-  $("div.sticky").css("bottom","unset");
-})
 </script>
