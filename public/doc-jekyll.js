@@ -107,6 +107,18 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
+/* Pinch-to-zoom switches off the Table of Content */
+
+$(window).on('gestureend', function () {
+    if (e.scale < 1.0) {
+        // User moved fingers closer together
+        $("div.sticky").css("opacity","1");
+    } else if (e.scale > 1.0) {
+        // User moved fingers further apart
+        $("div.sticky").css("opacity","0");
+    }
+})
+
 /*----------------------------------------------------------------------------------------------*/
 
 /* Functions to dynamically manage the sidebar */
