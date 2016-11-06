@@ -118,7 +118,7 @@ var mc = new Hammer(hammerId);
 
 mc.get('pinch').set({ enable: true });
 
-mc.on('pinch', function(ev) {
+mc.on("pinch", function(ev) {
     document.title = ev.type +" gesture detected.";
 });
 
