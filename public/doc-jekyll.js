@@ -111,8 +111,18 @@ else
 
  // emulate multitouch on your desktop computers using the mouse and the SHIFT key
 
+var hammerId = document.getElementById('pinch');
 
-/*----------------------------------------------------------------------------------------------*/
+TouchEmulator();
+var mc = new Hammer(hammerId);
+
+mc.get('pinch').set({ enable: true });
+
+mc.on('pinch', function(ev) {
+    document.title = ev.type +" gesture detected.";
+});
+
+/*----------------------------------------------------------------------------------------------*/
 
 /* Functions to dynamically manage the sidebar */
 
