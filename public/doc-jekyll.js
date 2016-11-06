@@ -109,18 +109,15 @@ else
 
 /* Pinch-to-zoom switches off the Table of Content */
 
- // emulate multitouch on your desktop computers using the mouse and the SHIFT key
-
-var hammerId = document.getElementById('pinch');
-
-TouchEmulator();
-var mc = new Hammer(hammerId);
-
-mc.get('pinch').set({ enable: true });
-
-mc.on("pinch", function(ev) {
-    document.title = ev.type +" gesture detected.";
-});
+$(window).on('gestureend', function () {
+    if (e.scale < 1.0) {
+        // User moved fingers closer together
+        $("div.sticky").css("opacity","1");
+    } else if (e.scale > 1.0) {
+        // User moved fingers further apart
+        $("div.sticky").css("opacity","0");
+    }
+})
 
 /*----------------------------------------------------------------------------------------------*/
 
