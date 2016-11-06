@@ -119,6 +119,27 @@ $(window).on('gestureend', function () {
     }
 })
 
+var HammerId = document.getElementById('pinch');
+
+var mc = new Hammer.Manager(HammerId);
+
+// create a pinch, rotate and pan recognizers
+var pinch = new Hammer.Pinch();
+var rotate = new Hammer.Rotate();
+var pan = new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 });
+
+// we want to detect all at the same time
+pinch.recognizeWith(rotate);
+pinch.recognizeWith(pan);
+
+// add to the Manager
+mc.add([pinch, rotate, pan]);
+
+
+mc.on("pinch rotate pan", function(ev) {
+    document.title = ev.type;
+});
+
 /*----------------------------------------------------------------------------------------------*/
 
 /* Functions to dynamically manage the sidebar */
