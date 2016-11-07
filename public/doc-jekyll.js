@@ -111,8 +111,8 @@ else
 document.addEventListener('touchmove', function(e) {
   if (e.touches.length == 2) { // two fingers
     var dist =
-      (e.touches[0].x-e.touches[1].screenX) * (e.touches[0].x-e.touches[1].screenX) +
-      (e.touches[0].y-e.touches[1].screenY) * (e.touches[0].y-e.touches[1].screenY);
+      (e.touches[0].screenX-e.touches[1].screenX) * (e.touches[0].screenX-e.touches[1].screenX) +
+      (e.touches[0].screenY-e.touches[1].screenY) * (e.touches[0].screenY-e.touches[1].screenY);
     document.title=dist;
 /* 
     if (dist == 0)
