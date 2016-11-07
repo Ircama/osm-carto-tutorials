@@ -130,7 +130,7 @@ document.addEventListener('touchmove', function() {
     }
   else
     {
-      $("label.sidebar-toggle").css("opacity","0.8");
+      $("label.sidebar-toggle").css("opacity","0.85");
     }
 }, false);
 
