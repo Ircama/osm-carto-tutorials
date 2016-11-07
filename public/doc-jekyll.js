@@ -107,8 +107,8 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-/* Automatically close the Table of Content on touchscreen when overlapping with the document text */
-document.addEventListener('touchmove', function(e) {
+/* Automatically close the Table of Content (with its title) and the sidebar button on touchscreen when overlapping with the document text */
+document.addEventListener('touchmove', function() {
   if (document.querySelector("div.sticky").getBoundingClientRect().left - document.querySelector("div.container").getBoundingClientRect().right > 0)
     {
       $(".toc-title").css("opacity","1");
@@ -118,6 +118,14 @@ document.addEventListener('touchmove', function(e) {
     {
       $(".toc-title").css("opacity","0");
       $("div.sticky").css("opacity","0");
+    }
+  if (document.querySelector("div.container").getBoundingClientRect().left - document.querySelector("label.sidebar-toggle").getBoundingClientRect().right > 0)
+    {
+      $("label.sidebar-toggle").css("opacity","1");
+    }
+  else
+    {
+      $("label.sidebar-toggle").css("opacity","0");
     }
 }, false);
 
