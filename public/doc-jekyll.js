@@ -107,16 +107,14 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-function addListenerMulti(el, s, fn) {
-  var evts = s.split(' ');
-  for (var i=0, iLen=evts.length; i<iLen; i++) {
-    el.addEventListener(evts[i], fn, false);
-  }
-}
-
 /* Automatically close the Table of Content (with its title) and the sidebar button on touchscreen when overlapping with the document text */
-document.addListenerMulti('touchmove touchend', function() {
-  if (document.querySelector("div.sticky").getBoundingClientRect().left - document.querySelector("div.container").getBoundingClientRect().right > 0)
+
+var sticky=document.querySelector("div.sticky");
+var doc=document.querySelector("div.container");
+var sbutton=document.querySelector("label.sidebar-toggle");
+
+document.addEventListener('touchmove', function() {
+  if (sticky.getBoundingClientRect().left - doc.getBoundingClientRect().right > 0)
     {
       $(".toc-title").css("opacity","1");
       $("div.sticky").css("opacity","1");
@@ -126,7 +124,7 @@ document.addListenerMulti('touchmove touchend', function() {
       $(".toc-title").css("opacity","0");
       $("div.sticky").css("opacity","0");
     }
-  if (document.querySelector("div.container").getBoundingClientRect().left - document.querySelector("label.sidebar-toggle").getBoundingClientRect().right > 0)
+  if (doc.getBoundingClientRect().left - sbutton.getBoundingClientRect().right > 0)
     {
       $("label.sidebar-toggle").css("opacity","1");
     }
@@ -134,7 +132,7 @@ document.addListenerMulti('touchmove touchend', function() {
     {
       $("label.sidebar-toggle").css("opacity","0");
     }
-});
+}, false);
 
 
 /*----------------------------------------------------------------------------------------------*/
