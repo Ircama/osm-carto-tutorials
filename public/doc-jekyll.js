@@ -135,6 +135,7 @@ document.addEventListener('touchmove', function(e) {
   if (e.touches.length == 2) { // two fingers
     var dist = Math.abs((e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientY-e.touches[1].clientY));
     document.title = checkForOverlap($("div.sticky")[0], $("div.container")[0]);
+/*
     if (dist <5000)
       {
         $(".toc-title").css("display","flex");
@@ -145,6 +146,7 @@ document.addEventListener('touchmove', function(e) {
         $(".toc-title").css("display","none");
         $("div.sticky").css("display","none");
       }
+*/
   }
 }, false);
 
