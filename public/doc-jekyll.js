@@ -121,18 +121,89 @@ $('pinch').on('gestureend', function () {
     }
 })
 
+var posX=0, posY=0,
+    scale=1, last_scale,
+    last_posX=0, last_posY=0,
+    max_pos_x=0, max_pos_y=0;
+
 var mc = new Hammer.Manager(HammerId);
 
 // create a pinch and rotate recognizer
 // these require 2 pointers
 var pinch = new Hammer.Pinch();
-var rotate = new Hammer.Rotate();
 
 // add to the Manager
 mc.add([pinch]);
 
-mc.on("pinchend", function(ev) {
+mc.on('pinch touch drag transform dragend', function(ev) {
     document.title = ev.type;
+    switch(ev.type) {
+        case 'touch':
+            last_scale = scale;
+            break;
+
+        case 'drag':
+            if(scale != 1){
+                    posX = last_posX + ev.gesture.deltaX;
+                    posY = last_posY + ev.gesture.deltaY;
+                    if(posX > max_pos_x){
+                        posX = max_pos_x;
+                    }
+                    if(posX < -max_pos_x){
+                        posX = -max_pos_x;
+                    }
+                    if(posY > max_pos_y){
+                        posY = max_pos_y;
+                    }
+                    if(posY < -max_pos_y){
+                        posY = -max_pos_y;
+                    }
+            }else{
+                posX = 0;
+                posY = 0;
+                saved_posX = 0;
+                saved_posY = 0;
+            }
+            break;
+
+        case 'transform':
+            scale = Math.max(1, Math.min(last_scale * ev.gesture.scale, 10));
+            max_pos_x = Math.ceil((scale - 1) * rect.clientWidth / 2);
+            max_pos_y = Math.ceil((scale - 1) * rect.clientHeight / 2);
+            if(posX > max_pos_x){
+                posX = max_pos_x;
+            }
+            if(posX < -max_pos_x){
+                posX = -max_pos_x;
+            }
+            if(posY > max_pos_y){
+                posY = max_pos_y;
+            }
+            if(posY < -max_pos_y){
+                posY = -max_pos_y;
+            }
+            break;
+        case 'dragend':
+            last_posX = posX < max_pos_x ? posX: max_pos_x;
+            last_posY = posY < max_pos_y ? posY: max_pos_y;
+            break;
+    }
+
+    // transform!
+    var transform =
+            "translate3d(0, 0, 0) " +
+            "scale3d(1, 1, 0) "; 
+    if(scale != 1){
+        transform =
+            "translate3d("+posX+"px,"+posY+"px, 0) " +
+            "scale3d("+scale+","+scale+", 0) ";
+    }
+
+    rect.style.transform = transform;
+    rect.style.oTransform = transform;
+    rect.style.msTransform = transform;
+    rect.style.mozTransform = transform;
+    rect.style.webkitTransform = transform;
 });
 
 /*----------------------------------------------------------------------------------------------*/
