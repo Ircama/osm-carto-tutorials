@@ -134,7 +134,7 @@ document.addListenerMulti('touchmove touchend', function() {
     {
       $("label.sidebar-toggle").css("opacity","0");
     }
-};
+});
 
 
 /*----------------------------------------------------------------------------------------------*/
