@@ -107,10 +107,7 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-function checkForOverlap(el1, el2) {
-
-    var bounds1 = el1.getBoundingClientRect();
-    var bounds2 = el2.getBoundingClientRect();
+function checkForOverlap(bounds1, bounds2) {
 
     var firstIstLeftmost = (bounds1.left <= bounds2.left);
     var leftest = firstIstLeftmost ? bounds1 : bounds2;
@@ -134,7 +131,7 @@ function checkForOverlap(el1, el2) {
 document.addEventListener('touchmove', function(e) {
   if (e.touches.length == 2) { // two fingers
     var dist = Math.abs((e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientY-e.touches[1].clientY));
-    document.title = checkForOverlap($("div.sticky"), $("div.container"));
+    document.title = checkForOverlap($("div.sticky").offset(), $("div.container").offset());
 /*
     if (dist <5000)
       {
