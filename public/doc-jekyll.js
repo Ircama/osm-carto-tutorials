@@ -107,17 +107,17 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-/* Automatically close the the Table of Content on touchscreen moves with two fingers */
+/* Automatically close the Table of Content on touchscreen when overlapping with the document text */
 document.addEventListener('touchmove', function(e) {
   if (document.querySelector("div.sticky").getBoundingClientRect().left - document.querySelector("div.container").getBoundingClientRect().right > 0)
     {
-      $(".toc-title").css("display","flex");
-      $("div.sticky").css("display","block");
+      $(".toc-title").css("opacity","1");
+      $("div.sticky").css("opacity","1");
     }
   else
     {
-      $(".toc-title").css("display","none");
-      $("div.sticky").css("display","none");
+      $(".toc-title").css("opacity","0");
+      $("div.sticky").css("opacity","0");
     }
 }, false);
 
