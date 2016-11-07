@@ -128,11 +128,8 @@ var mc = new Hammer.Manager(HammerId);
 var pinch = new Hammer.Pinch();
 var rotate = new Hammer.Rotate();
 
-// we want to detect both the same time
-pinch.recognizeWith(rotate);
-
 // add to the Manager
-mc.add([pinch, rotate]);
+mc.add([pinch]);
 
 mc.on("pinchend", function(ev) {
     document.title = ev.type;
