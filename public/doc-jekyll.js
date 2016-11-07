@@ -107,8 +107,15 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
+function addListenerMulti(el, s, fn) {
+  var evts = s.split(' ');
+  for (var i=0, iLen=evts.length; i<iLen; i++) {
+    el.addEventListener(evts[i], fn, false);
+  }
+}
+
 /* Automatically close the Table of Content (with its title) and the sidebar button on touchscreen when overlapping with the document text */
-document.addEventListener('touchmove', function() {
+document.addListenerMulti('touchmove touchend', function() {
   if (document.querySelector("div.sticky").getBoundingClientRect().left - document.querySelector("div.container").getBoundingClientRect().right > 0)
     {
       $(".toc-title").css("opacity","1");
