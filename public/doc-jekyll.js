@@ -107,37 +107,13 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-/* Pinch-to-zoom switches off the Table of Content */
-
-var HammerId = document.getElementById('pinch');
-
-TouchEvent.prototype.preventDefault = function () {
-     // do nothing, prevent native touch scrolling from being blocked
-};
-
-$('pinch').on('gestureend', function () {
-    if (e.scale < 1.0) {
-        // User moved fingers closer together
-        $("div.sticky").css("opacity","1");
-    } else if (e.scale > 1.0) {
-        // User moved fingers further apart
-        $("div.sticky").css("opacity","0");
-    }
-})
-
-var mc = new Hammer.Manager(HammerId, {preventDefault: false});
-
-// create a pinch and rotate recognizer
-// these require 2 pointers
-var pinch = new Hammer.Pinch();
-
-// add to the Manager
-mc.add([pinch]);
-
-mc.on("pinch", function(ev) {
-    document.title = ev.type;
-});
-
+document.addEventListener('touchstart', function(event) { /* Automatically close the the Table of Content on touchscreen moves */
+  if (event.targetTouches.length == 2) {
+    $("div.sidebar-toggle").css("opacity","0");
+    $("div.toc-title").css("opacity","0");
+    $("div.sticky").css("opacity","0");
+  }
+}, false);
 
 
 /*----------------------------------------------------------------------------------------------*/
