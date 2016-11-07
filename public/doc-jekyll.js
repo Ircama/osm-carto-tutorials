@@ -107,13 +107,13 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-/* Automatically close the Table of Content (with its title) and the sidebar button on touchscreen when overlapping with the document text */
+/* Automatically hide the Table of Content (with its title) and the sidebar button on touchscreen when overlapping with the document text */
 
 var sticky=document.querySelector("div.sticky");
 var doc=document.querySelector("div.container");
 var sbutton=document.querySelector("label.sidebar-toggle");
 
-document.addEventListener('touchmove', function() {
+function checkOverlap() {
   if (sticky.getBoundingClientRect().left - doc.getBoundingClientRect().right > 0)
     {
       $(".toc-title").css("opacity","1");
@@ -132,8 +132,9 @@ document.addEventListener('touchmove', function() {
     {
       $("label.sidebar-toggle").css("opacity","0.85");
     }
-}, false);
+};
 
+document.addEventListener('touchmove', checkOverlap(), false);
 
 /*----------------------------------------------------------------------------------------------*/
 
@@ -162,6 +163,7 @@ delayCheckFullScreen();
 
   document.addEventListener('touchstart', function(e) { /* Automatically close the sidebar when tapping the page content */
 
+    checkOverlap();
     delayCheckFullScreen();
     var target = e.target;
     if((!checkbox.checked) ||
