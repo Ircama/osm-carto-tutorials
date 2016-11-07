@@ -109,7 +109,9 @@ else
 
 /* Pinch-to-zoom switches off the Table of Content */
 
-$(window).on('gestureend', function () {
+var HammerId = document.getElementById('pinch');
+
+$('pinch').on('gestureend', function () {
     if (e.scale < 1.0) {
         // User moved fingers closer together
         $("div.sticky").css("opacity","1");
@@ -118,9 +120,8 @@ $(window).on('gestureend', function () {
         $("div.sticky").css("opacity","0");
     }
 })
-/*
-var HammerId = document.getElementById('pinch');
 
+/*
 var mc = new Hammer.Manager(HammerId);
 
 // create a pinch and rotate recognizer
