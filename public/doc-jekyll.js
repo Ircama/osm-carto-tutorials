@@ -107,10 +107,6 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-/* Automatically close the Table of Content (with its title) and the sidebar button on touchscreen when overlapping with the document text */
-document.addEventListener('touchmove', function() {
-}, false);
-
 
 /*----------------------------------------------------------------------------------------------*/
 
@@ -136,8 +132,28 @@ delayCheckFullScreen();
   var sidebar = document.querySelector('#sidebar');
   var checkbox = document.querySelector('#sidebar-checkbox');
   var sticky = document.querySelector('.sticky');
+  var container = document.querySelector("div.container");
 
   document.addEventListener('touchstart', function(e) { /* Automatically close the sidebar when tapping the page content */
+
+  if (sticky.getBoundingClientRect().left - container.getBoundingClientRect().right > 0)
+    {
+      $(".toc-title").css("opacity","1");
+      $("div.sticky").css("opacity","1");
+    }
+  else
+    {
+      $(".toc-title").css("opacity","0");
+      $("div.sticky").css("opacity","0");
+    }
+  if (container.getBoundingClientRect().left - toggle.getBoundingClientRect().right > 0)
+    {
+      $("label.sidebar-toggle").css("opacity","1");
+    }
+  else
+    {
+      $("label.sidebar-toggle").css("opacity","0");
+    }
 
     delayCheckFullScreen();
     var target = e.target;
@@ -150,24 +166,6 @@ delayCheckFullScreen();
     sticky.visible = false;
 
 
-  if (document.querySelector("div.sticky").getBoundingClientRect().left - document.querySelector("div.container").getBoundingClientRect().right > 0)
-    {
-      $(".toc-title").css("opacity","1");
-      $("div.sticky").css("opacity","1");
-    }
-  else
-    {
-      $(".toc-title").css("opacity","0");
-      $("div.sticky").css("opacity","0");
-    }
-  if (document.querySelector("div.container").getBoundingClientRect().left - document.querySelector("label.sidebar-toggle").getBoundingClientRect().right > 0)
-    {
-      $("label.sidebar-toggle").css("opacity","1");
-    }
-  else
-    {
-      $("label.sidebar-toggle").css("opacity","0");
-    }
 
   }, false);
 
