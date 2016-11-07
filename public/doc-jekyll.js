@@ -107,14 +107,37 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
+function checkForOverlap(el1, el2) {
+
+    var bounds1 = el1.getBoundingClientRect();
+    var bounds2 = el2.getBoundingClientRect();
+
+    var firstIstLeftmost = (bounds1.left <= bounds2.left);
+    var leftest = firstIstLeftmost ? bounds1 : bounds2;
+    var rightest = firstIstLeftmost ? bounds2 : bounds1;
+
+    //change to >= if border overlap should count
+    if(leftest.right > rightest.left) {
+            //
+        var firstIsTopmost = (bounds1.top <= bounds2.top);
+        var topest = firstIsTopmost ? bounds1 : bounds2;
+        var bottomest = firstIsTopmost ? bounds2 : bounds1;
+
+        //change to >= if border overlap should count
+        return topest.bottom > bottomest.top;
+    }
+    else return false;
+
+}
+
 /* Automatically close the the Table of Content on touchscreen moves with two fingers */
 document.addEventListener('touchmove', function(e) {
   if (e.touches.length == 2) { // two fingers
     var dist = Math.abs((e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientY-e.touches[1].clientY));
-    document.title=dist;
+    document.title = checkForOverlap($("div.sticky"), $("div.container"));
     if (dist <5000)
       {
-        $(".toc-title").css("display","block");
+        $(".toc-title").css("display","flex");
         $("div.sticky").css("display","block");
       }
     else
