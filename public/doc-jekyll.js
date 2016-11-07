@@ -110,10 +110,9 @@ else
 /* Automatically close the the Table of Content on touchscreen moves with two fingers */
 document.addEventListener('touchmove', function(e) {
   if (e.touches.length == 2) { // two fingers
-    var dist = Math.abs((e.touches[0].pageX-e.touches[1].pageX) * (e.touches[0].pageY-e.touches[1].pageY));
+    var dist = Math.abs((e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientY-e.touches[1].clientY));
     document.title=dist;
-/* 
-    if (dist == 0)
+    if (dist <2000)
       {
         $(".toc-title").css("display","none");
         $("div.sticky").css("display","none");
@@ -123,7 +122,6 @@ document.addEventListener('touchmove', function(e) {
         $(".toc-title").css("display","block");
         $("div.sticky").css("display","block");
       }
-*/
   }
 }, false);
 
