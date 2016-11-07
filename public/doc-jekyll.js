@@ -109,7 +109,7 @@ else
 
 /* Pinch-to-zoom switches off the Table of Content */
 
-document.addEventListener('touchmove', function(e) { /* Automatically close the Table of Content on mobile devices */
+document.addEventListener('gesturechange', function(e) { /* Automatically close the Table of Content on mobile devices */
       $("div.sticky").css("opacity","0");
 }, false);
 
