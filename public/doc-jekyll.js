@@ -109,24 +109,6 @@ else
 
 /* Automatically close the Table of Content (with its title) and the sidebar button on touchscreen when overlapping with the document text */
 document.addEventListener('touchmove', function() {
-  if (document.querySelector("div.sticky").getBoundingClientRect().left - document.querySelector("div.container").getBoundingClientRect().right > 0)
-    {
-      $(".toc-title").css("opacity","1");
-      $("div.sticky").css("opacity","1");
-    }
-  else
-    {
-      $(".toc-title").css("opacity","0");
-      $("div.sticky").css("opacity","0");
-    }
-  if (document.querySelector("div.container").getBoundingClientRect().left - document.querySelector("label.sidebar-toggle").getBoundingClientRect().right > 0)
-    {
-      $("label.sidebar-toggle").css("opacity","1");
-    }
-  else
-    {
-      $("label.sidebar-toggle").css("opacity","0");
-    }
 }, false);
 
 
@@ -166,6 +148,27 @@ delayCheckFullScreen();
 
     checkbox.checked = false;
     sticky.visible = false;
+
+
+  if (document.querySelector("div.sticky").getBoundingClientRect().left - document.querySelector("div.container").getBoundingClientRect().right > 0)
+    {
+      $(".toc-title").css("opacity","1");
+      $("div.sticky").css("opacity","1");
+    }
+  else
+    {
+      $(".toc-title").css("opacity","0");
+      $("div.sticky").css("opacity","0");
+    }
+  if (document.querySelector("div.container").getBoundingClientRect().left - document.querySelector("label.sidebar-toggle").getBoundingClientRect().right > 0)
+    {
+      $("label.sidebar-toggle").css("opacity","1");
+    }
+  else
+    {
+      $("label.sidebar-toggle").css("opacity","0");
+    }
+
   }, false);
 
   document.addEventListener('click', function(e) { /* Automatically close the sidebar when clicking on the page content */
