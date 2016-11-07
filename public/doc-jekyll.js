@@ -107,44 +107,18 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-function checkForOverlap(bounds1, bounds2) {
-
-    var firstIstLeftmost = (bounds1.left <= bounds2.left);
-    var leftest = firstIstLeftmost ? bounds1 : bounds2;
-    var rightest = firstIstLeftmost ? bounds2 : bounds1;
-
-    //change to >= if border overlap should count
-    if(leftest.right > rightest.left) {
-            //
-        var firstIsTopmost = (bounds1.top <= bounds2.top);
-        var topest = firstIsTopmost ? bounds1 : bounds2;
-        var bottomest = firstIsTopmost ? bounds2 : bounds1;
-
-        //change to >= if border overlap should count
-        return topest.bottom > bottomest.top;
-    }
-    else return false;
-
-}
-
 /* Automatically close the the Table of Content on touchscreen moves with two fingers */
 document.addEventListener('touchmove', function(e) {
-  if (e.touches.length == 2) { // two fingers
-    var dist = Math.abs((e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientY-e.touches[1].clientY));
-    document.title = checkForOverlap($("div.sticky").offset(), $("div.container").offset());
-/*
-    if (dist <5000)
-      {
-        $(".toc-title").css("display","flex");
-        $("div.sticky").css("display","block");
-      }
-    else
-      {
-        $(".toc-title").css("display","none");
-        $("div.sticky").css("display","none");
-      }
-*/
-  }
+  if (document.querySelector("div.sticky").getBoundingClientRect().left - document.querySelector("div.container").getBoundingClientRect().right > 0)
+    {
+      $(".toc-title").css("display","flex");
+      $("div.sticky").css("display","block");
+    }
+  else
+    {
+      $(".toc-title").css("display","none");
+      $("div.sticky").css("display","none");
+    }
 }, false);
 
 
