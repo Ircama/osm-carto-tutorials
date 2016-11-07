@@ -119,9 +119,16 @@ $('pinch').on('gestureend', function (e) {
     }
 })
 
-var hammertimeout = Hammer(document.body, {prevent_default: true}).on("pinchin pinchout", function(ev){
+// create a hammer instance
+var mc = new Hammer.Manager(document.body);
+
+// add the pinch recognizer
+mc.add(new Hammer.Pinch({ threshold: 0 }));
+
+// listen to the events!
+mc.on("pinch", function(ev) {
   document.title=ev.type;
-});
+  });
 
 /*----------------------------------------------------------------------------------------------*/
 
