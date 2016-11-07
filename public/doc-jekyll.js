@@ -108,7 +108,7 @@ else
 })
 
 document.addEventListener('touchmove', function(event) { /* Automatically close the the Table of Content on touchscreen moves */
-  if (event.touches > 1) {
+  if (event.touches.length > 1) {
     $(".toc-title").css("opacity","0");
     $("div.sticky").css("opacity","0");
   }
