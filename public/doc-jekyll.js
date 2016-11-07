@@ -109,26 +109,10 @@ else
 
 /* Pinch-to-zoom switches off the Table of Content */
 
-$('pinch').on('gestureend', function (e) {
-    if (e.scale < 1.0) {
-        // User moved fingers closer together
-        $("div.sticky").css("opacity","1");
-    } else if (e.scale > 1.0) {
-        // User moved fingers further apart
-        $("div.sticky").css("opacity","0");
-    }
-})
+document.addEventListener('touchmove', function(e) { /* Automatically close the Table of Content on mobile devices */
+      $("div.sticky").css("opacity","0");
+}, false);
 
-// create a hammer instance
-var mc = new Hammer.Manager(document.body);
-
-// add the pinch recognizer
-mc.add(new Hammer.Pinch({ threshold: 0 }));
-
-// listen to the events!
-mc.on("pinch", function(ev) {
-  document.title=ev.type;
-  });
 
 /*----------------------------------------------------------------------------------------------*/
 
