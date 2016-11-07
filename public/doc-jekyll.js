@@ -108,9 +108,11 @@ else
 })
 
 document.addEventListener('touchmove', function(event) { /* Automatically close the the Table of Content on touchscreen moves */
-    $("div.sidebar-toggle").css("opacity","0");
-    $("div.toc-title").css("opacity","0");
+  if (event.targetTouches.length > 1) {
+    $(".sidebar-toggle").css("opacity","0");
+    $(".toc-title").css("opacity","0");
     $("div.sticky").css("opacity","0");
+  }
 }, false);
 
 
