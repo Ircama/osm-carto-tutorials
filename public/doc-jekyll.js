@@ -108,14 +108,24 @@ else
 })
 
 /* Automatically close the the Table of Content on touchscreen moves with two fingers */
-document.addEventListener('touchmove', function(e) {
+document.addEventListener('touchend', function(e) {
   if (e.touches.length == 2) { // two fingers
     var dist =
       (e.touches[0].x-e.touches[1].x) * (e.touches[0].x-e.touches[1].x) +
       (e.touches[0].y-e.touches[1].y) * (e.touches[0].y-e.touches[1].y);
-      document.title=dist;
-    $(".toc-title").css("display","none");
-    $("div.sticky").css("display","none");
+    document.title=dist;
+/* 
+    if (dist == 0)
+      {
+        $(".toc-title").css("display","none");
+        $("div.sticky").css("display","none");
+      }
+    else
+      {
+        $(".toc-title").css("display","block");
+        $("div.sticky").css("display","block");
+      }
+*/
   }
 }, false);
 
