@@ -107,7 +107,8 @@ else
   $("div.sticky").css("bottom","unset");
 })
 
-document.addEventListener('touchmove', function(event) { /* Automatically close the the Table of Content on touchscreen moves */
+/* Automatically close the the Table of Content on touchscreen moves with two fingers */
+document.addEventListener('touchmove', function(event) {
   if (event.touches.length > 1) {
     $(".toc-title").css("display","none");
     $("div.sticky").css("display","none");
