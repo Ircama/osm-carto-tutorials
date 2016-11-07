@@ -121,7 +121,6 @@ $('pinch').on('gestureend', function () {
     }
 })
 
-/*
 var mc = new Hammer.Manager(HammerId);
 
 // create a pinch and rotate recognizer
@@ -135,10 +134,10 @@ pinch.recognizeWith(rotate);
 // add to the Manager
 mc.add([pinch, rotate]);
 
-mc.on("pinch rotate", function(ev) {
+mc.on("pinchend", function(ev) {
     document.title = ev.type;
 });
-*/
+
 /*----------------------------------------------------------------------------------------------*/
 
 /* Functions to dynamically manage the sidebar */
