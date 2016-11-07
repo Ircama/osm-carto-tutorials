@@ -110,7 +110,7 @@ else
 /* Automatically close the the Table of Content on touchscreen moves with two fingers */
 document.addEventListener('touchmove', function(e) {
   if (e.touches.length == 2) { // two fingers
-    var dist = (e.touches[0].pageX-e.touches[1].pageX) * (e.touches[0].pageY-e.touches[1].pageY);
+    var dist = Math.abs((e.touches[0].pageX-e.touches[1].pageX) * (e.touches[0].pageY-e.touches[1].pageY));
     document.title=dist;
 /* 
     if (dist == 0)
