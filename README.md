@@ -26,7 +26,7 @@ Information on the usage of this theme can be found in [how to contribute]({{ si
 * [github.commits.widget](https://github.com/alexanderbeletsky/github-commits-widget), (c) 2012 Alexander Beletsky, with some improvements
 * [lanyon-plus](https://github.com/dyndna/lanyon-plus)
 * [A Jekyll layout that compresses HTML in pure Liquid](https://github.com/penibelst/jekyll-compress-html), © 2014–2015 Anatol Broder. Released under the MIT License. The compressor has been modified in order to also obtain a very basic Liquid Javascript compressor.
-* Fonts and icons from http://fontawesome.io/, http://www.flaticon.com, https://openclipart.org/ and https://icomoon.io
+* Fonts and icons from http://fontawesome.io/, designed by Freepik and distributed by Flaticon (http://www.flaticon.com/authors/freepik), https://openclipart.org/ and https://icomoon.io
 * Usage of compressed scss styles
 
 Licensed under the [MIT License](http://opensource.org/licenses/MIT)

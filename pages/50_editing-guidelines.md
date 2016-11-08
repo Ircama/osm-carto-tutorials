@@ -416,6 +416,7 @@ Some features need to scale up their font size according to the zoom level. If y
 * Test your development with many zones.
 * When making an improvement, try to reuse similar methods already included in the style for other features.
 * Do not use any Mapnik syntax like `text-allow-overlap: true` which make characters overlap (not allowed in cartography).
+* Do not think that your contribution might be incomplete or partial, with some hope that other people could further improve it in the future: the history of merges demonstrates the contrary.
 * Avoid comments or including your name in the code
 * Allow the commenters and maintainers to challenge a new feature, support your idea and be ready to accept the decision not to merge it.
 
