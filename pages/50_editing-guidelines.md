@@ -393,6 +393,14 @@ The references are the following documents:
 * [CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md)
 * [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md)
 
+### Render only verifiable features
+
+Before considering to render a feature, it is important to verify whether its definition does not lack [verifiability](http://wiki.openstreetmap.org/wiki/Verifiability) and that the related spatial data model is appropriate (for instance, a natural area might be defined as polygon and shall not be defined as way).
+
+Also, the definition of the feature in the OSM Wiki shall be based on mapping considerations and not on rendering (for instance, it is important to check the existence of inappropriate definitions including wrong suggestion to mappers, for instance with reference to specific colors, or to rendering shapes, or to any other misleading indication which would ultimately end up in orienting mappers to map in a way that primarily works around the shortcomings of rendering engines rather than defining the appropriate shape and geometry of the feature).
+
+It is worthwhile to check the *Approval* status in the OpenStreetMap wiki and related usage statistics. Note anyway there is no formal approval about the tag page on the wiki. The status in the description box refers to the fact that there is an approved proposal that mentions a tag. The proposal process in the OpenStreetMap wiki is essentially meaningless for rendering decisions, it is just a means (but no guarantee) to improve tagging consistency [^6]. Also the *Talk* page shall be analyzed to verify whether there are remarks to be taken into consideration or to highlight some issue on tagging.
+
 ### Zoom filter in stylesheets
 
 When defining the appropriate zoom level to render a feature, it is important to consider the effect of the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection).
@@ -456,3 +464,4 @@ A recommended ontology of [map features](http://wiki.openstreetmap.org/wiki/Map_
 [^3]: Text taken from [an openstreetmap-carto comment for issue 528](https://github.com/gravitystorm/openstreetmap-carto/issues/528#issuecomment-254495790).
 [^4]: Text taken from [TileMill documentation](https://tilemill-project.github.io/tilemill/docs/manual/adding-layers/)
 [^5]: Text taken from [an openstreetmap-carto comment for pull 2138](https://github.com/gravitystorm/openstreetmap-carto/pull/2138)
+[^6]: [imagico](https://github.com/imagico), https://github.com/gravitystorm/openstreetmap-carto/pull/2138#issuecomment-259414267

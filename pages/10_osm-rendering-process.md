@@ -62,7 +62,7 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 *OSM data extract* is a `.osm` file in XML format ([JOSM file format](http://wiki.openstreetmap.org/wiki/JOSM_file_format)) created with [JOSM](https://josm.openstreetmap.de/) or [downloaded from OSM]((http://wiki.openstreetmap.org/wiki/Downloading_data)); alternatively it can be a `.pbf` file in compressed binary format ([Protocolbuffer Binary Format](http://wiki.openstreetmap.org/wiki/PBF_Format)), downloaded from sites like [Geofabrik](http://download.geofabrik.de/).
 
-*openstreetmap-carto.lua* is a [Lua](https://www.lua.org/) script used by *osm2pgsql* for data transformation and aggregation. While some standard data management is hardcoded in *osm2pgsql*, most of the transformations are scripted in *openstreetmap-carto.lua*.
+*openstreetmap-carto.lua* is a [Lua](https://www.lua.org/) script invoked by *osm2pgsql* for data normalization, removal and aggregation. While some standard data management is hardcoded in *osm2pgsql*, most of the transformations are scripted in *openstreetmap-carto.lua*, which also covers semantic corrections of features.
 
 *openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.yaml* shall match a description in *openstreetmap-carto.style*. *openstreetmap-carto.style* is the *.style* file for OpenStreetMap Carto.
 
