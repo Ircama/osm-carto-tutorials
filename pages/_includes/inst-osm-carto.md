@@ -59,7 +59,7 @@ Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/maste
 ```shell
 cd {{ include.cdprogram }}
 cd openstreetmap-carto
-scripts/get-shapefiles.py # or ./get-shapefiles.sh (if get-shapefiles.py is not available)
+scripts/get-shapefiles.py
 ```
 
 Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.

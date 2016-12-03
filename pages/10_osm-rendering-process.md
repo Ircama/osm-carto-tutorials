@@ -41,7 +41,7 @@ openstreetmap-carto includes the following files and folders:
   * CODE_OF_CONDUCT.md
   * CHANGELOG.md
   * INSTALL.md
-* support files for the scripts: indexes.yml/road-colors.yaml/indexes.sql/get-shapefiles.sh/.travis.yml
+* support files for the scripts: indexes.yml/road-colors.yaml/indexes.sql/.travis.yml
 
 ## Description of the rendering process
 
@@ -84,8 +84,6 @@ The process adopted to download and index the needed shapefiles is the following
 
 |shapefiles ![dl][dl]|→|**get-shapefiles.py** ![prg][prg]|→|shapefiles *data* directory ![shape][shape]|
 {: .drawing}
-
-Alternatively to the Python script `get-shapefiles.py`, also the shell script `get-shapefiles.sh` might be available.
 
 ### Mapnik rendering
 

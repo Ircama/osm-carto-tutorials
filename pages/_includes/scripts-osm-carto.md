@@ -15,8 +15,10 @@ Notice also that for any modification of project.yaml, this script has to be exe
 This script generates and populates the *data* directory with all needed shapefiles, including indexing them through *shapeindex*. Check [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md) for further documentation.
 
 ```shell
-usage: get-shapefiles.py [-h] [-c] [-d <directory name>] [-e] [-f] [-l] [-n]
-                         [-p] [-r] [-s] [-u] [-1] [-2] [-3] [-4] [-5] [-6]
+Command-line options: get-shapefiles.py [-h] [-c] [-d <directory name>] [-e] [-f] [-l] [-n]
+                         [-p] [-r] [-s] [-u] [--world-boundaries]
+                         [--simplified-land] [--ne-admin] [--land-polygons]
+                         [--icesheet-polygons] [--icesheet-outlines]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -33,16 +35,12 @@ optional arguments:
   -s, --no-shape        do not run shapeindex
   -u, --update          force downloading files even if not newer than the
                         locally existing ones
-  -1, --world-boundaries
-                        only process world_boundaries
-  -2, --simplified-land
-                        only process simplified-land-polygons-complete-3857
-  -3, --ne-admin        only process ne_110m_admin_0_boundary_lines_land
-  -4, --land-polygons   only process land-polygons-split-3857
-  -5, --icesheet-polygons
-                        only process antarctica-icesheet-polygons-3857
-  -6, --icesheet-outlines
-                        only process antarctica-icesheet-outlines-3857
+  --world-boundaries    only process world_boundaries
+  --simplified-land     only process simplified-land-polygons-complete-3857
+  --ne-admin            only process ne_110m_admin_0_boundary_lines_land
+  --land-polygons       only process land-polygons-split-3857
+  --icesheet-polygons   only process antarctica-icesheet-polygons-3857
+  --icesheet-outlines   only process antarctica-icesheet-outlines-3857
 ```
 
 The script supports Windows, UNIX, Python 2.7, Python 3 and *curl* when installed (anyway *curl* is not required, for more comfortable Windows support). Installation of *shapeindex* is a prerequisite to index files, but is not strictly required if `-s` option is used.

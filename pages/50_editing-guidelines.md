@@ -29,7 +29,9 @@ The definition and configuration file of openstreetmap-carto is named *project.y
 
 The reason for using the YAML format instead of the former JSON MML processed by [carto](https://github.com/mapbox/carto) is described [here](https://github.com/gravitystorm/openstreetmap-carto/issues/711) and [here](https://github.com/gravitystorm/openstreetmap-carto/pull/947): although requiring the [*yaml2mml*](https://github.com/gravitystorm/openstreetmap-carto/blob/master/scripts/yaml2mml.py) script, it is easier to edit and maintain, especially for SQL queries.
 
-The configuration is grouped into sections, each configures a different aspect. Relevant sections:
+The definition of [project.mml](https://tilemill-project.github.io/tilemill/docs/manual/files-directories/#structure-of-a-tilemill-project) and more CartoCSS stylesheets has been adoped by Mapbox basing on a convention from Cascadenik, a predecessor to CartoCSS created outside of Mapbox. In Cascadenik, *project.mml* [contained XML](http://teczno.com/cascadenik/doc/) with CSS-like stylesheet embedded in `<Stylesheet><![CDATA[...]]></Stylesheet>` tag and, since the stylesheet included in *project.mml* started to grow, they moved it off to a separate file with MSS extension.[^7]
+
+The configuration of *project.yaml* is grouped into sections, each configures a different aspect. Relevant sections:
 
 * globals settings: default values that are used in the other configuration sections;
 * *_parts*: definition of the YAML aliases for the projection and for the datasource;
@@ -465,3 +467,4 @@ A recommended ontology of [map features](http://wiki.openstreetmap.org/wiki/Map_
 [^4]: Text taken from [TileMill documentation](https://tilemill-project.github.io/tilemill/docs/manual/adding-layers/)
 [^5]: Text taken from [an openstreetmap-carto comment for pull 2138](https://github.com/gravitystorm/openstreetmap-carto/pull/2138)
 [^6]: [imagico](https://github.com/imagico), https://github.com/gravitystorm/openstreetmap-carto/pull/2138#issuecomment-259414267
+[^7]: [gravitystorm](https://github.com/gravitystorm), https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-263553007
