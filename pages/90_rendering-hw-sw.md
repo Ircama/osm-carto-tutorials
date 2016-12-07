@@ -22,10 +22,10 @@ Tile servers:
 * Main sw configuration of the tile servers (information from [Upgrade tileservers to mapnik3 - chef issue log](https://github.com/openstreetmap/chef/issues/39) and from [here](https://github.com/gravitystorm/openstreetmap-carto/issues/2080#issuecomment-249390120)):
 
   * O.S. version: Ubuntu 16.04.1 LTS (old outdated ref. [here](https://github.com/openstreetmap/operations/issues/104))
-  * Mapnik version: 3.0.9 in 2.1 compatibility ([reason](https://github.com/gravitystorm/openstreetmap-carto/pull/2383))
+  * Mapnik version: 3.0.9 (Mapnik 3 is now required)
   * PostgreSQL version: 9.5
   * PostGIS version: 2.2
-  * Carto version: 0.16.3 (it is installed from npm and can be easily upgraded when necessary)
+  * Carto version: 0.16.3 (it is installed from npm and can be easily upgraded when necessary) [CartoCSS 0.16.x is now required](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CHANGELOG.md)
   * osm2pgsql version: [0.88.1 for Ubuntu 16.04 (and 0.90.1 for yakkety)](https://github.com/gravitystorm/openstreetmap-carto/issues/657#issuecomment-247884068)
   * openstreetmap-carto version: check [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L93), section *:styles*, item *:revision*.
 
