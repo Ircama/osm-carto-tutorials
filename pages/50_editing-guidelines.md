@@ -3,6 +3,7 @@ layout: page
 title: Editing Guidelines for OpenStreetMap Carto
 permalink: /editing-guidelines/
 comments: true
+rendering-note: this page is best viewed with Jekyll rendering
 ---
 The OSM wiki provides a general description of the [Standard tile layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) and on the ways to report bugs or graphical suggestions.
 

@@ -3,6 +3,7 @@ layout: note
 title: How to contribute to this site with new documents
 comments: true
 permalink: /how-to-contribute/
+rendering-note: this page is best viewed with Jekyll rendering
 ---
 
 I’m happy to receive contributions and thanks for your effort in improving the tutorial documentation included in this site and its related theme.

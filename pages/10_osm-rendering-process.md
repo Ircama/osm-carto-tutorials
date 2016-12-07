@@ -3,6 +3,7 @@ layout: page
 title: Description of the OSM rendering process
 permalink: /osm-rendering-process/
 comments: true
+rendering-note: this page is best viewed with Jekyll rendering
 ---
 
 ## OSM architecture

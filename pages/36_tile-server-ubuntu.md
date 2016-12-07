@@ -3,6 +3,7 @@ layout: page
 title: Installing an OpenStreetMap Tile Server on Ubuntu
 comments: true
 permalink: /tile-server-ubuntu/
+rendering-note: this page is best viewed with Jekyll rendering
 ---
 
 ## Introduction
