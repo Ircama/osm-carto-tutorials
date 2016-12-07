@@ -107,7 +107,7 @@ THE SOFTWARE.
                     element.append(' ');
 
                     var li = $('<a class="github-commit">')
-                      .attr("title", ((simple < 2) ? 'Last commits: ' + commits.length + '. Message in last commit:\n' : '') + cur.commit.message.replace(/\t/g, '&nbsp;&nbsp;'))
+                      .attr("title", ((simple < 2) ? 'Last commits: ' + commits.length + '. Message in last commit:\n' : '') + cur.commit.message.replace(/\t/g, ' '))
                       .attr("href", 'https://github.com/' + user + repo + '/commits/' + branch + (path === undefined ? '' : '/' + path))
                       .attr("target","_blank")
                       .appendTo(element);
@@ -135,7 +135,7 @@ THE SOFTWARE.
 
                     //add commit message
                     if (!nomsg)
-                      li.append(message(cur.commit.message.replace(/\t/g, '&nbsp;&nbsp;'), cur.sha));
+                      li.append(message(cur.commit.message.replace(/\t/g, ' '), cur.sha));
 
                     if (abstime)
                     {
