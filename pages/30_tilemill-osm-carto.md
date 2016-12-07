@@ -192,6 +192,7 @@ scripts\get-shapefiles.py
 
 Wait for the completion of the entire process (e.g., "done!")
 
+### Usage of JSON format of project.mml
 OpenStreetMap Carto uses a YAML file for defining layers, named *project.mml*. TileMill does not directly support YAML, so rename the YAML file *project.mml* to *project.yaml*, download the latest version of the conversion script [yaml2mml.py](https://raw.githubusercontent.com/jojo4u/openstreetmap-carto/yaml2mml-python3/scripts/yaml2mml.py) (which is no more inluded in the openstreetmap-carto maaster repository), move it to the *script* directory of your repository and run `scripts\yaml2mml.py` to create a JSON format that TileMill can process. To achieve this, follow these steps:
 
 ```cmd
@@ -208,7 +209,7 @@ pip install pyyaml
 ren project.mml project.yaml
 ```
 
-Download *yaml2mml.py* from [here](https://raw.githubusercontent.com/jojo4u/openstreetmap-carto/yaml2mml-python3/scripts/yaml2mml.py) or [here](https://raw.githubusercontent.com/gravitystorm/openstreetmap-carto/44e01890307417419cb667502317bb4d49e777be/scripts/yaml2mml.py) (open the links with your browser, then save the page/file with name *yaml2mml.py* inside the *script* directory of openstreetmap-carto.
+Download *yaml2mml.py* from [here](https://raw.githubusercontent.com/jojo4u/openstreetmap-carto/yaml2mml-python3/scripts/yaml2mml.py) or [here](https://raw.githubusercontent.com/gravitystorm/openstreetmap-carto/44e01890307417419cb667502317bb4d49e777be/scripts/yaml2mml.py) (open the link with your browser, then save the page/file with name *yaml2mml.py* inside the *script* directory of openstreetmap-carto.
 
 Your source project file will became *project.yaml*.
 
