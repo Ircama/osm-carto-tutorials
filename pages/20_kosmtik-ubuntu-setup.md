@@ -111,7 +111,7 @@ Run Kosmtik from the openstreetmap-carto directory, supposing that the Kosmtik i
     $ cd
     $ cd openstreetmap-carto
 
-    $ node ../kosmtik/index.js serve project.yaml --host 0.0.0.0
+    $ node ../kosmtik/index.js serve project.mml --host 0.0.0.0
 
 Read [Usage](https://github.com/kosmtik/kosmtik#usage) for further information.
 
@@ -138,4 +138,4 @@ Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet '
 
 Accessing the database and rendering images is often a slow process (mainly depending on the amount of data to be managed, but also on the server performance and on the network), so give many seconds to Kosmtik to output or refresh the map.
 
-{% include_relative _includes/edit-the-stylesheets.md editor='*vi*' script='scripts/yaml2mml.py' program='Kosmtik' %}
+{% include_relative _includes/edit-the-stylesheets.md editor='*vi*' program='Kosmtik' %}

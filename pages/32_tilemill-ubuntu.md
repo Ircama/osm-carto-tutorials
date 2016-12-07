@@ -70,8 +70,8 @@ Notice that `--server=true` is only needed in case of server based startup, to a
 
 An error message like *role ... does not exist...* might be possibly related to missing environment variables PGUSER, PGPASSWORD, etc. Set these variables and restart TileMill.
 
-{% include_relative _includes/start-tilemill.md os='Ubuntu' script='scripts\yaml2mml.py' program='TileMill' %}
+{% include_relative _includes/start-tilemill.md os='Ubuntu' program='TileMill' %}
 
-{% include_relative _includes/edit-the-stylesheets.md editor='*vi*' script='scripts/yaml2mml.py' program='TileMill' %}
+{% include_relative _includes/edit-the-stylesheets.md editor='*vi*' program='TileMill' %}
 
 [^1]: Part of the documentation is taken from [Openstreetmap-carto Provide installation script #657](https://github.com/gravitystorm/openstreetmap-carto/issues/657) and from [TileMill](https://hackpad.com/TileMill-I6rxRVszKMv).

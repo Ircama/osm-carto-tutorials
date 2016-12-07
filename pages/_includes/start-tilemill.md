@@ -12,7 +12,7 @@ On the right pane, it is normal that only the first 4 tabs are displayed; this i
 
 You shouldn't use the text editor built-in to {{ include.program }}. Instead, hide the right pane and use an external text editor.
 
-{{ include.program }} automatically refreshes the rendering upon any file change, including all *.mss* and *project.mml* (notice that also a change in *project.yaml* activates a new rendering; anyway, remember to also run `{{ include.script }}`).
+{{ include.program }} automatically refreshes the rendering upon any file change, including all *.mss* and *project.mml*.
 
 ## Access the map from your browser
 

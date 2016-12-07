@@ -1,15 +1,5 @@
 The following scripts are provided to support coding. They are necessary and useful solely during making changes to the map style and are unnecessary for map rendering.
 
-### scripts/yaml2mml.py
-
-The adopted approach by OpenStreetMap Carto exploits PostGIS performance to dynamically generate layer definitions and input data for the *.mss* CartoCSS styles, making the styles easy to be edited and maintained; all related configuration is done in *project.yaml*. So, for changes in the styles which need new definitions other than the ones already in place, the file *project.yaml* has to be modified. While *project.yaml* is directly read by [Kosmtik](https://github.com/kosmtik/kosmtik) and [Carto](https://github.com/mapbox/carto), *project.mml* is needed for [TileMill](http://mapbox.com/tilemill). Do not modify *project.mml* directly; instead run
-
-```shell
-scripts/yaml2mml.py
-```
-
-Notice also that for any modification of project.yaml, this script has to be executed before performing a commit.
-
 ### scripts/get-shapefiles.py
 
 This script generates and populates the *data* directory with all needed shapefiles, including indexing them through *shapeindex*. Check [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md) for further documentation.
@@ -27,7 +17,7 @@ optional arguments:
                         set the name of the data directory (default: 'data')
   -e, --no-extract      do not populate target directories with the expansion
                         of downloaded data
-  -f, --force           force continuing even if project.yaml does not exist
+  -f, --force           force continuing even if project.mml does not exist
   -l, --no-curl         do not use 'curl' even if available
   -n, --no-download     do not download archive if already existing locally
   -p, --pause           pause before starting
@@ -43,10 +33,12 @@ optional arguments:
   --icesheet-outlines   only process antarctica-icesheet-outlines-3857
 ```
 
-The script supports Windows, UNIX, Python 2.7, Python 3 and *curl* when installed (anyway *curl* is not required, for more comfortable Windows support). Installation of *shapeindex* is a prerequisite to index files, but is not strictly required if `-s` option is used.
+The script supports Windows, UNIX, Python 2.7, Python 3 and *curl* when installed (anyway *curl* is not required, for more comfortable Windows support). Installation of *shapeindex* is a prerequisite to index files, but is not strictly required if `-s` option is used (anyway, old indexes are not automatically removed; it is better to manually remove indexes from the subfolders when updating the data directory without updating indexes).
 
 *get-shapefiles.py* can be run from the *scripts* directory of *openstreetmap-carto*, or from its base folder, or through absolute path from any directory. It allows a default Web proxy and also the configuration of the HTTP_PROXY environment variable. Windows PAC and NTLM authentication are not supported.
-  
+
+The code exploits an internal dictionary for easy adaptation to future changes. 
+
 Typical usage:
 
 ```shell
@@ -139,7 +131,7 @@ it is useful during creating/updating list of shops displayed with generic dot i
 
 ### scripts/indexes.py
 
-A new SQL query defined in project.yaml might need the definition of SQL indexes that shall be coded in *indexes.yml*, which is the related dictionary adopted by OpenStreetMap Carto.
+A new SQL query defined in project.mml might need the definition of SQL indexes that shall be coded in *indexes.yml*, which is the related dictionary adopted by OpenStreetMap Carto.
 
 Do not modify *indexes.sql* directly: use this script instead, which reads *indexes.yml* and creates SQL statements to the standard output, to be redirected to *indexes.sql*. There are a number of options for concurrent index creation, recreating the osm2pgsql-built indexes, fillfactors, and other settings to give full control of the resulting statements.
 

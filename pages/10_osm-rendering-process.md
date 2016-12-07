@@ -25,7 +25,7 @@ The relevant blocks for the rendering process are the ones represented in `yello
 
 openstreetmap-carto includes the following files and folders:
 
-* one project/layer description file in *yaml* format ([project.yaml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/project.yaml))
+* one project/layer description file in *yaml* format ([project.mml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/project.mml))
 * the same project/layer description file converted into the *json* format ([project.mml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/project.mml))
 * one or more CartoCSS stylesheets (e.g., style.mss and all the others)
 * a *symbols* subdirectory for storing *svg* and *png* files
@@ -64,7 +64,7 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 *openstreetmap-carto.lua* is a [Lua](https://www.lua.org/) script invoked by *osm2pgsql* for data normalization, removal and aggregation. While some standard data management is hardcoded in *osm2pgsql*, most of the transformations are scripted in *openstreetmap-carto.lua*, which also covers semantic corrections of features.
 
-*openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.yaml* shall match a description in *openstreetmap-carto.style*. *openstreetmap-carto.style* is the *.style* file for OpenStreetMap Carto.
+*openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.mml* shall match a description in *openstreetmap-carto.style*. *openstreetmap-carto.style* is the *.style* file for OpenStreetMap Carto.
 
 Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* need to be changed (e.g., to address some requirement of newly introduced DB columns within openstreetmap-carto), a full database re-import process has to be accomplished (very infrequent operation currently).
 
@@ -103,22 +103,18 @@ The web interface for browsing the rendered OpenStreetMap data is named [Slippy 
 
 ### Process to convert the project/layer description file
 
-OpenStreetMap Carto adopts file formats that are [much easier to maintain](https://github.com/gravitystorm/openstreetmap-carto/issues/711) than the target XML file processed by Mapnik. These files can be directly edited by contributors and a code review can be performed via [GitHub](https://en.wikipedia.org/wiki/GitHub). OpenStreetMap Carto styles are in CartoCSS format. Besides, a *project definition file* contains the core metadata to the project as well as a reference to its sources (vector tiles, shapefiles, PostGIS, etc.) and the CartoCSS stylesheets it uses; it dscribes the layers and includes the PostGIS queries for each layer; this file is in [YAML](https://en.wikipedia.org/wiki/YAML) format and named *project.yaml*. The conversion of the OpenStreetMap Carto source files into the XML Mapnik file is made by a tool named [Carto](https://github.com/mapbox/carto). The old versions of Carto were able to process a project definition file in JSON format (and not YAML), so a preprocessing of *project.yaml* (YAML format, more readable) into *project.mml* was needed and the tool named [yaml2mml.py](https://github.com/gravitystorm/openstreetmap-carto/blob/master/scripts/yaml2mml.py) does this. The newer versions of Carto are directly capable of processing *project.yaml*. The output of Carto is the Mapnik XML file, merging the definitions in *project.mml* together with all referenced styles in *.mms* files and all shapefile links; the obtained XML file is in final format, to be directly processed by Mapnik.
+OpenStreetMap Carto adopts file formats that are [much easier to maintain](https://github.com/gravitystorm/openstreetmap-carto/issues/711) than the target XML file processed by Mapnik. These files can be directly edited by contributors and a code review can be performed via [GitHub](https://en.wikipedia.org/wiki/GitHub). OpenStreetMap Carto styles are in CartoCSS format. Besides, a *project definition file* contains the core metadata to the project as well as a reference to its sources (vector tiles, shapefiles, PostGIS, etc.) and the CartoCSS stylesheets it uses; it dscribes the layers and includes the PostGIS queries for each layer; this file is in [YAML](https://en.wikipedia.org/wiki/YAML) format and named *project.mml*. The conversion of the OpenStreetMap Carto source files into the XML Mapnik file is made by a tool named [Carto](https://github.com/mapbox/carto). The old versions of Carto were able to process a project definition file in JSON format (and not YAML), so a preprocessing of *project.mml* (YAML format, more readable) to the same name in JSON format was needed and the tool named [yaml2mml.py](https://github.com/gravitystorm/openstreetmap-carto/blob/44e01890307417419cb667502317bb4d49e777be/scripts/yaml2mml.py) did this. The newer versions of Carto are directly capable of processing *project.mml* in YAML format. The output of Carto is the Mapnik XML file, merging the definitions in *project.mml* together with all referenced styles in *.mms* files and all shapefile links; the obtained XML file is in final format, to be directly processed by Mapnik.
 
-|project.yaml ![yml][yml]              | |                             | ||
-|                ↓                     | |                             | ||
-|**yaml2mml.py** ![prg][prg]           |→|project.mml ![json][json]    | ||
+|                                      | |project.mml ![yml][yml]      | ||
 |                                      | |         ↓                   | ||
 |osm-carto CartoCSS styles (.mml) ![css][css]|→|**carto** ![prg][prg]        |→|Mapnik XML ![xml][xml]|
 {: .drawing}
 
 <br />
 
-As an example, at the time of writing these are the sizes of the three files:
+As an example, at the time of writing these are the sizes:
 
-| 113189 bytes|project.yaml![yml][yml]||all **.mms*: 234773 bytes ![css][css]|
-|       |        ↓   |||
-| 138485 bytes|project.mml ![json][json]||all **.mms*: 234773 bytes ![css][css]|
+| 113189 bytes|project.mml![yml][yml]||all **.mms*: 234773 bytes ![css][css]|
 |       |        ↓   |||
 |2077776 bytes|style.xml   ![xml][xml]|||
 {: .drawing}
@@ -146,7 +142,7 @@ The process to generate the Mapnik XML file from the OpenStreetMap Carto sources
 
 Some description of the rendering with the standard tile layer is described [here](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) and [here](http://wiki.openstreetmap.org/wiki/Coastline#Rendering_in_Standard_tile_layer_on_openstreetmap.org).
 
-Notice that OpenStreetData uses the Web Mercator projection (defined in project.yaml and then compiled into the Mapnik XML file). It has the effect to distort the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. Therefore, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to landmasses near the equator, such as Central Africa.
+Notice that OpenStreetData uses the Web Mercator projection (defined in project.mml and then compiled into the Mapnik XML file). It has the effect to distort the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. Therefore, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to landmasses near the equator, such as Central Africa.
 
 ## Development and testing environment
 
@@ -154,7 +150,7 @@ The best platform to perform CartoCSS customizations is [Kosmtik](https://github
 
 The development environment based on Kosmtik reflects the OSM architecture through a local toolchain.
 
-|project.yaml ![yml][yml]       | |osm-carto CartoCSS styles (.mml) ![css][css]|
+|project.mml ![yml][yml]        | |osm-carto CartoCSS styles (.mss) ![css][css]|
 |                               |↘|↓|
 |PostgreSQL PostGIS ![db][db]   |→|**Kosmtik**  ![prg][prg]|→|Web images ![web][web]|
 |                               |↗|↑|

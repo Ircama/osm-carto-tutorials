@@ -14,24 +14,24 @@ The following workflow summarizes the main actions.
 
 |**Check DB data.**![db][db]<span>Within the PostGIS instance, find the DB columns related to the feature in scope.<span>Also verify that all needed columns are included in *openstreetmap-carto.style*. Notice that if a column is not in this file, it should neither be present in the DB and the new feature cannot be added (as *openstreetmap-carto.style* shall not be modified).|
 |↓|
-|**Edit project.yaml.**![yml][yml]<span>Check whether the selected columns are already managed within the appropriate layers in *project.yaml*.<span>If everything is already appropriately defined, all modifications can be directly implemented within the CartoCSS *.mss* files.<span>Conversely, if the feature is not present within the layer(s), *project.yaml* has to be edited.<span>For complex development, a new layer might be needed and in this case a new section has to be developed in *project.yaml*.|
+|**Edit project.mml.**![yml][yml]<span>Check whether the selected columns are already managed within the appropriate layers in *project.mml*.<span>If everything is already appropriately defined, all modifications can be directly implemented within the CartoCSS *.mss* files.<span>Conversely, if the feature is not present within the layer(s), *project.mml* has to be edited.<span>For complex development, a new layer might be needed and in this case a new section has to be developed in *project.mml*.|
 |↓|
-|**Edit the .mss style.**![css][css]<span>The *.mss* files can then be modified to define the rendering attributes of the new feature within each related layer. CartoCSS selectors shall refer layers or classes defined in *project.yaml*. Inside a selector, filters and properties define rendering attributes.<span>If a new layer is added, possibly a new *.mss* stylesheet file needs to be created.|
+|**Edit the .mss style.**![css][css]<span>The *.mss* files can then be modified to define the rendering attributes of the new feature within each related layer. CartoCSS selectors shall refer layers or classes defined in *project.mml*. Inside a selector, filters and properties define rendering attributes.<span>If a new layer is added, possibly a new *.mss* stylesheet file needs to be created.|
 |↓|
 |**Test modifications.**![html][html]<span>All modifications must be tested (e.g., with Kosmtik) on different regions and using all zooms; regions shall be selected by analyzing wide areas, checking places with high and low concentration of the feature.|
 {: .drawing .djustify}
 
 Before entering into the details of editing the styles, in case you are also willing to contribute to OpenStreetMap Carto, you are strongly suggested to have a look to [Guidelines for adding new features](https://github.com/gravitystorm/openstreetmap-carto/issues/1630). It's a long thread which qualifies and limits the current contribution scope to this project. The Git repository discourages unbounded addition of features and cartographic complexity; also, there are discussions about removal of existing ones. Check also [Review onboarding](https://github.com/gravitystorm/openstreetmap-carto/issues/2291#issuecomment-242908868).
 
-## Description of *project.yaml*
+## Description of *project.mml*
 
-The definition and configuration file of openstreetmap-carto is named *project.yaml* and uses the [YAML](http://yaml.org/) format. Wikipedia contains an [introduction to YAML](https://en.wikipedia.org/wiki/YAML).
+The definition and configuration file of openstreetmap-carto is named *project.mml* and uses the [YAML](http://yaml.org/) format. Wikipedia contains an [introduction to YAML](https://en.wikipedia.org/wiki/YAML).
 
-The reason for using the YAML format instead of the former JSON MML processed by [carto](https://github.com/mapbox/carto) is described [here](https://github.com/gravitystorm/openstreetmap-carto/issues/711) and [here](https://github.com/gravitystorm/openstreetmap-carto/pull/947): although requiring the [*yaml2mml*](https://github.com/gravitystorm/openstreetmap-carto/blob/master/scripts/yaml2mml.py) script, it is easier to edit and maintain, especially for SQL queries.
+The reason for using the YAML format instead of the former JSON is described [here](https://github.com/gravitystorm/openstreetmap-carto/issues/711) and [here](https://github.com/gravitystorm/openstreetmap-carto/pull/947):lit is easier to edit and maintain, especially for SQL queries. The current version of [carto](https://github.com/mapbox/carto) can directly process it.
 
 The definition of [project.mml](https://tilemill-project.github.io/tilemill/docs/manual/files-directories/#structure-of-a-tilemill-project) and more CartoCSS stylesheets has been adoped by Mapbox basing on a convention from Cascadenik, a predecessor to CartoCSS created outside of Mapbox. In Cascadenik, *project.mml* [contained XML](http://teczno.com/cascadenik/doc/) with CSS-like stylesheet embedded in `<Stylesheet><![CDATA[...]]></Stylesheet>` tag and, since the stylesheet included in *project.mml* started to grow, they moved it off to a separate file with MSS extension.[^7]
 
-The configuration of *project.yaml* is grouped into sections, each configures a different aspect. Relevant sections:
+The configuration of *project.mml* is grouped into sections, each configures a different aspect. Relevant sections:
 
 * globals settings: default values that are used in the other configuration sections;
 * *_parts*: definition of the YAML aliases for the projection and for the datasource;
@@ -174,7 +174,7 @@ The [Strip chomp](http://www.yaml.org/spec/1.2/spec.html#id2794534) modifier `|-
 
 Some [tokens](https://github.com/mapnik/mapnik/wiki/PostGIS#bbox-token) can appear in a query processed by the PostGIS plugin of Mapnik: `!bbox!`, `!scale_denominator!`, `!pixel_width!` and `!pixel_height!`.
 
-PostgreSQL queries which can be defined in *project.yaml* might become complex and always need tuning. Check [OptimizeRenderingWithPostGIS](https://github.com/mapnik/mapnik/wiki/OptimizeRenderingWithPostGIS) for details and analysis. Check also [Identifying Slow Rendering Queries](http://www.paulnorman.ca/blog/2016/08/identifying-slow-rendering-queries/).
+PostgreSQL queries which can be defined in *project.mml* might become complex and always need tuning. Check [OptimizeRenderingWithPostGIS](https://github.com/mapnik/mapnik/wiki/OptimizeRenderingWithPostGIS) for details and analysis. Check also [Identifying Slow Rendering Queries](http://www.paulnorman.ca/blog/2016/08/identifying-slow-rendering-queries/).
 
 Relation between Geometry and SQL Table is the following:
 
@@ -185,7 +185,7 @@ Relation between Geometry and SQL Table is the following:
 |"point"|planet_osm_point|node
 |"polygon"|planet_osm_polygon|relation
 
-*project.yaml* at the moment provides 79 layers. Generally, the more features that your map will include, the more layers that you'll want. Basing on the [painter algorithm](https://en.wikipedia.org/wiki/Painter%27s_algorithm), the order in which they are defined is the order in which they are rendered.
+*project.mml* at the moment provides 79 layers. Generally, the more features that your map will include, the more layers that you'll want. Basing on the [painter algorithm](https://en.wikipedia.org/wiki/Painter%27s_algorithm), the order in which they are defined is the order in which they are rendered.
 
 Relevant attributes of each layer:
 
@@ -209,7 +209,7 @@ A critical review of CartoCSS is reported in [The end of CartoCSS](https://www.m
 
 The columns in the SQL queries define the CartoCSS properties used as [filter selectors](https://tilemill-project.github.io/tilemill/docs/guides/selectors/#filter-selectors) or [labels](https://tilemill-project.github.io/tilemill/docs/guides/styling-labels/).
 
-Consider the following style defined in project.yaml (with some revisions as example):
+Consider the following style defined in project.mml (with some revisions as example):
 
 ```yaml
   - id: "water-areas"
@@ -310,7 +310,7 @@ In the above example, *landuse*, *waterway*, *way_pixels* and *natural* are used
 
 A feature might be rendered through more layers. Generally (but not always) a layer is rendered through a specific stylesheet (.mss).
 
-Take for instance `amenity=place_of_worship`, which is defined in the following layers (within the current version of *project.yaml*):
+Take for instance `amenity=place_of_worship`, which is defined in the following layers (within the current version of *project.mml*):
 
 * *landcover* (geometry: "polygon"):
   - `#landcover` selector in *landcover.mss*
@@ -386,22 +386,17 @@ Stylesheet *amenity-points.mss*:
 ...
 ```
 
+## Reference documentation
+
+### Design goals and guidelines
+
+The reference document is [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md).
+
+### Instructions for contributions
+
+The reference document is [CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md).
+
 ## Design patterns
-
-### Editing guidelines
-
-The references are the following documents:
-
-* [CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md)
-* [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md)
-
-### Render only verifiable features
-
-Before considering to render a feature, it is important to verify whether its definition does not lack [verifiability](http://wiki.openstreetmap.org/wiki/Verifiability) and that the related spatial data model is appropriate (for instance, a natural area might be defined as polygon and shall not be defined as way).
-
-Also, the definition of the feature in the OSM Wiki shall be based on mapping considerations and not on rendering (for instance, it is important to check the existence of inappropriate definitions including wrong suggestion to mappers, for instance with reference to specific colors, or to rendering shapes, or to any other misleading indication which would ultimately end up in orienting mappers to map in a way that primarily works around the shortcomings of rendering engines rather than defining the appropriate shape and geometry of the feature).
-
-It is worthwhile to check the *Approval* status in the OpenStreetMap wiki and related usage statistics. Note anyway there is no formal approval about the tag page on the wiki. The status in the description box refers to the fact that there is an approved proposal that mentions a tag. The proposal process in the OpenStreetMap wiki is essentially meaningless for rendering decisions, it is just a means (but no guarantee) to improve tagging consistency [^6]. Also the *Talk* page shall be analyzed to verify whether there are remarks to be taken into consideration or to highlight some issue on tagging.
 
 ### Zoom filter in stylesheets
 
@@ -417,6 +412,10 @@ Some features need to scale up their font size according to the zoom level. If y
 
 ### Recommendations
 
+* Render only verifiable features
+  Before considering to render a feature, it is important to verify whether its definition does not lack [verifiability](http://wiki.openstreetmap.org/wiki/Verifiability) and that the related spatial data model is appropriate (for instance, a natural area might be defined as polygon and shall not be defined as way).
+  Also, the definition of the feature in the OSM Wiki shall be based on mapping considerations and not on rendering (for instance, it is important to check the existence of inappropriate definitions including wrong suggestion to mappers, for instance with reference to specific colors, or to rendering shapes, or to any other misleading indication which would ultimately end up in orienting mappers to map in a way that primarily works around the shortcomings of rendering engines rather than defining the appropriate shape and geometry of the feature).
+  It is worthwhile to check the *Approval* status in the OpenStreetMap wiki and related usage statistics. Note anyway there is no formal approval about the tag page on the wiki. The status in the description box refers to the fact that there is an approved proposal that mentions a tag. The proposal process in the OpenStreetMap wiki is essentially meaningless for rendering decisions, it is just a means (but no guarantee) to improve tagging consistency [^6]. Also the *Talk* page shall be analyzed to verify whether there are remarks to be taken into consideration or to highlight some issue on tagging.
 * Before starting to code the rendering of a feature, verify that you are rendering an appropriate tagging; check that the [Wiki](http://wiki.openstreetmap.org) supports it and that there is no case of missing or misunderstood tag. Also, verify its usage in different regions.
 * When considering to implement an improvement to the style, it is suggested to first create an issue, presenting the idea, asking whether there is a reason for the current style and discuss the most appropriate way to address a solution.
 * Count the number of uses for a tag you are going to render. For low usage, the reason to introduce a new feature has to be deeply discussed. Always consider the possibility to merge a newly rendered feature with some existing one, rather than adding something with separate code.

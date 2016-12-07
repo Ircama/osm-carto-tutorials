@@ -5,6 +5,10 @@ permalink: /rendering-hw-sw/
 comments: true
 ---
 
+A merged contribution to openstreetmap-carto is not automatically published. The maintainers periodically [tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) the latest set of updates and [publish](https://git-scm.com/book/en/v2/Git-Basics-Tagging#Sharing-Tags) it into a GitHub release.
+
+To verify the current version of openstreetmap-carto, check the [Releases](https://github.com/gravitystorm/openstreetmap-carto/releases) section of the GitHub repository. Besides, the main changes are included in the [CHANGELOG](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CHANGELOG.md) document. The latest release is published to the tile servers. The OSM server administrators can control which version to install[^1].
+
 Summary of the hardware and software configuration of the OpenStreetMap production tile servers as found in some GitHub posts and sites.
 
 Tile servers:
@@ -23,7 +27,7 @@ Tile servers:
   * PostGIS version: 2.2
   * Carto version: 0.16.3 (it is installed from npm and can be easily upgraded when necessary)
   * osm2pgsql version: [0.88.1 for Ubuntu 16.04 (and 0.90.1 for yakkety)](https://github.com/gravitystorm/openstreetmap-carto/issues/657#issuecomment-247884068)
-  * openstreetmap-carto version at the time of writing: v2.44.0 (check [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb), section *:styles* for the actual version).
+  * openstreetmap-carto version: check [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L93), section *:styles*, item *:revision*.
 
 The [Operations Working Group log](https://gravitystorm.github.io/owg-log/) reports updated information regarding versions.
 
@@ -34,7 +38,9 @@ Other information (from [Munin](http://munin.openstreetmap.org/)):
 
 Other useful references:
 
-* [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb) and related [issues](https://github.com/openstreetmap/chef/issues)
+* [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb) and related [issues](https://github.com/openstreetmap/chef/issues). [tile cookbook](https://github.com/openstreetmap/chef/tree/master/cookbooks/tile) that installs and configures the mod_tile+renderd based tileservers that power tile.openstreetmap.org.
 * List of servers, specifications and issues: [OSMF Server Info](https://hardware.openstreetmap.org/), [OpenStreetMap Operations](https://github.com/openstreetmap/operations)
 * [PostgreSQL indexes(https://github.com/openstreetmap/operations/issues/104)
 * [updates processed by osm2pgsql](https://github.com/openstreetmap/chef/blob/master/cookbooks/tile/templates/default/replicate.erb)
+
+[^1]: [math1985](https://github.com/math1985), https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-264490751

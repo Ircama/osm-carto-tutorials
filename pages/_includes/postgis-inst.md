@@ -50,7 +50,7 @@ exit # from 'sudo su -'
 
 ## Create the PostGIS instance
 
-Now you need to create a postgis database. The defaults of various programs including openstreetmap-carto (ref. project.yaml) assume the database is called *gis*. You need to set up PostGIS on the PostgreSQL database.
+Now you need to create a postgis database. The defaults of various programs including openstreetmap-carto (ref. project.mml) assume the database is called *gis*. You need to set up PostGIS on the PostgreSQL database.
 
 ```shell
 export PGPASSWORD={{ pg_password }}

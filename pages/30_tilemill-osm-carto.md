@@ -192,9 +192,9 @@ scripts\get-shapefiles.py
 
 Wait for the completion of the entire process (e.g., "done!")
 
-OpenStreetMap Carto uses a YAML file for defining layers. TileMill does not directly support YAML, so make edits to the YAML file then run `scripts\yaml2mml.py`.
+OpenStreetMap Carto uses a YAML file for defining layers, named *project.mml*. TileMill does not directly support YAML, so rename the YAML file *project.mml* to *project.yaml*, download the latest version of the conversion script [yaml2mml.py](https://raw.githubusercontent.com/jojo4u/openstreetmap-carto/yaml2mml-python3/scripts/yaml2mml.py) (which is no more inluded in the openstreetmap-carto maaster repository), move it to the *script* directory of your repository and run `scripts\yaml2mml.py` to create a JSON format that TileMill can process. To achieve this, follow these steps:
 
-```
+```cmd
 python -m pip install --upgrade pip
 ```
 
@@ -204,11 +204,24 @@ Check that pip works with `pip –V`. (Check also `Scripts\pip` if pip is not fo
 pip install pyyaml
 ```
 
-Now you are ready to run `scripts\yaml2mml.py` after a modification to `project.yaml`, so that a valid `project.mml` is created.
-
+```cmd
+ren project.mml project.yaml
 ```
+
+Download *yaml2mml.py* from [here](https://raw.githubusercontent.com/jojo4u/openstreetmap-carto/yaml2mml-python3/scripts/yaml2mml.py) or [here](https://raw.githubusercontent.com/gravitystorm/openstreetmap-carto/44e01890307417419cb667502317bb4d49e777be/scripts/yaml2mml.py) (open the links with your browser, then save the page/file with name *yaml2mml.py* inside the *script* directory of openstreetmap-carto.
+
+Your source project file will became *project.yaml*.
+
+After a modification to `project.yaml`, you need to run `scripts\yaml2mml.py` so that a `project.mml` in JSON format is created. This will allow TileMill to open the project.
+
+```cmd
 scripts\yaml2mml.py
 ```
+
+Notice that you cannot contribute to openstreetmap-carto through this process[^2]:
+
+- TileMill hosts an old verison of Mapnik and cannot appropriately render the style
+- *project.mml* is not in YAML format, so not compatible with openstreetmap-carto; if you really want to manage *project.yaml* for openstreetmap-carto, rename it back to *project.mml* and perform again all tests with [Kosmtik](https://github.com/kosmtik).
 
 ### Final checks
 
@@ -220,5 +233,7 @@ Check in detail the content of [INSTALL.md](https://github.com/gravitystorm/open
 {% include_relative _includes/start-tilemill.md os='Windows' script='scripts\yaml2mml.py' program='TileMill' %}
 
 {% include_relative _includes/edit-the-stylesheets.md editor='Atom, gedit, TextWrangler, Notepad++' script='scripts\yaml2mml.py' program='Tilemill' %}
+* After a modification to `project.yaml`, you need to run `scripts\yaml2mml.py` 
 
 [^1]: Most of the documentation is taken from [Rendering of OSM data on Windows - Quickstart](https://sourceforge.net/p/topomapcreator/wiki/TileMill/).
+[^2]: [Tilemill v0.10 is not supported](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-265031690)

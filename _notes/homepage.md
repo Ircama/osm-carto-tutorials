@@ -4,7 +4,7 @@ title: OpenStreetMap Carto Tutorials
 ---
 [OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) is the official [style](http://wiki.openstreetmap.org/wiki/Stylesheets) of [OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap).
 
-This independent site includes unofficial tutorials to set-up a development environment of OpenStreetMap Carto and to manage this software. It will allow exploiting the style and also being able to contribute.
+This independent site includes unofficial tutorials to set-up a development environment of OpenStreetMap Carto and to manage this software. It will allow exploiting the style and also being able to contribute to the developments.
 
 To implement this site I kept track of technical notes that have been useful to me and that I hope will also be of help to master OpenStreetMap Carto fast, learning all most relevant aspects from the ground up.
 
@@ -26,6 +26,6 @@ Technical details to maintain and develop the OpenStreetMap open source software
 
 CartoCSS is a [CSS-like](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) language for map design developed by [MapBox](https://en.wikipedia.org/wiki/Mapbox) and currently adopted by OpenStreetMap.
 
-The OpenStreetMap Carto project is owned by [Andy Allan](https://github.com/gravitystorm), who had the brilliant idea to re-implement the [original OpenStreetMap Mapnik XML style](https://github.com/openstreetmap/mapnik-stylesheets) in CartoCSS, putting [a lot of effort into the port](https://lists.openstreetmap.org/pipermail/dev/2012-December/026256.html), involving [multiple maintainers](https://github.com/gravitystorm/openstreetmap-carto#maintainers) and opening the project to [contributors](https://github.com/gravitystorm/openstreetmap-carto/graphs/contributors).
+The OpenStreetMap Carto project is owned by [Andy Allan](https://github.com/gravitystorm), who had the brilliant idea to re-implement the [original OpenStreetMap Mapnik XML style](https://github.com/openstreetmap/mapnik-stylesheets) in CartoCSS, performing the [initial port](https://lists.openstreetmap.org/pipermail/dev/2012-December/026256.html), involving [multiple maintainers](https://github.com/gravitystorm/openstreetmap-carto#maintainers) and opening the project to [contributors](https://github.com/gravitystorm/openstreetmap-carto/graphs/contributors).
 
-If you are also willing to contribute, you are strongly advised to analyze [Guidelines for adding new features](https://github.com/gravitystorm/openstreetmap-carto/issues/1630) and understand the current project trend, which is very cautious with additions and possibly oriented to put related proposals on hold. On the contrary, there is an interest in removing features in the consideration that too many of them are already implemented.
+If you are also willing to contribute, you are strongly advised to analyze [Guidelines for adding new features](https://github.com/gravitystorm/openstreetmap-carto/issues/1630) and understand the current project trend, which is very cautious with additions.

@@ -16,7 +16,6 @@ Basically, the Fork, Branch & Pull model adopted by OpenStreetMap Carto consider
 - Create a feature branch in which to place your changes.
 - Make your changes to the new branch (and not to your master, which is needed to be set even with gravitystorm:master). 
 - Develop your changes in a separate directory (not directly to the staging folder) and, when finished, stage (copy) your changes to your local git folder related to the branch.
-- Perform the OpenStreetMap Carto scripts (run scripts/yaml2mml.py in case of modification of project.yaml).
 - Commit the changes to the branch and add an appropriate comment.
 - Push the branch to GitHub.
 - Open a pull request (PR) from the new branch to the original repo (and not to your master, which will always have 0 pull requests).
@@ -255,12 +254,9 @@ git rebase -i origin/master
 
 In general, you update a branch to either help revisors by synching your branch to be one commit ahead of gravitystorm:master (e.g., after *gravitystorm:master* received some merge), or to perform some updates.
 
-`git rebase -i origin/master` might produce conflicts which need manual fixing (see below). If anyway the conflict is limited to project.mml, simply do:
-    scripts/yaml2mml.py
-    git add project.mml
-    git rebase --continue
+`git rebase -i origin/master` might produce conflicts which need manual fixing (see below). After solving conflicts: `git rebase --continue`.
 
-After issuing `git rebase -i origin/master`, if you have to perform updates, you can do them: implement coding in your separate development directory, then stage the updates to your git local folder; subsequently, you need to perform a commit (related to your updates), a new rebase (to squash your updates and the prevous commit into a single one) and a push (to publish the update to your remote (and to the gravitystorm repo in case of existing PR). If no additional change is needed, you can directly issue a push (in case of active PR, revisors will see the changes after the push operation).
+After issuing `git rebase -i origin/master`, if you have to perform updates, you can do them: implement coding in your separate development directory, then stage the updates to your git local folder; subsequently, you need to perform a commit (related to your updates), a new rebase (to squash your updates and the previous commit into a single one) and a push (to publish the update to your remote (and to the gravitystorm repo in case of existing PR). If no additional change is needed, you can directly issue a push (in case of active PR, revisors will see the changes after the push operation).
 
 Push only after your updates are ready. When pushing, because of rebasing you need the *--force* flag:
 
@@ -284,7 +280,7 @@ Squash all but one commit (unless you want several to be merged into master) and
     squash d04306a making another change
     squash b0c7604 final commit for new feature
 
-The editor will open again and you will then be prompted to enter a new commit message; be precise with this message, merging all the commit messages and consistently documenting the whole list of updates, because this message will substitute all previous ones and will be visible to maintainers and commenters (and checked by them to understand what you did). Also mention that you rebased to the last gravitystorm:master commit. It is good practice to begin with the last comments. E.g.,
+The editor will open again and you will then be prompted to enter a new commit message; be precise and concise with this message, merging all the commit messages, because this message will substitute all previous ones and will be visible to maintainers and commenters (and checked by them to understand what you did). Also mention that you rebased to the last gravitystorm:master commit. It is good practice to begin with the last comments. E.g.,
 
     **Title**
 
@@ -293,8 +289,7 @@ The editor will open again and you will then be prompted to enter a new commit m
     Latest changes:
     ...(detailed list)
 
-    Previous changes:
-    ...(detailed list)
+Try anyway to be concise and always avoid long lines (especially in the title).
 
 *git rebase* will stop when "pick" has been replaced with "edit" or when a command fails due to merge errors, to to give you an opportunity to fix the problem. When you are done editing and/or resolving conflicts, you can continue with `git rebase --continue`. Conversely, if you need to reset a stopped rebase operation, use the command `git rebase --abort`.
 
@@ -315,10 +310,6 @@ Further documentation:
 As mentioned, the development of your contribution shall be performed in a separate folder (so, not directly in your GitHub staging area).
 
     [ edit any file; e.g., some .mss files, maybe some .md files, maybe some symbols\<n<me>.svg file ]
-
-If project.yaml is edited:
-
-    scripts/yaml2mml.py
 
 Check the following pages:
 * [CONTRIBUTE](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md)
@@ -378,9 +369,9 @@ Commit command:
     git commit -a
 
 An editor will open, requesting to enter the commit message which will become public and is important for revisors, so please take care to add:
-- a summary of the commit in the first line (possibly less than 80 characters); avoid repeating already used wording; mention a previous issue when needed
+- a summary of the commit in the first line (be concise, e.g. less than 80 characters)
 - a blank line
-- a very detailed description in multiline format (e.g., "List of changes", followed by a bullet list)
+- a concise description in multiline format (e.g., "List of changes:", followed by a bullet list)
 
 Save the text and exit the editor.
 

@@ -78,8 +78,9 @@ The rendering process implemented by mod_tile and renderd is well explained [her
 
     cd ~/src
     cd openstreetmap-carto
-    scripts/yaml2mml.py
     carto project.mml > style.xml
+
+Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent. Ensure for this that the lastest *carto* version is installed.
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
