@@ -326,7 +326,7 @@ To display your slippy map with OpenLayers, create a file named *ol.html* under 
 
 Paste the following HTML code in the file.
 
-You might wish to adjust the longitude, latitude and zoom level according to your needs. Check `var map = L.map('map').setView([45, 10], 3);` which in this sample defaults to (45, 10) for the center and zoom is set to 3.
+You might wish to adjust the longitude, latitude and zoom level according to your needs. Check `var zoom = 2, center = [0, 0];`.
 
 ```html
 <!DOCTYPE html>
@@ -336,7 +336,7 @@ You might wish to adjust the longitude, latitude and zoom level according to you
 <link rel="stylesheet" href="https://openlayers.org/en/v3.19.0/css/ol.css" type="text/css">
 <script src="https://openlayers.org/en/v3.19.0/build/ol.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<style>
+  <style>
   html,
   body,
   #map {
@@ -349,13 +349,22 @@ You might wish to adjust the longitude, latitude and zoom level according to you
     bottom: auto;
     left: auto;
     right: 0;
-    top: 40px;
+    top: 85px;
   }  
+  .ol-zoom {
+    top: 50px;
+  }
+  .ol-zoom-extent {
+      top: 110px;
+  }
+  .ol-zoomslider {
+      top: 140px;
+  }
   .ol-custom-fullscreen {
     bottom: auto;
     left: auto;
     right: 0;
-    top: 5px;
+    top: 50px;
   }
   .ol-custom-mouse-positionXY {
     top: auto;
@@ -378,7 +387,7 @@ You might wish to adjust the longitude, latitude and zoom level according to you
     font-size: 12px;
     text-shadow: 0 0 0.5em #FFE, 0 0 0.5em #FFE, 0 0 0.5em #FFE;
   }
-  .mapZoom {
+  #ZoomElement {
     position: absolute;
     top: auto;
     left: 10px;
@@ -387,25 +396,45 @@ You might wish to adjust the longitude, latitude and zoom level according to you
     font-family: "Arial";
     font-size: 10pt;
     text-shadow: 0 0 0.5em #FFE, 0 0 0.5em #FFE, 0 0 0.5em #FFE;
+    z-index: 30;
   }
-  #layer-select {
+  #TSLabel {
     position: absolute;
-    top: 11px;
-    left: 43px;
+    top: 21px;
+    right: 0;
+    font-family: "Arial";
+    font-size: 12px;
+    z-index: 30;
+  }
+  #osmLabel {
+    position: absolute;
+    top: 21px;
+    left: 0;
+    font-family: "Arial";
+    font-size: 12px;
+    z-index: 30;
+  }
+  #swipe {
+    position: absolute;
+    top: 0;
+    left: -4px;
+    z-index: 20;
   }
 </style>
 </head>
 <body>
+  <div class="ol-viewport">
+  <input class="ol-unselectable ol-control" id="swipe" type="range" style="width: 100%">
+  <div class="ol-unselectable ol-control" id="TSLabel"> Tile Server &#9658;</div>
+  <div class="ol-unselectable ol-control" id="osmLabel">&#9668; OpenStreetMap </div>
+  <a class="ol-unselectable ol-control" id="ZoomElement"></a>
+  </div>
   <div tabindex="0" id="map" class="map"></div>
-  <a class="mapZoom" id="ZoomElement"></a>
-  <select id="layer-select">
-    <option value="Tile Server">Tile Server</option>
-    <option value="OpenStreetMap" selected>OpenStreetMap</option>
-  </select>
   <script>
+    var zoom = 2, center = [0, 0];
+
     // Set up the Tile Server layer
     var myTileServer = new ol.layer.Tile({
-      visible: false,
       preload: Infinity,
       source: new ol.source.OSM({
         crossOrigin: null,
@@ -415,32 +444,34 @@ You might wish to adjust the longitude, latitude and zoom level according to you
     
     // Set up the OSM layer
     var openStreetMap = new ol.layer.Tile({
-      visible: false,
       preload: Infinity,
       source: new ol.source.OSM({
         crossOrigin: null,
         url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       })
     });
-    
+
+    if (window.location.hash !== '') {
+      var hash = window.location.hash.replace('#', '');
+      var parts = hash.split(';');
+      if (parts.length === 3) {
+        zoom = parseInt(parts[0], 10);
+        center = [
+          parseFloat(parts[2]),
+          parseFloat(parts[1])
+          ];
+      }
+    }
+
     // Set up the default view
     var myTileView = new ol.View({
-      center: ol.proj.transform([10, 45], 'EPSG:4326', 'EPSG:3857'),
-      zoom: 4
+      center: ol.proj.transform(center, 'EPSG:4326', 'EPSG:3857'),
+      zoom: zoom
     });
-    
-    // Push layers
-    var styles = [
-      'Tile Server',
-      'OpenStreetMap'
-    ];
-    var layers = [];
-    layers.push(myTileServer);
-    layers.push(openStreetMap);
     
     // Create the map
     var map = new ol.Map({
-      layers: layers,
+      layers: [myTileServer, openStreetMap],
       loadTilesWhileInteracting: true,
       target: 'map',
       controls: ol.control.defaults().extend([
@@ -479,19 +510,37 @@ You might wish to adjust the longitude, latitude and zoom level according to you
       view: myTileView
     });
     map.on("moveend", function() {
-      var zoom = map.getView().getZoom();
+      var view = map.getView();
+      var center = ol.proj.transform(view.getCenter(), 'EPSG:3857', 'EPSG:4326');
+      var zoom = view.getZoom();
       var zoomInfo = 'Zoom level = ' + zoom;
       document.getElementById('ZoomElement').innerHTML = zoomInfo;
+      window.location.hash =
+        view.getZoom() + ';' +
+          Math.round(center[1]*1000000)/1000000 + ';' +
+          Math.round(center[0]*1000000)/1000000;
     });
+
+    var swipe = document.getElementById('swipe');
     
-    $('#layer-select').change(function() {
-      var style = $(this).find(':selected').val();
-      var i, ii;
-      for (i = 0, ii = layers.length; i < ii; ++i) {
-        layers[i].setVisible(styles[i] == style);
-      }
-    });
-    $('#layer-select').trigger('change');
+    openStreetMap.on('precompose', function(event) {
+        var ctx = event.context;
+        var width = ctx.canvas.width * (swipe.value / 100);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(width, 0, ctx.canvas.width - width, ctx.canvas.height);
+        ctx.clip();
+      });
+
+    openStreetMap.on('postcompose', function(event) {
+        var ctx = event.context;
+        ctx.restore();
+      });
+    
+    swipe.addEventListener('input', function() {
+        map.render();
+    }, false);
   </script>
 </body>
 </html>
