@@ -324,7 +324,7 @@ To display your slippy map with OpenLayers, create a file named *ol.html* under 
 
     sudo vi /var/www/html/ol.html
 
-Paste the following HTML code in the file.
+Paste the following HTML code into the file.
 
 You might wish to adjust the longitude, latitude and zoom level according to your needs. Check `var zoom = 2, center = [0, 0];`.
 
