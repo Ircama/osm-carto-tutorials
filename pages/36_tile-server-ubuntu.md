@@ -81,7 +81,7 @@ The rendering process implemented by mod_tile and renderd is well explained [her
     cd openstreetmap-carto
     carto -a "3.0.0" project.mml > style.xml
 
-Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent. Ensure for this that the lastest *carto* version is installed. The option `-a "3.0.0"` is needed when using Mapnik 3 functions.
+Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent. Ensure for this that the lastest *carto* version is installed. The option `-a "3.0.0"` is needed when using Mapnik 3 functions [^2].
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
