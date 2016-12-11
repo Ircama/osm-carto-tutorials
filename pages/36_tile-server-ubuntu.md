@@ -79,9 +79,9 @@ The rendering process implemented by mod_tile and renderd is well explained [her
 
     cd ~/src
     cd openstreetmap-carto
-    carto project.mml > style.xml
+    carto -a "3.0.0" project.mml > style.xml
 
-Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent. Ensure for this that the lastest *carto* version is installed.
+Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent. Ensure for this that the lastest *carto* version is installed. The option `-a "3.0.0"` is needed when using Mapnik 3 functions.
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
@@ -610,3 +610,5 @@ A rapid way to test the slippy map is through an online source code playground l
     * [OSM Wiki - Mod tile/Setup of your own tile server](http://wiki.openstreetmap.org/wiki/Mod_tile/Setup_of_your_own_tile_server)
     * [Build Your Own OpenStreetMap Tile Server on Ubuntu 16.04](https://www.linuxbabe.com/linux-server/openstreetmap-tile-server-ubuntu-16-04)
     * [OSM tile server jessie](https://wiki.debian.org/OSM/tileserver/jessie)
+
+[^2]: [math1985's note](https://github.com/gravitystorm/openstreetmap-carto/pull/2470#issuecomment-266234112)
