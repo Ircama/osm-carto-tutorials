@@ -63,5 +63,3 @@ scripts/get-shapefiles.py
 ```
 
 Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.
-
-[^1]: information taken from [Rendering of OSM data on Windows - Quickstart](https://sourceforge.net/p/topomapcreator/wiki/TileMill/)
