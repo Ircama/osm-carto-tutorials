@@ -191,7 +191,7 @@ Relation between Geometry and SQL Table is the following:
 Relevant attributes of each layer:
 
 * `id`: layer identifier; defines a "*#identifier*" selector (selector preceded by hash), to be used in *.mss files.
-* `name`: the name of the layer, generally the same as `id`; this references the layer and is used by programs like Tilemill, allowing the user to select layers and filter their visibility.
+* `name`: the name of the layer, generally the same as `id`; this references the layer and is used by programs like Tilemill, allowing the user to select layers and filter their visibility. Notice that *carto 0.17* marks `name` as deprecated and it will be removed in carto 1.0[^8].
 * `class`: when set, defines one or more classes, to be used in *mss files as *.identifier* selector (selector preceded by dot); classes are used to define a single rendering description for many layers sharing the same class name. For instance, `class: "barriers"` is used by `id: "area-barriers"` and by `id: "line-barriers"`; then, in *landcover.mss*, a selector named `.barriers {...}` defines attributes which are common to both layers.
 * `geometry`: symbolizer type which can be `linestring` (way), `point` (node) or `polygon`. These attributes can be used as filters.
 * `Datasource`: can be `file: "filename"`/`type: "shape"` for shapefiles, or `<<: *osm2pgsql`/`table: |-` for PostGIS queries.
@@ -466,5 +466,6 @@ A recommended ontology of [map features](http://wiki.openstreetmap.org/wiki/Map_
 [^3]: Text taken from [an openstreetmap-carto comment for issue 528](https://github.com/gravitystorm/openstreetmap-carto/issues/528#issuecomment-254495790).
 [^4]: Text taken from [TileMill documentation](https://tilemill-project.github.io/tilemill/docs/manual/adding-layers/)
 [^5]: Text taken from [an openstreetmap-carto comment for pull 2138](https://github.com/gravitystorm/openstreetmap-carto/pull/2138)
-[^6]: [imagico](https://github.com/imagico), https://github.com/gravitystorm/openstreetmap-carto/pull/2138#issuecomment-259414267
-[^7]: [gravitystorm](https://github.com/gravitystorm), https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-263553007
+[^6]: Text taken from [imagico](https://github.com/imagico)'s [comment for pull 2138](https://github.com/gravitystorm/openstreetmap-carto/pull/2138#issuecomment-259414267)
+[^7]: Text taken from [gravitystorm](https://github.com/gravitystorm)'s [comment for pull 2473](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-263553007)
+[^8]: Text taken from [nebulon42](https://github.com/nebulon42)'s [comment for pull 2506](https://github.com/gravitystorm/openstreetmap-carto/pull/2506#issuecomment-266558272)

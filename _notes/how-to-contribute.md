@@ -25,7 +25,7 @@ A special type of layout is *homepage*, which is [subsequently](#homepage) descr
 
 All files shall be in UTF8 format.
 
-Markdown documents can include parts which are common to more pages. A common part (e.g., named *common-part.md*) can be referenced with the following [Liquid](http://shopify.github.io/liquid/) markup:
+Markdown documents can include parts which are common to more pages. A common part that has more general reference than the site content (e.g., named *common-part.md*) can be placed in the *pages* subdirectory of the *_includes* directory and is referenced with the following [Liquid](http://shopify.github.io/liquid/) markup (and should also keep the Markdown format):
 
 {% raw %}
 ```liquid
@@ -33,15 +33,15 @@ Markdown documents can include parts which are common to more pages. A common pa
 ```
 {% endraw %}
 
-Common parts have to be saved in the *_includes* subdirectory of the *pages* directory and should also be written in Markdown.
-
-A common page that has more general reference than the site content can be saved to the *_includes/pages* directory and should also be written in Markdown. Its related reference is the following:
+Common parts which are pertinent to this site content (e.g., named *repeated-text.md*) have to be saved in the *_includes* subdirectory of the *pages* directory. Their related reference are the following:
 
 {% raw %}
 ```liquid
-{% include pages/common-part.md %}
+{% include pages/repeated-text.md %}
 ```
 {% endraw %}
+
+Footnotes can be included also in common parts and, to avoid collision with the page notes, high note numbers (like greater than 80) are suggested.
 
 Liquid documentation can be found in [Liquid for Designers](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers).
 
