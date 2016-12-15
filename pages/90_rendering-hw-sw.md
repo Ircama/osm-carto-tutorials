@@ -11,15 +11,13 @@ To verify the current version of openstreetmap-carto, check the [Releases](https
 
 The update process foresees the re-rendering of z0-12; then any tile older than the style file is treated as dirty so that it will be re-rendered (if possible) when it is next requested[^2].
 
-Summary of the hardware and software configuration of the OpenStreetMap production tile servers as found in some GitHub posts and sites.
-
-There are [three](http://munin.openstreetmap.org/) tile servers at the time of writing:
+There are the following [three](http://munin.openstreetmap.org/) tile servers at the time of writing, with link to the related hw configuration:
 
 * [vial.openstreetmap.org](https://hardware.openstreetmap.org/servers/vial.openstreetmap.org/)
 * [orm.openstreetmap](https://hardware.openstreetmap.org/servers/orm.openstreetmap.org/)
 * [yevaud.openstreetmap](https://hardware.openstreetmap.org/servers/yevaud.openstreetmap.org/)
 
-Main sw configuration of the tile servers (information from [Upgrade tileservers to mapnik3 - chef issue log](https://github.com/openstreetmap/chef/issues/39) and from [here](https://github.com/gravitystorm/openstreetmap-carto/issues/2080#issuecomment-249390120)):
+Summary of the software configuration of the tile servers as found in some GitHub posts and sites[^3][^4]:
 
 * O.S. version: Ubuntu 16.04.1 LTS (old outdated ref. [here](https://github.com/openstreetmap/operations/issues/104))
 * Mapnik version: 3.0.9 (Mapnik 3 is now required)
@@ -45,3 +43,5 @@ Other useful references:
 
 [^1]: [math1985](https://github.com/math1985)'s [comment on issue 243](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-264490751)
 [^2]: [tomhughes](https://github.com/tomhughes)'s [comment on Chef issue 103](https://github.com/openstreetmap/chef/issues/103#issuecomment-264657532)
+[^3]: [Upgrade tileservers to mapnik3 - chef issue log](https://github.com/openstreetmap/chef/issues/39)
+[^4]: [kocio-pl](https://github.com/kocio-pl)'s [comment on issue 2080](https://github.com/gravitystorm/openstreetmap-carto/issues/2080#issuecomment-249390120)
