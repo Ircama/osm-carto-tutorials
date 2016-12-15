@@ -17,7 +17,7 @@ There are the following [three](http://munin.openstreetmap.org/) tile servers at
 * [orm.openstreetmap](https://hardware.openstreetmap.org/servers/orm.openstreetmap.org/)
 * [yevaud.openstreetmap](https://hardware.openstreetmap.org/servers/yevaud.openstreetmap.org/)
 
-Summary of the software configuration of the tile servers as found in some GitHub posts and sites[^3][^4]:
+Summary of the software configuration of the tile servers as found in some GitHub posts and sites:[^3] [^4]
 
 * O.S. version: Ubuntu 16.04.1 LTS (old outdated ref. [here](https://github.com/openstreetmap/operations/issues/104))
 * Mapnik version: 3.0.9 (Mapnik 3 is now required)
