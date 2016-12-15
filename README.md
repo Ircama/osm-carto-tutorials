@@ -1,6 +1,6 @@
 ## https://ircama.github.io/osm-carto-tutorials/
 
-# OpenStreetMap Carto Tutorials
+# OpenStreetMap Carto Tutorials - DOC-JEKYLL theme
 
 Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto).
 
