@@ -7,7 +7,9 @@ comments: true
 
 A merged contribution to openstreetmap-carto is not automatically published. The maintainers periodically [tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) the latest set of updates and [publish](https://git-scm.com/book/en/v2/Git-Basics-Tagging#Sharing-Tags) it into a GitHub release.
 
-To verify the current version of openstreetmap-carto, check the [Releases](https://github.com/gravitystorm/openstreetmap-carto/releases) section of the GitHub repository. Besides, the main changes are included in the [CHANGELOG](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CHANGELOG.md) document. The latest release is published to the tile servers. The OSM server administrators can control which version to install[^1].
+To verify the current version of openstreetmap-carto, check the [Releases](https://github.com/gravitystorm/openstreetmap-carto/releases) section of the GitHub repository. Besides, the main changes are included in the [CHANGELOG](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CHANGELOG.md) document. The latest release is published to the tile servers. The OSM server administrators can control which version to install[^1] by manually updating the [Chef role](https://github.com/openstreetmap/chef/commits/master/roles/tile.rb).
+
+The update process foresees the re-rendering of z0-12; then any tile older than the style file is treated as dirty so that it will be re-rendered (if possible) when it is next requested[^2].
 
 Summary of the hardware and software configuration of the OpenStreetMap production tile servers as found in some GitHub posts and sites.
 
@@ -43,4 +45,5 @@ Other useful references:
 * [PostgreSQL indexes(https://github.com/openstreetmap/operations/issues/104)
 * [updates processed by osm2pgsql](https://github.com/openstreetmap/chef/blob/master/cookbooks/tile/templates/default/replicate.erb)
 
-[^1]: [math1985](https://github.com/math1985), https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-264490751
+[^1]: [math1985](https://github.com/math1985)'s [comment on issue 243](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-264490751)
+[^2]: [tomhughes](https://github.com/tomhughes)'s [comment on Chef issue 103](https://github.com/openstreetmap/chef/issues/103#issuecomment-264657532)
