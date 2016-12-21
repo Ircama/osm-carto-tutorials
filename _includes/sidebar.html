@@ -26,7 +26,7 @@
         {% endif %}
       {% endif %}
     {% endfor %}
-    <span class="sidebar-nav-item">&copy; <a href="{{ site.author.url }}" target="_blank">{{ site.author.name }}</a> {{ site.time | date: '%Y' }} - v{{ site.version }} - {{ site.author.credits }}</span>
+    <span class="sidebar-nav-item">&copy; <a href="{{ site.author.url }}" target="_blank">{{ site.author.name }}</a> {{ site.time | date: '%Y' }} - v<span id="get-tag">ersion unknown</span> - {{ site.author.credits }}</span>
     <span class="sidebar-nav-item"><i class="iconside iconm-github2"></i> {{ site.author.github_sources }}</span>
     <span class="sidebar-nav-item"><i class="iconside iconm-blog"></i> <span title="Last GitHub commit message">Last modification</span><span id="last-site-mod"> unknown</span></span>
   </nav>
@@ -36,5 +36,7 @@
 $(function() {
 	$('#last-site-mod').githubInfoWidget(
 		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', nouser: true, nomsg: true, abstime: false, simple: 2, last: 1, limitMessageTo: 500 });
+	$('#get-tag').githubWidgetTags(
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}' });
 });
 </script>

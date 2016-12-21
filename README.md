@@ -46,6 +46,8 @@ Summary of the main changes from the default Lanyon Theme:
 
  * additional settings in _config.yml
  * developed improved sidebar
+ * added last modification date for the whole site and for each page (using GitHub commit dates)
+ * added last site version (using last GitHub tag name)
  * revised css and js to allow fully responsive site for smartphones, tablets and different desktop resolutions
  * developed extensive style for print including automatic chapter numbering
  * developed a smart site map
@@ -58,4 +60,3 @@ Summary of the main changes from the default Lanyon Theme:
  * Integrated a Liquid HTML compressor
  * Added a very basic Liquid Javascript compressor
  * Added footnotes management
- 
