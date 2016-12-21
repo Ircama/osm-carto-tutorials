@@ -20,10 +20,10 @@ There are the following [three](http://munin.openstreetmap.org/) tile servers at
 Summary of the software configuration of the tile servers as found in some GitHub posts and sites:[^3] [^4]
 
 * O.S. version: Ubuntu 16.04.1 LTS (old outdated ref. [here](https://github.com/openstreetmap/operations/issues/104))
-* Mapnik version: 3.0.9 (Mapnik 3 is now required)
+* Mapnik version: 3.0.9 (Mapnik 3 is now required); for the most updated information on required version, see [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md).
 * PostgreSQL version: 9.5
 * PostGIS version: 2.2
-* Carto version: 0.16.3 (it is installed from npm and can be easily upgraded when necessary) [CartoCSS 0.16.x is now required](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CHANGELOG.md)
+* Carto version: 0.16.3 (it is installed from npm and can be easily upgraded when necessary); for the most updated information on required version, see [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md).
 * osm2pgsql version: [0.88.1 for Ubuntu 16.04 (and 0.90.1 for yakkety)](https://github.com/gravitystorm/openstreetmap-carto/issues/657#issuecomment-247884068)
 * openstreetmap-carto version: check [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L93), section *:styles*, item *:revision*.
 
