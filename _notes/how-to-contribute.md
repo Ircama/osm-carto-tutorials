@@ -384,6 +384,17 @@ If you have the option to select *"Create a new branch for this commit and start
 
 The created *pull request* will be revised in order to be published. Please, accept some time to accomplish the review process, thanks.
 
+## Tagging
+
+Example of tagging version 2.0.2:
+
+```bash
+git tag 2.0.2
+git push tag 2.0.2
+```
+
+The last tag is shown in the sidebar as the last site version.
+
 ## Other standard recommendations for contributors
 
 * Keep the pull request small, and narrowly scoped (one bug fix, one feature, etc.)
