@@ -389,8 +389,8 @@ The created *pull request* will be revised in order to be published. Please, acc
 Example of tagging version 2.0.2:
 
 ```bash
-git tag 2.0.2
-git push tag 2.0.2
+git tag 1.0.0
+git push origin 1.0.0
 ```
 
 The last tag is shown in the sidebar as the last site version.
