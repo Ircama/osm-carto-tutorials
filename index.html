@@ -3,7 +3,6 @@ layout: default
 title: Home
 comments: true
 ---
-
 <div class="posts">
 {% assign homepage = false %}
 {% for node in site.notes %}
@@ -16,6 +15,10 @@ comments: true
   {% endif %}
 {% endfor %}
 {% if homepage == true %}
+<br />
+<iframe src="https://ghbtns.com/github-btn.html?user={{ site.author.name }}&repo={{ site.author.repo }}&type=watch&count=true&size=small" allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="20"> </iframe>
+<iframe src="https://ghbtns.com/github-btn.html?user={{ site.author.name }}&repo={{ site.author.repo }}&type=fork&count=true&size=small" allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="20"> </iframe>
+<iframe src="https://ghbtns.com/github-btn.html?user={{ site.author.name }}&repo={{ site.author.repo }}&type=watch&count=true&size=small&v=2" allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="20px"> </iframe>
 <hr />
 {% endif %}
 {% assign post_counter = 0 %}
