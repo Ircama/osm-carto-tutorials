@@ -21,7 +21,7 @@ $(function () {
   // Insert Copy-to-clipboard button before .highlight (code tags)
 
   $(".highlight").each(function(i, highlight){
-      highlight.firstChild.insertAdjacentHTML('beforebegin', '<button class="btn" data-toggle="tooltip" data-placement="left" title="Copy to clipboard" btn-clipboard><img class="clippy" width="14" src="{{ site.baseurl }}/public/icons/clippy.svg" alt="Copy to clipboard"></button>');
+      highlight.firstChild.insertAdjacentHTML('beforebegin', '<button class="btn" title="Copy to clipboard" btn-clipboard><img class="clippy" width="14" src="{{ site.baseurl }}/public/icons/clippy.svg" alt="Copy to clipboard"></button>');
   });
   
   var clipboard = new Clipboard('[btn-clipboard]', {
