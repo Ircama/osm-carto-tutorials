@@ -75,13 +75,24 @@ The rendering process implemented by mod_tile and renderd is well explained [her
 
 ## Install carto and build the Mapnik xml stylesheet
 
+Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent.
+
+Install node-carto:
+
     sudo apt-get install -y node-carto
+
+Ensure that the latest *carto* version is installed (at least version >= 0.16.0, using YAML):
+
+    carto -v
+    carto 0.16.3 (Carto map stylesheet compiler)
+
+Test *carto* and produce *style.xml* from the *openstreetmap-carto* style:
 
     cd ~/src
     cd openstreetmap-carto
     carto -a "3.0.0" project.mml > style.xml
 
-Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent. Ensure for this that the lastest *carto* version is installed. The option `-a "3.0.0"` is needed when using Mapnik 3 functions [^2].
+The option `-a "3.0.0"` is needed when using Mapnik 3 functions [^2].
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
