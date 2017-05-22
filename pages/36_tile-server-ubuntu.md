@@ -75,20 +75,23 @@ The rendering process implemented by mod_tile and renderd is well explained [her
 
 ## Install carto and build the Mapnik xml stylesheet
 
-Install *nodejs-legacy* and *npm*:
+Install *nodejs-legacy*:
 
     sudo apt install -y nodejs-legacy
+
+Install *npm*:
+
     sudo apt install -y npm
 
 Install the latest version of *node-carto*:
 
-    sudo npm install -g @mapbox/carto
+    sudo npm install -g carto@0.18.0
 
 Ensure that the latest *carto* version is installed (at least version >= 0.16.0, using YAML):
 
     carto -v
 
-The output should be `carto 0.16.3 (Carto map stylesheet compiler)`.
+The output should be `carto 0.18.0 (Carto map stylesheet compiler)`.
 
 Test *carto* and produce *style.xml* from the *openstreetmap-carto* style:
 
@@ -259,7 +262,7 @@ Example usage:
 
 Depending on the DB size, this command might take very long.
 
-## Debugging Apache, mod_tile and renderd
+## Troubleshooting Apache, mod_tile and renderd
 
 To clear all osm tiles cache, remove /var/lib/mod_tile/default (using rm -rf if you dare) and restart renderd daemon:
 

@@ -48,9 +48,9 @@ npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
     
 See [Start Kosmtik](#start-kosmtik).
 
-{% include_relative _includes/test-app.md cdprogram='' %}
+{% include_relative _includes/test-app.md cdprogram='~/src' %}
 
-{% include_relative _includes/inst-osm-carto.md cdprogram='' %}
+{% include_relative _includes/inst-osm-carto.md cdprogram='~/src' %}
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 

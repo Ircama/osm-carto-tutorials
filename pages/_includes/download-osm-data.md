@@ -12,15 +12,23 @@ Also, [BBBike.org](http://download.bbbike.org/osm/) provides extracts of more th
 
 Examples:
 
-* Map data of the whole planet (32G): `wget -c http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf`
-* Map data of Great Britain (847M): `wget -c http://download.geofabrik.de/europe/great-britain-latest.osm.pbf`
-* Map data of Lombardy (279M): `wget -c http://osm-estratti.wmflabs.org/estratti/regioni/pbf/03---Lombardia.pbf`
+* Map data of the whole planet (32G):
 
-For just Liechtenstein:
+      wget -c http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
 
-    wget http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf.md5
-    wget http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf
-    md5sum -c liechtenstein-latest.osm.pbf.md5 # Check that the download wasn't corrupted
+* Map data of Great Britain (847M):
+
+      wget -c http://download.geofabrik.de/europe/great-britain-latest.osm.pbf
+
+* Map data of Lombardy (279M):
+
+      wget -c http://osm-estratti.wmflabs.org/estratti/regioni/pbf/03---Lombardia.pbf
+
+* For just Liechtenstein:
+
+      wget http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf.md5
+      wget http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf
+      md5sum -c liechtenstein-latest.osm.pbf.md5 # Check that the download wasn't corrupted
 
 Another method to download data is directly with your browser. Check [this page](http://wiki.openstreetmap.org/wiki/Downloading_data).
 

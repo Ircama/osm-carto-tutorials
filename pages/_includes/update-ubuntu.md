@@ -1,6 +1,8 @@
 
 We consider using [Ubuntu](https://en.wikipedia.org/wiki/Ubuntu_(operating_system)) 16.04.1 LTS [Xenial Xerus](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_16.04_LTS_.28Xenial_Xerus.29), Ubuntu 15.4 [Vivid Vervet](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_15.04_.28Vivid_Vervet.29) or Ubuntu 14.04.3 LTS [Trusty Tahr](https://en.wikipedia.org/wiki/Ubuntu_version_history#Ubuntu_14.04_LTS_.28Trusty_Tahr.29) (other versions should work). All should be [64-bit](https://en.wikipedia.org/wiki/64-bit_computing) computing architecture.
 
+Other distributions like Debian might require changes and are not tested.
+
 The goal for this procedure is to use [Ubuntu packages](https://en.wikipedia.org/wiki/Ubuntu_(operating_system)#Package_classification_and_support) and official [PPA](https://developer.ubuntu.com/en/publish/other-forms-of-submitting-apps/ppa/)s whenever possible.
 
 This procedure is updated to the version of OpenStreetMap Carto available at the time of writing. To get the correct installation procedure, the [INSTALL history](https://github.com/gravitystorm/openstreetmap-carto/blame/master/INSTALL.md) should be checked, considering that the OpenStreetMap Carto maintainers use to keep the [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md) page updated. Check also the [README changelog](https://github.com/gravitystorm/openstreetmap-carto/blame/master/README.md).
@@ -62,7 +64,7 @@ Enable the swap file
     
 The Operating System tuning adopted by the OpenStreetMap tile servers can be found in the related [Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L49-L63).
 
-### Check en_US locale
+### Check usage of English locale
 
 Run locale to list what locales are currently defined for the current user account:
 

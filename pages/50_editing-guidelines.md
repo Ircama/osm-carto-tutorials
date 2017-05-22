@@ -436,6 +436,20 @@ Some features need to scale up their font size according to the zoom level. If y
 
 {% include_relative _includes/scripts-osm-carto.md %}
 
+Validate the MML against multiple Mapnik versions, and report its lines for debugging purposes:
+
+    sudo apt install libxml2-utils
+    for m in 3.0.0 3.0.12; do carto -a $m project.mml 2>&- | xmllint - | wc -l; done
+
+Validate that the SVGs are valid XML:
+
+    find symbols/ -name '*.svg' | xargs xmllint --noout
+
+Check the Lua transforms:
+
+    sudo apt install lua5.1
+    lua scripts/lua/test.lua
+
 ## Pattern casing
 
 Within openstreetmap-carto project, folder with pathname *symbols/generating_patterns* includes sources (.svg files), process description (.md files) and produced images (.png files) of patterns built from two separately generated svg files by means of raster processing.
