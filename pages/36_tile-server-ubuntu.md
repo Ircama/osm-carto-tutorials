@@ -83,11 +83,11 @@ Install *npm*:
 
     sudo apt install -y npm
 
-Install the latest version of *node-carto*:
+Install the latest version of *carto*:
 
     sudo npm install -g carto@0.18.0
 
-Ensure that the latest *carto* version is installed (at least version >= 0.16.0, using YAML):
+Ensure that the latest *carto* version is installed (at least version >= 0.18.0, using YAML):
 
     carto -v
 
