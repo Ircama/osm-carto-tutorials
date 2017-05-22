@@ -12,7 +12,7 @@ Unofficial tutorials for [openstreetmap-carto](https://github.com/gravitystorm/o
   ─┴┘└─┘└─┘  └┘└─┘┴ ┴ ┴ ┴─┘┴─┘
 ```
 
-This [Jekyll](http://jekyllrb.com/)-based theme is specifically intended for static technical documentation deployable on [GitHub Pages](https://pages.github.com/).
+This [Jekyll](http://jekyllrb.com/)-based theme named DOC-JEKYLL is specifically intended for static technical documentation deployable on [GitHub Pages](https://pages.github.com/).
 
 Information on the usage of this theme can be found in [how to contribute](_notes/how-to-contribute.md).
 
@@ -29,6 +29,7 @@ Information on the usage of this theme can be found in [how to contribute](_note
 * [clipboard.js](https://clipboardjs.com/) by [Zeno Rocha](http://zenorocha.com/)
 * [A Jekyll layout that compresses HTML in pure Liquid](https://github.com/penibelst/jekyll-compress-html), © 2014–2015 Anatol Broder. Released under the MIT License. The compressor has been modified in order to also obtain a very basic Liquid Javascript compressor.
 * Fonts and icons from http://fontawesome.io/, designed by Freepik and distributed by Flaticon (http://www.flaticon.com/authors/freepik), https://openclipart.org/ and https://icomoon.io
+* [matteobrusa](https://github.com/matteobrusa)'s code to [show a styled markdown document from an URL](https://matteobrusa.github.io/md-styler/)
 
 Licensed under the [MIT License](http://opensource.org/licenses/MIT)
 

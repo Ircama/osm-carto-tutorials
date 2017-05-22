@@ -9,7 +9,7 @@ We report some alternative procedures to install Mapnik (in the consideration to
 Tested with Ubuntu 16.04 and Ubuntu 14.04; suggested as the preferred option to install Mapnik.
 
     sudo apt-get install -y git autoconf libtool libxml2-dev libbz2-dev \
-      libgeos-dev libgeos++-dev libproj-dev gdal-bin libgdal1-dev g++ \
+      libgeos-dev libgeos++-dev libproj-dev gdal-bin libgdal-dev g++ \
       libmapnik-dev mapnik-utils python-mapnik
 
 This will most probably install Mapnik 2.2 on Ubuntu 14.04.3 LTS and Mapnik 3.0.9 on Ubuntu 16.04.1 LTS.
@@ -36,7 +36,7 @@ Install prerequisites; first create a directory to load the sources:
     sudo apt-get install -y libxml2-dev libfreetype6-dev \
       libjpeg-dev libpng-dev libproj-dev libtiff-dev \
       libcairo2 libcairo2-dev python-cairo python-cairo-dev \
-      libgdal1-dev git
+      libgdal-dev git
 
     sudo apt-get install -y build-essential python-dev libbz2-dev libicu-dev
 
@@ -114,4 +114,4 @@ Check then with Python:
 
     python -c "import mapnik;print mapnik.__file__"
 
-It should return the path to the python bindings. If python replies without errors, then Mapnik library was found by Python.
+It should return the path to the python bindings (e.g., `/usr/lib/python2.7/dist-packages/mapnik/__init__.pyc`). If python replies without errors, then Mapnik library was found by Python.

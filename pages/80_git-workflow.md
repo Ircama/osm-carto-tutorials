@@ -323,8 +323,6 @@ Check the following pages:
 * [CONTRIBUTE](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md)
 * [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md)
 
-Check also [SCRIPTS DOCUMENTATION](https://github.com/gravitystorm/openstreetmap-carto/blob/master/scripts/README.md) to learn about other scripts provided to support making changes to the map style.
-
 Copy all files changed/added with your development to your local git folder (staging area).
 
 Notice that changed files are automatically managed by GitHub, but new ones are not automatically staged and 'git add' is needed:

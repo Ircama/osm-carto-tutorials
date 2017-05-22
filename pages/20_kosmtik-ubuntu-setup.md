@@ -32,17 +32,17 @@ The following subfolders will be created:
 
 ## Install Kosmtik
 
-    $ git clone https://github.com/kosmtik/kosmtik.git
-    $ cd kosmtik
-    $ npm install
+    test -d ~/src || mkdir  ~/src ; cd ~/src
+    git clone https://github.com/kosmtik/kosmtik.git
+    cd ~/src/kosmtik
+    npm install
 
 Read [kosmtik](https://github.com/kosmtik/kosmtik#install) for further information.
 
 ## Test Kosmtik
 
 ```
-cd
-cd kosmtik
+cd ~/src/kosmtik
 npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
 ```
     
@@ -100,18 +100,17 @@ You can configure the other parameters (like the db ones: dbname, password, user
 
 Read [local config](https://github.com/kosmtik/kosmtik#local-config) for further information.
 
-{% include_relative _includes/firewall.md port=6789 cdprogram='' %}
+{% include_relative _includes/firewall.md port=6789 cdprogram='~/src' %}
 
-{% include_relative _includes/postgis-inst.md port=6789 cdprogram='' %}
+{% include_relative _includes/postgis-inst.md port=6789 cdprogram='~/src' %}
 
 ## Start Kosmtik
 
 Run Kosmtik from the openstreetmap-carto directory, supposing that the Kosmtik installation is in ../kosmtik.
 
-    $ cd
-    $ cd openstreetmap-carto
+    cd ~/src/openstreetmap-carto
 
-    $ node ../kosmtik/index.js serve project.mml --host 0.0.0.0
+    node ../kosmtik/index.js serve project.mml --host 0.0.0.0
 
 Read [Usage](https://github.com/kosmtik/kosmtik#usage) for further information.
 

@@ -35,16 +35,15 @@ Optional elements (needed for the topcube module related to the client user inte
 
 Installation of TileMill:
 
-    cd
+    test -d ~/src || mkdir  ~/src ; cd ~/src
     git clone https://github.com/tilemill-project/tilemill.git
-    cd tilemill
+    cd ~/src/tilemill
     npm install
 
 ## Test TileMill
 
 ```
-cd
-cd tilemill
+cd ~/src/tilemill
 npm test # you can also run TileMill to test: see "Start TileMill" below.
 ```
     
@@ -62,8 +61,7 @@ See [Start TileMill](#start-tilemill).
 
 ## Start TileMill
 
-    cd
-    cd tilemill
+    cd ~/src/tilemill
     ./index.js --server=true --listenHost=0.0.0.0
 
 Notice that `--server=true` is only needed in case of server based startup, to avoid the local user interface. Besides, `--listenHost=0.0.0.0` is needed to access TileMill installed on a remote server (not necessary when doing http://localhost:20009).

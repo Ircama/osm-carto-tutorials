@@ -10,6 +10,8 @@ To check if Apache is installed, direct your browser to the IP address of your s
 
     curl localhost| grep 'It works!'
 
+The Apache tuning adopted by the OpenStreetMap tile servers can be found in the related [Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L13-L25).
+
 ## How to Find the IP address of your server
 
 You can run the following command to reveal the public IP address of your server:

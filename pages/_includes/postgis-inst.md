@@ -1,8 +1,8 @@
 ## Install PostgreSQL and PostGIS
 
-[PostgreSQL](https://www.postgresql.org/) is a relational database, and [PostGIS](http://postgis.net/) is its spatial extender, which allow you to store geographic objects like map data in it. PostgreSQL + PostGIS are used for a wide variety of uses such as rendering maps, geocoding, and analysis. It serves a similar function to ESRI’s SDE or Oracle’s Spatial extension.
+[PostgreSQL](https://www.postgresql.org/) is a relational database, and [PostGIS](http://postgis.net/) is its spatial extender, which allows you to store geographic objects like map data in it; it serves a similar function to ESRI’s SDE or Oracle’s Spatial extension. PostgreSQL + PostGIS are used for a wide variety of features such as rendering maps, geocoding, and analysis.
 
-Currently the tested versions are PostgreSQL 9.5 and PostGIS 2.2:
+Currently the tested versions for OpenstreetMap Carto are PostgreSQL 9.5 and PostGIS 2.2:
 
 Also older PostgreSQL version should be suitable.
 
@@ -65,13 +65,27 @@ The character encoding scheme to be used in the database is UTF8.
 
 If you get the following error
 
-    ERROR:  could not open extension control file "/usr/share/postgresql/9.3/extension/postgis.control": No such file or directory
+`ERROR:  could not open extension control file "/usr/share/postgresql/9.3/extension/postgis.control": No such file or directory`
 
 then you might be installing PostgreSQL 9.3, for which you should also need:
 
     sudo apt-get install postgis postgresql-9.3-postgis-scripts
 
 Install it and repeat the create extension commands.
+
+If you need to use a different tablespace than the default one, execute the following commands instead of the previous ones (example: the tablespace has location `/tmp/db`):
+
+```shell
+export PGPASSWORD={{ pg_password }}
+HOSTNAME=localhost # set it to the actual ip address or host name
+sudo mkdir /mnt/db # Suppose this is the tablespace location
+sudo chown postgres:postgres /mnt/db
+psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE TABLESPACE gists LOCATION '/mnt/db'"
+psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis TABLESPACE gists"
+psql -U {{ pg_user }} -h $HOSTNAME -c "\connect gis"
+psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
+psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
+```
 
 ## Add a user and grant access to gis DB
 
@@ -104,9 +118,7 @@ Then edit *postgresql.conf*:
 
     sudo vi /etc/postgresql/9.5/main/postgresql.conf
 
-and change the following line:
-
-    set `listen_addresses = '*'`
+and set `listen_addresses = '*'`
 
 Finally, the DB shall be restarted:
 
@@ -114,9 +126,17 @@ Finally, the DB shall be restarted:
 
 ## Tuning the database
 
-The [PostgreSQL wiki](http://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server) has a page on database tuning. The important settings are shared_buffers, checkpoint_segments, and the write-ahead-log settings. There are also some settings you want to change specifically for the import.
+The default PostgreSQL settings aren't great for very large databases like OSM databases. Proper tuning can just about double the performance.
 
-The default PostgreSQL settings aren't great for very large databases like OSM databases. Proper tuning can just about double the performance you're getting. The most important PostgreSQL settings to change are `maintenance_work_mem` and `work_mem`, both which should be increased for faster data loading and faster queries while rendering respectively. Conservative settings for a 2GB VM are `work_mem=16MB` and `maintenance_work_mem=128MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`. An overview to tuning PostgreSQL can be found on the [PostgreSQL Wiki](https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server), but adjusting `maintenance_work_mem` and `work_mem` are probably enough on a development or testing machine.[^98]
+The [PostgreSQL wiki](http://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server) has a page on database tuning.
+
+[Paul Norman’s Blog](http://www.paulnorman.ca/blog/2011/11/loading-a-pgsnapshot-schema-with-a-planet-take-2/) has an interesting note on optimizing the database, which is used here below.
+
+Adjusting `maintenance_work_mem` and `work_mem` are probably enough on a development or testing machine.[^98]: both parameters should be increased for faster data loading and faster queries while rendering respectively.
+
+Conservative settings for a 2GB VM are `work_mem=16MB` and `maintenance_work_mem=128MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`.
+
+Besides, important settings are `shared_buffers` and the *write-ahead-log* (*wal*). There are also some other settings you might want to change specifically for the import.
 
 To edit the PostgreSQL configuration file with *vi* editor:
 
@@ -129,23 +149,25 @@ and if you are running PostgreSQL 9.3:
 Suggested settings:
 
     shared_buffers = 128MB
-    checkpoint_segments = 20
+    min_wal_size = 1GB
+    max_wal_size = 2GB
     maintenance_work_mem = 256MB
     autovacuum = off
     fsync = off
 
-The latter two ones allow a faster import.
+The latter two ones allow a faster import: the first turns off auto-vacuum during the import and allows you to run a vacuum at the end; the second introduces data corruption in case of a power outage and is dangerous. If you have a power outage while importing the data, you will have to drop the data from the database and re-import, but it’s faster. Just remember to change these settings back after importing. fsync has no effect on query times once the data is loaded.
 
-The first turns off auto-vacuum during the import and allows you to run a vacuum at the end. The second will introduce data corruption in case of a power outage and is dangerous. If you have a power outage while importing the data you will have to drop the data from the database and re-import, but it’s faster. Just remember to change these settings back after importing. fsync has no effect on query times once the data is loaded.
+The PostgreSQL tuning adopted by OpenStreetMap can be found in the [PostgreSQL Chef Cookbook](https://github.com/openstreetmap/chef/blob/master/cookbooks/postgresql/attributes/default.rb): the specific PostgreSQL tuning for the OpenStreetMap tile servers is reported in the related [Tileserver Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L38-L45).
 
-Suggested settings for a system with 16GB of RAM:
+For a dev&test installation on a system with 16GB of RAM, the suggested settings are the following:
 
     shared_buffers = 2GB
     work_mem = 128MB
     maintenance_work_mem = 1GB
     wal_level = minimal
     synchronous_commit = off
-    checkpoint_segments = 64
+    min_wal_size = 1GB
+    max_wal_size = 2GB
     checkpoint_timeout = 15min
     checkpoint_completion_target = 0.9
     default_statistics_target = 1000
@@ -159,6 +181,10 @@ To stop and start the database:
     sudo /etc/init.d/postgresql start
 
 You may get an error and need to increase the shared memory size. Edit */etc/sysctl.d/30-postgresql-shm.conf* and run `sudo sysctl -p /etc/sysctl.d/30-postgresql-shm.conf`. A parameter like `kernel.shmmax=17179869184` and `kernel.shmall=4194304` could be appropriate for a 16GB segment size.[^99]
+
+To manage and maintain the configuration of the servers run by OpenStreetMap, the [Chef](https://www.chef.io/) configuration management tool is used.
+
+The configuration adopted for PostgreSQL is [postgresql/attributes/default.rb](https://github.com/openstreetmap/chef/blob/master/cookbooks/postgresql/attributes/default.rb).
 
 ## Install Osm2pgsql
 
@@ -205,18 +231,22 @@ rm -rf osm2pgsql
 
 ## Load data to PostGIS
 
+osm2pgsql uses overcommit like many scientific and large data applications, which requires adjusting a kernel setting:
+
+  sudo sysctl -w vm.overcommit_memory=1
+
 ```shell
 cd {{ include.cdprogram }}
 cd openstreetmap-carto
 HOSTNAME=localhost # set it to the actual ip address or host name
-osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
+osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style --hstore -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
+
+Depending on the input file size, the osm2pgsql command might take very long.
 
 Note: if you get the following error:
 
-```shell
-node_changed_mark failed: ERROR:  prepared statement "node_changed_mark" does not exist
-```
+`node_changed_mark failed: ERROR:  prepared statement "node_changed_mark" does not exist
 
 do the following command on your *original.osm*:
 

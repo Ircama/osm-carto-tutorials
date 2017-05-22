@@ -34,23 +34,26 @@ Read [installation notes](https://github.com/gravitystorm/openstreetmap-carto/bl
 
 ## Install the fonts needed by openstreetmap-carto
 
-Currently Noto Sans font is used and DejaVu Sans is used as an optional fallback:
+Currently Noto fonts are used.
 
-```
-sudo apt-get install -y fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted ttf-unifont
-```
+To install them (except Noto Emoji Regular):
 
-DejaVu is packaged as fonts-dejavu-core.
+    sudo apt-get install -y fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted fonts-hanazono ttf-unifont
 
-Old fonts:
+Installation of Noto Emoji Regular:
 
-```
-sudo apt-get install -y fonts-dejavu-core fonts-droid-fallback ttf-unifont \
-  fonts-sipa-arundina fonts-sil-padauk fonts-khmeros \
-  fonts-beng-extra fonts-gargi fonts-taml-tscu fonts-tibetan-machine
-```
+    cd ~/src
+    git clone https://github.com/googlei18n/noto-emoji.git
+    sudo cp noto-emoji/fonts/NotoColorEmoji.ttf noto-emoji/fonts/NotoEmoji-Regular.ttf /usr/share/fonts/truetype/noto
+    sudo fc-cache -fv
+    sudo apt install fontconfig
+    fc-list
+    fc-list | grep Emoji
+    cd openstreetmap-carto
 
-If *fonts-droid-fallback* fails installing, replace it with *with fonts-droid*.
+DejaVu Sans is used as an optional fallback font for systems without Noto Sans. If all the Noto fonts are installed, it should never be used.
+
+    sudo apt-get install -y fonts-dejavu-core
 
 Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#fonts) for further information.
 
@@ -61,5 +64,7 @@ cd {{ include.cdprogram }}
 cd openstreetmap-carto
 scripts/get-shapefiles.py
 ```
+
+The actual shapefiles loaded by the OpenStreetMap tile servers are reported in the related [Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L65-L89).
 
 Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.

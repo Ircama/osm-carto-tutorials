@@ -389,15 +389,17 @@ Stylesheet *amenity-points.mss*:
 
 ## Reference documentation
 
-### Design goals and guidelines
+### Cartography design goals and guidelines
 
-The reference document is [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md).
+The reference document is [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md). It is an important prerequisite to start contributing to the Openstreetmap Carto style.
 
 ### Instructions for contributions
 
-The reference document is [CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md).
+The reference document is [CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md). This document includes essential development guidelines.
 
 ## Design patterns
+
+[Christoph Hormann](https://github.com/imagico) published an excellent document on [Design goals and guidelines for the Openstreetmap-carto style](https://matteobrusa.github.io/md-styler/?url=https://raw.githubusercontent.com/imagico/openstreetmap-carto/a8c9a49ad5f0e4c1fa0f34f580adbebfbe9cc5c3/CARTOGRAPHY.md&theme=bootstrap). It extends the official [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md) document with considerations on colors and zoom levels; reading and understanding it is recommended.
 
 ### Zoom filter in stylesheets
 
@@ -409,9 +411,9 @@ A given scale for equator can be adjusted to a specific latitude by multiplying 
 
 Resolution and Scale of Slippy map tiles is described [here](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale) and [here](http://wiki.openstreetmap.org/wiki/Zoom_levels).
 
-Some features need to scale up their font size according to the zoom level. If you are implementing different text sizes according to the zoom, consider also different wordwrap. The pattern to follow for the text size logic is [landuse samples](https://github.com/gravitystorm/openstreetmap-carto/blob/master/amenity-points.mss#L1455-L1475) and [lakes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/water.mss#L288-L312).
+Some features need to scale up their font size according to the zoom level. If you are implementing different text sizes according to the zoom, consider also different wordwrap. The pattern to follow for the text size logic is described in [Multi-line labels in CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md#multi-line-labels), [landuse samples](https://github.com/gravitystorm/openstreetmap-carto/blob/master/amenity-points.mss#L1455-L1475) and [lakes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/water.mss#L288-L312).
 
-### Recommendations
+### Additional recommendations
 
 * Render only verifiable features
   Before considering to render a feature, it is important to verify whether its definition does not lack [verifiability](http://wiki.openstreetmap.org/wiki/Verifiability) and that the related spatial data model is appropriate (for instance, a natural area might be defined as polygon and shall not be defined as way).

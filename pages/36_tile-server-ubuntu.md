@@ -75,24 +75,31 @@ The rendering process implemented by mod_tile and renderd is well explained [her
 
 ## Install carto and build the Mapnik xml stylesheet
 
-Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent.
+Install *nodejs-legacy* and *npm*:
 
-Install node-carto:
+    sudo apt install -y nodejs-legacy
+    sudo apt install -y npm
 
-    sudo apt-get install -y node-carto
+Install the latest version of *node-carto*:
+
+    sudo npm install -g @mapbox/carto
 
 Ensure that the latest *carto* version is installed (at least version >= 0.16.0, using YAML):
 
     carto -v
-    carto 0.16.3 (Carto map stylesheet compiler)
+
+The output should be `carto 0.16.3 (Carto map stylesheet compiler)`.
 
 Test *carto* and produce *style.xml* from the *openstreetmap-carto* style:
 
     cd ~/src
     cd openstreetmap-carto
     carto -a "3.0.0" project.mml > style.xml
+    ls -l style.xml
 
 The option `-a "3.0.0"` is needed when using Mapnik 3 functions [^2].
+
+Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent. The command `sudo apt-get install -y node-carto` will install an old carto version, not compatible with Openstreetmap Carto, and should be avoided.
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
@@ -100,7 +107,7 @@ The option `-a "3.0.0"` is needed when using Mapnik 3 functions [^2].
 
 ## Configure *renderd*
 
-Next we need to plug renderd and mod_tile into the Apache webserver, ready to receive tile requests.
+Next we need to plug *renderd* and *mod_tile* into the Apache webserver, ready to receive tile requests.
 
 Edit *renderd* configuration file with your preferite editor:
 
@@ -110,6 +117,8 @@ In the `[default]` section, change the value of XML and HOST to the following.
 
     XML=/home/{{ pg_login }}/src/openstreetmap-carto/style.xml
     HOST=localhost
+    
+Also, substitute all `;** ` with `;xxx=** ` (e.g., with vi `:1,$s/^;\*\* /;xxx=** /g`).
 
 We suppose in the above example that your home directory is */home/{{ pg_login }}*. Change it to your actual home directory.
 
@@ -122,6 +131,13 @@ Pay attention to the mapnik version: if it is at version 2.2 (Ubuntu 14.4):
     plugins_dir=/usr/lib/mapnik/2.2/input/
 
 Save the file.
+
+Check this to be sure:
+
+    ls -l /home/{{ pg_login }}/src/openstreetmap-carto/style.xml
+    grep '^;xxx=\*\*' /usr/local/etc/renderd.conf
+
+In case of error, verify user name and check again `/usr/local/etc/renderd.conf`.
 
 Install *renderd* init script by copying the sample init script included in its package.
 
@@ -193,18 +209,15 @@ Then edit the default virtual host file.
 Past the following lines after the line `<VirtualHost *:80>`
 
 ```shell
+# Load all the tilesets defined in the configuration file into this virtual host
 LoadTileConfigFile /usr/local/etc/renderd.conf
+# Socket where we connect to the rendering daemon
 ModTileRenderdSocketName /var/run/renderd/renderd.sock
 # Timeout before giving up for a tile to be rendered
-ModTileRequestTimeout 0
+ModTileRequestTimeout 3
 # Timeout before giving up for a tile to be rendered that is otherwise missing
-ModTileMissingRequestTimeout 2000
+ModTileMissingRequestTimeout 60
 ```
-
-Note: the default settings, which are the following, should already be a good tuning:
-
-    ModTileRequestTimeout 3
-    ModTileMissingRequestTimeout 30
 
 Save and close the file. Restart Apache.
 
@@ -232,7 +245,9 @@ Congratulations! You just successfully built your own OSM tile server.
 
 ## Pre-rendering tiles
 
-To pre-render tiles instead of rendering on the fly, use *render_list* command. Pre-rendered tiles will be cached in */var/lib/mod_tile directory*.
+Pre-rendering tiles is generally not needed (or not wanted); its main usage is to allow offline viewing instead of rendering tiles on the fly. Depending on the DB size, the procedure can take very long time and relevant disk data.
+
+To pre-render tiles, use *render_list* command. Pre-rendered tiles will be cached in `/var/lib/mod_tile` directory.
 
 To show all command line option of render_list:
 
@@ -242,11 +257,13 @@ Example usage:
 
     render_list -a
 
+Depending on the DB size, this command might take very long.
+
 ## Debugging Apache, mod_tile and renderd
 
 To clear all osm tiles cache, remove /var/lib/mod_tile/default (using rm -rf if you dare) and restart renderd daemon:
 
-    rm -rf /var/lib/mod_tile/default
+    sudo rm -rf /var/lib/mod_tile/default
     sudo systemctl restart renderd
 
 If *systemctl* is not installed (e.g., Ubuntu 14.4):
@@ -281,7 +298,7 @@ If *systemctl* is not installed (e.g., Ubuntu 14.4):
 
 Then:
 
-    /usr/local/bin/renderd -fc /usr/local/etc/renderd.conf
+    sudo -u tileserver /usr/local/bin/renderd -fc /usr/local/etc/renderd.conf
 
 Ignore the five errors related to `iniparser: syntax error in /usr/local/etc/renderd.conf` when referring to commented out variables (e.g., beginning with `;`).
 
@@ -292,6 +309,38 @@ Press Control-C to kill the program. After fixing the error, the daemon can be r
 If *systemctl* is not installed (e.g., Ubuntu 14.4):
 
     sudo service renderd start
+
+Check existence of `/var/run/renderd`:
+
+    ls -ld /var/run/renderd
+    
+Verify that the access permission are `-rw-r--r--  1 {{ pg_login }} {{ pg_login }}`.
+
+Check existence of the *style.xml* file:
+    
+     ls -l /home/{{ pg_login }}/src/openstreetmap-carto/style.xml
+
+If missing, see above to create it.
+
+Check existence of `/var/run/renderd/renderd.sock`:
+
+    ls -ld /var/run/renderd/renderd.sock
+
+Verify that the access permission are `srwxrwxrwx 1 {{ pg_login }} {{ pg_login }}`.
+
+In case of wrong owner:
+
+    sudo chown '{{ pg_login }}' /var/run/renderd
+    sudo chown '{{ pg_login }}' /var/run/renderd/renderd.sock
+    sudo service renderd restart
+
+If the directory is missing:
+
+    sudo mkdir /var/run/renderd
+    sudo chown '{{ pg_login }}' /var/run/renderd
+    sudo service renderd restart
+
+An error related to missing `tags` column in the *renderd* logs means that *osm2pgsql* was not run with the `--hstore` option.
 
 If everything in the configuration looks fine, but the map is still not rendered without any particular message produced by *renderd*, try performing a system restart:
 
