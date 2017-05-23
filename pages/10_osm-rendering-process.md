@@ -48,6 +48,8 @@ openstreetmap-carto includes the following files and folders:
 
 The rendering process takes its data from a [PostgreSQL](https://www.postgresql.org/) geodatabase with [spatial extension](https://en.wikipedia.org/wiki/Spatial_database) implemented through [PostGIS](http://postgis.net/) (yellow cylinder in the previous drawing). This DB instance holds a constantly updated planet table space in a different format to the database used on the core OSM database server (represented in green in the previous drawing) and is populated by running an [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) script on minutely [diffs](http://wiki.openstreetmap.org/wiki/Planet.osm/diffs). Osm2pgsql acts as [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load), converting OpenStreetMap incremental data to PostGIS-enabled PostgreSQL DB and is able to manage incremental updates of the database as well as to perform an initial load when needed, keeping the PostGIS instance updated or fully refreshing it (in case of periodic database re-import or following a possible major change in openstreetmap-carto that requires reloading the database).
 
+[osm2pgsql supports Lua scripts](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/lua.md) to perform complex queries and rewrite/unify tags before data enter the database. [Lua](http://lua.org/) pre-processing saves further Mapnik processing.
+
 ### Populating the PostGIS instance
 
 The following diagram represents the process to populate the PostGIS instance with OSM data though osm2pgsql.
@@ -67,7 +69,7 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 *openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.mml* shall match a description in *openstreetmap-carto.style*. *openstreetmap-carto.style* is the *.style* file for OpenStreetMap Carto.
 
-Notice that whenever *openstreetmap-carto.lua* or *openstreetmap-carto.style* need to be changed (e.g., to address some requirement of newly introduced DB columns within openstreetmap-carto), a full database re-import process has to be accomplished (very infrequent operation currently).
+Notice that whenever [openstreetmap-carto.lua](https://github.com/gravitystorm/openstreetmap-carto/blob/master/openstreetmap-carto.lua) or [openstreetmap-carto.style](https://github.com/gravitystorm/openstreetmap-carto/blob/master/openstreetmap-carto.style) need to be changed (e.g., to address some requirement of newly introduced DB columns within openstreetmap-carto), a full database re-import process has to be accomplished (very infrequent operation currently).
 
 Transformations hardcoded in osm2pgsql might be rather invasive, like the one mentioned [here](https://github.com/gravitystorm/openstreetmap-carto/issues/2297) where tags from inner members are dropped if the outer has the "same" tags.
 

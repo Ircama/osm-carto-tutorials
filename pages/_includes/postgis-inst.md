@@ -239,7 +239,7 @@ osm2pgsql uses overcommit like many scientific and large data applications, whic
 cd {{ include.cdprogram }}
 cd openstreetmap-carto
 HOSTNAME=localhost # set it to the actual ip address or host name
-osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style --hstore -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
+osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
 
 Depending on the input file size, the osm2pgsql command might take very long.
@@ -264,7 +264,7 @@ If you get the following error:
 
 then you need to add the *hstore* flag to *osm2pgsql*:
 
-    osm2pgsql -s -C 300 -c -G -d gis --style openstreetmap-carto.style --hstore -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
+    osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 
 ## Create indexes
 

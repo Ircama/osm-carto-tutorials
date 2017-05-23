@@ -13,7 +13,7 @@ This page aims to describe the general editing process of the OpenStreetMap Cart
 
 The following workflow summarizes the main actions.
 
-|**Check DB data.**![db][db]<span>Within the PostGIS instance, find the DB columns related to the feature in scope.<span>Also verify that all needed columns are included in *openstreetmap-carto.style*. Notice that if a column is not in this file, it should neither be present in the DB and the new feature cannot be added (as *openstreetmap-carto.style* shall not be modified).|
+|**Check DB data.**![db][db]<span>Within the PostGIS instance, find the DB columns related to the feature in scope.<span>Verify that the needed column is included in *openstreetmap-carto.style* or that the [hstore](https://www.postgresql.org/docs/9.5/static/hstore.html) tags column can provide the needed feature through the *tags->'feature'* syntax. As *osm2pgsql* populates hstore values for features that are not present in *openstreetmap-carto.style*, this file is expected to be rarely modified.|
 |↓|
 |**Edit project.mml.**![yml][yml]<span>Check whether the selected columns are already managed within the appropriate layers in *project.mml*.<span>If everything is already appropriately defined, all modifications can be directly implemented within the CartoCSS *.mss* files.<span>Conversely, if the feature is not present within the layer(s), *project.mml* has to be edited.<span>For complex development, a new layer might be needed and in this case a new section has to be developed in *project.mml*.|
 |↓|
@@ -436,6 +436,8 @@ Some features need to scale up their font size according to the zoom level. If y
 
 {% include_relative _includes/scripts-osm-carto.md %}
 
+### Other useful scripts and commands
+
 Validate the MML against multiple Mapnik versions, and report its lines for debugging purposes:
 
     sudo apt install libxml2-utils
@@ -445,10 +447,11 @@ Validate that the SVGs are valid XML:
 
     find symbols/ -name '*.svg' | xargs xmllint --noout
 
-Check the Lua transforms:
+Check and validate the Lua tag transforms:
 
-    sudo apt install lua5.1
-    lua scripts/lua/test.lua
+    sudo apt install lua5.2  # install Lua interpreter (osm2pgsql embeds it)
+    cd openstreetmap-carto   # position inside the openstreetmap-carto directory
+    lua scripts/lua/test.lua # run the test script
 
 ## Pattern casing
 
