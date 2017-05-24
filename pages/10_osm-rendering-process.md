@@ -67,11 +67,13 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 *openstreetmap-carto.lua* is a [Lua](https://www.lua.org/) script invoked by *osm2pgsql* for data normalization, removal and aggregation. While some standard data management is hardcoded in *osm2pgsql*, most of the transformations are scripted in *openstreetmap-carto.lua*, which also covers semantic corrections of features.
 
-*openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It describes all the columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.mml* shall match a description in *openstreetmap-carto.style*. *openstreetmap-carto.style* is the *.style* file for OpenStreetMap Carto.
+*openstreetmap-carto.style* is a text configuration file of *osm2pgsql*. It lists all columns which are available in the PostGIS DB tables, to be used by the openstreetmap-carto rendering process. Specifically, any DB field used in *project.mml* shall match a description in *openstreetmap-carto.style*. *openstreetmap-carto.style* is the *.style* file for OpenStreetMap Carto.
 
-Notice that whenever [openstreetmap-carto.lua](https://github.com/gravitystorm/openstreetmap-carto/blob/master/openstreetmap-carto.lua) or [openstreetmap-carto.style](https://github.com/gravitystorm/openstreetmap-carto/blob/master/openstreetmap-carto.style) need to be changed (e.g., to address some requirement of newly introduced DB columns within openstreetmap-carto), a full database re-import process has to be accomplished (very infrequent operation currently).
+[openstreetmap-carto.lua](https://github.com/gravitystorm/openstreetmap-carto/blob/master/openstreetmap-carto.lua) and [openstreetmap-carto.style](https://github.com/gravitystorm/openstreetmap-carto/blob/master/openstreetmap-carto.style) should very rarely be changed. In general, the capability of *osm2pgsql* to store tags not referred by *openstreetmap-carto.style* in an *hstore* column named *tags* reduces to the minimum the need of adding elements to the *openstreetmap-carto.style* list, which should be confined to report all very common tags and all columns used for filtering, with all other ones relying on *hstore*[^1]. Conversely, *hstore* cannot be used to access objects that do not have at least one key that is in the *openstreetmap-carto.style* list. For example, if we have an object with `man_made=pipeline` (notice that [*man_made*](https://github.com/gravitystorm/openstreetmap-carto/blob/master/openstreetmap-carto.style#L33) is in the list) and `location=underground` (with *location* not in the list), we would be able to access *underground* even though *location* is not in the list. However, we wouldn't be able to access an object only tagged `emergency=ambulance_station` if *emergency* is not in the list.[^2]
 
-Transformations hardcoded in osm2pgsql might be rather invasive, like the one mentioned [here](https://github.com/gravitystorm/openstreetmap-carto/issues/2297) where tags from inner members are dropped if the outer has the "same" tags.
+Any modification to *openstreetmap-carto.lua* or to *openstreetmap-carto.style* requires a full database re-import (long running batch process which, thanks to the availability of *hstore*, is a very infrequent operation currently).
+
+The usage of *openstreetmap-carto.lua* allows to refefine the transformations avioding to rely to the ones hardcoded in osm2pgsql which might be uncomplete or invasive.
 
 ### Obtaining an indexed image of the shapefiles
 
@@ -167,3 +169,6 @@ Kosmtik includes Carto, [node-mapnik](https://github.com/mapnik/node-mapnik) and
 Refer to [Installing Kosmtik and OpenStreetMap-Carto on Ubuntu](../kosmtik-ubuntu-setup) for further information on the Kosmtik configuration needed for OpenStreetMap Carto.
 
 {% include pages/images.md %}
+
+[^1]: [pnorman's note](https://github.com/gravitystorm/openstreetmap-carto/pull/2128#issuecomment-222503974)
+[^2]: [math1985's note](https://github.com/gravitystorm/openstreetmap-carto/issues/1504#issuecomment-97110342)
