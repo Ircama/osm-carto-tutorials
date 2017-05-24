@@ -231,9 +231,13 @@ rm -rf osm2pgsql
 
 ## Load data to PostGIS
 
-osm2pgsql uses overcommit like many scientific and large data applications, which requires adjusting a kernel setting:
+The [osm2pgsql documentation](https://github.com/openstreetmap/osm2pgsql/tree/master/docs) reports all needed information to use this ETL tool, including related [command line options](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/usage.md).
 
-  sudo sysctl -w vm.overcommit_memory=1
+*osm2pgsql* uses overcommit like many scientific and large data applications, which requires adjusting a kernel setting:
+
+    sudo sysctl -w vm.overcommit_memory=1
+
+To load data from an *.osm* or *.pbf* file to PostGIS, issue the following:
 
 ```shell
 cd {{ include.cdprogram }}
@@ -242,11 +246,19 @@ HOSTNAME=localhost # set it to the actual ip address or host name
 osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
 
-Depending on the input file size, the osm2pgsql command might take very long.
+Notice that the following elements are used:
+
+- hstore
+- the *openstreetmap-carto.style*
+- the *openstreetmap-carto.lua* LUA script
+- *gis* DB name
+
+Depending on the input file size, the *osm2pgsql* command might take very long.
 
 Note: if you get the following error:
 
-`node_changed_mark failed: ERROR:  prepared statement "node_changed_mark" does not exist
+`
+node_changed_mark failed: ERROR:  prepared statement "node_changed_mark" does not exist
 
 do the following command on your *original.osm*:
 
