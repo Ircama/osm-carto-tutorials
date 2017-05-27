@@ -244,6 +244,10 @@ Then in your web browser address bar, type
 
 where you need to change *your-server-ip* with the actual IP address of the installed map server.
 
+To expand it with the public IP address of your server, check this command for instance (paste its output to the browser):
+
+    echo "http://`wget http://ipinfo.io/ip -qO -`/osm_tiles/0/0/0.png"
+
 You should see the tile of world map.
 
 Congratulations! You just successfully built your own OSM tile server.
