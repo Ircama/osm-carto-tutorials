@@ -246,6 +246,8 @@ HOSTNAME=localhost # set it to the actual ip address or host name
 osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
 
+If everything is ok, you can go to [Create indexes](https://ircama.github.io/osm-carto-tutorials/tile-server-ubuntu/#create-indexes).
+
 Notice that the following elements are used:
 
 - hstore

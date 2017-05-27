@@ -100,6 +100,8 @@ Test *carto* and produce *style.xml* from the *openstreetmap-carto* style:
     carto -a "3.0.0" project.mml > style.xml
     ls -l style.xml
 
+Warning messages for deprecated name attributes might happen and are normal (like `Warning: using the name attribute for layers (like water-lines-text here) is deprecated and will be removed in 1.0.0. Use id instead.`.
+
 The option `-a "3.0.0"` is needed when using Mapnik 3 functions [^2].
 
 Notice that the *carto* feature able to natively process *project.mml* in YAML format (currently adopted for openstreetmap-carto) is recent. The command `sudo apt-get install -y node-carto` will install an old carto version, not compatible with Openstreetmap Carto, and should be avoided.
@@ -245,6 +247,8 @@ where you need to change *your-server-ip* with the actual IP address of the inst
 You should see the tile of world map.
 
 Congratulations! You just successfully built your own OSM tile server.
+
+You can go to [OpenLayers](https://ircama.github.io/osm-carto-tutorials/tile-server-ubuntu/#openlayers) to display the slippy map.
 
 ## Pre-rendering tiles
 
@@ -612,6 +616,10 @@ You might wish to adjust the longitude, latitude and zoom level according to you
 Save and close the file. Now you can view your slippy map by typing the following URL in browser.
 
     http://your-server-ip/ol.html
+
+To expand it with the public IP address of your server, check this command for instance (paste its output to the browser):
+
+    echo "http://`wget http://ipinfo.io/ip -qO -`/ol.html"
 
 <script async src="//jsfiddle.net/ircama/r3a4t201/embed/html,js,resources,css,result/"></script>
 
