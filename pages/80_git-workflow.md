@@ -307,6 +307,18 @@ You need to make sure to resolve all conflicts such that the files make sense, a
 
 After resolving a conflict, issue `git add [your edited filename]` and then `git rebase --continue`.
 
+Notes:
+
+  - If you only want to modify your last commit message, issue the following:
+  
+      git commit --amend
+      git push --force
+  
+  - If you want to consolidate your last two commits into one:
+  
+      git rebase -i HEAD~2
+      git push --force
+
 Further documentation:
 
 - https://git-scm.com/docs/git-rebase
