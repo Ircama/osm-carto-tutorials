@@ -311,13 +311,17 @@ Notes:
 
   - If you only want to modify your last commit message, issue the following:
   
-      git commit --amend
-      git push --force
+    ```
+    git commit --amend
+    git push --force
+    ```
   
   - If you want to consolidate your last two commits into one:
   
-      git rebase -i HEAD~2
-      git push --force
+    ```
+    git rebase -i HEAD~2
+    git push --force
+    ```
 
 Further documentation:
 
