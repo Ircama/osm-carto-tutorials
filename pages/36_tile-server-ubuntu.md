@@ -31,11 +31,11 @@ A *PostGIS* database is required, storing geospatial features populated by *osm2
 
 When the Apache web server receives a request from the browser, it invokes the [mod_tile](https://github.com/openstreetmap/mod_tile/) plugin, which in turn checks if the tile has already been created (from a previous rendering) and cached, so that it is ready for use; in case, *mod_tile* immediately sends the tile back to the web server. Conversely, if the request needs to be rendered, then it is queued to the *renderd* backend, which is responsible to invoke [Mapnik]( http://wiki.openstreetmap.org/wiki/Mapnik) to perform the actual rendering; *renderd* is a *daemon* process included in the *mod_tile* sources and interconnected to *mod_tile* via UNIX or socket queues; it is used by www.openstreetmap.org, even if some OSM implementations use [tirex](http://wiki.openstreetmap.org/wiki/Tirex); *Mapnik* extracts data from the PostGIS database according to the *openstreetmap-carto* style information and dynamically renders the tile. *renderd* passes back the produced tile to the web server and in turn to the browser.
 
-The renderd daemon implements a queuing mechanism with multiple  priority levels to provide an as up-to-date viewing experience  given the available rendering resources. The highest priority  is for on the fly rendering of tiles not yet in the tile cache,  two priority levels for re-rendering out of date tiles on the fly  and two background batch rendering queues. To avoid problems with directories becoming too large and to avoid  too many tiny files, Mod_tile/renderd store the rendered tiles  in "meta tiles" in a special hashed directory structure.[^3]
+The *renderd* daemon implements a queuing mechanism with multiple priority levels to provide an as up-to-date viewing experience given the available rendering resources. The highest priority is for on the fly rendering of tiles not yet in the tile cache, two priority levels for re-rendering out of date tiles on the fly and two background batch rendering queues. To avoid problems with directories becoming too large and to avoid too many tiny files, *Mod_tile*/*renderd* store the rendered tiles in "meta tiles", in a special hashed directory structure.[^3]
 
-Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*; it is typically used to pre-render low zoom level tiles and will take significant time to accomplish the process (tens of hours for full planet); this utility is included in *mod_tile*, as well *render_expired* which provide methods to allow expiring map tiles.
+Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*, which is typically used to pre-render low zoom level tiles and takes significant time to accomplish the process (tens of hours in case the full planet is pre-rendered); this utility is included in *mod_tile*, as well as another tool named *render_expired*, which provides methods to allow expiring map tiles. More detailed description of *render_list* and *render_expired* can be found in their man pages.
 
-Background on tiles expiry method: [tiles expiry mechanism](http://wiki.openstreetmap.org/wiki/Tile_expire_methods)
+A background on the tiles expiry method can be found at [tiles expiry mechanism](http://wiki.openstreetmap.org/wiki/Tile_expire_methods).
 
 |                   | |client browser  ![web][web]| | |
 |                   | |↓                   | | |
@@ -697,4 +697,4 @@ A rapid way to test the slippy map is through an online source code playground l
 
 [^2]: [math1985's note](https://github.com/gravitystorm/openstreetmap-carto/pull/2470#issuecomment-266234112)
 
-[^3] check [mod_tile](https://github.com/openstreetmap/mod_tile/) for further details
+[^3]: check [mod_tile](https://github.com/openstreetmap/mod_tile/) for further details
