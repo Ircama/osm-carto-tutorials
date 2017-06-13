@@ -10,7 +10,7 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu 16.4 or 14.4.[^1]
 
-The OSM Tile Server is a [web server](https://en.wikipedia.org/wiki/Web_server) specialized in delivering [raster](https://en.wikipedia.org/wiki/Raster_graphics) maps, serving them as static [tiles](https://en.wikipedia.org/wiki/Raster_graphics) and able to perform rendering in real time or providing cached images. The adopted web server is the [Apache HTTP Server]( https://en.wikipedia.org/wiki/Apache_HTTP_Server) software, together with a specific plugin named *mod_tile* and a related backend stack; programs and libraries are chained together to create the tile server.
+The OSM Tile Server is a [web server](https://en.wikipedia.org/wiki/Web_server) specialized in delivering [raster](https://en.wikipedia.org/wiki/Raster_graphics) maps, serving them as static [tiles](https://en.wikipedia.org/wiki/Raster_graphics) and able to perform [rendering](http://wiki.openstreetmap.org/wiki/Rendering) in real time or providing cached images. The adopted web server is the [Apache HTTP Server]( https://en.wikipedia.org/wiki/Apache_HTTP_Server) software, together with a specific plugin named *mod_tile* and a related backend stack; programs and libraries are chained together to create the tile server.
 
 As so often with OpenStreetMap, there are many ways to achieve this goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the most standard version that is also used on the main OpenStreetMap.org tile server.
 
@@ -33,7 +33,9 @@ When the Apache web server receives a request from the browser, it invokes the [
 
 The renderd daemon implements a queuing mechanism with multiple  priority levels to provide an as up-to-date viewing experience  given the available rendering resources. The highest priority  is for on the fly rendering of tiles not yet in the tile cache,  two priority levels for re-rendering out of date tiles on the fly  and two background batch rendering queues. To avoid problems with directories becoming too large and to avoid  too many tiny files, Mod_tile/renderd store the rendered tiles  in "meta tiles" in a special hashed directory structure.[^3]
 
-Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*.
+Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*; it is typically used to pre-render low zoom level tiles and will take significant time to accomplish the process (tens of hours for full planet); this utility is included in *mod_tile*, as well *render_expired* which provide methods to allow expiring map tiles.
+
+Background on tiles expiry method: [tiles expiry mechanism](http://wiki.openstreetmap.org/wiki/Tile_expire_methods)
 
 |                   | |client browser  ![web][web]| | |
 |                   | |↓                   | | |
