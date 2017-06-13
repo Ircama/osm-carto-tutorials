@@ -35,8 +35,6 @@ The renderd daemon implements a queuing mechanism with multiple  priority levels
 
 Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*.
 
-An additional description of the rendering process of OpenStreetMap can be found at [OSM architecture](../osm-rendering-process), including general components and tools, populating the PostGIS instance, converting the CartoCSS style sources to Mapnik XML and the Mapnik rendering process.
-
 |                   | |client browser  ![web][web]| | |
 |                   | |↓                   | | |
 |Disk Cache (tiles)![png][png]| |Apache Web Server ![prg][prg]|→|Web page ![html][html]|
@@ -50,6 +48,7 @@ An additional description of the rendering process of OpenStreetMap can be found
 
 <br />
 
+An additional description of the rendering process of OpenStreetMap can be found at [OSM architecture](../osm-rendering-process), including general components and tools, populating the PostGIS instance, converting the CartoCSS style sources to Mapnik XML and the Mapnik rendering process.
 
 Even if different operating system versions have been tested, Ubuntu 16.4 is strongly suggested.
 
