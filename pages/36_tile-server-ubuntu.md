@@ -10,7 +10,9 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu 16.4 or 14.4.[^1]
 
-The OSM tile server stack is a collection of programs and libraries chained together to create a tile server. As so often with OpenStreetMap, there are many ways to achieve this goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the most standard version that is also used on the main OpenStreetMap.org tile server.
+The OSM Tile Server is a [web server](https://en.wikipedia.org/wiki/Web_server) specialized in delivering [raster](https://en.wikipedia.org/wiki/Raster_graphics) maps, serving them as static [tiles](https://en.wikipedia.org/wiki/Raster_graphics) and able to perform rendering in real time or providing cached images. The adopted web server is the [Apache HTTP Server]( https://en.wikipedia.org/wiki/Apache_HTTP_Server) software, together with a specific plugin named *mod_tile* and a related backend stack; programs and libraries are chained together to create the tile server.
+
+As so often with OpenStreetMap, there are many ways to achieve this goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the most standard version that is also used on the main OpenStreetMap.org tile server.
 
 It consists of the following main components:
 
@@ -23,7 +25,7 @@ It consists of the following main components:
 * carto
 * openstreetmap-carto
 
-A description of the rendering process of OpenStreetMap can be found at [OSM architecture](../rendering-process), including general components and tools, populating the PostGIS instance, converting the CartoCSS style sources to Mapnik XML and the Mapnik rendering process.
+All mentioned software is open-source.
 
 The main requirement for the rendering process is the *PostGIS* database, which stores geospatial features populated by *osm2pgsql* tool from OSM data. Also, a file system directory including the *OSM.xml* file, map symbols (check openstreetmap-carto/symbols subdirectory) and shapefiles (check openstreetmap-carto/data subdirectory) is needed. *OSM.xml* is preliminarily produced by a tool named [carto](https://github.com/mapbox/carto) from the *openstreetmap-carto* style (project.mml and all related CartoCSS files included in openstreetmap-carto). When the Apache web server receives a request from the browser, it invokes the [mod_tile](https://github.com/openstreetmap/mod_tile/) plugin, which in turn checks if the tile has already been created (from a previous rendering) and cached, so that it is ready for use; in case, *mod_tile* immediately sends the tile back to the web server. Conversely, if the request needs to be rendered, then it is queued to the *renderd* backend, which is responsible to invoke [Mapnik]( http://wiki.openstreetmap.org/wiki/Mapnik) to perform the actual rendering; *renderd* is a *daemon* process included in the *mod_tile* sources and interconnected to *mod_tile* via UNIX or socket queues; it is used by www.openstreetmap.org, even if some OSM implementations use [tirex](http://wiki.openstreetmap.org/wiki/Tirex) instead; *Mapnik* extracts data from the PostGIS database according to the *openstreetmap-carto* style information and dynamically renders the tile. *renderd* passes back the produced tile to the web server and in turn to the browser.
 
@@ -31,7 +33,7 @@ The renderd daemon implements a queuing mechanism with multiple  priority levels
 
 Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*.
 
-All mentioned software is open-source.
+An additional description of the rendering process of OpenStreetMap can be found at [OSM architecture](../rendering-process), including general components and tools, populating the PostGIS instance, converting the CartoCSS style sources to Mapnik XML and the Mapnik rendering process.
 
 |                   | |client browser  ![web][web]| | |
 |                   | |↓                   | | |
