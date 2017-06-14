@@ -30,6 +30,7 @@ Information on the usage of this theme can be found in [how to contribute](_note
 * [A Jekyll layout that compresses HTML in pure Liquid](https://github.com/penibelst/jekyll-compress-html), © 2014–2015 Anatol Broder. Released under the MIT License. The compressor has been modified in order to also obtain a very basic Liquid Javascript compressor.
 * Fonts and icons from http://fontawesome.io/, designed by Freepik and distributed by Flaticon (http://www.flaticon.com/authors/freepik), https://openclipart.org/ and https://icomoon.io
 * [matteobrusa](https://github.com/matteobrusa)'s code to [show a styled markdown document from an URL](https://matteobrusa.github.io/md-styler/)
+* [roperzh](https://github.com/roperzh)'s code to [parse and view man pages](https://github.com/roperzh/jroff/)
 
 Licensed under the [MIT License](http://opensource.org/licenses/MIT)
 

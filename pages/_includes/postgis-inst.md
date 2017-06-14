@@ -231,7 +231,7 @@ rm -rf osm2pgsql
 
 ## Load data to PostGIS
 
-The [osm2pgsql documentation](https://github.com/openstreetmap/osm2pgsql/tree/master/docs) reports all needed information to use this ETL tool, including related [command line options](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/usage.md).
+The [osm2pgsql documentation](https://github.com/openstreetmap/osm2pgsql/tree/master/docs) reports all needed information to use this ETL tool, including related [command line options]({{ site.baseurl }}/manpage.html/?url=https://raw.githubusercontent.com/openstreetmap/osm2pgsql/master/docs/osm2pgsql.1){:target="_blank"}.
 
 *osm2pgsql* uses overcommit like many scientific and large data applications, which requires adjusting a kernel setting:
 
@@ -246,7 +246,7 @@ HOSTNAME=localhost # set it to the actual ip address or host name
 osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
 
-If everything is ok, you can go to [Create indexes](https://ircama.github.io/osm-carto-tutorials/tile-server-ubuntu/#create-indexes).
+If everything is ok, you can go to [Create indexes](#create-indexes).
 
 Notice that the following elements are used:
 

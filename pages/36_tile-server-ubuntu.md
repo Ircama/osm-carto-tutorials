@@ -33,7 +33,7 @@ When the Apache web server receives a request from the browser, it invokes the [
 
 The *renderd* daemon implements a queuing mechanism with multiple priority levels to provide an as up-to-date viewing experience given the available rendering resources. The highest priority is for on the fly rendering of tiles not yet in the tile cache, two priority levels for re-rendering out of date tiles on the fly and two background batch rendering queues. To avoid problems with directories becoming too large and to avoid too many tiny files, *Mod_tile*/*renderd* store the rendered tiles in "meta tiles", in a special hashed directory structure.[^3]
 
-Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*, which is typically used to pre-render low zoom level tiles and takes significant time to accomplish the process (tens of hours in case the full planet is pre-rendered); this utility is included in *mod_tile*, as well as another tool named *render_expired*, which provides methods to allow expiring map tiles. More detailed description of *render_list* and *render_expired* can be found in their man pages.
+Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*, which is typically used to pre-render low zoom level tiles and takes significant time to accomplish the process (tens of hours in case the full planet is pre-rendered); this utility is included in *mod_tile*, as well as another tool named *render_expired*, which provides methods to allow expiring map tiles. More detailed description of [render_list]({{ site.baseurl }}/manpage.html/?url=https://rawgit.com/openstreetmap/mod_tile/master/docs/render_list.1){:target="_blank"} and [render_expired]({{ site.baseurl }}/manpage.html/?url=https://rawgit.com/openstreetmap/mod_tile/master/docs/render_expired.1){:target="_blank"} can be found in their man pages.
 
 A background on the tiles expiry method can be found at [tiles expiry mechanism](http://wiki.openstreetmap.org/wiki/Tile_expire_methods).
 
@@ -263,7 +263,7 @@ You should see the tile of world map.
 
 Congratulations! You just successfully built your own OSM tile server.
 
-You can go to [OpenLayers](https://ircama.github.io/osm-carto-tutorials/tile-server-ubuntu/#openlayers) to display the slippy map.
+You can go to [OpenLayers](#openlayers) to display the slippy map.
 
 ## Pre-rendering tiles
 
@@ -271,7 +271,7 @@ Pre-rendering tiles is generally not needed (or not wanted); its main usage is t
 
 To pre-render tiles, use *render_list* command. Pre-rendered tiles will be cached in `/var/lib/mod_tile` directory.
 
-To show all command line option of render_list:
+To show all command line option of [render_list]({{ site.baseurl }}/manpage.html/?url=https://rawgit.com/openstreetmap/mod_tile/master/docs/render_list.1){:target="_blank"}:
 
     render_list --help
 
