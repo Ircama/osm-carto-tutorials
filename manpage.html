@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_blank">
+</head>
+<page>Loading...</page>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://127.0.0.1:4000/osm-carto-tutorials/public/jroff.js"></script>
+<script>
+	$.urlParam = function(name){
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		if (results==null){
+		   return null;
+		}
+		else{
+		   return results[1] || 0;
+		}
+	}
+	url= $.urlParam('url'); 
+	
+	if (url.indexOf("%3A%2F%2F")!=-1) 
+		url= decodeURIComponent(url);
+	
+	// Fat ugly hack for old Safari
+	if (url.indexOf("https")==0) {
+		ua= navigator.userAgent;
+		if (ua.indexOf('Safari') != -1 && ua.indexOf('Chrome') == -1) {
+			if (ua.indexOf("Version/9.")>0 ||
+			    ua.indexOf("Version/8.")>0 ||
+			    ua.indexOf("Version/7.")>0) {
+				url= url.replace("https", "http");
+				console.log("Ugly hack for: "+ua);
+			}
+		}
+	}
+
+  document.title = url.replace(/^.*\/|\.[^.]*$/g, '') + " Man Page";
+
+	jqXHR= $.get("//cors-anywhere.herokuapp.com/"+ url, function (response) {
+			// Instantiate a new generator
+      var generator = new Jroff.HTMLGenerator();
+      // Generate the HTML output
+      var result = generator.generate(response, 'an');
+			$("page").html(result);
+	});
+</script>
+</html>
