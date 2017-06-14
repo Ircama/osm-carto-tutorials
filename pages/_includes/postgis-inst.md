@@ -231,7 +231,7 @@ rm -rf osm2pgsql
 
 ## Load data to PostGIS
 
-The [osm2pgsql documentation](https://github.com/openstreetmap/osm2pgsql/tree/master/docs) reports all needed information to use this ETL tool, including related [command line options]({{ site.baseurl }}/manpage.html/?url=https://raw.githubusercontent.com/openstreetmap/osm2pgsql/master/docs/osm2pgsql.1){:target="_blank"}.
+The [osm2pgsql documentation](https://github.com/openstreetmap/osm2pgsql/tree/master/docs) reports all needed information to use this ETL tool, including related [command line options]({{ site.baseurl }}/manpage.html?url=https://raw.githubusercontent.com/openstreetmap/osm2pgsql/master/docs/osm2pgsql.1){:target="_blank"}.
 
 *osm2pgsql* uses overcommit like many scientific and large data applications, which requires adjusting a kernel setting:
 
