@@ -6,6 +6,8 @@ sitemap: false
 <!DOCTYPE html>
 <html>
 <head>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ site.baseurl }}/public/jroff.css">
   <base target="_blank">
 </head>
 <page>Loading...</page>
@@ -46,7 +48,7 @@ sitemap: false
       var generator = new Jroff.HTMLGenerator();
       // Generate the HTML output
       var result = generator.generate(response, 'an');
-			$("page").html(result);
+			$("page").html(urlify(result));
 	});
 </script>
 </html>
