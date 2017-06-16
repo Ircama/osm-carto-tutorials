@@ -14,6 +14,14 @@ sitemap: false
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="{{ site.baseurl }}/public/jroff.js"></script>
 <script>
+  function urlify(text) {
+      var urlRegex = /((https?:\/\/)|(www\.))[^\s<&]*[^\s<&.;,:]/g;
+      return text.replace(urlRegex, function(url,b,c) {
+          var url2 = (c == 'www.') ?  'http://' +url : url;
+          return '<a href="' +url2+ '" target="_blank">' + url + '</a>';
+      }) 
+  }
+
 	$.urlParam = function(name){
 		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 		if (results==null){
