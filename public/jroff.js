@@ -628,11 +628,11 @@
       title = this.buffer.title + '(' + this.buffer.section + ')';
 
       return(
-        '<p class="th">' + this.buffer.title + '(' + this.buffer.section + ')' + '<br/>' +
-        docSections[this.buffer.section] + '<br/>' +
-        this.buffer.date + '<br/>' +
-        this.buffer.source + '<br/>' +
-        this.buffer.manual + '<hr></p>'
+        '<p class="th">' + this.buffer.title + (this.buffer.section ? '(' + this.buffer.section + ')' + '<br/>' : '') +
+        docSections[this.buffer.section] + (docSections[this.buffer.section] ? '<br/>' : '') +
+        this.buffer.date + (this.buffer.Date ? '<br/>' : '') +
+        this.buffer.source + (this.buffer.source ? '<br/>' : '') +
+        this.buffer.manual + (this.buffer.title? '<hr></p>' : '')
       );
     },
 

@@ -447,8 +447,15 @@ body	{min-height: 100%; width: 1000px; margin: 10px auto; padding: 0 20px;
 }
 
 .th {
+  padding-top: 8px;
   text-align: center;
   font-size: 80%;
+}
+
+.loading {
+  text-align: center;
+  letter-spacing: 3px;
+  line-height: 5em;
 }
 
 @media (max-width: 767px) {
