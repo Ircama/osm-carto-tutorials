@@ -23,12 +23,6 @@ html {
   -webkit-text-size-adjust: 100%;
   /* 2 */ }
 
-/**
- * Remove default margin.
- */
-body {
-  margin: 0; }
-
 /* HTML5 display definitions
    ========================================================================== */
 /**
@@ -441,6 +435,21 @@ figure {
   .live-preview-l .code-box #editor, .live-preview-l .code-box #result {
     height: calc(100vh - 150px);
     width: 100%; }
+
+@media (min-width: 767px) {
+html	{background: #e8e8e8;}
+body	{min-height: 100%; width: 1000px; margin: 10px auto; padding: 0 20px;
+		   background: white;
+       -webkit-box-shadow: 2px 1px 22px -5px rgba(0,0,0,0.55);
+       -moz-box-shadow: 2px 1px 22px -5px rgba(0,0,0,0.55);
+       box-shadow: 2px 1px 22px -5px rgba(0,0,0,0.55);
+      }
+}
+
+.th {
+  text-align: center;
+  font-size: 80%;
+}
 
 @media (max-width: 767px) {
   .live-preview-l .code-box {

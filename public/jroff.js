@@ -628,7 +628,7 @@
       title = this.buffer.title + '(' + this.buffer.section + ')';
 
       return(
-        '<p>' + this.buffer.title + '<br/>' +
+        '<p class="th">' + this.buffer.title + '(' + this.buffer.section + ')' + '<br/>' +
         docSections[this.buffer.section] + '<br/>' +
         this.buffer.date + '<br/>' +
         this.buffer.source + '<br/>' +
