@@ -127,9 +127,7 @@ Download openstreetmap-carto to a local subdirectory of the user's home director
 Install the Docker files of openstreetmap-carto (notice that the Docker code is not merged with OSM-carto at the time of writing, but still under revision; this step will not be needed afer publishing the code to OSM-carto):
 {: .green}
 
-    sudo apt install -y unzip
-
-    wget https://github.com/Ircama/openstreetmap-carto/archive/docker.zip
+    curl -L -o docker.zip https://github.com/Ircama/openstreetmap-carto/archive/docker.zip
     unzip -nj docker.zip \
     openstreetmap-carto-docker/.dockerignore \
     openstreetmap-carto-docker/.env \
@@ -141,7 +139,7 @@ Install the Docker files of openstreetmap-carto (notice that the Docker code is 
     openstreetmap-carto-docker/scripts/docker-startup.sh
     mv docker-startup.sh scripts
     rm docker.zip
-    wget https://raw.githubusercontent.com/Ircama/openstreetmap-carto/get-shapefiles2/scripts/get-shapefiles.py -O scripts/get-shapefiles.py
+    curl -L -o scripts/get-shapefiles.py https://raw.githubusercontent.com/Ircama/openstreetmap-carto/get-shapefiles2/scripts/get-shapefiles.py
 
 - Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/Ircama/openstreetmap-carto/blob/docker/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
