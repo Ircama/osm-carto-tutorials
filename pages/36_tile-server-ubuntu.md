@@ -8,9 +8,9 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 ## Introduction
 
-The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu 16.4 or 14.4.[^1]
+Even if the general scope of this site is to provide tutorials to set-up a development environment of OpenStreetMap Carto and offer recommendations to edit the style, this page shows how OpenStreetMap Carto can be used to implement a tile server using the same software adopted by OpenStreetMap.
 
-The OSM Tile Server is a [web server](https://en.wikipedia.org/wiki/Web_server) specialized in delivering [raster](https://en.wikipedia.org/wiki/Raster_graphics) maps, serving them as static [tiles](https://en.wikipedia.org/wiki/Raster_graphics) and able to perform [rendering](http://wiki.openstreetmap.org/wiki/Rendering) in real time or providing cached images. The adopted web software is the [Apache HTTP Server]( https://en.wikipedia.org/wiki/Apache_HTTP_Server), together with a specific plugin named *mod_tile* and a related backend stack; programs and libraries are chained together to create the tile server.
+The OSM Tile Server is a [web server](https://en.wikipedia.org/wiki/Web_server) specialized in delivering [raster](https://en.wikipedia.org/wiki/Raster_graphics) maps, serving them as static [tiles](https://en.wikipedia.org/wiki/Raster_graphics) and able to perform [rendering](http://wiki.openstreetmap.org/wiki/Rendering) in real time or providing cached images. The adopted web software by OpenStreetMap is the [Apache HTTP Server]( https://en.wikipedia.org/wiki/Apache_HTTP_Server), together with a specific plugin named *mod_tile* and a related backend stack able to generate tiles at run time; programs and libraries are chained together to create the tile server.
 
 As so often with OpenStreetMap, there are many ways to achieve a goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the standard installation process of the OSM Tile Server used on OpenStreetMap.org.
 
@@ -54,7 +54,7 @@ The overall process is here represented.
 
 An additional description of the rendering process of OpenStreetMap can be found at [OSM architecture](../osm-rendering-process).
 
-Even if different operating system versions have been tested, for the installation Ubuntu 16.4 is strongly suggested.
+The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu 16.4 or 14.4.[^1]
 
 {% include_relative _includes/update-ubuntu.md %}
 
