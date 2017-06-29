@@ -7,11 +7,11 @@ permalink: /tilemill-osm-carto/
 
 ## Introduction
 
-The following step-by-step procedure can be used to install a working development environment of openstreetmap-carto exploiting Tilemill on a Windows PC. It has been tested on Windows 7 32-bit and Windows 7 64-bit.[^1]
+The following step-by-step procedure can be used to install [Tilemill](https://tilemill-project.github.io/tilemill/) on a Windows PC. It has been tested on Windows 7 32-bit and Windows 7 64-bit.[^1]
 
-At the time of writing, Tilemill is the only tool supporting Windows (win32 and win64). Alternative software like Kosmtik (official tool for openstreetmap-carto) needs Mapnik 3 and recent versions of *node-mapnik*, which at the moment cannot be installed on Windows. Mapbox Studio Classic uses a different rendering technology, not compatible with OpenStreetMap Carto. Command line tools are not comfortable.
+Tilemill was the original tool to effectively allow the development of the openstreetmap-carto style. It supports both Linux and Windows (win32 and win64). Anyway, TileMill for Windows is no longer in active development. It hosts a very old version of Mapnik/node-mapnik. At the moment, the suggested tool for the autohoring of OpenStreetMap stylesheets is [Kosmtik](https://github.com/kosmtik/kosmtik), which needs Mapnik 3 and recent versions of *node-mapnik* that at the moment cannot be installed on Windows; anyway, a [Docker installation of Kosmtik](https://ircama.github.io/osm-carto-tutorials/docker-kosmtik/) can be run with Windows 64-bit. Mapbox Studio Classic uses a different rendering technology, not compatible with OpenStreetMap Carto. (With Windows, there might be a possibility to use command line tools, that are not comfortable for autohoring.)
 
-Warning: TileMill is no longer in active development. It hosts a very old version of Mapnik/node-mapnik. Even if you should accomplish its installation on Windows through this manual, consider that:
+Even if you should accomplish its installation on Windows through this manual, consider that:
 
 - you will not be able to exploit the latest features of Mapnik;
 - you might even fail to load the openstreetmap-carto project if someone meanwhile added a new Mapnik feature which is not supported by Tilemill;
@@ -32,7 +32,7 @@ When downloading the software reported in this procedure, always verify that you
 Install Tilemill; the latest working version at the moment should be
 <http://tilemill.s3.amazonaws.com/dev/TileMill-v0.10.1-291-g31027ed-Setup.exe>
 
-Even if Tilemill has a GitHub repository (https://github.com/mapbox/tilemill) including the most recent updates, with Windows it is suggested to proceed with the standard setup, which automatically installs and configures Mapnik/node-mapnik. A procedure to upgrade Tilemill and Mapnik over Windows without recompiling is not currently documented.
+Even if Tilemill has a [GitHub repository](https://github.com/tilemill-project/tilemill) including the most recent updates, with Windows it is suggested to proceed with the standard setup, which automatically installs and configures Mapnik/node-mapnik. A procedure to upgrade Tilemill and Mapnik over Windows without recompiling is not currently documented.
 
 ### Install PostgreSQL
 
