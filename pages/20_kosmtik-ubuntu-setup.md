@@ -41,7 +41,7 @@ The following subfolders will be created:
     cd ~/src/kosmtik
     npm install
 
-Read [kosmtik](https://github.com/kosmtik/kosmtik#install) for further information.
+Read [Kosmtik Install or Update](https://github.com/kosmtik/kosmtik#install-or-update) for further information.
 
 ## Test Kosmtik
 
