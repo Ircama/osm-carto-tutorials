@@ -23,8 +23,6 @@ Notice that Kosmtik does not currently install on Windows (setup fails on *node-
 
 A PostGIS database is needed and can be installed locally (suggested) or remotely (might be slow, depending on the network).
 
-The here described installation procedure drives you to set-up Kosmtik with Ubuntu.
-
 {% include_relative _includes/update-ubuntu.md %}
 
 The following subfolders will be created:
