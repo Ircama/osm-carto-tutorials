@@ -7,9 +7,9 @@ permalink: /tilemill-ubuntu/
 
 ## Introduction
 
-The following step-by-step procedure can be used to install a working development environment of *openstreetmap-carto* exploiting [TileMill](http://wiki.openstreetmap.org/wiki/TileMill) on an Ubuntu PC.[^1]
+The following step-by-step procedure can be used to install a development environment of *openstreetmap-carto* exploiting [TileMill](http://wiki.openstreetmap.org/wiki/TileMill) on an Ubuntu PC.[^1]
 
-TileMill moved out of the [Mapbox profile](https://www.mapbox.com/help/osm-and-mapbox/) and shifted to an open source community-driven organization, with its own organization and contributor model: [tilemill-project](https://github.com/tilemill-project/tilemill).
+Tilemill was the original tool for the development of the openstreetmap-carto style. It moved out of the [Mapbox profile](https://www.mapbox.com/help/osm-and-mapbox/) and shifted to an open source community-driven organization, with its own organization and contributor model: [tilemill-project](https://github.com/tilemill-project/tilemill). At the moment, the suggested tool for the autohoring of OpenStreetMap stylesheets is [Kosmtik](https://github.com/kosmtik/kosmtik). TileMill is not officially supported.
 
 Additional information:
 

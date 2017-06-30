@@ -9,7 +9,7 @@ permalink: /tilemill-osm-carto/
 
 The following step-by-step procedure can be used to install [Tilemill](https://tilemill-project.github.io/tilemill/) on a Windows PC. It has been tested on Windows 7 32-bit and Windows 7 64-bit.[^1]
 
-Tilemill was the original tool to effectively allow the development of the openstreetmap-carto style. It supports both Linux and Windows (win32 and win64). Anyway, TileMill for Windows is no longer in active development. It hosts a very old version of Mapnik/node-mapnik. At the moment, the suggested tool for the autohoring of OpenStreetMap stylesheets is [Kosmtik](https://github.com/kosmtik/kosmtik), which needs Mapnik 3 and recent versions of *node-mapnik* that at the moment cannot be installed on Windows; anyway, a [Docker installation of Kosmtik](https://ircama.github.io/osm-carto-tutorials/docker-kosmtik/) can be run with Windows 64-bit. Mapbox Studio Classic uses a different rendering technology, not compatible with OpenStreetMap Carto. (With Windows, there might be a possibility to use command line tools, that are not comfortable for autohoring.)
+Tilemill was the original tool for the development of the openstreetmap-carto style. It supports both Linux and Windows (win32 and win64). Anyway, TileMill for Windows is no longer in active development: it hosts a very old version of Mapnik/node-mapnik. At the moment, the suggested tool for the autohoring of OpenStreetMap stylesheets is [Kosmtik](https://github.com/kosmtik/kosmtik), which needs Mapnik 3 and recent versions of *node-mapnik* that at the moment cannot be installed on Windows [^3]; anyway, a [Docker installation of Kosmtik](https://ircama.github.io/osm-carto-tutorials/docker-kosmtik/) can be run with Windows 64-bit.
 
 Even if you should accomplish its installation on Windows through this manual, consider that:
 
@@ -237,3 +237,4 @@ Check in detail the content of [INSTALL.md](https://github.com/gravitystorm/open
 
 [^1]: Most of the documentation is taken from [Rendering of OSM data on Windows - Quickstart](https://sourceforge.net/p/topomapcreator/wiki/TileMill/).
 [^2]: [Tilemill v0.10 is not supported](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-265031690)
+[^3]: Mapbox Studio Classic uses a different rendering technology, not compatible with OpenStreetMap Carto. (With Windows, there might be a possibility to use command line tools, that are not comfortable for autohoring.)
