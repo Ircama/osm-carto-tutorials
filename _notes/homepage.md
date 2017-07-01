@@ -2,7 +2,7 @@
 layout: homepage
 title: OpenStreetMap Carto Tutorials
 ---
-[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) is the [style](http://wiki.openstreetmap.org/wiki/Stylesheets) used for the [Standard tile layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) of [OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap).
+[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) is the [style](http://wiki.openstreetmap.org/wiki/Stylesheets) used for the [Standard tile layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) of [OpenStreetMap](http://www.openstreetmap.org).
 
 This independent site includes unofficial tutorials to set-up a development environment of OpenStreetMap Carto and to manage this software. It will allow exploiting the style and also being able to contribute to the developments.
 
@@ -14,7 +14,7 @@ All pages of this site allow [commenting](#disqus_thread). You can also [contrib
 
 ## Contributing to OpenStreetMap
 
-OpenStreetMap, the Wikipedia of maps, is a collaborative project to create a free editable map of the world. It consists of [open data](http://wiki.openstreetmap.org/wiki/Contribute_map_data) and open source software; both can be [contributed](http://wiki.openstreetmap.org/wiki/How_to_contribute).
+[OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap), the Wikipedia of maps, is a collaborative project to create a free editable map of the world. It consists of [open data](http://wiki.openstreetmap.org/wiki/Contribute_map_data) and open source software; both can be [contributed](http://wiki.openstreetmap.org/wiki/How_to_contribute).
 
 A [Beginners' guide](http://wiki.openstreetmap.org/wiki/Beginners%27_guide) is available in the [OpenStreetMap Wiki](http://wiki.openstreetmap.org), providing basic information on how to add data to OpenStreetMap.
 

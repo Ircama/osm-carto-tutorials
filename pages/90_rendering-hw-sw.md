@@ -17,6 +17,10 @@ There are the following [three](http://munin.openstreetmap.org/) tile servers at
 * [orm.openstreetmap](https://hardware.openstreetmap.org/servers/orm.openstreetmap.org/)
 * [yevaud.openstreetmap](https://hardware.openstreetmap.org/servers/yevaud.openstreetmap.org/)
 
+Openstreetmap uses [Munin](http://munin-monitoring.org/) for server monitoring,
+
+[Tile server munin graphs](https://munin.openstreetmap.org/openstreetmap/render.openstreetmap/index.html) are available to tell what's happening on the systems; there is also a [description](https://help.openstreetmap.org/questions/527/how-can-i-make-sense-of-muninopenstreetmaporg) on how to interpret them.
+
 Summary of the software configuration of the tile servers as found in some GitHub posts and sites:[^3] [^4]
 
 * O.S. version: Ubuntu 16.04.1 LTS (old outdated ref. [here](https://github.com/openstreetmap/operations/issues/104))
@@ -40,6 +44,8 @@ Other useful references:
 * List of servers, specifications and issues: [OSMF Server Info](https://hardware.openstreetmap.org/), [OpenStreetMap Operations](https://github.com/openstreetmap/operations)
 * [PostgreSQL indexes(https://github.com/openstreetmap/operations/issues/104)
 * [updates processed by osm2pgsql](https://github.com/openstreetmap/chef/blob/master/cookbooks/tile/templates/default/replicate.erb)
+* [Current Tile CDN geographical setup](http://dns.openstreetmap.org/tile.openstreetmap.org.html)
+* [Tile delivery CDN monitoring](http://munin.openstreetmap.org/openstreetmap/tile.openstreetmap/index.html)
 
 [^1]: [math1985](https://github.com/math1985)'s [comment on issue 243](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-264490751)
 [^2]: [tomhughes](https://github.com/tomhughes)'s [comment on Chef issue 103](https://github.com/openstreetmap/chef/issues/103#issuecomment-264657532)
