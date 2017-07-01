@@ -26,7 +26,7 @@ Before entering into the details of editing the styles, in case you are also wil
 
 The definition and configuration file of openstreetmap-carto is named *project.mml* and uses the [YAML](http://yaml.org/) format. Wikipedia contains an [introduction to YAML](https://en.wikipedia.org/wiki/YAML).
 
-The reason for using the YAML format instead of the former JSON is described [here](https://github.com/gravitystorm/openstreetmap-carto/issues/711) and [here](https://github.com/gravitystorm/openstreetmap-carto/pull/947):lit is easier to edit and maintain, especially for SQL queries. The current version of [carto](https://github.com/mapbox/carto) can directly process it.
+The reason for using the [YAML](https://en.wikipedia.org/wiki/JSON#YAML) format instead of the former [JSON](https://en.wikipedia.org/wiki/JSON) is described [here](https://github.com/gravitystorm/openstreetmap-carto/issues/711) and [here](https://github.com/gravitystorm/openstreetmap-carto/pull/947):lit is easier to edit and maintain, especially for SQL queries. The current version of [carto](https://github.com/mapbox/carto) can directly process it.
 
 The definition of [project.mml](https://tilemill-project.github.io/tilemill/docs/manual/files-directories/#structure-of-a-tilemill-project) and more CartoCSS stylesheets has been adoped by Mapbox basing on a convention from Cascadenik, a predecessor to CartoCSS created outside of Mapbox. In Cascadenik, *project.mml* [contained XML](http://teczno.com/cascadenik/doc/) with CSS-like stylesheet embedded in `<Stylesheet><![CDATA[...]]></Stylesheet>` tag and, since the stylesheet included in *project.mml* started to grow, they moved it off to a separate file with MSS extension.[^7]
 
