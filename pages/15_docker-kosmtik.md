@@ -163,7 +163,7 @@ The actual IP address can be found by running
 
 or by running another *Docker Quickstart Terminal*, then reading the login message (`docker is configured to use the default mackine with IP ...`).
 
-The IP address range is set in the VM VirtualBox application: *File* \u2192 *Preferences* \u2192 *Network* tab \u2192 *Host-only network* tab, select the second adapter, *DHCP Server* tab.
+The IP address range is set in the VM VirtualBox application: *File*, *Preferences*, *Network* tab, *Host-only network* tab, select the second adapter, *DHCP Server* tab.
 
 The *default* VM can be safely stopped to release OS resources when not needed.
 
@@ -232,4 +232,3 @@ Additional recommendations for Docker Toolbox.
 - Docker Toolbox needs to configure a Linux 64-bit VM. Set all virtualization features in the BIOS before running the Docker installation
 - Do not manually start the interactive session of the VM VirtualBox used by Docker Toolbox (and named "default") before running "Docker Quickstart Terminal", but let this command start the VM; in case, close any "Docker Quickstart Terminal", perform a `shutdown -h now` on the interactive session and wait for the VM to disappear. Then run "Docker Quickstart Terminal". Notice that an error like `pywintypes.error: (2, 'WaitNamedPipe'...` occurs when the "Docker Quickstart Terminal" is activated after a manual startup of the interactive session of the VM.
 - `docker-compose up` does not install or copy the *openstreetmap-carto* package itself on the VM and accesses the one manually downloaded to the PC.
-
