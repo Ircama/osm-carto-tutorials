@@ -218,7 +218,9 @@ After a modification to `project.yaml`, you need to run `scripts\yaml2mml.py` so
 scripts\yaml2mml.py
 ```
 
-Notice that you cannot contribute to openstreetmap-carto through this process[^2]:
+Alternatively to using *yaml2mml.py*, you can simply check the Python command described in the [Editing Layers](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md#editing-layers) section of the [CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md) page of OSM-carto.
+
+Notice again that you cannot contribute to openstreetmap-carto by using Tilemill[^2]:
 
 - TileMill hosts an old verison of Mapnik and cannot appropriately render the style
 - *project.mml* is not in YAML format, so not compatible with openstreetmap-carto; if you really want to manage *project.yaml* for openstreetmap-carto, rename it back to *project.mml* and perform again all tests with [Kosmtik](https://github.com/kosmtik).

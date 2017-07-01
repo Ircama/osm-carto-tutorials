@@ -5,7 +5,7 @@ comments: true
 permalink: /git-workflow/
 ---
 
-This document suggests guidelines on how contributors should operate when collaborating to OpenStreetMap Carto through pull requests (PRs) via Git and GitHub.
+This document suggests guidelines on how contributors should operate when collaborating to OpenStreetMap Carto through [pull requests](https://en.wikipedia.org/wiki/Distributed_version_control#Pull_requests) (PRs) via [Git](https://en.wikipedia.org/wiki/Git) and [GitHub](https://en.wikipedia.org/wiki/GitHub).
 
 The reference GitHub pages are the following:
 
@@ -15,7 +15,7 @@ The reference GitHub pages are the following:
   - [Working with forks](https://help.github.com/articles/working-with-forks/)
   - [Creating a pull request from a fork](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)
 
-Basically, the Fork, Branch & Pull model adopted by OpenStreetMap Carto considers the following steps:
+Basically, the [Fork](https://en.wikipedia.org/wiki/Fork_(software_development)), [Branch](https://en.wikipedia.org/wiki/Branching_(version_control)) & [Pull model](https://help.github.com/articles/about-pull-requests/) adopted by OpenStreetMap Carto considers the following steps:
 
 - Log to GitHub with your account (create one if you do not have it)
 - Fork the OpenStreetMap Carto GitHub repository.

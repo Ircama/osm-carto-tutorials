@@ -151,7 +151,7 @@ Notice that OpenStreetData uses the Web Mercator projection (defined in project.
 
 ## Development and testing environment
 
-The best platform to perform CartoCSS customizations is [Kosmtik](https://github.com/kosmtik). Also [TileMill](../tilemill-ubuntu) can be used.
+The best platform to perform CartoCSS customizations is [Kosmtik](https://github.com/kosmtik). (In the past, [TileMill](../tilemill-ubuntu) was used.)
 
 The development environment based on Kosmtik reflects the OSM architecture through a local toolchain.
 
@@ -164,9 +164,9 @@ The development environment based on Kosmtik reflects the OSM architecture throu
 
 <br />
 
-Kosmtik includes Carto, [node-mapnik](https://github.com/mapnik/node-mapnik) and an internal node-js tileset web service.
+Kosmtik includes Carto, [node-mapnik](https://github.com/mapnik/node-mapnik) and an internal node-js based tileset web service.
 
-Refer to [Installing Kosmtik and OpenStreetMap-Carto on Ubuntu](../kosmtik-ubuntu-setup) for further information on the Kosmtik configuration needed for OpenStreetMap Carto.
+Refer to [Installing a Docker image of Kosmtik with Ubuntu or Windows](../docker-kosmtik) for further information on the Kosmtik setup needed for OpenStreetMap Carto.
 
 {% include pages/images.md %}
 

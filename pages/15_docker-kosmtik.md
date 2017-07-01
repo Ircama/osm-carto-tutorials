@@ -1,4 +1,4 @@
----
+﻿---
 layout: page
 title: Installing a Docker image of Kosmtik with Ubuntu or Windows
 comments: true
@@ -163,7 +163,7 @@ The actual IP address can be found by running
 
 or by running another *Docker Quickstart Terminal*, then reading the login message (`docker is configured to use the default mackine with IP ...`).
 
-The IP address range is set in the VM VirtualBox application: *File* -> *Preferences* -> *Network* tab -> *Host-only network* tab, select the second adapter, *DHCP Server* tab.
+The IP address range is set in the VM VirtualBox application: *File* → *Preferences* → *Network* tab → *Host-only network* tab, select the second adapter, *DHCP Server* tab.
 
 The *default* VM can be safely stopped to release OS resources when not needed.
 

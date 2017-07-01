@@ -5,9 +5,7 @@ permalink: /editing-guidelines/
 comments: true
 rendering-note: this page is best viewed with Jekyll rendering
 ---
-The OSM wiki provides a general description of the [Standard tile layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) and on the ways to report bugs or graphical suggestions.
-
-This page aims to describe the general editing process of the OpenStreetMap Carto style through some suggested practices.
+This page aims to describe the general editing process of OpenStreetMap Carto, the style used for the [Standard tile layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) of OpenStreetMap, through some suggested practices.
 
 ## Development process to add or edit a feature
 
