@@ -2,7 +2,7 @@
 layout: homepage
 title: OpenStreetMap Carto Tutorials
 ---
-[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) is the official [style](http://wiki.openstreetmap.org/wiki/Stylesheets) of [OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap).
+[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) is the [style](http://wiki.openstreetmap.org/wiki/Stylesheets) used for the [Standard tile layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) of [OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap).
 
 This independent site includes unofficial tutorials to set-up a development environment of OpenStreetMap Carto and to manage this software. It will allow exploiting the style and also being able to contribute to the developments.
 
