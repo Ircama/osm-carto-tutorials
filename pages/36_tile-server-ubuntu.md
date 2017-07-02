@@ -386,6 +386,15 @@ As exceptional case, the following commands allow to fully remove Apache, mod_ti
     sudo apt-get --reinstall install apache2-bin
     sudo apt-get install apache2 apache2-dev
 
+## Hardware considerations
+
+This paragraph is currently in early stage, not yet revised. Information at the moment is taken from the *Hardware* paragraph of [Building a tile server from packages](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages) page within [switch2osm.org](https://switch2osm.org).
+{: .green}
+
+Hardware requirements can be quite demanding if you want to render larger areas, but aren’t too bad if you are only interested in smaller regions. For a standard desktop (approximately 4 GB of ram, standard harddisk, dual – quad core CPU) probably an extract size of about 100 – 300 Mb is reasonable (import time of the order of an hour).
+
+If you want to import and render the whole world, you will need a considerably beefier server than a typical desktop. E.g. starting from about 24Gb of RAM upwards. It is also strongly recomend to use an SSD for the database or at least a fast RAID array. The full planet import is currently around about 256GB, so to store all of the DB on an SSD, you will likely need a 512GB SSD. An import that is not updated and uses the –drop option on the otherhand likely still fits on a 256GB SSD. You can also selectively put the most important parts of the database on an SSD and the rest on slower disks. Osm2pgsql supports using separate tablespaces for different parts of the database for this purpose.
+
 ## Tile names format of OpenStreetMap tile server
 
 The file naming and image format used by mod_tile is described at [Slippy map tilenames](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames). Similar format is also used by [Google Maps](https://developers.google.com/maps/documentation/javascript/maptypes) and many other map providers.
