@@ -37,7 +37,7 @@ Even if the tileserver dynamically generates tiles at run time, they can also be
 
 A background on the tiles expiry method can be found at [tiles expiry mechanism](http://wiki.openstreetmap.org/wiki/Tile_expire_methods).
 
-The overall process is here represented.
+The overall process is here represented[^4].
 
 |                   | |client browser  ![web][web]| | |
 |                   | |↓                   | | |
@@ -391,9 +391,11 @@ As exceptional case, the following commands allow to fully remove Apache, mod_ti
 This paragraph is currently in early stage, not yet revised. Information at the moment is taken from the *Hardware* paragraph of [Building a tile server from packages](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages) page within [switch2osm.org](https://switch2osm.org).
 {: .green}
 
-Hardware requirements can be quite demanding if you want to render larger areas, but aren’t too bad if you are only interested in smaller regions. For a standard desktop (approximately 4 GB of ram, standard harddisk, dual – quad core CPU) probably an extract size of about 100 – 300 Mb is reasonable (import time of the order of an hour).
+Hardware requirements can be quite demanding if you want to render larger areas, but aren’t too bad if you are only interested in smaller regions. For a standard desktop (approximately 4 GB of RAM, standard hard disk, dual – quad core CPU) probably an extract size of about 100 – 300 Mb is reasonable (import time of the order of an hour).
 
-If you want to import and render the whole world, you will need a considerably beefier server than a typical desktop. E.g. starting from about 24Gb of RAM upwards. It is also strongly recomend to use an SSD for the database or at least a fast RAID array. The full planet import is currently around about 256GB, so to store all of the DB on an SSD, you will likely need a 512GB SSD. An import that is not updated and uses the –drop option on the otherhand likely still fits on a 256GB SSD. You can also selectively put the most important parts of the database on an SSD and the rest on slower disks. Osm2pgsql supports using separate tablespaces for different parts of the database for this purpose.
+If you want to import and render the whole world, you will need a considerably beefier server than a typical desktop. E.g. starting from about 24GB of RAM upwards. It is also strongly recommended to use an SSD for the database or at least a fast RAID array.
+The OSM map database is called planet.osm. The full database and regular update files are both available at [Planet OSM](planet.openstreetmap.org).
+The full planet import is currently around about 256GB (58 GB zipped), so to store all of the DB on an SSD, you will likely need a 512GB SSD. An import that is not updated and uses the –drop option on the otherhand likely still fits on a 256GB SSD. You can also selectively put the most important parts of the database on an SSD and the rest on slower disks. Osm2pgsql supports using separate tablespaces for different parts of the database for this purpose.
 
 ## Tile names format of OpenStreetMap tile server
 
@@ -709,3 +711,5 @@ A rapid way to test the slippy map is through an online source code playground l
 [^2]: [math1985's note](https://github.com/gravitystorm/openstreetmap-carto/pull/2470#issuecomment-266234112)
 
 [^3]: Check process description at [mod_tile](https://github.com/openstreetmap/mod_tile/) for further details.
+
+[^4]: Information on previous periods partially taken from [switch2osm.org - Serving Tiles](https://switch2osm.org/serving-tiles/), ref "The toolchain" chapter.

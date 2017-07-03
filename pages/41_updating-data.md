@@ -66,3 +66,9 @@ The initial install installed pre-processed coastlines, from time to time it may
 and extract it to
 
     /etc/mapnik-osm-data/world_boundaries/
+
+# Data license
+
+OpenStreetMap is "open data". OSM’s licence is the [Open Database Licence](http://opendatacommons.org/licenses/odbl/summary/).
+
+If you find data within OpenStreetMap that you believe is an infringement of someone else's copyright, then please make contact with the [OpenStreetMap Data Working Group](http://wiki.openstreetmap.org/wiki/Data_working_group).
