@@ -9,23 +9,25 @@ sitemap: false # remove this once the page is completed
 
 ## Introduction
 
-The following procedure explains how to keep the tile server and the PostgreSQL database up-to-date with the latest OSM data.
+After the initial load of a PBF extract (or of the whole "planet") into a target database, there might be a need to keep data up to date. For this, OpenStreetMap provides [minutely, hourly and daily change files](http://wiki.openstreetmap.org/wiki/Planet.osm/diffs) that can be applied to a replicated database so that it can be kept in sync with the master OSM db: each time a user uploads a modification (addition, update, change, deletion of features) to OSM, the change can be replicated to a database synched with the master data within the selected timeframe.
 
-[Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) is a command line Java application for processing OSM data.
+OpenStreetMap allows this by exploiting the [replication feature](http://wiki.openstreetmap.org/wiki/Osmosis/Replication) available within a tool named [Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) (a command line Java application for processing OSM data) and described in the [Replication Tasks](http://wiki.openstreetmap.org/wiki/Osmosis/Detailed_Usage_0.45#Replication_Tasks) section of the related [usage page](http://wiki.openstreetmap.org/wiki/Osmosis/Detailed_Usage).
 
-Command line syntax: http://wiki.openstreetmap.org/wiki/Osmosis/Detailed_Usage
+Osmosis can be downloaded (e.g., from its [GitHub repository](https://github.com/openstreetmap/osmosis)) and installed as part of a tile server to perform data replication via periodic syncs. It allows automating the process of downloading the proper "replication files" which are produced by OpenStreetMap in OSC (Open Street Map Change) change file format. Then generally [Osm2pgsql](http://wiki.openstreetmap.org/wiki/Osm2pgsql) is used to import the downloaded changes into your PostgreSQL database (through the `--append` option).
 
-Sources: https://github.com/openstreetmap/osmosis
+## Manually merging distinct areas into PostgreSQL
+
+After the initial import of OpenStreetMap data (e.g., a PBF file) into your PostgreSQL database via Osm2pgsql, it might be needed to manually merge other distinct / non-overlapping areas (e.g., included in separate PBF files).
+
+Check this [Q&A](https://gis.stackexchange.com/questions/186754/how-to-quickly-load-two-distinct-areas-into-postgis-without-using-append-flag).
 
 [Osmconvert](http://wiki.openstreetmap.org/wiki/Osmconvert) is a command line tool to convert and process OpenStreetMap files.
 
 Sources: http://m.m.i24.cc/osmconvert.c
 
-## How to quickly load two distinct areas into postGIS without using --append flag?
+## Keeping the PostgreSQL database up to date
 
-Check this [Q&A](https://gis.stackexchange.com/questions/186754/how-to-quickly-load-two-distinct-areas-into-postgis-without-using-append-flag).
-
-## Steps
+The following procedure explains how to keep the tile server and the PostgreSQL database up-to-date with the latest OSM data.
 
 This paragraph is currently in early stage, not yet tested and revised. Information at the moment is largely taken from the *Updating* paragraph of [Building a tile server from packages](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages) page within [switch2osm.org](https://switch2osm.org).
 
@@ -66,9 +68,3 @@ The initial install installed pre-processed coastlines, from time to time it may
 and extract it to
 
     /etc/mapnik-osm-data/world_boundaries/
-
-# Data license
-
-OpenStreetMap is "open data". OSM’s licence is the [Open Database Licence](http://opendatacommons.org/licenses/odbl/summary/).
-
-If you find data within OpenStreetMap that you believe is an infringement of someone else's copyright, then please make contact with the [OpenStreetMap Data Working Group](http://wiki.openstreetmap.org/wiki/Data_working_group).

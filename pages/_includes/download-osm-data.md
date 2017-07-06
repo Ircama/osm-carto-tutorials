@@ -35,3 +35,7 @@ Another method to download data is directly with your browser. Check [this page]
 Alternatively, [JOSM](https://josm.openstreetmap.de/) can be used (Select the area to download the OSM data: JOSM menu, File, Download From OSM; tab Slippy map; drag the map with the right mouse button, zoom with the mouse wheel or Ctrl + arrow keys; drag a box with the left mouse button to select an area to download. The [Continuous Download](http://wiki.openstreetmap.org/wiki/JOSM/Plugins/continuosDownload) plugin is also suggested. When the desired region is locally available, select File, Save As, `<filename>.osm`. Give it a valid file name and check also the appropriate directory where this file is saved.
 
 In all cases, avoid using too small areas.
+
+OpenStreetMap is “open data”. OSM’s licence is the Open Database Licence.
+
+If you find data within OpenStreetMap that you believe is an infringement of someone else’s copyright, then please make contact with the OpenStreetMap Data Working Group.
