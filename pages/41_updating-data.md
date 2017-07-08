@@ -30,6 +30,7 @@ Sources: http://m.m.i24.cc/osmconvert.c
 The following procedure explains how to keep the tile server and the PostgreSQL database up-to-date with the latest OSM data.
 
 This paragraph is currently in early stage, not yet tested and revised. Information at the moment is largely taken from the *Updating* paragraph of [Building a tile server from packages](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages) page within [switch2osm.org](https://switch2osm.org).
+{: .red}
 
 After importing the initial database with *osm2pgsql* as described in "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)" (you will need to have used the *-slim* option in the initial import to allow for updating), you need to do the following steps.
 

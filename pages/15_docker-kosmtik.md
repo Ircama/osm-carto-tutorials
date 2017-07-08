@@ -80,7 +80,7 @@ Install the Docker files of openstreetmap-carto (notice that the Docker code is 
 
 Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/Ircama/openstreetmap-carto/blob/docker/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
-      curl http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
+    curl http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
 
 For further information on the downloading of appropriate *.osm* or *.pbf* file, check "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)".
 
