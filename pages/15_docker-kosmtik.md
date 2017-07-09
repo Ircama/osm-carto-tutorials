@@ -10,7 +10,7 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 The suggested tool to support the autohoring of [OpenStreetMap stylesheets](http://wiki.openstreetmap.org/wiki/Stylesheets) developed in [CartoCSS](http://wiki.openstreetmap.org/wiki/CartoCSS) is [Kosmtik](https://github.com/kosmtik/kosmtik), a software to produce, browse and verify [raster tile maps](https://en.wikipedia.org/wiki/Tiled_web_map) based on pre-processors like [CartoCSS](https://github.com/mapbox/carto) and rendered through [Mapnik](https://github.com/mapnik/mapnik/blob/master/docs/design.md).
 
-Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto and at the moment it supports [Ubuntu Linux](https://www.ubuntu.com). To simplify the related installation process, openstreetmap-carto comes with [Docker](https://en.wikipedia.org/wiki/Docker_(software)) files and [documentation](https://github.com/Ircama/openstreetmap-carto/blob/docker/DOCKER.md), which allow to build the image through simple commands.
+Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto and at the moment it supports [Ubuntu Linux](https://www.ubuntu.com). To simplify the related installation process, openstreetmap-carto comes with [Docker](https://en.wikipedia.org/wiki/Docker_(software)) files and [documentation](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md), which allow to build the image through simple commands.
 
 [Docker](https://docs.docker.com/engine/docker-overview/) is a tool to package a Linux application and its dependencies in a [virtual container](https://en.wikipedia.org/wiki/Operating-system-level_virtualization) that can run on any Linux server. This helps enable flexibility and portability. The Docker configuration included in openstreetmap-carto automates the setup of the Kosmtik development environment and simplifies the OSM data import process.
 
@@ -33,7 +33,7 @@ If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo 
 
 [Configure a swap](../kosmtik-ubuntu-setup/#configure-a-swap).
 
-The documentation in [DOCKER.md](https://github.com/Ircama/openstreetmap-carto/blob/docker/DOCKER.md) describes 
+The documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md) describes 
 how to run OpenStreetMap Carto with Docker. Check it before starting installation.
 
 Follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 16.10, 16.04 or 14.04 (e.g., Docker CE).
@@ -59,26 +59,7 @@ Install openstreetmap-carto:
     git clone https://github.com/gravitystorm/openstreetmap-carto.git
     cd openstreetmap-carto
 
-Install the Docker files of openstreetmap-carto (notice that the Docker code is not merged with OSM-carto at the time of writing, but still under revision; this step will not be needed afer publishing the code to OSM-carto):
-{: .green}
-
-    sudo apt install -y unzip
-
-    wget https://github.com/Ircama/openstreetmap-carto/archive/docker.zip
-    unzip -nj docker.zip \
-    openstreetmap-carto-docker/.dockerignore \
-    openstreetmap-carto-docker/.env \
-    openstreetmap-carto-docker/.gitignore \
-    openstreetmap-carto-docker/DOCKER.md \
-    openstreetmap-carto-docker/Dockerfile \
-    openstreetmap-carto-docker/Dockerfile.import \
-    openstreetmap-carto-docker/docker-compose.yml \
-    openstreetmap-carto-docker/scripts/docker-startup.sh
-    mv docker-startup.sh scripts
-    rm docker.zip
-    wget https://raw.githubusercontent.com/Ircama/openstreetmap-carto/get-shapefiles2/scripts/get-shapefiles.py -O scripts/get-shapefiles.py
-
-Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/Ircama/openstreetmap-carto/blob/docker/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
+Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
     curl http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
 
@@ -92,6 +73,10 @@ The procedure takes many minutes to complete. Wait for `kosmtik:1	[Core] Loading
 
 With your browser, access the map through *<http://ServerAddress:6789>*
 
+To stop the database container:
+
+    docker-compose stop db
+
 Check also [Recommendations and troubleshooting](#recommendations-and-troubleshooting).
 
 ## Windows installation
@@ -104,14 +89,14 @@ Kosmtik running through Docker Toolbox on a Windows 7 (or Windows 10 Home) takes
 
 The procedure here described allows installing and running a Docker image of Kosmtik with x64 Windows versions requiring Docker Toolbox.
 
-Before starting, it is important to read the documentation in [DOCKER.md](https://github.com/Ircama/openstreetmap-carto/blob/docker/DOCKER.md)
+Before starting, it is important to read the documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md)
 
 Install Docker Toolbox:
 
 - Enable the virtualization in the PC BIOS setting
 - Install the latest version of [Oracle VM VirtualBox](https://www.virtualbox.org/wiki/Downloads) (this is advisable even if Docker Toolbox includes a recent version of this software)
 - Install [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/); select also the installation of "Git MSYS-git UNIX tools".
-- Run *Docker Quickstart Terminal* (All Programs, Docker, Docker Quickstart Terminal) and wait for the *MINGW64 Console* to start.
+- Run *Docker Quickstart Terminal* (*All Programs*, *Docker*, *Docker Quickstart Terminal*) and wait for the *MINGW64 Console* to start.
 
 Notice that *"Waiting for an IP..."* takes the time needed to start a virtual machine named *default* and boot a Linux image included in a file named *boot2docker.iso* (automatically downloaded and configured by the software). The VM startup can take minutes.
 Within the login message before the UNIX prompt, the *MINGW64 Console* shall display the VM IP address (e.g., `docker is configured to use the default mackine with IP 192.168.99.100`).
@@ -124,24 +109,7 @@ Download openstreetmap-carto to a local subdirectory of the user's home director
     git clone https://github.com/gravitystorm/openstreetmap-carto.git
     cd openstreetmap-carto
 
-Install the Docker files of openstreetmap-carto (notice that the Docker code is not merged with OSM-carto at the time of writing, but still under revision; this step will not be needed afer publishing the code to OSM-carto):
-{: .green}
-
-    curl -L -o docker.zip https://github.com/Ircama/openstreetmap-carto/archive/docker.zip
-    unzip -nj docker.zip \
-    openstreetmap-carto-docker/.dockerignore \
-    openstreetmap-carto-docker/.env \
-    openstreetmap-carto-docker/.gitignore \
-    openstreetmap-carto-docker/DOCKER.md \
-    openstreetmap-carto-docker/Dockerfile \
-    openstreetmap-carto-docker/Dockerfile.import \
-    openstreetmap-carto-docker/docker-compose.yml \
-    openstreetmap-carto-docker/scripts/docker-startup.sh
-    mv docker-startup.sh scripts
-    rm docker.zip
-    curl -L -o scripts/get-shapefiles.py https://raw.githubusercontent.com/Ircama/openstreetmap-carto/get-shapefiles2/scripts/get-shapefiles.py
-
-- Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/Ircama/openstreetmap-carto/blob/docker/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
+- Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
       curl http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
 
@@ -171,7 +139,7 @@ The *default* VM can be safely stopped to release OS resources when not needed.
 
 Each time *Docker Quickstart Terminal* is run, the VM is automatically restarted if in power-off state (but this takes its time to wait for the IP address...).
 
-To start again the VM (alternatively to closing end reopening "Docker Quickstart Terminal"):
+To start again the VM (alternatively to closing end reopening *Docker Quickstart Terminal*):
 
     docker-machine start default
 
@@ -189,7 +157,9 @@ The RAM size available to the *default* VM should be increased for improved perf
 
 Change the memory of the *default* virtual machine though *Oracle VM VirtualBox* (and possibly also the number of cores).
 
-    docker-machine start default
+Also, modify the `.env` file as described at the [Importing data](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md#importing-data) section of the documentation. Then restart the project: close and restart *Docker Quickstart Terminal* (e.g., *All Programs*, *Docker*, *Docker Quickstart Terminal*); finally issue:
+
+    cd openstreetmap-carto
     docker-compose up kosmtik
 
 ## Recommendations and troubleshooting
@@ -214,9 +184,13 @@ To import a PBF of OSM data with different name than *data.osm.pbf* (e.g., *data
 
 With Windows, this command can also be run locally through a Windows CMD (with Python installes), via `scripts/get-shapefiles.py`.
 
-To maximize the performance of *scripts/get-shapefiles.py*, edit the *scripts/docker-startup.sh* script in the local directory and add the `-n` option.
+Basic command to do the standard start-up:
 
-In case the `docker-compose up` reports the following error when using *Docker Compose for Windows*, check the directory where *openstreetmap-carto* has been installed:
+    docker-compose up
+
+### Docker Toolbox for Windows
+
+In case the `docker-compose up` command reports the following error when using *Docker Compose for Windows*, check the directory where *openstreetmap-carto* has been installed:
 
 ```
 ...
@@ -226,9 +200,36 @@ kosmtik_1  | sh: 0: Can't open scripts/docker-startup.sh
 
 It is suggested to position the *openstreetmap-carto* directory under the user's home directory (C:\users\username). Alternatively, the drive where the project is located (i.e., where the Dockerfile and volume are located) shall be shared though *Oracle VM VirtualBox*. Runtime errors such as *file not found*, *can't open scripts* or *cannot start service* may indicate [shared drives are needed](https://docs.docker.com/docker-for-windows/troubleshoot/#volume-mounting-requires-shared-drives-for-linux-containers).
 
+-------------
+
+If, after restarting the PC or after hibernating and resuming a PC, at `docker-compose up`, you get
+
+    ERROR: Couldn't connect to Docker daemon - you might need to run `docker-machine start default`.
+
+or, if you get:
+
+```
+Traceback (most recent call last):
+...
+pywintypes.error: (2, 'WaitNamedPipe',...
+Failed to execute script docker-compose
+```
+
+then issue the following:
+
+    docker-machine stop
+    exit # e.g., close the Docker Quickstart Terminal
+
+subsequently, restart *Docker Quickstart Terminal* (e.g., *All Programs*, *Docker*, *Docker Quickstart Terminal*)
+
+    cd openstreetmap-carto
+    docker-compose up
+
+-------------
+
 Additional recommendations for Docker Toolbox.
 
 - Use direct internet access during the installation (without setting a proxy)
 - Docker Toolbox needs to configure a Linux 64-bit VM. Set all virtualization features in the BIOS before running the Docker installation
-- Do not manually start the interactive session of the VM VirtualBox used by Docker Toolbox (and named "default") before running "Docker Quickstart Terminal", but let this command start the VM; in case, close any "Docker Quickstart Terminal", perform a `shutdown -h now` on the interactive session and wait for the VM to disappear. Then run "Docker Quickstart Terminal". Notice that an error like `pywintypes.error: (2, 'WaitNamedPipe'...` occurs when the "Docker Quickstart Terminal" is activated after a manual startup of the interactive session of the VM.
+- Do not manually start the interactive session of the VM VirtualBox used by Docker Toolbox (and named "default") before running *Docker Quickstart Terminal*, but let this command start the VM; in case, close any *Docker Quickstart Terminal*, perform a `shutdown -h now` on the interactive session and wait for the VM to disappear. Then run *Docker Quickstart Terminal*. Notice that an error like `pywintypes.error: (2, 'WaitNamedPipe'...` occurs when the *Docker Quickstart Terminal* is activated after a manual startup of the interactive session of the VM.
 - `docker-compose up` does not install or copy the *openstreetmap-carto* package itself on the VM and accesses the one manually downloaded to the PC.
