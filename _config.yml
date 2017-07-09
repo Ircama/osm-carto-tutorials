@@ -11,8 +11,8 @@ permalink:           pretty
 # Setup
 #
 title:               OpenStreetMap Carto Tutorials
-tagline:             'Unofficial documentation'
-description:         'Unofficial tutorials for <a href="https://github.com/gravitystorm/openstreetmap-carto" target="_blank">openstreetmap-carto</a>'
+tagline:             'OpenStreetMap Carto documentation'
+description:         'Tutorials for <a href="https://github.com/gravitystorm/openstreetmap-carto" target="_blank">openstreetmap-carto</a>'
 url:                 https://ircama.github.io
 baseurl:             "/osm-carto-tutorials"
 branch:              "gh-pages"
