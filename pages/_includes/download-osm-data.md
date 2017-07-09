@@ -36,6 +36,4 @@ Alternatively, [JOSM](https://josm.openstreetmap.de/) can be used (Select the ar
 
 In all cases, avoid using too small areas.
 
-OpenStreetMap is “open data”. OSM’s licence is the Open Database Licence.
-
-If you find data within OpenStreetMap that you believe is an infringement of someone else’s copyright, then please make contact with the OpenStreetMap Data Working Group.
+OpenStreetMap is *open data*. OSM's license is Open Database License.
