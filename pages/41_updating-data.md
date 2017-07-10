@@ -38,6 +38,49 @@ Install *osmosis*:
 
     sudo apt-get install osmosis
 
+After installing osmosis, you can [go on with setup](#continue-set-up).
+
+### Compile osmosis from source
+
+The following procedure allows compiling osmosis from source.
+
+Update Ubuntu and Install essential tools:
+
+    sudo apt-get update
+    sudo apt-get -y upgrade
+    sudo apt-get -y install curl unzip gdal-bin tar wget bzip2 build-essential clang
+
+Install Java JRE and JDK:
+
+    sudo apt-get -y install default-jre
+    sudo apt-get -y install default-jdk
+
+Install Gradle:
+
+    sudo apt -y install gradle
+
+Download a data extract:
+
+    curl http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
+
+Clone 'osmosis' repository:
+
+    git clone https://github.com/openstreetmap/osmosis
+
+Compile osmosis:
+
+    ./gradlew assemble
+
+Test osmosis following [wiki](http://wiki.openstreetmap.org/wiki/Osmosis) examples:
+
+    package/bin/osmosis --read-pbf ../../../data.osm.pbf --node-key-value keyValueList="highway.speed_camera" --write-xml radar.osm
+    
+    package/bin/osmosis --read-pbf ../../../data.osm.pbf --tf accept-ways highway=* --used-node --write-xml highways.osm
+
+Current version of osmosis when compiled from sources at the time of writing: 0.45-52-gd4e52fd-SNAPSHOT
+
+## Continue set-up
+
 Grant rights to the update tables to user *www-data*:
 
     sudo /usr/bin/install-postgis-osm-user.sh gis www-data

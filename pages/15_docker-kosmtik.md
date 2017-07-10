@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Installing a Docker image of Kosmtik with Ubuntu or Windows
+title: Installing a Docker image of Kosmtik with Ubuntu, Windows or Mac
 comments: true
 permalink: /docker-kosmtik/
 rendering-note: this page is best viewed with Jekyll rendering
@@ -14,15 +14,15 @@ Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list
 
 [Docker](https://docs.docker.com/engine/docker-overview/) is a tool to package a Linux application and its dependencies in a [virtual container](https://en.wikipedia.org/wiki/Operating-system-level_virtualization) that can run on any Linux server. This helps enable flexibility and portability. The Docker configuration included in openstreetmap-carto automates the setup of the Kosmtik development environment and simplifies the OSM data import process.
 
-The subsequently described ster-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu and with Windows.
-
-For a standard Kosmtik installation without using Docker, check [Installing Kosmtik and OpenStreetMap-Carto on Ubuntu](../kosmtik-ubuntu-setup/).
+The subsequently described ster-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu, with Windows and with Mac.
 
 The Windows configuration exploiting Docker and Doker Toolbox is definitively a great tool to allow developing *openstreetmap-carto* with a 64 bit Windows PC and locally testing the style through Kosmtik on the same machine. With Docker Toolbox, Kosmtik is transparently run in a VirtualBox VM, with all data (e.g., openstreetmap-carto directory) physically residing on the PC and the PostGIS database (with imported OSM data) hosted within the VM.
 
-The next paragraph describes the [installation of Kosmtik with Ubuntu](#ubuntu-installation). The subsequent one details the steps to [install Kosmtik with Windows](#windows-installation).
+The next paragraph describes the [installation of Kosmtik with Ubuntu](#ubuntu-installation). The subsequent ones details the steps to [install Kosmtik with Windows](#windows-installation) and [with Mac](#mac-installation).
 
 ## Ubuntu installation
+
+For a standard Kosmtik installation without using Docker, check [Installing Kosmtik and OpenStreetMap-Carto on Ubuntu](../kosmtik-ubuntu-setup/).
 
 Update the system:
 
@@ -78,6 +78,16 @@ To stop the database container:
     docker-compose stop db
 
 Check also [Recommendations and troubleshooting](#recommendations-and-troubleshooting).
+
+## Mac installation
+
+With Mac, Docker provides [Docker for Mac](https://www.docker.com/docker-mac) and [Docker Toolbox](https://www.docker.com/products/docker-toolbox) for Mac.
+
+*Docker for Mac* is a native desktop application which requires OSX Yosemite 10.10.3 or above and new hardware models supporting MMU virtualization (i.e., Extended Page Tables (EPT) and Unrestricted Mode). *Docker Toolbox* allows the installation of Docker on older Macs that do not meet minimal system requirements for *Docker for Mac*.
+
+Check the Docker installation pages for detailed installation requirements and procedures.
+
+The setup procedure of Kosmtik with [Docker for Mac](https://docs.docker.com/docker-for-mac/install/) is similar to the installation of Kosmtik [with Ubuntu](#ubuntu-installation), while the setup of Kosmtik with [Docker Toolbox for Mac](https://docs.docker.com/toolbox/toolbox_install_mac/) is similar to the one [with Windows](#windows-installation).
 
 ## Windows installation
 
