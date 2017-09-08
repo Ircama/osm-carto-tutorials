@@ -7,49 +7,19 @@ permalink: /kosmtik-ubuntu-setup/
 
 ## Introduction
 
-The suggested tool to support the autohoring of [OpenStreetMap stylesheets]
+The suggested tool to support the autohoring of [OpenStreetMap stylesheets](http://wiki.openstreetmap.org/wiki/Stylesheets) developed in [CartoCSS](http://wiki.openstreetmap.org/wiki/CartoCSS) is [Kosmtik](https://github.com/kosmtik/kosmtik), a software to produce, browse and verify [raster tile maps](https://en.wikipedia.org/wiki/Tiled_web_map) based on pre-processors like [CartoCSS](https://github.com/mapbox/carto) and rendered through [Mapnik](https://github.com/mapnik/mapnik/blob/master/docs/design.md).
 
-(http://wiki.openstreetmap.org/wiki/Stylesheets) developed in [CartoCSS]
+Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto.
 
-(http://wiki.openstreetmap.org/wiki/CartoCSS) is [Kosmtik]
+The recommended method to install Kosmtik is via the [Docker image and related scripts](../docker-kosmtik) provided with OpenStreetMap Carto. Alternatively to the Docker installation method, the following procedure can be used to install a Kosmtik development environment of *openstreetmap-carto* by performing one by one all the required steps on an Ubuntu PC.
 
-(https://github.com/kosmtik/kosmtik), a software to produce, browse and verify 
-
-[raster tile maps](https://en.wikipedia.org/wiki/Tiled_web_map) based on pre-
-
-processors like [CartoCSS](https://github.com/mapbox/carto) and rendered through 
-
-[Mapnik](https://github.com/mapnik/mapnik/blob/master/docs/design.md).
-
-Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of 
-
-prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js 
-
-itself. Kosmtik also includes node versions of further software like Mapnik and 
-
-Carto.
-
-The recommended method to install Kosmtik is via the [Docker image and related 
-
-scripts](../docker-kosmtik) provided with OpenStreetMap Carto.
-
-Alternatively to the Docker installation method, the following procedure can be used 
-
-to install a Kosmtik development environment of *openstreetmap-carto* by performing 
-
-one by one all the required steps on an Ubuntu PC.
-
-Notice that Kosmtik does not currently install on Windows (setup fails on *node-
-
-mapnik*). It can be installed by now on:
+Notice that Kosmtik does not currently install on Windows (setup fails on *node-mapnik*). It can be installed by now on:
 
 - a Unix server (e.g., Ubuntu)
 - a local UNIX virtual machine
 - a cloud based virtual machine
 
-A PostGIS database is needed and can be installed locally (suggested) or remotely 
-
-(might be slow, depending on the network).
+A PostGIS database is needed and can be installed locally (suggested) or remotely (might be slow, depending on the network).
 
 {% include_relative _includes/update-ubuntu.md %}
 
@@ -69,9 +39,7 @@ The following subfolders will be created:
     cd ~/src/kosmtik
     npm install
 
-Read [Kosmtik Install or Update](https://github.com/kosmtik/kosmtik#install-or-
-
-update) for further information.
+Read [Kosmtik Install or Update](https://github.com/kosmtik/kosmtik#install-or-update) for further information.
 
 ## Test Kosmtik
 
@@ -90,9 +58,7 @@ See [Start Kosmtik](#start-kosmtik).
 
 ## Create *localconfig.json*
 
-Using your favourite editor, create a file named *localconfig.json* in the 
-
-*openstreetmap-carto* directory, including the following:
+Using your favourite editor, create a file named *localconfig.json* in the *openstreetmap-carto* directory, including the following:
 
 ```
 [
@@ -130,17 +96,7 @@ Replace coordinates and zoom with your preferred ones within the following line:
         "then": [9.111, 45.111, 15]
 ```
 
-In this example, the default center is (9.111, 45.111) and the default zoom is 15.
-
-You can configure the other parameters (like the db ones: dbname, password, user, 
-
-host). Replace localhost with a remote host name if the PostGIS instance is running 
-
-remotely.
-
-Read [local config](https://github.com/kosmtik/kosmtik#local-config) for further 
-
-information.
+In this example, the default center is (9.111, 45.111) and the default zoom is 15. You can configure the other parameters (like the db ones: dbname, password, user, host). Replace localhost with a remote host name if the PostGIS instance is running remotely. Read [local config](https://github.com/kosmtik/kosmtik#local-config) for further information.
 
 {% include_relative _includes/firewall.md port=6789 cdprogram='~/src' %}
 
@@ -148,9 +104,7 @@ information.
 
 ## Start Kosmtik
 
-Run Kosmtik from the openstreetmap-carto directory, supposing that the Kosmtik 
-
-installation is in ../kosmtik.
+Run Kosmtik from the openstreetmap-carto directory, supposing that the Kosmtik installation is in ../kosmtik.
 
     cd ~/src/openstreetmap-carto
 
@@ -158,9 +112,7 @@ installation is in ../kosmtik.
 
 Read [Usage](https://github.com/kosmtik/kosmtik#usage) for further information.
 
-Notice that `--host 0.0.0.0` is needed to access Kosmtik installed on a remote 
-
-server (not necessary when doing http://localhost:6789).
+Notice that `--host 0.0.0.0` is needed to access Kosmtik installed on a remote server (not necessary when doing http://localhost:6789).
 
 ## Access the map from your browser
 
@@ -171,39 +123,16 @@ Notice that *Https* will not work (use http instead).
 Note: the following Kosmtik warnings can be ignored:
 
 ```
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Italic' in FontSet 
-
-'fontset-0'
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 
-
-'fontset-0'
-Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 
-
-'fontset-0'
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 
-
-'fontset-1'
-Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 
-
-'fontset-1'
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Bold' in FontSet 
-
-'fontset-2'
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 
-
-'fontset-2'
-Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 
-
-'fontset-2'
+Mapnik LOG> ...: warning: unable to find face-name 'Arundina Italic' in FontSet 'fontset-0'
+Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 'fontset-0'
+Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 'fontset-0'
+Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 'fontset-1'
+Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 'fontset-1'
+Mapnik LOG> ...: warning: unable to find face-name 'Arundina Bold' in FontSet 'fontset-2'
+Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 'fontset-2'
+Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 'fontset-2'
 ```
 
-Accessing the database and rendering images is often a slow process (mainly 
+Accessing the database and rendering images is often a slow process (mainly depending on the amount of data to be managed, but also on the server performance and on the network), so give many seconds to Kosmtik to output or refresh the map.
 
-depending on the amount of data to be managed, but also on the server performance 
-
-and on the network), so give many seconds to Kosmtik to output or refresh the map.
-
-{% include_relative _includes/edit-the-stylesheets.md editor='*vi*' 
-
-program='Kosmtik' %}
-
+{% include_relative _includes/edit-the-stylesheets.md editor='*vi*' program='Kosmtik' %}
