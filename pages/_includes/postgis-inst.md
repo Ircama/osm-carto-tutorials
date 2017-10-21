@@ -270,15 +270,19 @@ sed "s/action='modify' //" < original.osm | > fixedfile.osm
 
 Then process *fixedfile.osm*.
 
-If you get the following error:
+If you get errors like this one:
 
     Error reading style file line 79 (fields=4)
     flag 'phstore' is invalid in non-hstore mode
     Error occurred, cleaning up
 
-then you need to add the *hstore* flag to *osm2pgsql*:
+or this one:
 
-    osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
+    Postgis Plugin: ERROR:  column "tags" does not exist
+    LINE 8: ...ASE WHEN "natural" IN ('mud') THEN "natural" ELSE tags->'wet...
+   
+then you need to enable *hstore* extension to the db with `CREATE EXTENSION hstore;` and also add the *--hstore* flag to *osm2pgsql*.
+Enabling *hstore* extension and using it with *osm2pgsql* will fix those errors.
 
 ## Create indexes
 

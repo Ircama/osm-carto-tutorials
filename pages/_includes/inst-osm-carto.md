@@ -36,15 +36,17 @@ Read [installation notes](https://github.com/gravitystorm/openstreetmap-carto/bl
 
 Currently Noto fonts are used.
 
-To install them (except Noto Emoji Regular):
+To install them (except Noto Emoji Regular and Noto Sans Arabic UI Regular/Bold):
 
     sudo apt-get install -y fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted fonts-hanazono ttf-unifont
 
-Installation of Noto Emoji Regular:
+Installation of Noto Emoji Regular and Noto Sans Arabic UI Regular/Bold:
 
     cd ~/src
     git clone https://github.com/googlei18n/noto-emoji.git
+    git clone https://github.com/googlei18n/noto-fonts.git
     sudo cp noto-emoji/fonts/NotoColorEmoji.ttf noto-emoji/fonts/NotoEmoji-Regular.ttf /usr/share/fonts/truetype/noto
+    sudo cp noto-fonts/hinted/NotoSansArabicUI-Regular.ttf noto-fonts/hinted/NotoNaskhArabicUI-Regular.ttf noto-fonts/hinted/NotoSansArabicUI-Bold.ttf noto-fonts/hinted/NotoNaskhArabicUI-Bold.ttf /usr/share/fonts/truetype/noto
     sudo fc-cache -fv
     sudo apt install fontconfig
     fc-list

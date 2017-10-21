@@ -281,6 +281,24 @@ Example usage:
 
 Depending on the DB size, this command might take very long.
 
+The following command pre-renders all tiles from zoom level 0 to zoom level 10 using 1 thread:
+
+    render_list -n 1 -z 0 -Z 10 -a
+
+A command line Perl script named [render_list_geo.pl](https://github.com/alx77/render_list_geo.pl) and developed by [alx77](https://github.com/alx77) allows automatic pre-rendering of tiles in a particular area using geographic coordinates. The related [Github README](https://github.com/alx77/render_list_geo.pl#render_list_geopl) describes usage and samples.
+
+To install it:
+
+    cd ~/src
+    git clone https://github.com/alx77/render_list_geo.pl
+    cd render_list_geo.pl
+
+Example of command to generate the z11 tiles for the UK:
+
+    ./render_list_geo.pl -n 1 -z 11 -Z 11 -x -9.5 -X 2.72 -y 49.39 -Y 61.26
+
+For both *render_list* and *render_list_geo.pl*, option `-m` allows selecting specific profiles relates to named sections in *renderd.conf*. Not using this option, the `[default]` section of *renderd.conf* is selected.
+
 ## Troubleshooting Apache, mod_tile and renderd
 
 To clear all osm tiles cache, remove /var/lib/mod_tile/default (using rm -rf if you dare) and restart renderd daemon:
