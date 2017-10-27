@@ -87,13 +87,17 @@ If you are using GitHub Desktop, to issue git commands press the right key of th
 ### Fork OpenStreetMap Carto repo
 
 Access the original repository https://github.com/gravitystorm/openstreetmap-carto after logging on to GitHub with your account.
-In the top-right corner of the page, click Fork.
+In the top-right corner of the page, click *Fork*.
 
-Check this for additional help https://help.github.com/articles/fork-a-repo/
+Check [this](https://help.github.com/articles/fork-a-repo/) for additional help.
 
 ### Create a local clone of your fork
 
 On GitHub, navigate to your fork of the openstreetmap-carto repository (*https://github.com/YOUR-USERNAME/openstreetmap-carto*, with your GitHub username instead of YOUR-USERNAME).
+
+To get/check your user name:
+
+    git config user.name
 
 Under your repository name (NOT gravitystorm), click *Clone or download*.
 
@@ -132,6 +136,10 @@ origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (push)
 If you do not have reference to the original *gravitystorm* repository, type the following command to configure it:
 
     git remote add gravitystorm https://github.com/gravitystorm/openstreetmap-carto.git
+
+To also add remote origin from GitHub project:
+
+    git remote add origin https://github.com/YOUR-USERNAME/openstreetmap-carto.git
 
 Then `git remote` should provide a complete configuration:
 
