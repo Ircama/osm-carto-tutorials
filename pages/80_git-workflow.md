@@ -86,7 +86,7 @@ If you are using GitHub Desktop, to issue git commands press the right key of th
 
 ### Fork OpenStreetMap Carto repo
 
-Access the original repository https://github.com/gravitystorm/openstreetmap-carto after logging on to GitHub with your account.
+Access the original repository [https://github.com/gravitystorm/openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) after logging on to GitHub with your account.
 In the top-right corner of the page, click *Fork*.
 
 Check [this](https://help.github.com/articles/fork-a-repo/) for additional help.
