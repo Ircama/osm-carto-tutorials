@@ -10,11 +10,11 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 The suggested tool to support the autohoring of [OpenStreetMap stylesheets](http://wiki.openstreetmap.org/wiki/Stylesheets) developed in [CartoCSS](http://wiki.openstreetmap.org/wiki/CartoCSS) is [Kosmtik](https://github.com/kosmtik/kosmtik), a software to produce, browse and verify [raster tile maps](https://en.wikipedia.org/wiki/Tiled_web_map) based on pre-processors like [CartoCSS](https://github.com/mapbox/carto) and rendered through [Mapnik](https://github.com/mapnik/mapnik/blob/master/docs/design.md).
 
-Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto and at the moment it supports [Ubuntu Linux](https://www.ubuntu.com). To simplify the related installation process, openstreetmap-carto comes with [Docker](https://en.wikipedia.org/wiki/Docker_(software)) files and [documentation](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md), which allow to build the image through simple commands.
+Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto and at the moment it supports [Ubuntu Linux](https://www.ubuntu.com). To simplify the related installation process, *openstreetmap-carto* comes with [Docker](https://en.wikipedia.org/wiki/Docker_(software)) files and [documentation](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md), which allow to build the image through simple commands.
 
-[Docker](https://docs.docker.com/engine/docker-overview/) is a tool to package a Linux application and its dependencies in a [virtual container](https://en.wikipedia.org/wiki/Operating-system-level_virtualization) that can run on any Linux server. This helps enable flexibility and portability. The Docker configuration included in openstreetmap-carto automates the setup of the Kosmtik development environment and simplifies the OSM data import process.
+[Docker](https://docs.docker.com/engine/docker-overview/) is a tool to package a Linux application and its dependencies in a [virtual container](https://en.wikipedia.org/wiki/Operating-system-level_virtualization) that can run on any Linux server. This helps enable flexibility and portability. The Docker configuration included in *openstreetmap-carto* automates the setup of the Kosmtik development environment and simplifies the OSM data import process.
 
-The subsequently described ster-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu, with Windows and with Mac.
+The subsequently described step-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu, with Windows and with Mac.
 
 The Windows configuration exploiting Docker and Doker Toolbox is definitively a great tool to allow developing *openstreetmap-carto* with a 64 bit Windows PC and locally testing the style through Kosmtik on the same machine. With Docker Toolbox, Kosmtik is transparently run in a VirtualBox VM, with all data (e.g., openstreetmap-carto directory) physically residing on the PC and the PostGIS database (with imported OSM data) hosted within the VM.
 
@@ -90,6 +90,12 @@ Check the Docker installation pages for detailed installation requirements and p
 The setup procedure of Kosmtik with [Docker for Mac](https://docs.docker.com/docker-for-mac/install/) is similar to the installation of Kosmtik [with Ubuntu](#ubuntu-installation), while the setup of Kosmtik with [Docker Toolbox for Mac](https://docs.docker.com/toolbox/toolbox_install_mac/) is similar to the one [with Windows](#windows-installation).
 
 ## Windows installation
+
+Windows 10 64-bit offers at least two ways to install Kosmtik and openstreetmap-carto via Docker: one is through Windows Subsystem for Linux (WSL) and the other is via native Docker or Docker Toolbox.
+
+Via Windows Subsystem for Linux, Docker will be installed in the Ubuntu instance running within WSL, following the standard [Ubuntu installation procedure](#ubuntu-installation). To set-up WSL, follow the related [Windows installation guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10): enable the "Windows Subsystem for Linux" optional feature, then install [Ubuntu](https://www.microsoft.com/it-it/store/p/ubuntu/9nblggh4msv6?rtc=1) from the Windows Store; a recent build of Ubuntu 16.04 LTS will be loaded. Then, the standard [Ubuntu installation procedure](#ubuntu-installation) can be performed.
+
+Alternatively to WSL, the following procedure describes how to run Docker with Docker for Windows or Docker Toolbox.
 
 With Windows, at the moment [Docker](https://docs.docker.com/docker-for-windows/) can only be installed on 64-bit physical machines with hardware-assisted virtualization support enabled and where the operating system provides [Hyper-V Host role]( https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install) (e.g., 64-bit Microsoft Windows 10 Professional/Enterprise/Education but not Windows 10 Home 64-bit, Windows 7 64-bit, etc.).
 

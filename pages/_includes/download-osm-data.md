@@ -6,7 +6,7 @@ There are many ways to download the OSM data.
 
 The reference is [Planet OSM](http://planet.openstreetmap.org).
 
-It's probably easiest to grab an PBF of OSM data from [Mapzen](https://mapzen.com/metro-extracts/) or [geofabrik](http://download.geofabrik.de/).
+It's probably easiest to grab an PBF of OSM data from [geofabrik](http://download.geofabrik.de/).
 
 Also, [BBBike.org](http://download.bbbike.org/osm/) provides extracts of more than 200 cities and regions world-wide in different formats.
 

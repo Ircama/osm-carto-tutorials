@@ -123,6 +123,10 @@ Notice that the *carto* feature able to natively process *project.mml* in YAML f
 
 ## Configure *renderd*
 
+With WSL, renderd needs to be started:
+
+    sudo service renderd start
+
 Next we need to plug *renderd* and *mod_tile* into the Apache webserver, ready to receive tile requests.
 
 Edit *renderd* configuration file with your preferite editor:
@@ -722,6 +726,7 @@ A rapid way to test the slippy map is through an online source code playground l
 [^1]: sources used for this document are the following:
     
     * [switch2osm.org - Manually building a tile server (14.04)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/)
+	* [switch2osm.org - Manually building a tile server (16.04.2 LTS)](https://switch2osm.org/manually-building-a-tile-server-16-04-2-lts/)
     * [OSM Wiki - Mod tile/Setup of your own tile server](http://wiki.openstreetmap.org/wiki/Mod_tile/Setup_of_your_own_tile_server)
     * [Build Your Own OpenStreetMap Tile Server on Ubuntu 16.04](https://www.linuxbabe.com/linux-server/openstreetmap-tile-server-ubuntu-16-04)
     * [OSM tile server jessie](https://wiki.debian.org/OSM/tileserver/jessie)

@@ -13,6 +13,10 @@ sudo apt-get update
 sudo apt-get install -y postgresql postgis pgadmin3 postgresql-contrib
 ```
 
+With WSL, you need to start the db:
+
+    sudo service postgresql start
+
 Note: used PostgeSQL port is 5432 (default).
 
 A user named {{ pg_user }} will be created during the installation process.
@@ -55,7 +59,21 @@ Now you need to create a postgis database. The defaults of various programs incl
 ```shell
 export PGPASSWORD={{ pg_password }}
 HOSTNAME=localhost # set it to the actual ip address or host name
-psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis" # alternative command: createdb -E UTF8 -O {{ pg_user }} gis
+psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis encoding='UTF-8'" # alternative command: createdb -E UTF8 -O {{ pg_user }} gis
+```
+
+If you get the following error:
+
+    ERROR:  new encoding (UTF8) is incompatible with the encoding of the template database (SQL_ASCII)
+    HINT:  Use the same encoding as in the template database, or use template0 as template.
+
+(error generally happening with Ubuntu on Windows with WSL), then use the following command:
+
+    psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis encoding='UTF-8' lc_collate='en_US.utf8' lc_ctype='en_US.utf8' template template0"
+
+Create the *postgis* and *hstore* extensions:
+
+```shell
 psql -U {{ pg_user }} -h $HOSTNAME -c "\connect gis"
 psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
 psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
