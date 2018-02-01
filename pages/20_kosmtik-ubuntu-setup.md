@@ -96,6 +96,12 @@ Replace coordinates and zoom with your preferred ones within the following line:
         "then": [9.111, 45.111, 15]
 ```
 
+For instance, for Liechtenstein you would use:
+
+```
+        "then": [9.5634, 47.1237, 15]
+```
+
 In this example, the default center is (9.111, 45.111) and the default zoom is 15. You can configure the other parameters (like the db ones: dbname, password, user, host). Replace localhost with a remote host name if the PostGIS instance is running remotely. Read [local config](https://github.com/kosmtik/kosmtik#local-config) for further information.
 
 {% include_relative _includes/firewall.md port=6789 cdprogram='~/src' %}
