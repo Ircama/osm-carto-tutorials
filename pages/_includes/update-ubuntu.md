@@ -9,7 +9,7 @@ This procedure is updated to the version of OpenStreetMap Carto available at the
 
 ## General setup for Ubuntu
 
-This install procedure is also supported by [WSL - Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+This install procedure also supports [WSL - Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 ### Update Ubuntu
 
