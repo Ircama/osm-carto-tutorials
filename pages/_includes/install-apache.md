@@ -6,15 +6,15 @@ To install apache:
 
     sudo apt-get install -y apache2 apache2-dev
 
-If using WSL, the Apache service needs to be started with
+If using [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux), the Apache service needs to be started with
 
     sudo service apache2 start
 
-Error "Failed to enable APR_TCP_DEFER_ACCEPT" with Ubuntu on Windows is due to this socket option which is not natively supported by Windows.
+Error "Failed to enable APR_TCP_DEFER_ACCEPT" with Ubuntu on Windows is due to this socket option which is not natively supported by Windows. To overcome it, edit */etc/apache2/apache2.conf* with
 
     sudo vi /etc/apache2/apache2.conf
 
-Add the following line to the end of the file:
+and add the following line to the end of the file:
 
     AcceptFilter http none
 

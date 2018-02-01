@@ -91,7 +91,7 @@ The setup procedure of Kosmtik with [Docker for Mac](https://docs.docker.com/doc
 
 ## Windows installation
 
-Windows 10 64-bit offers at least two ways to install Kosmtik and openstreetmap-carto via Docker: one is through Windows Subsystem for Linux (WSL) and the other is via native Docker or Docker Toolbox.
+Windows 10 64-bit offers at least two ways to install Kosmtik and openstreetmap-carto via Docker: one is through [Windows Subsystem for Linux](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) (WSL) and the other is via native Docker or Docker Toolbox.
 
 Via Windows Subsystem for Linux, Docker will be installed in the Ubuntu instance running within WSL, following the standard [Ubuntu installation procedure](#ubuntu-installation). To set-up WSL, follow the related [Windows installation guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10): enable the "Windows Subsystem for Linux" optional feature, then install [Ubuntu](https://www.microsoft.com/it-it/store/p/ubuntu/9nblggh4msv6?rtc=1) from the Windows Store; a recent build of Ubuntu 16.04 LTS will be loaded. Then, the standard [Ubuntu installation procedure](#ubuntu-installation) can be performed.
 

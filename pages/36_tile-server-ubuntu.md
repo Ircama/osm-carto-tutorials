@@ -123,10 +123,6 @@ Notice that the *carto* feature able to natively process *project.mml* in YAML f
 
 ## Configure *renderd*
 
-With WSL, renderd needs to be started:
-
-    sudo service renderd start
-
 Next we need to plug *renderd* and *mod_tile* into the Apache webserver, ready to receive tile requests.
 
 Edit *renderd* configuration file with your preferite editor:
@@ -197,6 +193,10 @@ Then start renderd service
 
     sudo systemctl enable renderd
 
+With [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux), *renderd* needs to be started with the following command:
+
+    sudo service renderd start
+
 The following output is regular:
 
     renderd.service is not a native service, redirecting to systemd-sysv-install
@@ -218,7 +218,7 @@ Paste the following line into the file.
 
     LoadModule tile_module /usr/lib/apache2/modules/mod_tile.so
 
-Create a symlink.
+Save it. Create a symlink.
 
     sudo ln -s /etc/apache2/mods-available/mod_tile.load /etc/apache2/mods-enabled/
 
@@ -246,6 +246,10 @@ Save and close the file. Restart Apache.
 If *systemctl* is not installed (e.g., Ubuntu 14.4):
 
     sudo service apache2 restart
+
+With WSL, restart the Apache service with the following commands:
+
+    sudo service apache2 stop; sudo service apache2 start
 
 Test access to tiles locally:
 
