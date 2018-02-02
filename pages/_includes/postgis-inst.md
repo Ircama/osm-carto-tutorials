@@ -70,8 +70,8 @@ If you get the following error:
 
 (error generally happening with Ubuntu on Windows with [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux)), then use the following command:
 
-    psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis encoding='UTF-8' lc_collate='en_US.utf8' lc_ctype='en_US.utf8' template template0"
-	# alternative command: createdb --encoding=UTF8 --locale=en_US.utf8 -O {{ pg_user }} --template=template0 gis
+    psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis encoding='UTF-8' lc_collate='en_GB.utf8' lc_ctype='en_GB.utf8' template template0"
+	# alternative command: createdb --encoding=UTF8 --locale=en_GB.utf8 -O {{ pg_user }} --template=template0 gis
 
 Create the *postgis* and *hstore* extensions:
 
@@ -81,7 +81,7 @@ psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
 psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
 ```
 
-The character encoding scheme to be used in the database is UTF8.
+The character encoding scheme to be used in the database is *UTF8* and the adopted collation is *en_GB.utf8*.
 
 If you get the following error
 
