@@ -17,7 +17,7 @@ With [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux), you need 
 
     sudo service postgresql start
 
-Note: used PostgeSQL port is 5432 (default).
+Note: used PostgreSQL port is 5432 (default).
 
 A user named {{ pg_user }} will be created during the installation process.
 
@@ -81,7 +81,7 @@ psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
 psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
 ```
 
-The character encoding scheme to be used in the database is *UTF8* and the adopted collation is *en_GB.utf8*.
+The character encoding scheme to be used in the database is *UTF8* and the adopted collation is *en_GB.utf8*. (This is in line with what reported in the [PostgreSQL Chef configuration code](https://github.com/openstreetmap/chef/blob/master/cookbooks/postgresql/resources/database.rb#L25-L27).)
 
 If you get the following error
 
