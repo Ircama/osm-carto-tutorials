@@ -146,7 +146,7 @@ https://github.com/MaZderMind/replicate-sequences
 
 OSM2PGSQL_OPTIONS="-E 4326 --number-processes 2 --style /usr/local/share/osm2pgsql/default.style --hstore -G -v --username import --database osm -C 500"
 mi sa che manca il LUA!!!!
- 
+manca anche --slim e --drop 
 
 You'll need to have a look at that to see what needs to be changed so that it expires tiles based on your own changes. The one that comes with mod_tile initialises replication to look here by default (the file /var/lib/mod_tile/.osmosis/configuration.txt is created when you initialise replication).
 

@@ -266,6 +266,8 @@ HOSTNAME=localhost # set it to the actual ip address or host name
 osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
 
+You might add `--drop` option with `-s` (`--slim`), to also drop temporary tables after import. Notice that the suggested process adopts the `-s` (`--slim` option), which uses temporary tables, so running it takes more diskspace, while less RAM memory is used.
+
 If everything is ok, you can go to [Create indexes](#create-indexes).
 
 Notice that the following elements are used:

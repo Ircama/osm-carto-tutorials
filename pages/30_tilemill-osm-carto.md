@@ -138,8 +138,10 @@ To create db tables, populate them and create some index run the following:
 
 ```batchfile
 cd <directory where you saved the .osm file and osm2pgsql>
-osm2pgsql.exe -H localhost -d gis -U postgres -s -c -G -k -C 800 -S %USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\openstreetmap-carto.style <filename>.osm
+osm2pgsql.exe -H localhost -d gis -U postgres -s -c -G -k -C 800 -S %USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\openstreetmap-carto.style --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua <filename>.osm
 ```
+
+You might add `--drop` option with `-s` (`--slim`), to also drop temporary tables after import. Notice that the suggested process adopts the `-s` (`--slim` option), which uses temporary tables, so running it takes more diskspace, while less RAM memory is used.
 
 If a script file named `openstreetmap-carto.lua` is available in the openstreetmap-carto folder, add the parameter `--tag-transform-script <lua script>`. The command would become the following:
 
