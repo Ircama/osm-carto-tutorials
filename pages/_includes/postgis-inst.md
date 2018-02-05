@@ -54,24 +54,38 @@ exit # from 'sudo su -'
 
 ## Create the PostGIS instance
 
-Now you need to create a postgis database. The defaults of various programs including openstreetmap-carto (ref. project.mml) assume the database is called *gis*. You need to set up PostGIS on the PostgreSQL database.
+Now you need to create a PostGIS database. The defaults of various programs including openstreetmap-carto (ref. project.mml) assume the database is called *gis*. You need to create a PostgreSQL database and set up a PostGIS extension on it.
+
+The character encoding scheme to be used in the database is *UTF8* and the adopted collation is *en_GB.utf8*. (The `U&"..."` escaped Unicode syntax used in *project.mml* should work [only when the server encoding is UTF8](https://www.postgresql.org/docs/9.5/static/sql-syntax-lexical.html). This is also in line with what reported in the [PostgreSQL Chef configuration code](https://github.com/openstreetmap/chef/blob/master/cookbooks/postgresql/resources/database.rb#L25-L27).)
 
 ```shell
 export PGPASSWORD={{ pg_password }}
 HOSTNAME=localhost # set it to the actual ip address or host name
-psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis encoding='UTF-8'"
-# alternative command: createdb -E UTF8 -O {{ pg_user }} gis
+psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8'"
+# alternative command: createdb -E UTF8 -l en_GB.UTF8 -O {{ pg_user }} gis
 ```
+
+If you get the following error:
+
+    ERROR:  invalid locale name: "en_GB.utf8"
+
+then you need to add *'en_GB.utf8'* locale using the following command:
+
+    sudo dpkg-reconfigure locales
+
+And select "en_GB.UTF-8 UTF-8" in the first screen ("Locales to be generated"). Subsequently, restarting the db would be suggested:
+
+    sudo service postgresql restart
 
 If you get the following error:
 
     ERROR:  new encoding (UTF8) is incompatible with the encoding of the template database (SQL_ASCII)
     HINT:  Use the same encoding as in the template database, or use template0 as template.
 
-(error generally happening with Ubuntu on Windows with [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux)), then use the following command:
+(error generally happening with Ubuntu on Windows with [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux)), then add also `TEMPLATE template0`; e.g., use the following command:
 
-    psql -U {{ pg_user }} -h $HOSTNAME -c "create database gis encoding='UTF-8' lc_collate='en_GB.utf8' lc_ctype='en_GB.utf8' template template0"
-	# alternative command: createdb --encoding=UTF8 --locale=en_GB.utf8 -O {{ pg_user }} --template=template0 gis
+    psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8' TEMPLATE template0"
+	# alternative command: createdb -E UTF8 -l en_GB.utf8 -O {{ pg_user }} -T template0 gis
 
 Create the *postgis* and *hstore* extensions:
 
@@ -81,13 +95,11 @@ psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
 psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
 ```
 
-The character encoding scheme to be used in the database is *UTF8* and the adopted collation is *en_GB.utf8*. (This is in line with what reported in the [PostgreSQL Chef configuration code](https://github.com/openstreetmap/chef/blob/master/cookbooks/postgresql/resources/database.rb#L25-L27).)
-
 If you get the following error
 
 `ERROR:  could not open extension control file "/usr/share/postgresql/9.3/extension/postgis.control": No such file or directory`
 
-then you might be installing PostgreSQL 9.3, for which you should also need:
+then you might be installing PostgreSQL 9.3 (instead of 9.5), for which you should also need:
 
     sudo apt-get install postgis postgresql-9.3-postgis-scripts
 
@@ -101,7 +113,7 @@ HOSTNAME=localhost # set it to the actual ip address or host name
 sudo mkdir /mnt/db # Suppose this is the tablespace location
 sudo chown postgres:postgres /mnt/db
 psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE TABLESPACE gists LOCATION '/mnt/db'"
-psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis TABLESPACE gists"
+psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8' TABLESPACE gists"
 psql -U {{ pg_user }} -h $HOSTNAME -c "\connect gis"
 psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
 psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
