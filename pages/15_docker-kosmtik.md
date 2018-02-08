@@ -12,13 +12,17 @@ The suggested tool to support the autohoring of [OpenStreetMap stylesheets](http
 
 Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto and at the moment it supports [Ubuntu Linux](https://www.ubuntu.com). To simplify the related installation process, *openstreetmap-carto* comes with [Docker](https://en.wikipedia.org/wiki/Docker_(software)) files and [documentation](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md), which allow to build the image through simple commands.
 
-[Docker](https://docs.docker.com/engine/docker-overview/) is a tool to package a Linux application and its dependencies in a [virtual container](https://en.wikipedia.org/wiki/Operating-system-level_virtualization) that can run on any Linux server. This helps enable flexibility and portability. The Docker configuration included in *openstreetmap-carto* automates the setup of the Kosmtik development environment and simplifies the OSM data import process.
+[Docker](https://docs.docker.com/engine/docker-overview/) allows packaging applications and dependencies in [virtual containers](https://en.wikipedia.org/wiki/Operating-system-level_virtualization) that can run on a host server without altering it permanently. The software components running within _containers_ are easy to setup and tear down individually. This helps enable flexibility and portability. The Docker demon can use operating-system-level virtualization or a virtual machine. The Docker configuration included in *openstreetmap-carto* automates the setup of the Kosmtik development environment and simplifies the OSM data import process.
 
-The subsequently described step-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu, with Windows and with Mac.
+The subsequently described step-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu, with Windows and with macOS.
 
-The Windows configuration exploiting Docker and Doker Toolbox is definitively a great tool to allow developing *openstreetmap-carto* with a 64 bit Windows PC and locally testing the style through Kosmtik on the same machine. With Docker Toolbox, Kosmtik is transparently run in a VirtualBox VM, with all data (e.g., openstreetmap-carto directory) physically residing on the PC and the PostGIS database (with imported OSM data) hosted within the VM.
+The Windows configuration exploiting Docker and Doker Toolbox is definitively a great tool to allow developing *openstreetmap-carto* with a 64 bit Windows PC and locally testing the style through Kosmtik on the same machine. With Docker Toolbox, Kosmtik is transparently run in a VirtualBox VM, with all development data (e.g., openstreetmap-carto directory) physically residing on the host system and the PostGIS database (with imported OSM data) hosted within the VM.
 
-The next paragraph describes the [installation of Kosmtik with Ubuntu](#ubuntu-installation). The subsequent ones details the steps to [install Kosmtik with Windows](#windows-installation) and [with Mac](#mac-installation).
+Sufficient disk space of _several gigabytes_ is generally needed. Docker creates an image for its virtual system that holds the virtualised operating system and the containers. The format (Docker.raw, Docker.qcow2, \*.vhdx, etc.) depends on the host system. To provide a rough idea of the sizing, the physical size starts with 2-3 GB for the virtual OS and grows to 6-7 GB when filled with the containers needed for the database, Kosmtik, and a small OSM region. Further 1-2 GB are needed for shape files in the openstreetmap-carto/data repository.
+
+The openstreetmap-carto repository needs to be a directory that is shared between your host system and the Docker virtual machine. Home directories are shared by default; if your repository is in another place, you need to add this to the Docker sharing list.
+
+The next paragraph describes the [installation of Kosmtik with Ubuntu](#ubuntu-installation). The subsequent ones details the steps to [install Kosmtik with Windows](#windows-installation) and [with macOS](#macos-installation).
 
 ## Ubuntu installation
 
@@ -79,15 +83,25 @@ To stop the database container:
 
 Check also [Recommendations and troubleshooting](#recommendations-and-troubleshooting).
 
-## Mac installation
+## macOS installation
 
-With Mac, Docker provides [Docker for Mac](https://www.docker.com/docker-mac) and [Docker Toolbox](https://www.docker.com/products/docker-toolbox) for Mac.
+With macOS, Docker provides [Docker for Mac](https://www.docker.com/docker-mac) and [Docker Toolbox](https://www.docker.com/products/docker-toolbox) for Mac.
 
 *Docker for Mac* is a native desktop application which requires OSX Yosemite 10.10.3 or above and new hardware models supporting MMU virtualization (i.e., Extended Page Tables (EPT) and Unrestricted Mode). *Docker Toolbox* allows the installation of Docker on older Macs that do not meet minimal system requirements for *Docker for Mac*.
 
 Check the Docker installation pages for detailed installation requirements and procedures.
 
 The setup procedure of Kosmtik with [Docker for Mac](https://docs.docker.com/docker-for-mac/install/) is similar to the installation of Kosmtik [with Ubuntu](#ubuntu-installation), while the setup of Kosmtik with [Docker Toolbox for Mac](https://docs.docker.com/toolbox/toolbox_install_mac/) is similar to the one [with Windows](#windows-installation).
+
+The steps to add the openstreetmap-carto directory to the Docker sharing list are: Docker Preferences > File Sharing; Windows: Docker Settings > Shared Drives.
+
+Importing the data needs a substantial amount of RAM in the virtual machine. If you find the import process (Reading in file: data.osm.pbf, Processing) being _killed_ by the Docker demon, exiting with error code 137, increase the Memory assigned to Docker (e.g. Docker Preferences > Advanced > Adjust the computing resources). 
+
+Docker copies log files from the virtual machine into the host system, their [location depends on the host OS](https://stackoverflow.com/questions/30969435/where-is-the-docker-daemon-log). E.g. the 'console-ring' appears to be a ringbuffer of the console log, which can help to find reasons for killings.  
+
+While installing software in the containers and populating the database, the disk image of the virtual machine grows in size, by Docker allocating more clusters. When the disk on the host system is full (only a few MB remaining), Docker can appear stuck. Watch the system log files of your host system for failed allocations. 
+
+Docker stores its disk image by default in the home directories of the user. If you don't have enough space here, you can move it elsewhere. (E.g. Docker > Preferences > Disk).
 
 ## Windows installation
 
@@ -249,3 +263,4 @@ Additional recommendations for Docker Toolbox.
 - Docker Toolbox needs to configure a Linux 64-bit VM. Set all virtualization features in the BIOS before running the Docker installation
 - Do not manually start the interactive session of the VM VirtualBox used by Docker Toolbox (and named "default") before running *Docker Quickstart Terminal*, but let this command start the VM; in case, close any *Docker Quickstart Terminal*, perform a `shutdown -h now` on the interactive session and wait for the VM to disappear. Then run *Docker Quickstart Terminal*. Notice that an error like `pywintypes.error: (2, 'WaitNamedPipe'...` occurs when the *Docker Quickstart Terminal* is activated after a manual startup of the interactive session of the VM.
 - `docker-compose up` does not install or copy the *openstreetmap-carto* package itself on the VM and accesses the one manually downloaded to the PC.
+- Importing the data needs a substantial amount of RAM in the virtual machine. If you find the import process (Reading in file: data.osm.pbf, Processing) being _killed_ by the Docker demon, exiting with error code 137, increase the Memory assigned to Docker (e.g. Docker Settings > Advanced > Adjust the computing resources).
