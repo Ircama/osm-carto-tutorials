@@ -14,13 +14,13 @@ Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list
 
 [Docker](https://docs.docker.com/engine/docker-overview/) allows packaging applications and dependencies in [virtual containers](https://en.wikipedia.org/wiki/Operating-system-level_virtualization) that can run on a host server without altering it permanently. The software components running within _containers_ are easy to setup and tear down individually. This helps enable flexibility and portability. The Docker demon can use operating-system-level virtualization or a virtual machine. The Docker configuration included in *openstreetmap-carto* automates the setup of the Kosmtik development environment and simplifies the OSM data import process.
 
+The openstreetmap-carto repository needs to be a directory that is shared between your host system and the Docker virtual machine. Home directories are shared by default; if your repository is in another place, you need to add this to the Docker sharing list.
+
+Sufficient disk space of several gigabytes is generally needed. Docker creates an image for its virtual system that holds the virtualised operating system and the containers. The format (Docker.raw, Docker.qcow2, \*.vhdx, etc.) depends on the host system. To provide a rough idea of the sizing, the physical size might start with 2-3 GB for the virtual OS and could grow to 6-7 GB when filled with the containers needed for the database, Kosmtik, and a small OSM region. Further 1-2 GB would be needed for shape files in the openstreetmap-carto/data repository.
+
 The subsequently described step-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu, with Windows and with macOS.
 
 The Windows configuration exploiting Docker and Doker Toolbox is definitively a great tool to allow developing *openstreetmap-carto* with a 64 bit Windows PC and locally testing the style through Kosmtik on the same machine. With Docker Toolbox, Kosmtik is transparently run in a VirtualBox VM, with all development data (e.g., openstreetmap-carto directory) physically residing on the host system and the PostGIS database (with imported OSM data) hosted within the VM.
-
-Sufficient disk space of _several gigabytes_ is generally needed. Docker creates an image for its virtual system that holds the virtualised operating system and the containers. The format (Docker.raw, Docker.qcow2, \*.vhdx, etc.) depends on the host system. To provide a rough idea of the sizing, the physical size starts with 2-3 GB for the virtual OS and grows to 6-7 GB when filled with the containers needed for the database, Kosmtik, and a small OSM region. Further 1-2 GB are needed for shape files in the openstreetmap-carto/data repository.
-
-The openstreetmap-carto repository needs to be a directory that is shared between your host system and the Docker virtual machine. Home directories are shared by default; if your repository is in another place, you need to add this to the Docker sharing list.
 
 The next paragraph describes the [installation of Kosmtik with Ubuntu](#ubuntu-installation). The subsequent ones details the steps to [install Kosmtik with Windows](#windows-installation) and [with macOS](#macos-installation).
 
@@ -101,7 +101,7 @@ Docker copies log files from the virtual machine into the host system, their [lo
 
 While installing software in the containers and populating the database, the disk image of the virtual machine grows in size, by Docker allocating more clusters. When the disk on the host system is full (only a few MB remaining), Docker can appear stuck. Watch the system log files of your host system for failed allocations. 
 
-Docker stores its disk image by default in the home directories of the user. If you don't have enough space here, you can move it elsewhere. (E.g. Docker > Preferences > Disk).
+Docker stores its disk image by default in the home directories of the user. If you don't have enough space here, you can move it elsewhere. (E.g. Docker > Preferences > Disk).[^1]
 
 ## Windows installation
 
@@ -264,3 +264,5 @@ Additional recommendations for Docker Toolbox.
 - Do not manually start the interactive session of the VM VirtualBox used by Docker Toolbox (and named "default") before running *Docker Quickstart Terminal*, but let this command start the VM; in case, close any *Docker Quickstart Terminal*, perform a `shutdown -h now` on the interactive session and wait for the VM to disappear. Then run *Docker Quickstart Terminal*. Notice that an error like `pywintypes.error: (2, 'WaitNamedPipe'...` occurs when the *Docker Quickstart Terminal* is activated after a manual startup of the interactive session of the VM.
 - `docker-compose up` does not install or copy the *openstreetmap-carto* package itself on the VM and accesses the one manually downloaded to the PC.
 - Importing the data needs a substantial amount of RAM in the virtual machine. If you find the import process (Reading in file: data.osm.pbf, Processing) being _killed_ by the Docker demon, exiting with error code 137, increase the Memory assigned to Docker (e.g. Docker Settings > Advanced > Adjust the computing resources).
+
+[^1]: [Docker.md improvements, requirements and troubleshooting](https://github.com/gravitystorm/openstreetmap-carto/pull/3021)
