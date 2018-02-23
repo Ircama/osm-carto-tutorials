@@ -35,7 +35,7 @@ Optional elements (needed for the topcube module related to the client user inte
 
 Installation of TileMill:
 
-    test -d ~/src || mkdir  ~/src ; cd ~/src
+    mkdir -p ~/src ; cd ~/src
     git clone https://github.com/tilemill-project/tilemill.git
     cd ~/src/tilemill
     npm install

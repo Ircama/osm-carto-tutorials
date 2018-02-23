@@ -59,7 +59,7 @@ Verify that [docker-compose](https://docs.docker.com/compose/reference/overview/
 
 Install openstreetmap-carto:
 
-    test -d ~/src || mkdir  ~/src ; cd ~/src
+    mkdir -p ~/src ; cd ~/src
     git clone https://github.com/gravitystorm/openstreetmap-carto.git
     cd openstreetmap-carto
 

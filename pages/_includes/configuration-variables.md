@@ -14,7 +14,7 @@ setx PGPASSWORD {{ pg_password }}
 ```
 {% endif %}
 {% if include.os == "Ubuntu" %}
-```bash
+```shell
 export PGHOST=localhost
 export PGPORT=5432
 export PGUSER={{ pg_user }}

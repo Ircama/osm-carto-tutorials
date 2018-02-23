@@ -156,6 +156,18 @@ Finally, the DB shall be restarted:
 
     sudo /etc/init.d/postgresql restart
 
+Check that the *gis* database is available. To list all databases defined in PostgreSQL, issue the following command:
+    
+	psql -U postgres -h $HOSTNAME -c "\l+"
+
+The obtained report should include the *gis* database, as in the following table:
+
+   Name    |  Owner   | Encoding  |  Collate   |   Ctype    |    Access privileges
+-----------|----------|-----------|------------|------------|-------------------------
+ gis       | postgres | UTF8      | en_US.utf8 | en_US.utf8 | =Tc/postgres
+           |          |           |            |            | postgres=CTc/postgres
+           |          |           |            |            | tileserver=CTc/postgres
+
 ## Tuning the database
 
 The default PostgreSQL settings aren't great for very large databases like OSM databases. Proper tuning can just about double the performance.
@@ -278,7 +290,8 @@ HOSTNAME=localhost # set it to the actual ip address or host name
 osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
 
-Notice that the suggested process adopts the `-s` (`--slim` option), which uses temporary tables, so running it takes more diskspace, while less RAM memory is used. You might add `--drop` option with `-s` (`--slim`), to also drop temporary tables after import.
+Notice that the suggested process adopts the `-s` (`--slim` option), which uses temporary tables, so running it takes more diskspace (and is very slow), while less RAM memory is used. You might add `--drop` option with `-s` (`--slim`), to also drop temporary tables after import, otherwise you will also find the temporary tables *nodes*, *ways*, and *rels* (these tables started out as pure
+“helper” tables for memory-poor systems, but today they are widely used because they are also a prerequisite for updates).
 
 If everything is ok, you can go to [Create indexes](#create-indexes).
 
@@ -328,6 +341,29 @@ cd {{ include.cdprogram }}
 cd openstreetmap-carto
 scripts/indexes.py | psql -U {{ pg_user }} -h $HOSTNAME -d gis
 ```
+
+To list all tables available in the *gis* database, issue the following command:
+
+    psql -U postgres -h $HOSTNAME -d gis -c "\dt+"
+
+The database shall include the *rels*, *ways* and *nodes* tables (created with the `--slim` mode of *osm2pgsql*) in order to allow updates.
+
+In the following example of output, the `--slim` mode of *osm2pgsql* was used:
+
+ Schema |        Name        | Type  |  Owner
+--------|--------------------|-------|----------
+ public | planet_osm_line    | table | postgres
+ public | planet_osm_nodes   | table | postgres
+ public | planet_osm_point   | table | postgres
+ public | planet_osm_polygon | table | postgres
+ public | planet_osm_rels    | table | postgres
+ public | planet_osm_roads   | table | postgres
+ public | planet_osm_ways    | table | postgres
+ public | spatial_ref_sys    | table | postgres
+
+In fact, the tables *planet_osm_rels*, *planet_osm_ways*, *planet_osm_nodes* are available, as described in the [Database Layout of Pgsql](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/pgsql.md#database-layout).
+
+Check [The OpenStreetMap data model](https://www.mapbox.com/mapping/osm-data-model/) at Mapbox for further details.
 
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
 

@@ -46,7 +46,7 @@ Installation of Noto Emoji Regular and Noto Sans Arabic UI Regular/Bold:
     git clone https://github.com/googlei18n/noto-emoji.git
     git clone https://github.com/googlei18n/noto-fonts.git
     sudo cp noto-emoji/fonts/NotoColorEmoji.ttf noto-emoji/fonts/NotoEmoji-Regular.ttf /usr/share/fonts/truetype/noto
-    sudo cp noto-fonts/hinted/NotoSansArabicUI-Regular.ttf noto-fonts/hinted/NotoNaskhArabicUI-Regular.ttf noto-fonts/hinted/NotoSansArabicUI-Bold.ttf noto-fonts/hinted/NotoNaskhArabicUI-Bold.ttf /usr/share/fonts/truetype/noto
+    sudo cp noto-fonts/hinted/NotoSansArabicUI-Regular.ttf noto-fonts/hinted/NotoNaskhArabicUI-Regular.ttf noto-fonts/hinted/NotoSansArabicUI-Bold.ttf noto-fonts/hinted/NotoNaskhArabicUI-Bold.ttf noto-fonts/hinted/NotoSansAdlam-Regular.ttf /usr/share/fonts/truetype/noto
     sudo fc-cache -fv
     sudo apt install fontconfig
     fc-list

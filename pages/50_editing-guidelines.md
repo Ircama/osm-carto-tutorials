@@ -268,6 +268,8 @@ Or it might have the `.water-elements` class:
 }
 ```
 
+SQL statements might also include ordering by user-supplied strings in the last term of an ORDER BY clause to get a consistent ordering across metatiles.
+
 Let us consider this simplified CartoCSS example:
 
 ```shell

@@ -34,7 +34,7 @@ The following subfolders will be created:
 
 ## Install Kosmtik
 
-    test -d ~/src || mkdir  ~/src ; cd ~/src
+    mkdir -p ~/src ; cd ~/src
     git clone https://github.com/kosmtik/kosmtik.git
     cd ~/src/kosmtik
     npm install

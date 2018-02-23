@@ -74,7 +74,7 @@ You can test Apache by accessing it through a browser at *http://your-server-ip*
 
 [Mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik. We can compile it from Github repository.
 
-    test -d ~/src || mkdir  ~/src ; cd ~/src
+    mkdir -p ~/src ; cd ~/src
     git clone https://github.com/openstreetmap/mod_tile.git
     cd mod_tile
     ./autogen.sh && ./configure && make && sudo make install && sudo make install-mod_tile && sudo ldconfig

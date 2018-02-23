@@ -31,7 +31,7 @@ Remove any other old Mapnik packages:
 
 Install prerequisites; first create a directory to load the sources:
 
-    test -d ~/src || mkdir  ~/src ; cd ~/src
+    mkdir -p ~/src ; cd ~/src
 
     sudo apt-get install -y libxml2-dev libfreetype6-dev \
       libjpeg-dev libpng-dev libproj-dev libtiff-dev \
