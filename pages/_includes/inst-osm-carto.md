@@ -42,22 +42,41 @@ To install them (except Noto Emoji Regular and Noto Sans Arabic UI Regular/Bold)
 
 Installation of Noto Emoji Regular and Noto Sans Arabic UI Regular/Bold:
 
-    cd ~/src
-    git clone https://github.com/googlei18n/noto-emoji.git
-    git clone https://github.com/googlei18n/noto-fonts.git
-    sudo cp noto-emoji/fonts/NotoColorEmoji.ttf noto-emoji/fonts/NotoEmoji-Regular.ttf /usr/share/fonts/truetype/noto
-    sudo cp noto-fonts/hinted/NotoSansArabicUI-Regular.ttf noto-fonts/hinted/NotoNaskhArabicUI-Regular.ttf noto-fonts/hinted/NotoSansArabicUI-Bold.ttf noto-fonts/hinted/NotoNaskhArabicUI-Bold.ttf noto-fonts/hinted/NotoSansAdlam-Regular.ttf /usr/share/fonts/truetype/noto
-    sudo fc-cache -fv
-    sudo apt install fontconfig
-    fc-list
-    fc-list | grep Emoji
-    cd openstreetmap-carto
+```shell
+cd ~/src
+git clone https://github.com/googlei18n/noto-emoji.git
+git clone https://github.com/googlei18n/noto-fonts.git
+sudo cp noto-emoji/fonts/NotoColorEmoji.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-emoji/fonts/NotoEmoji-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansArabicUI-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoNaskhArabicUI-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansArabicUI-Bold.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoNaskhArabicUI-Bold.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansAdlam-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansAdlamUnjoined-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansChakma-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansOsage-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansSinhalaUI-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/unhinted/NotoSansSymbols2-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/unhinted/NotoSansArabicUI-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/unhinted/NotoSansCherokee-Bold.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/unhinted/NotoSansSinhalaUI-Bold.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/unhinted/NotoSansSymbols-Bold.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/unhinted/NotoSansArabicUI-Bold.ttf /usr/share/fonts/truetype/noto
+sudo fc-cache -fv
+sudo apt install fontconfig
+fc-list
+fc-list | grep Emoji
+cd openstreetmap-carto
+```
 
 DejaVu Sans is used as an optional fallback font for systems without Noto Sans. If all the Noto fonts are installed, it should never be used.
 
     sudo apt-get install -y fonts-dejavu-core
 
 Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#fonts) for further information.
+
+The *unifont Medium* font (lowercase label), which was included in past OS versions, now is no more available and substituted by *Unifont Medium* (uppercase). Warnings related to the unavailability of *unifont Medium* are not relevant and are due to the old decision of OpenStreetMap maintainers to support [both the past Ubuntu 12.04 font and the newer version](https://github.com/gravitystorm/openstreetmap-carto/pull/429) (uppercase). Removing the reference to "unifont Medium" in *openstreetmap-carto/style.xml* avoids the warning.
 
 ## Create the *data* folder
 

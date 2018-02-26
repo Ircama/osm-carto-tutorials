@@ -124,7 +124,7 @@ A default *configuration.txt* file and another one named *download.lock* will be
 
 *configuration.txt* shall at least include *baseUrl* and *maxInterval*. A Java exception occurs in case one of these two is missing (e.g., `SEVERE: Thread for task 1-read-replication-interval failed`).
 
-Keeping the data up-to-date can be resource intensive. *maxInterval* controls how much data Osmosis will download in a single invocation and by default is set to 3600, meaning one hour of changes a time (even if you are using minutely updates). After the download, Osm2pgsql applies them to the database. Depening on the size of the area, on the number of changes and on how complex they are, one run can be immediate, take many seconds, a few minutes or more than one hour. For a quicker feedback it is worthwhile to change the maxInterval value to something lower (e.g., 60 seconds to just download one minute at a time which should only take a few seconds to apply). If you have instead lot of changes to catch up, you can tune it to a higher value (e.g., changing it to maxInterval = 21600, meaning six hours, 86400 for one day, 604800 for one week). Setting to 0 disables this feature.[^2]
+Keeping the data up-to-date can be resource intensive. *maxInterval* controls how much data Osmosis will download in a single invocation and by default is set to 3600, meaning one hour of changes a time (even if you are using minutely updates). After the download, Osm2pgsql applies them to the database. Depending on the size of the area, on the number of changes and on how complex they are, one run can be immediate, take many seconds, a few minutes or more than one hour. For a quicker feedback it is worthwhile to change the maxInterval value to something lower (e.g., 60 seconds to just download one minute at a time which should only take a few seconds to apply). If you have instead lot of changes to catch up, you can tune it to a higher value (e.g., changing it to maxInterval = 21600, meaning six hours, 86400 for one day, 604800 for one week). Setting to 0 disables this feature.[^2]
 
 Once the process finishes you can check the state.txt file. The time stamp and sequence number should have changed to reflect the update that was applied.
 
@@ -165,6 +165,47 @@ Its related diagram is the following:
 |state.txt ![txt][txt]| |                   | |PostgreSQL PostGIS ![db][db]|
 {: .drawing}
 
+## Using Osmosis with an extract downloaded from Geofabrik
+
+[Geofabrik](http://www.geofabrik.de/) provides an [updated version of the planet dataset](https://download.geofabrik.de/technical.html) from the latest OpenStreetMap data, already splitted into a number of [pre-defined regions](https://download.geofabrik.de/). When using Geofabrik to download the initial dataset to the local database, data can be kept updated by applying diff update files (differences between the new extract and the previous one) that Geofabrik also computes each time a new exctract is produced for a region. Using diff files of the same region of the initial download, users can continuously update their own regional extract instead of having to download the full file.
+
+By default, the *baseUrl* parameter in *configuration.txt* points to the whole planet. If you are using an extract downloaded from [Geofabrik](http://download.geofabrik.de/), you should change the url basing on the metadata of the related PBF file; *osmium* is a tool which among other things allows the analisys of a PBF file; it can be installed through:
+
+    sudo apt -y install osmium-tool
+
+The command to analyze a PBF file is `osmium fileinfo`:
+
+    PBF_FILE=liechtenstein-latest.osm.pbf
+	osmium fileinfo $PBF_FILE
+
+The "osmosis_replication_" properties returned by this command can be used to configure *osmosis*. Values have to be transformed and this can be automatically done through a simple parser that generates a working *configuration.txt*[^1]:
+
+```shell
+PBF_FILE=liechtenstein-latest.osm.pbf
+REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${PBF_FILE}")"
+echo -e "baseUrl=${REPLICATION_BASE_URL}\nmaxInterval=3600" > "${WORKOSM_DIR}/configuration.txt"
+```
+
+So, the above command can be used to produce *configuration.txt* from a PBF file downloaded by *Geofabrik.de*.
+
+Subsequently, the command to generate *state.txt* is the following[^1]:
+
+```shell
+REPLICATION_SEQUENCE_NUMBER="$( printf "%09d" "$(osmium fileinfo -g 'header.option.osmosis_replication_sequence_number' "${PBF_FILE}")" | sed ':a;s@\B[0-9]\{3\}\>@/&@;ta' )"
+curl -s -L -o "${WORKOSM_DIR}/state.txt" "${REPLICATION_BASE_URL}/${REPLICATION_SEQUENCE_NUMBER}.state.txt"
+```
+
+The *osmosis*/*osm2pgsql* pipeline to keep the DB updated with Geofabrik is the following:
+
+```shell
+WORKOSM_DIR=/home/{{ pg_login }}/osmosisworkingdir
+export PGPORT=5432
+export PGPASSWORD={{ pg_password }}
+cd ~/src/openstreetmap-carto
+HOSTNAME=localhost # set it to the actual ip address or host name
+osmosis --read-replication-interval workingDirectory=${WORKOSM_DIR} --simplify-change --write-xml-change - | \
+osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U postgres -
+```
 
 
 
@@ -194,54 +235,6 @@ http://ksmapper.blogspot.it/2011/04/keeping-database-up-to-date-with.html
 
 
 
-
-
-## Using Osmosis with an extract downloaded from Geofabrik
-
-By default, the *baseUrl* parameter in *configuration.txt* points to the whole planet. If you are using an extract, for instance downloaded from [Geofabrik](http://download.geofabrik.de/), you should  change the url basing on the metadata of the PBF file; *osmium* is a tool which among other things allows the analisys of a PBF file; it can be installed through:
-
-    sudo apt -y install osmium-tool
-
-The command to analyze a PBF file is the following:
-
-    PBF_FILE=liechtenstein-latest.osm.pbf
-	osmium fileinfo $PBF_FILE
-
-The osmosis properties returned by this command can be used to configure *osmosis*. Values have to be transformed and this can be automatically done through a simple parser that generates a working *configuration.txt*[^1]:
-
-```shell
-PBF_FILE=liechtenstein-latest.osm.pbf
-REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${PBF_FILE}")"
-echo -e "baseUrl=${REPLICATION_BASE_URL}\nmaxInterval=3600" > "${WORKOSM_DIR}/configuration.txt"
-```
-
-So, the above command can be used to produce *configuration.txt* from a PBF file downloaded by *Geofabrik.de*.
-
-Subsequently, the command to generate *state.txt* is the following[^1]:
-
-    REPLICATION_SEQUENCE_NUMBER="$( printf "%09d" "$(osmium fileinfo -g 'header.option.osmosis_replication_sequence_number' "${PBF_FILE}")" | sed ':a;s@\B[0-9]\{3\}\>@/&@;ta' )"
-    curl -s -L -o "${WORKOSM_DIR}/state.txt" "${REPLICATION_BASE_URL}/${REPLICATION_SEQUENCE_NUMBER}.state.txt"
-
-A simple procedure to keep the DB updated is through the following pipeline which exploits *osmosis* and *osm2pgsql*:
-
-```shell
-WORKOSM_DIR=/home/{{ pg_login }}/osmosisworkingdir
-export PGPORT=5432
-export PGPASSWORD={{ pg_password }}
-cd ~/src/openstreetmap-carto
-HOSTNAME=localhost # set it to the actual ip address or host name
-osmosis --read-replication-interval workingDirectory=${WORKOSM_DIR} --simplify-change --write-xml-change - | \
-osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U postgres -
-```
-
-Its related diagram is the following:
-
-|configuration.txt ![txt][txt]| |Openstreetmap Changes ![xml][xml]|
-|                             |↘|↓                  |
-|state.txt ![txt][txt]|→|*Osmosis* ![prg][prg]|→|*Osm2pgsql* ![prg][prg]|
-|                     |↙|                   | |↓|
-|state.txt ![txt][txt]| |                   | |PostgreSQL PostGIS ![db][db]|
-{: .drawing}
 
 https://gis.stackexchange.com/questions/94352/update-database-via-osmosis-and-osm2pgsql-too-slow
 http://www.geofabrik.de/media/2012-09-08-osm2pgsql-performance.pdf
@@ -371,8 +364,6 @@ A sample of *cron* job is the following:
 https://github.com/geometalab/osmaxx/wiki/Updating-the-planet---extracting-data
 https://mygisnotes.wordpress.com/tag/osm/
 
-Using Geofabrik
-[Geofabrik](http://www.geofabrik.de/) provides an [updated version of the planet dataset](https://download.geofabrik.de/technical.html) from the latest OpenStreetMap data, already splitted into a number of [pre-defined regions](https://download.geofabrik.de/). When using Geofabrik to download the initial dataset to the local database, data can be kept updated by applying diff update files (differences between the new extract and the previous one) that Geofabrik also computes each time a new exctract is produced for a region. Using diff files of the same region of the initial download, users can continuously update their own regional extract instead of having to download the full file.
 
 
 https://github.com/posm/posm/issues/17
