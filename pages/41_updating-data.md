@@ -11,7 +11,7 @@ sitemap: false # remove this once the page is completed
 
 ## Introduction
 
-This page describes how to keep the local PostgreSQL/PostGIS database in sync with OpenStreetMap as data is progressively updated to OSM. The information here provided is general and not necessarily comprehensive, also in the consideration that the main scope of this site is to provide tutorials to set-up a development environment of *OpenStreetMap Carto* and offer recommendations to edit the style.
+This page provides a basic description of the standard procedure to keep the local PostgreSQL/PostGIS database in sync with OpenStreetMap as data is progressively updated to OSM. The information here provided is general and not necessarily comprehensive, also in the consideration that the main scope of this site is to provide tutorials to set-up a development environment of *OpenStreetMap Carto* and offer recommendations to edit the style.
 
 After the initial load of a [PBF extract](https://wiki.openstreetmap.org/wiki/PBF_Format) (or of the whole "planet") into the PostgreSQL/PostGIS database, in order to keep data up to date, OpenStreetMap offers minutely, hourly and daily change files in compressed xml format, also called [diff files, or replication diffs, or osmChange files](https://wiki.openstreetmap.org/wiki/Planet.osm/diffs), periodically collecting uploaded and closed [changesets](https://wiki.openstreetmap.org/wiki/Changeset) (where each changeset groups single edits like additions, updates, changes, deletions of features).
 
