@@ -55,9 +55,9 @@ https://tile.openstreetmap.org/
 
 to `http://your-server-ip/osm_tiles/`.
 
-To edit the sample, click on *Edit in *. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
+To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//fiddle.jshell.net/ircama/L3v8g0eh/embed/"></script>
+<script async src="https://fiddle.jshell.net/ircama/L3v8g0eh/embed/"></script>
 
 ## Mapbox API
 
@@ -73,7 +73,7 @@ to `http://your-server-ip/osm_tiles/{z}/{x}/{y}.png`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//https://jsfiddle.net/ircama/eLb09na5/embed/"></script>
+<script async src="https://jsfiddle.net/ircama/eLb09na5/embed/"></script>
 
 ## Carto API
 
