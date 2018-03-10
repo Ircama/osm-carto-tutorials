@@ -8,19 +8,19 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 ## OSM architecture
 
-The following high level description will help to basically understand the OSM [rendering](http://wiki.openstreetmap.org/wiki/Rendering) process. Even if possibly imprecise or outdated in some part, it should allow to rationalize the implemented design.
+The following high level description will help to basically understand the OSM [rendering](https://wiki.openstreetmap.org/wiki/Rendering) process. Even if possibly imprecise or outdated in some part, it should allow to rationalize the implemented design.
 
-A map image shown in a browser is built up of many [tiles](https://en.wikipedia.org/wiki/Tiled_web_map), which are little square images all rendered with a variant of the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection) called [Web Mercator](https://en.wikipedia.org/wiki/Web_Mercator), identified as [EPSG:3857](http://wiki.openstreetmap.org/wiki/EPSG:3857) or [EPSG:900913](http://docs.openlayers.org/library/spherical_mercator.html). This produces a fast approximation to the truer, but heavier elliptical projection.
+A map image shown in a browser is built up of many [tiles](https://en.wikipedia.org/wiki/Tiled_web_map), which are little square images all rendered with a variant of the [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection) called [Web Mercator](https://en.wikipedia.org/wiki/Web_Mercator), identified as [EPSG:3857](https://wiki.openstreetmap.org/wiki/EPSG:3857) or [EPSG:900913](http://docs.openlayers.org/library/spherical_mercator.html). This produces a fast approximation to the truer, but heavier elliptical projection.
 
 A general definition of tiled web map (or slippy map in OpenStreetMap terminology) is reported [here](https://en.wikipedia.org/wiki/Tiled_web_map).
 
 This [link](https://www.mapbox.com/help/how-web-maps-work/) provides an overview of how web maps work.
 
-The following diagram from the [OSM Component overview](http://wiki.openstreetmap.org/wiki/Component_overview "Click here for a description of all components") represents all main elements of the OpenStreetMap architecture.
+The following diagram from the [OSM Component overview](https://wiki.openstreetmap.org/wiki/Component_overview "Click here for a description of all components") represents all main elements of the OpenStreetMap architecture.
 
 The relevant blocks for the rendering process are the ones represented in `yellow`{:.highlight-yellow}.
 
-![OSM Components](http://wiki.openstreetmap.org/w/images/1/15/OSM_Components.png)
+![OSM Components](https://wiki.openstreetmap.org/w/images/1/15/OSM_Components.png)
 
 ## Structure of openstreetmap-carto
 
@@ -46,7 +46,7 @@ openstreetmap-carto includes the following files and folders:
 
 ## Description of the rendering process
 
-The rendering process takes its data from a [PostgreSQL](https://www.postgresql.org/) geodatabase with [spatial extension](https://en.wikipedia.org/wiki/Spatial_database) implemented through [PostGIS](http://postgis.net/) (yellow cylinder in the previous drawing). This DB instance holds a constantly updated planet table space in a different format to the database used on the core OSM database server (represented in green in the previous drawing) and is populated by running an [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) script on minutely [diffs](http://wiki.openstreetmap.org/wiki/Planet.osm/diffs). Osm2pgsql acts as [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load), converting OpenStreetMap incremental data to PostGIS-enabled PostgreSQL DB and is able to manage incremental updates of the database as well as to perform an initial load when needed, keeping the PostGIS instance updated or fully refreshing it (in case of periodic database re-import or following a possible major change in openstreetmap-carto that requires reloading the database).
+The rendering process takes its data from a [PostgreSQL](https://www.postgresql.org/) geodatabase with [spatial extension](https://en.wikipedia.org/wiki/Spatial_database) implemented through [PostGIS](http://postgis.net/) (yellow cylinder in the previous drawing). This DB instance holds a constantly updated planet table space in a different format to the database used on the core OSM database server (represented in green in the previous drawing) and is populated by running an [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) script on minutely [diffs](https://wiki.openstreetmap.org/wiki/Planet.osm/diffs). Osm2pgsql acts as [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load), converting OpenStreetMap incremental data to PostGIS-enabled PostgreSQL DB and is able to manage incremental updates of the database as well as to perform an initial load when needed, keeping the PostGIS instance updated or fully refreshing it (in case of periodic database re-import or following a possible major change in openstreetmap-carto that requires reloading the database).
 
 [osm2pgsql supports Lua scripts](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/lua.md) to perform complex queries and rewrite/unify tags before data enter the database. [Lua](http://lua.org/) pre-processing saves further Mapnik processing.
 
@@ -63,7 +63,7 @@ The following diagram represents the process to populate the PostGIS instance wi
 
 <br />
 
-*OSM data extract* is a `.osm` file in XML format ([JOSM file format](http://wiki.openstreetmap.org/wiki/JOSM_file_format)) created with [JOSM](https://josm.openstreetmap.de/) or [downloaded from OSM]((http://wiki.openstreetmap.org/wiki/Downloading_data)); alternatively it can be a `.pbf` file in compressed binary format ([Protocolbuffer Binary Format](http://wiki.openstreetmap.org/wiki/PBF_Format)), downloaded from sites like [Geofabrik](http://download.geofabrik.de/).
+*OSM data extract* is a `.osm` file in XML format ([JOSM file format](https://wiki.openstreetmap.org/wiki/JOSM_file_format)) created with [JOSM](https://josm.openstreetmap.de/) or [downloaded from OSM]((https://wiki.openstreetmap.org/wiki/Downloading_data)); alternatively it can be a `.pbf` file in compressed binary format ([Protocolbuffer Binary Format](https://wiki.openstreetmap.org/wiki/PBF_Format)), downloaded from sites like [Geofabrik](https://download.geofabrik.de/).
 
 *openstreetmap-carto.lua* is a [Lua](https://www.lua.org/) script invoked by *osm2pgsql* for data normalization, removal and aggregation. While some standard data management is hardcoded in *osm2pgsql*, most of the transformations are scripted in *openstreetmap-carto.lua*, which also covers semantic corrections of features.
 
@@ -81,9 +81,9 @@ Some features in OSM need a specific preprocessing because of their complexity o
 
 For this, all periodically preprocessed shapefiles data derived from OSM shall be downloaded into a specific folder to be locally accessed by the rendering engine and also indexed for improved search performance.
 
-Shapefiles currently used by OSM for rendering the standard map can be found in [OpenStreetMapData](http://openstreetmapdata.com/), [Natural Earth](http://www.naturalearthdata.com) and [Planet OSM](http://planet.openstreetmap.org/).
 
-Additional information available [here](http://wiki.openstreetmap.org/wiki/Planet.osm), [here](http://wiki.openstreetmap.org/wiki/OSMCoastline) and [here](http://wiki.openstreetmap.org/wiki/Coastline_error_checker).
+Shapefiles currently used by OSM for rendering the standard map can be found in [OpenStreetMapData](http://openstreetmapdata.com/), [Natural Earth](http://www.naturalearthdata.com) and [Planet OSM](https://planet.openstreetmap.org/) (notice we are now [using https with openstreetmap sites](https://github.com/openstreetmap/operations/issues/200)).
+Additional information available [here](https://wiki.openstreetmap.org/wiki/Planet.osm), [here](https://wiki.openstreetmap.org/wiki/OSMCoastline) and [here](https://wiki.openstreetmap.org/wiki/Coastline_error_checker).
 
 The process adopted to download and index the needed shapefiles is the following:
 
@@ -96,15 +96,15 @@ The core rendering software currently used by OpenStreetMap is [Mapnik](https://
 
 Exploiting a PostGIS database as the backend provides efficient and flexible retrieval from a large amounts of data, allowing optimizations relate to the interaction of PostGIS SQL spatial queries and Mapnik's layers, rules, and filters.
 
-Produced tiles are then delivered through a custom Apache module named [mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile), which is responsible for serving tiles and for requesting the rendering of tiles if they aren't already available in cache or if they have changed since.
+Produced tiles are then delivered through a custom Apache module named [mod_tile](https://wiki.openstreetmap.org/wiki/Mod_tile), which is responsible for serving tiles and for requesting the rendering of tiles if they aren't already available in cache or if they have changed since.
 
 [Apache](https://en.wikipedia.org/wiki/Apache_HTTP_Server) provides the front end web server that handles requests from your web browser and passes the request to *mod_tile*, which in turn checks if the tile has already been created and is ready for use or whether it needs to be updated due to not being in the cache already. If it is already available and does not need to be rendered, then it immediately sends the tile back to the client. If it does need to be rendered, then it will add it to a *render request* queue, and when it gets to the top of the queue, a tile renderer will render it and send the tile back to the client.
 
-In order to efficiently serve tiles over Internet, OSM exploits [more renderers](http://dns.openstreetmap.org/render.openstreetmap.org.html) and a [CDN](http://wiki.openstreetmap.org/wiki/Platform_Status) (Content Delivery Network) implemented through multiple frontend web caching proxies running [Squid](https://en.wikipedia.org/wiki/Squid_(software)) and/or [TileCache](http://wiki.openstreetmap.org/wiki/TileCache).
+In order to efficiently serve tiles over Internet, OSM exploits [more renderers](https://dns.openstreetmap.org/render.openstreetmap.org.html) and a [CDN](https://wiki.openstreetmap.org/wiki/Platform_Status) (Content Delivery Network) implemented through multiple frontend web caching proxies running [Squid](https://en.wikipedia.org/wiki/Squid_(software)) and/or [TileCache](https://wiki.openstreetmap.org/wiki/TileCache).
 
-[![OSM CDN](https://blog.openstreetmap.org/wp-content/uploads/2015/03/osm-cdn-2015-03.png "Click to open the GeoDNS chart")](http://dns.openstreetmap.org/tile.openstreetmap.org.html)
+[![OSM CDN](https://blog.openstreetmap.org/wp-content/uploads/2015/03/osm-cdn-2015-03.png "Click to open the GeoDNS chart")](https://dns.openstreetmap.org/tile.openstreetmap.org.html)
 
-The web interface for browsing the rendered OpenStreetMap data is named [Slippy Map](http://wiki.openstreetmap.org/wiki/Slippy_Map#OpenStreetMap_.22Standard.22_tile_server). The slippy map is an [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) JavaScript component running in the browser, which dynamically requests maps from the tile server in the background (without reloading the whole HTML page) to give a smooth slippy zoomy map browsing experience.
+The web interface for browsing the rendered OpenStreetMap data is named [Slippy Map](https://wiki.openstreetmap.org/wiki/Slippy_Map#OpenStreetMap_.22Standard.22_tile_server). The slippy map is an [Ajax](https://en.wikipedia.org/wiki/Ajax_(programming)) JavaScript component running in the browser, which dynamically requests maps from the tile server in the background (without reloading the whole HTML page) to give a smooth slippy zoomy map browsing experience.
 
 ### Process to convert the project/layer description file
 
@@ -153,7 +153,7 @@ The process to generate the Mapnik XML file from the OpenStreetMap Carto sources
 
 <br />
 
-Some description of the rendering with the standard tile layer is described [here](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) and [here](http://wiki.openstreetmap.org/wiki/Coastline#Rendering_in_Standard_tile_layer_on_openstreetmap.org).
+Some description of the rendering with the standard tile layer is described [here](https://wiki.openstreetmap.org/wiki/Standard_tile_layer) and [here](https://wiki.openstreetmap.org/wiki/Coastline#Rendering_in_Standard_tile_layer_on_openstreetmap.org).
 
 Notice that OpenStreetData uses the Web Mercator projection (defined in project.mml and then compiled into the Mapnik XML file). It has the effect to distort the size of objects as the latitude increases from the Equator to the poles, where the scale becomes infinite. Therefore, for example, landmasses such as Greenland and Antarctica appear much larger than they actually are relative to landmasses near the equator, such as Central Africa.
 

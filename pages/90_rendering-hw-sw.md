@@ -11,7 +11,7 @@ To verify the current version of openstreetmap-carto, check the [Releases](https
 
 The update process foresees the re-rendering of z0-12; then any tile older than the style file is treated as dirty so that it will be re-rendered (if possible) when it is next requested[^2].
 
-There are the following [three](http://munin.openstreetmap.org/) tile servers at the time of writing, with link to the related hw configuration:
+There are the following [three](https://munin.openstreetmap.org/) tile servers at the time of writing, with link to the related hw configuration:
 
 * [vial.openstreetmap.org](https://hardware.openstreetmap.org/servers/vial.openstreetmap.org/)
 * [orm.openstreetmap](https://hardware.openstreetmap.org/servers/orm.openstreetmap.org/)
@@ -33,10 +33,10 @@ Summary of the software configuration of the tile servers as found in some GitHu
 
 The [Operations Working Group log](https://gravitystorm.github.io/owg-log/) reports updated information regarding versions.
 
-Other information (from [Munin](http://munin.openstreetmap.org/)):
+Other information (from [Munin](https://munin.openstreetmap.org/)):
 
 * tile servers are also running [*mod_tile*](https://github.com/openstreetmap/mod_tile) and *renderd*.
-* *Tile cache servers* (separate systems from the *tile servers*) are running [squid](https://en.wikipedia.org/wiki/Squid_(software)) [ref. [Chef service-specific tile role](https://github.com/openstreetmap/chef/blob/master/roles/tilecache.rb) and [Server Monitoring](http://munin.openstreetmap.org/)]
+* *Tile cache servers* (separate systems from the *tile servers*) are running [squid](https://en.wikipedia.org/wiki/Squid_(software)) [ref. [Chef service-specific tile role](https://github.com/openstreetmap/chef/blob/master/roles/tilecache.rb) and [Server Monitoring](https://munin.openstreetmap.org/)]
 
 Other useful references:
 
@@ -44,8 +44,8 @@ Other useful references:
 * List of servers, specifications and issues: [OSMF Server Info](https://hardware.openstreetmap.org/), [OpenStreetMap Operations](https://github.com/openstreetmap/operations)
 * [PostgreSQL indexes(https://github.com/openstreetmap/operations/issues/104)
 * [updates processed by osm2pgsql](https://github.com/openstreetmap/chef/blob/master/cookbooks/tile/templates/default/replicate.erb)
-* [Current Tile CDN geographical setup](http://dns.openstreetmap.org/tile.openstreetmap.org.html)
-* [Tile delivery CDN monitoring](http://munin.openstreetmap.org/openstreetmap/tile.openstreetmap/index.html)
+* [Current Tile CDN geographical setup](https://dns.openstreetmap.org/tile.openstreetmap.org.html)
+* [Tile delivery CDN monitoring](https://munin.openstreetmap.org/openstreetmap/tile.openstreetmap/index.html)
 
 [^1]: [math1985](https://github.com/math1985)'s [comment on issue 243](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-264490751)
 [^2]: [tomhughes](https://github.com/tomhughes)'s [comment on Chef issue 103](https://github.com/openstreetmap/chef/issues/103#issuecomment-264657532)

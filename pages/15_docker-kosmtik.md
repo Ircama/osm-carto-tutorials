@@ -8,7 +8,7 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 ## Introduction
 
-The suggested tool to support the autohoring of [OpenStreetMap stylesheets](http://wiki.openstreetmap.org/wiki/Stylesheets) developed in [CartoCSS](http://wiki.openstreetmap.org/wiki/CartoCSS) is [Kosmtik](https://github.com/kosmtik/kosmtik), a software to produce, browse and verify [raster tile maps](https://en.wikipedia.org/wiki/Tiled_web_map) based on pre-processors like [CartoCSS](https://github.com/mapbox/carto) and rendered through [Mapnik](https://github.com/mapnik/mapnik/blob/master/docs/design.md).
+The suggested tool to support the autohoring of [OpenStreetMap stylesheets](https://wiki.openstreetmap.org/wiki/Stylesheets) developed in [CartoCSS](https://wiki.openstreetmap.org/wiki/CartoCSS) is [Kosmtik](https://github.com/kosmtik/kosmtik), a software to produce, browse and verify [raster tile maps](https://en.wikipedia.org/wiki/Tiled_web_map) based on pre-processors like [CartoCSS](https://github.com/mapbox/carto) and rendered through [Mapnik](https://github.com/mapnik/mapnik/blob/master/docs/design.md).
 
 Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto and at the moment it supports [Ubuntu Linux](https://www.ubuntu.com). To simplify the related installation process, *openstreetmap-carto* comes with [Docker](https://en.wikipedia.org/wiki/Docker_(software)) files and [documentation](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md), which allow to build the image through simple commands.
 
@@ -65,7 +65,7 @@ Install openstreetmap-carto:
 
 Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
-    curl http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
+    curl https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
 
 For further information on the downloading of appropriate *.osm* or *.pbf* file, check "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)".
 
@@ -141,7 +141,7 @@ Download openstreetmap-carto to a local subdirectory of the user's home director
 
 - Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
-      curl http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
+      curl https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
 
 For further information on the downloading of appropriate *.osm* or *.pbf* file, check "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)".
 

@@ -16,4 +16,4 @@ After installing additional software:
 
 Check also here:
 
-http://wiki.openstreetmap.org/wiki/Mod_tile/Setup_of_your_own_tile_server
+https://wiki.openstreetmap.org/wiki/Mod_tile/Setup_of_your_own_tile_server

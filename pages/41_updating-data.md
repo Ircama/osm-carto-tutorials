@@ -7,28 +7,30 @@ rendering-note: this page is best viewed with Jekyll rendering
 sitemap: false # remove this once the page is completed
 ---
 
+{% include_relative _includes/configuration-variables.md notitle='yes' %}
+
 ## Introduction
 
 This page describes how to keep the local PostgreSQL/PostGIS database in sync with OpenStreetMap as data is progressively updated to OSM. The information here provided is general and not necessarily comprehensive, also in the consideration that the main scope of this site is to provide tutorials to set-up a development environment of *OpenStreetMap Carto* and offer recommendations to edit the style.
 
-After the initial load of a [PBF extract](https://wiki.openstreetmap.org/wiki/PBF_Format) (or of the whole "planet") into the PostgreSQL/PostGIS database, in order to keep data up to date, OpenStreetMap offers minutely, hourly and daily change files in compressed xml format, also called [diff files, or replication diffs, or osmChange files](http://wiki.openstreetmap.org/wiki/Planet.osm/diffs), periodically collecting uploaded and closed [changesets](https://wiki.openstreetmap.org/wiki/Changeset) (where each changeset groups single edits like additions, updates, changes, deletions of features).
+After the initial load of a [PBF extract](https://wiki.openstreetmap.org/wiki/PBF_Format) (or of the whole "planet") into the PostgreSQL/PostGIS database, in order to keep data up to date, OpenStreetMap offers minutely, hourly and daily change files in compressed xml format, also called [diff files, or replication diffs, or osmChange files](https://wiki.openstreetmap.org/wiki/Planet.osm/diffs), periodically collecting uploaded and closed [changesets](https://wiki.openstreetmap.org/wiki/Changeset) (where each changeset groups single edits like additions, updates, changes, deletions of features).
 
 A number of tools have been developed to get, analyze and process incremental OpenStreetMap update files into a PostGIS database. Among them, some notable ones are:
 
-- [Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis), a command line Java application with pluggable components for downloading and processing OSM data, generate dumps and apply change sets to a database;
-- [Osmconvert](http://wiki.openstreetmap.org/wiki/Osmconvert), a command line tool written in C allowing fast conversion and processing of different OpenStreetMap data formats;
-- [Osmupdate](http://wiki.openstreetmap.org/wiki/Osmupdate), a small and fast a command line tool written in C to download and assemble OSM Changefiles;
+- [Osmosis](https://wiki.openstreetmap.org/wiki/Osmosis), a command line Java application with pluggable components for downloading and processing OSM data, generate dumps and apply change sets to a database;
+- [Osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert), a command line tool written in C allowing fast conversion and processing of different OpenStreetMap data formats;
+- [Osmupdate](https://wiki.openstreetmap.org/wiki/Osmupdate), a small and fast a command line tool written in C to download and assemble OSM Changefiles;
 - [Osmfilter](https://wiki.openstreetmap.org/wiki/Osmfilter), a command line tool used to filter OpenStreetMap data files for specific tags;
-- [Osmium](http://osmcode.org/), a multipurpose command line tool to convert OSM files formats, merge and apply change files;
+- [Osmium](http://osmcode.org/), a multipurpose command line tool to work with OpenStreetMap data files, convert OSM files formats, merge and apply change files;
 - [Imposm](https://imposm.org/), a full-featured importer for PBF OpenStreetMap data to PostgreSQL/PostGIS written in GO which can also automatically update the database with the latest changes from OSM.
 
-For the replication process, we assume that the database is created and that an initial import has already been made through [Osm2pgsql](http://wiki.openstreetmap.org/wiki/Osm2pgsql), as described in "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)". (Notice that `-s` or `--slim` option is needed for the initial import to allow subsequent updates through `-a` or `--append`.)
+For the replication process, we assume that the database is created and that an initial import has already been made through [Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql), as described in "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)". (Notice that `-s` or `--slim` option is needed for the initial import to allow subsequent updates through `-a` or `--append`.)
 
 ## Keeping the PostgreSQL database up to date with Osmosis
 
 The following procedure explains how to setup *Osmosis* in order to keep the tile server and the PostgreSQL/PostGIS database up-to-date with the latest OSM data.
 
-[Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) is a general-purpose command-line Java-based OSM data tool which provides many capabilities including the function to [replicate](http://wiki.openstreetmap.org/wiki/Osmosis/Replication) OpenStreetMap data in [OSC (Open Street Map Change) change file format](http://wiki.openstreetmap.org/wiki/OsmChange) via periodic syncs. The replication tasks are described in a [specific section](http://wiki.openstreetmap.org/wiki/Osmosis/Detailed_Usage_0.45#Replication_Tasks) of the related [usage page](http://wiki.openstreetmap.org/wiki/Osmosis/Detailed_Usage).
+[Osmosis](https://wiki.openstreetmap.org/wiki/Osmosis) is a general-purpose command-line Java-based OSM data tool which provides many capabilities including the function to [replicate](https://wiki.openstreetmap.org/wiki/Osmosis/Replication) OpenStreetMap data in [OSC (Open Street Map Change) change file format](https://wiki.openstreetmap.org/wiki/OsmChange) via periodic syncs. The replication tasks are described in a [specific section](https://wiki.openstreetmap.org/wiki/Osmosis/Detailed_Usage_0.45#Replication_Tasks) of the related [usage page](https://wiki.openstreetmap.org/wiki/Osmosis/Detailed_Usage).
 
 This software is maintained in its [GitHub repository](https://github.com/openstreetmap/osmosis).
 
@@ -63,7 +65,7 @@ sudo apt-get -y install default-jdk
 
 Install Gradle:
 
-    sudo apt -y install gradle
+    sudo apt-get -y install gradle
 
 Clone 'osmosis' repository:
 
@@ -75,10 +77,10 @@ Compile Osmosis:
      cd osmosis
 	./gradlew assemble
 
-Test Osmosis following [wiki](http://wiki.openstreetmap.org/wiki/Osmosis) examples:
+Test Osmosis following [wiki](https://wiki.openstreetmap.org/wiki/Osmosis) examples:
 
 ```shell
-curl http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
+curl https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
 package/bin/osmosis --read-pbf data.osm.pbf --node-key-value keyValueList="highway.speed_camera" --write-xml radar.osm    
 package/bin/osmosis --read-pbf data.osm.pbf --tf accept-ways highway=* --used-node --write-xml highways.osm
 ```
@@ -120,7 +122,11 @@ then run the following (e.g., `--rrii` option):
 
     osmosis --read-replication-interval-init workingDirectory=$WORKOSM_DIR
 
-A default *configuration.txt* file and another one named *download.lock* will be created. *download.lock* can be ignored (as used by Osmosis to ensure that only one copy is running at a time). You might need to manually edit *configuration.txt* and change the url to the one of minute or hourly replicate. By default, this points to minutely diffs (`baseUrl=https://planet.openstreetmap.org/replication/minute`). If you want hourly or daily you should edit the file so that it references the related replication diffs URLs: `https://planet.openstreetmap.org/replication/hour/`, or `https://planet.openstreetmap.org/replication/day/`.
+A default *configuration.txt* file and another one named *download.lock* will be created. *download.lock* can be ignored (as used by Osmosis to ensure that only one copy is running at a time).
+
+A current [issue](https://trac.openstreetmap.org/ticket/5483) with Osmosis is that it creates a default configuration with a *http* url instead of using *https*. Fortunately, it can be fixed by manually adjusting the *configuration.txt* file, by substituting *http* with *https*; then all updates will use the new url.
+
+You might also need to edit *configuration.txt* and change the replication period. By default, this points to minutely diffs (`baseUrl=https://planet.openstreetmap.org/replication/minute`). If you want hourly or daily you should edit the file so that it references the related replication diffs URLs: `https://planet.openstreetmap.org/replication/hour/`, or `https://planet.openstreetmap.org/replication/day/`.
 
 Notice that the URL shall use https and not http.
 
@@ -138,9 +144,15 @@ Example of command to get the *state.txt* file:
 
 To find the appropriate sequence number by timestamp you can either look through the diff files, or use the [Peter Körner's website tool](https://replicate-sequences.osm.mazdermind.de/). You can change the url of the above command with the one returned by this utility or simply create a *state.txt* file including the whole output.
 
+Alternative command:
+
+    wget "https://replicate-sequences.osm.mazdermind.de/?"`date -u +"%Y-%m-%d"`"T00:00:00Z" -O $WORKOSM_DIR/state.txt
+
 Resetting the sequenceNumber to an earlier state can always be done by changing the sequenceNumber entry.
 
 Each call to *osmosis* will compare the local *state.txt* with the current one on the service.
+
+It is no problem to specify a date and time earlier than the actual timestamp of your initial data import. Applying a change twice is fine. It just updates the data to the same values it had before. This is why it is safe to go back an hour from your time stamp. However if you miss an update, all the objects affected by that update will be out of sync with the master database until (if ever) they are updated again.[^2]
 
 ### Implementing the update procedure
 
@@ -205,7 +217,7 @@ A sample of *cron* job is the following:
 
     * * * * * /home/{{ pg_login }}/osmosisworkingdir/osmosis-update.sh >> /home/{{ pg_login }}/osmosisworkingdir/osmosis.log 2>&1
 
-## Trimming downloaded data to a bounding box or polygon
+### Trimming downloaded data to a bounding box or polygon
 
 Processing the whole planet needs CPU, RAM and disk capacity; the PostgreSQL database grows significantly as updates are applied to it.
 
@@ -287,22 +299,139 @@ osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag
 rm osmChange
 ```
 
+### Managing expired tiles
+
+When updating the db, we also need to inform the portal that the tails impacted by changes shall be marked as expired and so re-rendered. The process of identifying which tiles have to be scheduled for re-rendering is complex. Even if tools are available since long time, related [methods](https://wiki.openstreetmap.org/wiki/Tile_expire_methods) and algorithms are still under discussions for [optimizations](https://github.com/openstreetmap/osm2pgsql/pull/747) and bug fixing (at least at the moment of writing this tutorial). One possibility is to use *osm2pgsql* with `-e` (or `--expire-tiles`) and `-o` (or `--expire-output`) options to generate a list of changed tiles, that so need to be set as expired on the portal. The list can then be passed to [render_expired]({{ site.baseurl }}/manpage.html?url=https://rawgit.com/openstreetmap/mod_tile/master/docs/render_expired.1) program (from the [mod_tile](https://github.com/openstreetmap/mod_tile/) project), the same tool [we already mentioned](../tile-server-ubuntu) to update tiles after a change in the stylesheet. *render_expired* consumes the tile list produced by *osm2pgsql*. Nevertheless, the OSMF servers don't use *osm2pgsql* expiry, but instead exploit [expire.rb](https://github.com/openstreetmap/chef/blob/743225d946/cookbooks/tile/files/default/ruby/expire.rb).[^3]. The [German tile server](https://tile.openstreetmap.de) uses [expiremeta.pl](https://github.com/openstreetmap/tirex/blob/master/utils/expiremeta.pl), which is part of [Tirex Tile Rendering System](https://github.com/geofabrik/tirex).[^4]
+
+
+Updating the previously listed sequence of commands in order to also manage the tile expiration process, we can add the `-e$EXPIRY_METAZOOM:$EXPIRY_METAZOOM` and `-o "$EXPIRY_FILE.$$"` options to *osm2pgsql* and include *render_expired* at the end of the toolchain:
+
+```shell
+export PGPORT=5432
+export PGPASSWORD={{ pg_password }}
+EXPIRY_MINZOOM=10
+EXPIRY_MAXZOOM=18
+EXPIRY_FILE=dirty_tiles
+cd ~/src/openstreetmap-carto
+HOSTNAME=localhost # set it to the actual ip address or host name
+
+osmosis --read-replication-interval workingDirectory="${WORKOSM_DIR}" --simplify-change --write-xml-change osmChange
+
+~/src/regional/trim_osc.py -d gis --user $PG_USER --host $PGHOST --port $PGPORT --password -p "${WORKOSM_DIR}/liechtenstein.poly" osmChange osmChange
+
+osm2pgsql --append -s -e$EXPIRY_METAZOOM:$EXPIRY_METAZOOM -o "$EXPIRY_FILE.$$" -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U $PG_USER osmChange
+
+render_expired --min-zoom=$EXPIRY_MINZOOM --max-zoom=$EXPIRY_MAXZOOM --touch-from=$EXPIRY_MINZOOM -s /var/run/renderd.sock < "$EXPIRY_FILE.$$"
+
+rm osmChange
+```
+
+The revised toolchain is the following:
+
+|configuration.txt ![txt][txt]| |osmChange ![xml][xml]|
+|                             |↘|↓                  |
+|state.txt ![txt][txt]|→|*Osmosis* ![prg][prg]|→|*trim_osc.py* ![prg][prg]|→|*Osm2pgsql* ![prg][prg]|→|*render_expired* ![prg][prg]|
+|                     |↙|                   | |                           | |↓|
+|state.txt ![txt][txt]| |                   | |                           | |PostgreSQL ![db][db]|
+{: .drawing}
+
+### Exploiting available scripts
+
+Scripts are available to support the update process. [mod_tile](https://github.com/openstreetmap/mod_tile/) includes a helper script named [openstreetmap-tiles-update-expire](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire), which performs the following steps:
+
+- [calling Osmosis](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L99) to download a diff stream from OpenStreetMap
+- [applying changes](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L105) to the PostgreSQL/PostGIS database using osm2pgsql.
+- [expiring tiles](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L112) based on those updates, keeping the tile server up to date
+- [avoiding concurrent execution](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L82-L85) through a [lock file](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L16)
+- tracing execution notes to a [log file](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L24)
+
+The script, which for normal operation is invoked without arguments, also provides [an initialization option](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L74-L78) of the replication system when executed with the single argument YYYY-MM-DD.
+The date of the planet file obtained through a previously performed *osm2pgsql* import can be used as argument (the command to get the date of today would be: `date -u +"%Y-%m-%dT%H:%M:%SZ"`). The initialization includes the following steps:
+
+- [initializing osmosis](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L77)
+- [downloading the state.txt file](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L78) related to the beginning of the YYYY-MM-DD date indicated as first argument of the command
+
+Its [man Page]({{ site.baseurl }}/manpage.html?url=https://raw.githubusercontent.com/openstreetmap/mod_tile/master/docs/openstreetmap-tiles-update-expire.1){:target="_blank"} describes the usage.
+
+The script must be edited to modify the following configuration settings:
+
+- [OSM2PGSQL_OPTIONS](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L9) has to be set to `-C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U $PG_USER`. Check also the full pathname of each file.
+- [BASE_DIR](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L12) has to be set to the *mod_tile* directory
+- [LOG_DIR](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L13) has to be set to the log directory
+- [WORKOSM_DIR](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L14) has to be set to the osmosis temporary folder
+- [EXPIRY_MINZOOM and EXPIRY_MAXZOOM](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L26-L27) are used by osm2pgsql (`-e` option to create a tile expiry list) and by *render_expired*.
+
+Notice that the script invokes `http://osm.personalwerk.de/replicate-sequences/?"$1"T00:00:00Z` to download *state.txt* and *http://osm.personalwerk.de/replicate-sequences* redirects to *https://replicate-sequences.osm.mazdermind.de*, already mentioned before.
+
+To prepare the script for the first execution[^5]:
+
+- Grant rights to the update tables for "*{{ pg_login }}*" user:
+
+  ```shell
+  wget https://github.com/openstreetmap/osm2pgsql/blob/master/install-postgis-osm-user.sh
+  chmod a+x install-postgis-osm-user.sh
+  sudo /usr/bin/install-postgis-osm-user.sh gis {{ pg_login }}
+  ```
+  
+- Initialise the *osmosis* replication stack to the data of your data import. Choose the date of the planet data, as this is the date from which the diffs will start.
+
+      sudo -u {{ pg_login }} /usr/bin/openstreetmap-tiles-update-expire `date -u +"%Y-%m-%d"`
+
+- You will next need to update the default configuration of *osmosis*. In *configuration.txt*, change the `base_url` to `https://planet.openstreetmap.org/replication/minute/`
+
+- Update your tileserver by up to an hour and expire the corresponding rendered tiles:
+
+      sudo -u {{ pg_login }} /usr/bin/openstreetmap-tiles-update-expire
+
+- If your tile server is behind more than an hour you will need to call the *openstreetmap-tiles-expire* script multiple times.
+
+- If you want to continuously keep your server up to data, you need to add the *openstreetmap-tiles-expire* script to your crontab.
+
+- From time to time it may make sense to replace the preprocessed shapefiles with new versions:
+
+  ```shell
+  cd ~/src
+  cd openstreetmap-carto
+  scripts/get-shapefiles.py
+  ```
+
+The previously mentioned *trim_osc.py* Python script can be added to *install-postgis-osm-user.sh* in order to trim the input to a bounding box or a polygon so that the postgres database doesn't grow significantly as updates are applied to it. The [openstreetmap-tiles-update-expire script by junichim](https://github.com/junichim/mod_tile/blob/master/openstreetmap-tiles-update-expire) is a modification to the original one by including *trim_osc.py* from Zverik's "regional" scripts.
+
+In his blog, SomeoneElse [reports the modifications](https://wiki.openstreetmap.org/wiki/User:SomeoneElse/Ubuntu_1604_tileserver_load#Updating_your_database_as_people_edit_OpenStreetMap) and includes the appropriated *cron* scheduling. [TRIM_REGION_OPTIONS](https://github.com/junichim/mod_tile/blob/master/openstreetmap-tiles-update-expire#L27) shall be updated to reflect the actual region boundaries.
+
 ## Exploiting Osmosis with an extract from Geofabrik
 
-[Geofabrik](http://www.geofabrik.de/) provides an [updated version of the planet dataset](https://download.geofabrik.de/technical.html) from the latest OpenStreetMap data, already splitted into a number of [pre-defined regions](https://download.geofabrik.de/).
+[Geofabrik](https://www.geofabrik.de/) provides an [updated version of the planet dataset](https://download.geofabrik.de/technical.html) from the latest OpenStreetMap data, already splitted into a number of [pre-defined regions](https://download.geofabrik.de/).
 
 When using Geofabrik to download the initial dataset to the local database, data can be kept updated by applying diff update files (differences between the new extract and the previous one) that Geofabrik also computes each time a new exctract is produced for a region. Using diff files of the same region of the initial download, users can continuously update their own regional extract instead of having to download the full file. Applying updates from Geofabrik rather than the whole planet minimises the size of the database and the amount of data fetched from the remote server.
 
-By default, the *baseUrl* parameter in *configuration.txt* points to the whole planet. If you are using an extract downloaded from [Geofabrik](http://download.geofabrik.de/), you should change the url basing on the metadata of the related PBF file; *osmium* is a tool which among other things allows the analisys of a PBF file; it can be installed through:
+By default, the *baseUrl* parameter in *configuration.txt* points to the whole planet. If you are using an extract downloaded from [Geofabrik](https://download.geofabrik.de/), you should change the url basing on the metadata of the related PBF file; *osmium* is a tool which among other things allows the analisys of a PBF file; it can be installed from package through:
 
-    sudo apt -y install osmium-tool
+    sudo apt-get -y install osmium-tool
 
-The command to analyze a PBF file is `osmium fileinfo`:
+You can alternatively install the latest version from sources:
+
+```shell
+sudo apt-get remove -y osmium-tool
+sudo apt-get install -y cmake pandoc cppcheck iwyu clang-tidy
+cd ~/src
+git clone https://github.com/mapbox/protozero
+git clone https://github.com/osmcode/libosmium
+git clone https://github.com/osmcode/osmium-tool
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+sudo ln /usr/local/bin/osmium /usr/bin
+```
+
+Once installed, the command to analyze a PBF file is `osmium fileinfo`:
 
     PBF_FILE=liechtenstein-latest.osm.pbf
-	osmium fileinfo $PBF_FILE
+	osmium fileinfo -e $PBF_FILE
 
-The "osmosis_replication_" properties returned by this command can be used to configure *osmosis*. Values have to be transformed and this can be automatically done through a simple parser that generates a working *configuration.txt*[^1]:
+The "osmosis_replication_*" properties returned by this command can be used to configure *osmosis*. Values have to be transformed and this can be automatically done through a simple parser that generates a working *configuration.txt*[^1]:
 
 ```shell
 PBF_FILE=liechtenstein-latest.osm.pbf
@@ -331,23 +460,19 @@ osmosis --read-replication-interval workingDirectory=${WORKOSM_DIR} --simplify-c
 osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U $PG_USER -
 ```
 
-### Exploiting available scripts
+## Using tools different from osmosis and osm2pgsql
 
-Scripts are available to support the update process. [mod_tile](https://github.com/openstreetmap/mod_tile/) includes a helper script named [openstreetmap-tiles-update-expire](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire), which performs the following steps:
+Osmosis and Osm2pgsql are the oldest tools to retrieve osmChange data and update the local DB in order to keep it in sync with OSM. Even if Osmosis can perform all steps including db import, to get a totally compatible data model with the one needed by openstreetmap-carto and to ensure that *lua* processing is correctly executed, the Osm2pgsql chain is recommended (with the options mentioned before).
 
-- [calling Osmosis](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L99) to download a diff stream from OpenStreetMap
-- [applying changes](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L105) to the PostgreSQL/PostGIS database using osm2pgsql.
-- [expiring tiles](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L112) based on those updates, keeping the tile server up to date
-- [avoiding concurrent execution](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L82-L85) through a [lock file](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L16)
-- tracing execution notes to a [log file](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L24)
+Other tools are available, capable to gain better performance, additional integration and perform more advanced processing, transformation and filtering.
 
-The script, which for normal operation is invoked without arguments, also provides [an initialization option](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L74-L78) of the replication system when executed with the single argument YYYY-MM-DD.
-The date of the planet file obtained through a previously performed *osm2pgsql* import can be used as argument (the command to get the date of today would be: `date -u +"%Y-%m-%dT%H:%M:%SZ"`). The initialization includes the following steps:
+Anyway, we need to verify that they do not introduce downsides and that the result is exactly the same of the osmosis/osm2pgsql toolchain and this is beyond the scope of this tutorial.
 
-- [initializing osmosis](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L77)
-- [downloading the state.txt file](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L78) related to the beginning of the YYYY-MM-DD date indicated as first argument of the command
+Jochen Topf in his [blog](https://blog.jochentopf.com/) reports that [Osmium](https://github.com/osmcode/osmium-tool/) can [provide expedicious and exact extracts](https://blog.jochentopf.com/2017-02-06-expedicious-and-exact-extracts-with-osmium.html).
 
-Its [man Page]({{ site.baseurl }}/manpage.html?url=https://raw.githubusercontent.com/openstreetmap/mod_tile/master/docs/openstreetmap-tiles-update-expire.1){:target="_blank"} describes the usage.
+A [note](https://github.com/gravitystorm/openstreetmap-carto/issues/2884) within the openstreetmap-carto repository mentions websites providing direct extracts as well as other tools that can be possibly used.
+
+
 
 
 
@@ -358,126 +483,12 @@ Its [man Page]({{ site.baseurl }}/manpage.html?url=https://raw.githubusercontent
 # DA FARE
 
 
-
-
-
-Analizzare cosa è scritto qui:
-https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages/
-
-Another used font is [Ubuntu 1604 tileserver load](https://wiki.openstreetmap.org/wiki/User:SomeoneElse/Ubuntu_1604_tileserver_load) by SomeoneElse.
-{: .red}
-
-
-
-
-
-occorre editare lo script sui punti di seguito elencati:
-
-OSM2PGSQL_OPTIONS= (l'opzione --slim è già inserita, anche -a, anche -o)
-BASE_DIR=/var/lib/mod_tile
-LOG_DIR=/var/log/tiles/
-WORKOSM_DIR=$BASE_DIR/.osmosis
-EXPIRY_MINZOOM=10 (usato da osm2pgsql con opzione -e, e da render_expired)
-EXPIRY_MAXZOOM=18 (usato da osm2pgsql con opzione -e, e da render_expired)
-render_expired
-wget "http://osm.personalwerk.de/replicate-sequences/?"$1"T00:00:00Z" -O $WORKOSM_DIR/state.txt
-
-notare che http://osm.personalwerk.de punta a:
-https://github.com/MaZderMind/replicate-sequences
-
-OSM2PGSQL_OPTIONS="-E 4326 --number-processes 2 --style /usr/local/share/osm2pgsql/default.style --hstore -G -v --username import --database osm -C 500"
-mi sa che manca il LUA!!!!
-manca anche --slim e --drop 
-
-You'll need to have a look at that to see what needs to be changed so that it expires tiles based on your own changes. The one that comes with mod_tile initialises replication to look here by default (the file /var/lib/mod_tile/.osmosis/configuration.txt is created when you initialise replication).
-
-
-https://github.com/openstreetmap/osm2pgsql/blob/master/install-postgis-osm-user.sh
-
-Grant rights to the update tables to user *{{ pg_login }}*:
-
-    sudo /usr/bin/install-postgis-osm-user.sh gis {{ pg_login }}
-
-Initialise the *osmosis* replication stack to the data of your data import. Choose the date of the planet data, as this is the date from which the diffs will start.
-
-    sudo -u {{ pg_login }} /usr/bin/openstreetmap-tiles-update-expire `date -u +"%Y-%m-%dT%H:%M:%SZ"`
-
-As the packaged script currently uses an outdated service to determine the correct replication start-point, you will need to manually choose and download the correct *state.txt* from the *base_url* (see below) which corresponds to slightly before the age of the extract to make sure all modifications are included in your db. This needs to be copied to `/var/lib/mod_tile/.osmosis/state.txt`.
-
-You will next need to update the default configuration of *osmosis*. In `/var/lib/mod_tile/.osmosis/configuration.txt` change the `base_url` to `http://planet.openstreetmap.org/replication/minute/`
-
-Update your tileserver by up to an hour and expire the corresponding rendered tiles:
-
-    sudo -u {{ pg_login }} /usr/bin/openstreetmap-tiles-update-expire
-
-If your tile server is behind more than an hour you will need to call the *openstreetmap-tiles-expire* script multiple times. If you want to continuously keep your server up to data, you need to add the *openstreetmap-tiles-expire* script to your crontab.
-
-The initial install installed pre-processed coastlines, from time to time it may make sense to replace the files with new versions:
-
-    wget http://tile.openstreetmap.org/processed_p.tar.bz2
-
-and extract it to
-
-    /etc/mapnik-osm-data/world_boundaries/
-
-
-
-It is no problem to specify a date and time earlier than the actual timestamp of your initial data import. Applying a change twice is fine. It just updates the data to the same values it had before. This is why it is safe to go back an hour from your time stamp. However if you miss an update, all the objects affected by that update will be out of sync with the master database until (if ever) they are updated again.[^2]
-	
-
-I use minutely updates together with trim_osc.py from Zverik's "regional": 
-
-https://github.com/Zverik/regional
-
-to add a "filtering diff" section between "downloading diff" and 
-"importing diff" in openstreetmap-tiles-update-expire .  I find it works 
-very well at keeping a small area updated; I use it with a bounding box 
-but it should work with a polygon too, I believe. 
-	
-https://github.com/SomeoneElseOSM/mod_tile/blob/master/openstreetmap-tiles-update-expire
-
-
-
-
-
-
-	
-	
-	
-	
-
-
-
-To limit the downloaded data to a specific bounding box, add the related `--bounding-box` option to the osmosis command; example: `--bounding-box top=$maxlat left=$minlon bottom=$minlat right=$maxlon`. Alternatively, you can define a polygon and use the `--bounding-polygon` option.
-
+https://blog.jochentopf.com/2017-02-06-expedicious-and-exact-extracts-with-osmium.html
 http://ksmapper.blogspot.it/2011/04/keeping-database-up-to-date-with.html
 https://gis.stackexchange.com/questions/94352/update-database-via-osmosis-and-osm2pgsql-too-slow
-http://www.geofabrik.de/media/2012-09-08-osm2pgsql-performance.pdf
+https://www.geofabrik.de/media/2012-09-08-osm2pgsql-performance.pdf
 file:///C:/Users/alberto/Downloads/OSM%20tiles%20server.pdf
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-	
 
 
 
@@ -497,13 +508,6 @@ https://manned.org/osmfilter.1
 Osmosis and osmupdate.
 
 
-Information at the moment is largely taken from the *Updating* paragraph of [Building a tile server from packages](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages) page within [switch2osm.org](https://switch2osm.org). 
-
-
-
-
-
-
 
 {% endcomment %}
 
@@ -513,3 +517,6 @@ Information at the moment is largely taken from the *Updating* paragraph of [Bui
 
 [^1]: [Paul’s Blog - It Starts With the Planet](http://www.paulnorman.ca/blog/2018/01/it-starts-with-the-planet/)
 [^2]: [Toby's Blog of open/mappy things](http://ksmapper.blogspot.it/2011/04/keeping-database-up-to-date-with.html)
+[^3]: [pnorman comment on 15 Mar 2017]https://github.com/openstreetmap/osm2pgsql/issues/709#issuecomment-286895927)
+[^4]: [Nakaner comment on 15 Mar 2017](https://github.com/openstreetmap/osm2pgsql/issues/709#issuecomment-286899135])
+[^5]: [Building a tile server from packages - Updating chapter](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages/)

@@ -5,7 +5,7 @@ permalink: /editing-guidelines/
 comments: true
 rendering-note: this page is best viewed with Jekyll rendering
 ---
-This page aims to describe the general editing process of OpenStreetMap Carto, the style used for the [Standard tile layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) of OpenStreetMap, through some suggested practices.
+This page aims to describe the general editing process of OpenStreetMap Carto, the style used for the [Standard tile layer](https://wiki.openstreetmap.org/wiki/Standard_tile_layer) of OpenStreetMap, through some suggested practices.
 
 ## Development process to add or edit a feature
 
@@ -409,17 +409,17 @@ Because Mercator is a [variable scale projection](https://en.wikipedia.org/wiki/
 
 A given scale for equator can be adjusted to a specific latitude by multiplying it by cos(latitude). For example, divide by 2 for latitude 60 (Oslo, Helsinki, Saint-Petersburg).
 
-Resolution and Scale of Slippy map tiles is described [here](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale) and [here](http://wiki.openstreetmap.org/wiki/Zoom_levels).
+Resolution and Scale of Slippy map tiles is described [here](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale) and [here](https://wiki.openstreetmap.org/wiki/Zoom_levels).
 
 Some features need to scale up their font size according to the zoom level. If you are implementing different text sizes according to the zoom, consider also different wordwrap. The pattern to follow for the text size logic is described in [Multi-line labels in CONTRIBUTING](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CONTRIBUTING.md#multi-line-labels), [landuse samples](https://github.com/gravitystorm/openstreetmap-carto/blob/master/amenity-points.mss#L1455-L1475) and [lakes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/water.mss#L288-L312).
 
 ### Additional recommendations
 
 * Render only verifiable features
-  Before considering to render a feature, it is important to verify whether its definition does not lack [verifiability](http://wiki.openstreetmap.org/wiki/Verifiability) and that the related spatial data model is appropriate (for instance, a natural area might be defined as polygon and shall not be defined as way).
+  Before considering to render a feature, it is important to verify whether its definition does not lack [verifiability](https://wiki.openstreetmap.org/wiki/Verifiability) and that the related spatial data model is appropriate (for instance, a natural area might be defined as polygon and shall not be defined as way).
   Also, the definition of the feature in the OSM Wiki shall be based on mapping considerations and not on rendering (for instance, it is important to check the existence of inappropriate definitions including wrong suggestion to mappers, for instance with reference to specific colors, or to rendering shapes, or to any other misleading indication which would ultimately end up in orienting mappers to map in a way that primarily works around the shortcomings of rendering engines rather than defining the appropriate shape and geometry of the feature).
   It is worthwhile to check the *Approval* status in the OpenStreetMap wiki and related usage statistics. Note anyway there is no formal approval about the tag page on the wiki. The status in the description box refers to the fact that there is an approved proposal that mentions a tag. The proposal process in the OpenStreetMap wiki is essentially meaningless for rendering decisions, it is just a means (but no guarantee) to improve tagging consistency [^6]. Also the *Talk* page shall be analyzed to verify whether there are remarks to be taken into consideration or to highlight some issue on tagging.
-* Before starting to code the rendering of a feature, verify that you are rendering an appropriate tagging; check that the [Wiki](http://wiki.openstreetmap.org) supports it and that there is no case of missing or misunderstood tag. Also, verify its usage in different regions.
+* Before starting to code the rendering of a feature, verify that you are rendering an appropriate tagging; check that the [Wiki](https://wiki.openstreetmap.org) supports it and that there is no case of missing or misunderstood tag. Also, verify its usage in different regions.
 * When considering to implement an improvement to the style, it is suggested to first create an issue, presenting the idea, asking whether there is a reason for the current style and discuss the most appropriate way to address a solution.
 * Count the number of uses for a tag you are going to render. For low usage, the reason to introduce a new feature has to be deeply discussed. Always consider the possibility to merge a newly rendered feature with some existing one, rather than adding something with separate code.
 * Everything currently found in the style has been deeply discussed by many contributors. When considering to change something, an extensive research has to be accomplished, shared and discussed. Besides, all previous repository issues related to the feature need to be revised and understood.
@@ -462,8 +462,8 @@ Details are in [generating_patterns folder](https://github.com/gravitystorm/open
 ## Useful tools
 
 * Complete (but non-autogenerated) [legend of the Standard map layer used on www.openstreetmap.org](https://wiki.openstreetmap.org/wiki/Standard_tile_layer/Key) on the [OSM wiki](https://wiki.openstreetmap.org)
-* [OSM Inspector](http://tools.geofabrik.de/osmi/)
-* [Taginfo](http://taginfo.openstreetmap.org) and [its usage](http://taginfo.openstreetmap.org/tags/?key=natural&value=ridge#overview)
+* [OSM Inspector](https://tools.geofabrik.de/osmi/)
+* [Taginfo](https://taginfo.openstreetmap.org) and [its usage](https://taginfo.openstreetmap.org/tags/?key=natural&value=ridge#overview)
 * [OSM Tag History](http://taghistory.raifer.tech)
 * [overpass turbo](https://overpass-turbo.eu/)
 
@@ -476,7 +476,7 @@ OpenStreetMap uses a [topological data structure](https://www.mapbox.com/mapping
 * [Relations](https://wiki.openstreetmap.org/wiki/Relation) are ordered lists of nodes and ways (together called "members"), where each  member  can  optionally  have  a  "role"  (a  string). Relations  are  used  for representing the relationship of existing nodes and ways. Examples include turn restrictions on roads, routes that span several existing ways (for instance, a long-distance motorway), and areas with holes.
 * [Tags](https://wiki.openstreetmap.org/wiki/Tags) are key-value pairs (both arbitrary strings). They are used to store metadata about the map objects (such as their type, their name and their physical properties). Tags are not free-standing, but are always attached to an object, to a node, a way, a relation, or to a member of an relation.
 
-A recommended ontology of [map features](http://wiki.openstreetmap.org/wiki/Map_Features) (the meaning of tags) is maintained on the [OSM Wiki]((https://wiki.openstreetmap.org/wiki/Standard_tile_layer/Key)).
+A recommended ontology of [map features](https://wiki.openstreetmap.org/wiki/Map_Features) (the meaning of tags) is maintained on the [OSM Wiki]((https://wiki.openstreetmap.org/wiki/Standard_tile_layer/Key)).
 
 {% include pages/images.md %}
 

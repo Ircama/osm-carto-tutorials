@@ -13,19 +13,19 @@ A number of client JavaScript libraries can be used to interactively show OpenSt
 
 ## OpenLayers
 
-The following [example](http://jsfiddle.net/ircama/ed1bzo90/) exploits [OpenLayers](http://openlayers.org) to show OpenStreetMap data.
+The following [example](https://jsfiddle.net/ircama/ed1bzo90/) exploits [OpenLayers](https://openlayers.org) to show OpenStreetMap data.
 
 Default tiles can be replaced with your tile server ones by changing
 
 ```html
-http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png
+https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png
 ```
 
 to `http://your-server-ip/osm_tiles/{z}/{x}/{y}.png`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//jsfiddle.net/ircama/ed1bzo90/embed/"></script>
+<script async src="https://jsfiddle.net/ircama/ed1bzo90/embed/"></script>
 
 ## Google Maps API
 
@@ -34,28 +34,28 @@ To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel mo
 Default tiles can be replaced with your tile server ones by changing
 
 ```html
-http://tile.openstreetmap.org/
+https://tile.openstreetmap.org/
 ```
 
 to `http://your-server-ip/osm_tiles/`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//jsfiddle.net/ircama/7wb8u6s8/embed/"></script>
+<script async src="https://jsfiddle.net/ircama/7wb8u6s8/embed/"></script>
 
 ## Bing Maps
 
-[Example](http://fiddle.jshell.net/ircama/L3v8g0eh/) of using [Bing Maps](https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx) to show OpenStreetMap data.
+[Example](https://fiddle.jshell.net/ircama/L3v8g0eh/) of using [Bing Maps](https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx) to show OpenStreetMap data.
 
 Default tiles can be replaced with your tile server ones by changing
 
 ```html
-http://tile.openstreetmap.org/
+https://tile.openstreetmap.org/
 ```
 
 to `http://your-server-ip/osm_tiles/`.
 
-To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
+To edit the sample, click on *Edit in *. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
 <script async src="//fiddle.jshell.net/ircama/L3v8g0eh/embed/"></script>
 
@@ -66,14 +66,14 @@ To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel mo
 Default tiles can be replaced with your tile server ones by changing
 
 ```html
-http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 ```
 
 to `http://your-server-ip/osm_tiles/{z}/{x}/{y}.png`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//jsfiddle.net/ircama/eLb09na5/embed/"></script>
+<script async src="//https://jsfiddle.net/ircama/eLb09na5/embed/"></script>
 
 ## Carto API
 
@@ -82,29 +82,29 @@ To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel mo
 Default tiles can be replaced with your tile server ones by changing
 
 ```html
-http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 ```
 
 to `http://your-server-ip/osm_tiles/{z}/{x}/{y}.png`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//jsfiddle.net/ircama/d80w7hb1/embed/"></script>
+<script async src="https://jsfiddle.net/ircama/d80w7hb1/embed/"></script>
 
 ## ESRI ArcGIS API
 
-[Example](http://jsfiddle.net/ircama/7m427rr7/) of using [ESRI ArcGIS API](http://developers.arcgis.com/en/javascript/) to show OpenStreetMap data.
+[Example](https://jsfiddle.net/ircama/7m427rr7/) of using [ESRI ArcGIS API](https://developers.arcgis.com/en/javascript/) to show OpenStreetMap data.
 
 Default tiles can be replaced with your tile server ones by changing
 
 ```html
-http://tile.openstreetmap.org/
+https://tile.openstreetmap.org/
 ```
 
 to `http://your-server-ip/osm_tiles/`.
 
 To edit the sample, click on *Edit in JSFiddle*. Then in the Javascript panel modify the string inside quotes as descripted above. Press *Run*.
 
-<script async src="//jsfiddle.net/ircama/7m427rr7/embed/"></script>
+<script async src="https://jsfiddle.net/ircama/7m427rr7/embed/"></script>
 
 [^1]: useful information taken form [Getting started with Leaflet](https://switch2osm.org/using-tiles/getting-started-with-leaflet/) and from [Getting started with OpenLayers](https://switch2osm.org/using-tiles/getting-started-with-openlayers/)

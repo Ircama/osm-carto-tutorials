@@ -28,4 +28,4 @@ The Apache tuning adopted by the OpenStreetMap tile servers can be found in the 
 
 You can run the following command to reveal the public IP address of your server:
 
-    wget http://ipinfo.io/ip -qO -
+    wget https://ipinfo.io/ip -qO -

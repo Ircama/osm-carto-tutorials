@@ -2,7 +2,7 @@
 layout: homepage
 title: OpenStreetMap Carto Tutorials
 ---
-[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) is the [style](http://wiki.openstreetmap.org/wiki/Stylesheets) used for the [Standard tile layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) of [OpenStreetMap](http://www.openstreetmap.org).
+[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) is the [style](https://wiki.openstreetmap.org/wiki/Stylesheets) used for the [Standard tile layer](https://wiki.openstreetmap.org/wiki/Standard_tile_layer) of [OpenStreetMap](https://www.openstreetmap.org).
 
 This independent site includes unofficial tutorials to set-up a development environment of OpenStreetMap Carto and to manage this software. It will allow exploiting the style and also being able to contribute to the developments.
 
@@ -14,15 +14,15 @@ All pages of this site allow [commenting](#disqus_thread). You can also [contrib
 
 ## Contributing to OpenStreetMap
 
-[OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap), the Wikipedia of maps, is a collaborative project to create a free editable map of the world. It consists of [open data](http://wiki.openstreetmap.org/wiki/Contribute_map_data) and open source software; both can be [contributed](http://wiki.openstreetmap.org/wiki/How_to_contribute).
+[OpenStreetMap](https://en.wikipedia.org/wiki/OpenStreetMap), the Wikipedia of maps, is a collaborative project to create a free editable map of the world. It consists of [open data](https://wiki.openstreetmap.org/wiki/Contribute_map_data) and open source software; both can be [contributed](https://wiki.openstreetmap.org/wiki/How_to_contribute).
 
-A [Beginners' guide](http://wiki.openstreetmap.org/wiki/Beginners%27_guide) is available in the [OpenStreetMap Wiki](http://wiki.openstreetmap.org), providing basic information on how to add data to OpenStreetMap.
+A [Beginners' guide](https://wiki.openstreetmap.org/wiki/Beginners%27_guide) is available in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org), providing basic information on how to add data to OpenStreetMap.
 
-Technical details to maintain and develop the OpenStreetMap open source software, from portal to rendering and other backend platforms, can be found at the [Develop](http://wiki.openstreetmap.org/wiki/Develop) page.
+Technical details to maintain and develop the OpenStreetMap open source software, from portal to rendering and other backend platforms, can be found at the [Develop](https://wiki.openstreetmap.org/wiki/Develop) page.
 
 ## OpenStreetMap Carto
 
-[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) includes the [CartoCSS map stylesheets](http://wiki.openstreetmap.org/wiki/CartoCSS) for the [Standard map layer](http://wiki.openstreetmap.org/wiki/Standard_tile_layer) of [OpenStreetMap](http://www.openstreetmap.org). The styles can be converted from CartoCSS to [XML](https://github.com/mapnik/mapnik/wiki/XMLConfigReference) and then processed by [Mapnik](http://wiki.openstreetmap.org/wiki/Mapnik).
+[OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto) includes the [CartoCSS map stylesheets](https://wiki.openstreetmap.org/wiki/CartoCSS) for the [Standard map layer](https://wiki.openstreetmap.org/wiki/Standard_tile_layer) of [OpenStreetMap](https://www.openstreetmap.org). The styles can be converted from CartoCSS to [XML](https://github.com/mapnik/mapnik/wiki/XMLConfigReference) and then processed by [Mapnik](https://wiki.openstreetmap.org/wiki/Mapnik).
 
 CartoCSS is a [CSS-like](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) language for map design developed by [MapBox](https://en.wikipedia.org/wiki/Mapbox) and currently adopted by OpenStreetMap.
 

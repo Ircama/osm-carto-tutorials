@@ -10,7 +10,7 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 Even if the general scope of this site is to provide tutorials to set-up a development environment of OpenStreetMap Carto and offer recommendations to edit the style, this page shows how OpenStreetMap Carto can be used to implement a tile server using the same software adopted by OpenStreetMap.
 
-The OSM Tile Server is a [web server](https://en.wikipedia.org/wiki/Web_server) specialized in delivering [raster](https://en.wikipedia.org/wiki/Raster_graphics) maps, serving them as static [tiles](https://en.wikipedia.org/wiki/Raster_graphics) and able to perform [rendering](http://wiki.openstreetmap.org/wiki/Rendering) in real time or providing cached images. The adopted web software by OpenStreetMap is the [Apache HTTP Server]( https://en.wikipedia.org/wiki/Apache_HTTP_Server), together with a specific plugin named *mod_tile* and a related backend stack able to generate tiles at run time; programs and libraries are chained together to create the tile server.
+The OSM Tile Server is a [web server](https://en.wikipedia.org/wiki/Web_server) specialized in delivering [raster](https://en.wikipedia.org/wiki/Raster_graphics) maps, serving them as static [tiles](https://en.wikipedia.org/wiki/Raster_graphics) and able to perform [rendering](https://wiki.openstreetmap.org/wiki/Rendering) in real time or providing cached images. The adopted web software by OpenStreetMap is the [Apache HTTP Server]( https://en.wikipedia.org/wiki/Apache_HTTP_Server), together with a specific plugin named *mod_tile* and a related backend stack able to generate tiles at run time; programs and libraries are chained together to create the tile server.
 
 As so often with OpenStreetMap, there are many ways to achieve a goal and nearly all of the components have alternatives that have various specific advantages and disadvantages. This tutorial describes the standard installation process of the OSM Tile Server used on OpenStreetMap.org.
 
@@ -29,13 +29,13 @@ All mentioned software is open-source.
 
 For the tile server, a *PostGIS* database is required, storing geospatial features populated by *osm2pgsql* tool from OSM data. Also, a file system directory including the *OSM.xml* file, map symbols (check openstreetmap-carto/symbols subdirectory) and shapefiles (check openstreetmap-carto/data subdirectory) is needed. *OSM.xml* is preliminarily produced by a tool named [carto](https://github.com/mapbox/carto) from the *openstreetmap-carto* style (project.mml and all related CartoCSS files included in openstreetmap-carto).
 
-When the Apache web server receives a request from the browser, it invokes the [mod_tile](https://github.com/openstreetmap/mod_tile/) plugin, which in turn checks if the tile has already been created (from a previous rendering) and cached, so that it is ready for use; in case, *mod_tile* immediately sends the tile back to the web server. Conversely, if the request needs to be rendered, then it is queued to the *renderd* backend, which is responsible to invoke [Mapnik]( http://wiki.openstreetmap.org/wiki/Mapnik) to perform the actual rendering; *renderd* is a *daemon* process included in the *mod_tile* sources and interconnected to *mod_tile* via UNIX queues. *renderd* is the standard backend currently used by www.openstreetmap.org, even if some OSM implementations use [tirex](http://wiki.openstreetmap.org/wiki/Tirex); *Mapnik* extracts data from the PostGIS database according to the *openstreetmap-carto* style information and dynamically renders the tile. *renderd* passes back the produced tile to the web server and in turn to the browser.
+When the Apache web server receives a request from the browser, it invokes the [mod_tile](https://github.com/openstreetmap/mod_tile/) plugin, which in turn checks if the tile has already been created (from a previous rendering) and cached, so that it is ready for use; in case, *mod_tile* immediately sends the tile back to the web server. Conversely, if the request needs to be rendered, then it is queued to the *renderd* backend, which is responsible to invoke [Mapnik]( https://wiki.openstreetmap.org/wiki/Mapnik) to perform the actual rendering; *renderd* is a *daemon* process included in the *mod_tile* sources and interconnected to *mod_tile* via UNIX queues. *renderd* is the standard backend currently used by www.openstreetmap.org, even if some OSM implementations use [tirex](https://wiki.openstreetmap.org/wiki/Tirex); *Mapnik* extracts data from the PostGIS database according to the *openstreetmap-carto* style information and dynamically renders the tile. *renderd* passes back the produced tile to the web server and in turn to the browser.
 
 The *renderd* daemon implements a queuing mechanism with multiple priority levels to provide an as up-to-date viewing experience given the available rendering resources. The highest priority is for on the fly rendering of tiles not yet in the tile cache, two priority levels for re-rendering out of date tiles on the fly and two background batch rendering queues. To avoid problems with directories becoming too large and to avoid too many tiny files, *Mod_tile*/*renderd* store the rendered tiles in "meta tiles", in a special hashed directory structure.[^3]
 
 Even if the tileserver dynamically generates tiles at run time, they can also be pre-rendered for offline viewing with a specific tool named *render_list*, which is typically used to pre-render low zoom level tiles and takes significant time to accomplish the process (tens of hours in case the full planet is pre-rendered); this utility is included in *mod_tile*, as well as another tool named *render_expired*, which provides methods to allow expiring map tiles. More detailed description of [render_list]({{ site.baseurl }}/manpage.html?url=https://rawgit.com/openstreetmap/mod_tile/master/docs/render_list.1){:target="_blank"} and [render_expired]({{ site.baseurl }}/manpage.html?url=https://rawgit.com/openstreetmap/mod_tile/master/docs/render_expired.1){:target="_blank"} can be found in their man pages.
 
-A background on the tiles expiry method can be found at [tiles expiry mechanism](http://wiki.openstreetmap.org/wiki/Tile_expire_methods).
+A background on the tiles expiry method can be found at [tiles expiry mechanism](https://wiki.openstreetmap.org/wiki/Tile_expire_methods).
 
 The overall process is here represented[^4].
 
@@ -72,7 +72,7 @@ You can test Apache by accessing it through a browser at *http://your-server-ip*
 
 ## Install Mod_tile
 
-[Mod_tile](http://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik. We can compile it from Github repository.
+[Mod_tile](https://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik. We can compile it from Github repository.
 
     mkdir -p ~/src ; cd ~/src
     git clone https://github.com/openstreetmap/mod_tile.git
@@ -420,22 +420,22 @@ This paragraph is currently in early stage, not yet revised. Information at the 
 Hardware requirements can be quite demanding if you want to render larger areas, but aren’t too bad if you are only interested in smaller regions. For a standard desktop (approximately 4 GB of RAM, standard hard disk, dual – quad core CPU) probably an extract size of about 100 – 300 Mb is reasonable (import time of the order of an hour).
 
 If you want to import and render the whole world, you will need a considerably beefier server than a typical desktop. E.g. starting from about 24GB of RAM upwards. It is also strongly recommended to use an SSD for the database or at least a fast RAID array.
-The OSM map database is called planet.osm. The full database and regular update files are both available at [Planet OSM](planet.openstreetmap.org).
+The OSM map database is called planet.osm. The full database and regular update files are both available at [Planet OSM](https://planet.openstreetmap.org).
 The full planet import is currently around about 256GB (58 GB zipped), so to store all of the DB on an SSD, you will likely need a 512GB SSD. An import that is not updated and uses the –drop option on the otherhand likely still fits on a 256GB SSD. You can also selectively put the most important parts of the database on an SSD and the rest on slower disks. Osm2pgsql supports using separate tablespaces for different parts of the database for this purpose.
 
 ## Tile names format of OpenStreetMap tile server
 
-The file naming and image format used by mod_tile is described at [Slippy map tilenames](http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames). Similar format is also used by [Google Maps](https://developers.google.com/maps/documentation/javascript/maptypes) and many other map providers.
+The file naming and image format used by mod_tile is described at [Slippy map tilenames](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames). Similar format is also used by [Google Maps](https://developers.google.com/maps/documentation/javascript/maptypes) and many other map providers.
 
-[TMS](http://wiki.openstreetmap.org/wiki/TMS) and [WMS](http://wiki.openstreetmap.org/wiki/WMS) are other protocols for serving maps as tiles, managed by different rendering backends.
+[TMS](https://wiki.openstreetmap.org/wiki/TMS) and [WMS](https://wiki.openstreetmap.org/wiki/WMS) are other protocols for serving maps as tiles, managed by different rendering backends.
 
 ## Deploying your own Slippy Map
 
-[Tiled web map](https://en.wikipedia.org/wiki/Tiled_web_map) is also known as [slippy map](http://wiki.openstreetmap.org/wiki/Slippy_Map) in OpenStreetMap terminology.
+[Tiled web map](https://en.wikipedia.org/wiki/Tiled_web_map) is also known as [slippy map](https://wiki.openstreetmap.org/wiki/Slippy_Map) in OpenStreetMap terminology.
 
 OpenStreetMap does not provide an “official” JavaScript library which you are required to use. Rather, you can use any library that meets your needs. The two most popular are OpenLayers and Leaflet. Both are open source.
 
-Page [Deploying your own Slippy Map](http://wiki.openstreetmap.org/wiki/Deploying_your_own_Slippy_Map) illustrates how to embed the previously installed map server into a website. A number of possible map libraries are mentioned, including some relevant ones ([Leaflet](leafletjs.com), [OpenLayers](openlayers.org), [Google Maps API](https://developers.google.com/maps/)) as well as many alternatives.
+Page [Deploying your own Slippy Map](https://wiki.openstreetmap.org/wiki/Deploying_your_own_Slippy_Map) illustrates how to embed the previously installed map server into a website. A number of possible map libraries are mentioned, including some relevant ones ([Leaflet](leafletjs.com), [OpenLayers](openlayers.org), [Google Maps API](https://developers.google.com/maps/)) as well as many alternatives.
 
 ### OpenLayers
 
@@ -446,6 +446,8 @@ To display your slippy map with OpenLayers, create a file named *ol.html* under 
 Paste the following HTML code into the file.
 
 You might wish to adjust the longitude, latitude and zoom level according to your needs. Check `var zoom = 2, center = [0, 0];`.
+
+Notice we are using *https* for *openstreetmap.org*.
 
 ```html
 <!DOCTYPE html>
@@ -566,7 +568,7 @@ You might wish to adjust the longitude, latitude and zoom level according to you
       preload: Infinity,
       source: new ol.source.OSM({
         crossOrigin: null,
-        url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       })
     });
 
@@ -673,7 +675,7 @@ To expand it with the public IP address of your server, check this command for i
 
     echo "http://`wget http://ipinfo.io/ip -qO -`/ol.html"
 
-<script async src="//jsfiddle.net/ircama/r3a4t201/embed/html,js,resources,css,result/"></script>
+<script async src="https://jsfiddle.net/ircama/r3a4t201/embed/html,js,resources,css,result/"></script>
 
 ### Leaflet
 
@@ -731,7 +733,7 @@ A rapid way to test the slippy map is through an online source code playground l
     
     * [switch2osm.org - Manually building a tile server (14.04)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/)
 	* [switch2osm.org - Manually building a tile server (16.04.2 LTS)](https://switch2osm.org/manually-building-a-tile-server-16-04-2-lts/)
-    * [OSM Wiki - Mod tile/Setup of your own tile server](http://wiki.openstreetmap.org/wiki/Mod_tile/Setup_of_your_own_tile_server)
+    * [OSM Wiki - Mod tile/Setup of your own tile server](https://wiki.openstreetmap.org/wiki/Mod_tile/Setup_of_your_own_tile_server)
     * [Build Your Own OpenStreetMap Tile Server on Ubuntu 16.04](https://www.linuxbabe.com/linux-server/openstreetmap-tile-server-ubuntu-16-04)
     * [OSM tile server jessie](https://wiki.debian.org/OSM/tileserver/jessie)
 
