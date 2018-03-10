@@ -171,9 +171,9 @@ osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag
 Its related execution diagram is the following:
 
 |configuration.txt ![txt][txt]| |Openstreetmap Changes ![xml][xml]|
-|                             |&#x2B68;|&#x2B63;|
-|state.txt ![txt][txt]|&#x2B62;|*Osmosis* ![prg][prg]|&#x2B62;|*Osm2pgsql* ![prg][prg]|
-|                     |&#x2B69;|                   | |&#x2B63;|
+|                             |&#x21D8;|&#x21E9;|
+|state.txt ![txt][txt]|&#x21E8;|*Osmosis* ![prg][prg]|&#x21E8;|*Osm2pgsql* ![prg][prg]|
+|                     |&#x21D9;|                   | |&#x21E9;|
 |state.txt ![txt][txt]| |                   | |PostgreSQL PostGIS ![db][db]|
 {: .drawing}
 
@@ -235,9 +235,9 @@ sudo apt-get install -y python-psycopg2 python-shapely python-lxml
 The toolchain to process a trimmed download is the following:
 
 |configuration.txt ![txt][txt]| |Openstreetmap Changes ![xml][xml]|
-|                             |&#x2B68;|&#x2B6;|
-|state.txt ![txt][txt]|&#x2B62;|*Osmosis* ![prg][prg]|&#x2B62;|*trim_osc.py* ![prg][prg]|&#x2B62;|*Osm2pgsql* ![prg][prg]|
-|                     |&#x2B69;|                   | |                           | |&#x2B63;|
+|                             |&#x21D8;|&#x21E9;|
+|state.txt ![txt][txt]|&#x21E8;|*Osmosis* ![prg][prg]|&#x21E8;|*trim_osc.py* ![prg][prg]|&#x21E8;|*Osm2pgsql* ![prg][prg]|
+|                     |&#x21D9;|                   | |                           | |&#x21E9;|
 |state.txt ![txt][txt]| |                   | |                           | |PostgreSQL PostGIS ![db][db]|
 {: .drawing}
 
@@ -329,9 +329,9 @@ rm osmChange
 The revised toolchain is the following:
 
 |configuration.txt ![txt][txt]| |osmChange ![xml][xml]|
-|                             |&#x2B68;|&#x2B63;|
-|state.txt ![txt][txt]|&#x2B62;|*Osmosis* ![prg][prg]|&#x2B62;|*trim_osc.py* ![prg][prg]|&#x2B62;|*Osm2pgsql* ![prg][prg]|&#x2B62;|*render_expired* ![prg][prg]|
-|                     |&#x2B69;|                   | |                           | |&#x2B63;|
+|                             |&#x21D8;|&#x21E9;|
+|state.txt ![txt][txt]|&#x21E8;|*Osmosis* ![prg][prg]|&#x21E8;|*trim_osc.py* ![prg][prg]|&#x21E8;|*Osm2pgsql* ![prg][prg]|&#x21E8;|*render_expired* ![prg][prg]|
+|                     |&#x21D9;|                   | |                           | |&#x21E9;|
 |state.txt ![txt][txt]| |                   | |                           | |PostgreSQL ![db][db]|
 {: .drawing}
 

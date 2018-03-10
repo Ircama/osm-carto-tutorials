@@ -40,13 +40,13 @@ A background on the tiles expiry method can be found at [tiles expiry mechanism]
 The overall process is here represented[^4].
 
 |                   | |client browser  ![web][web]| | |
-|                   | |&#x2B63;| | |
-|Disk Cache (tiles)![png][png]| |Apache Web Server ![prg][prg]|&#x2B62;|Web page ![html][html]|
-|                   |&#x2B68;|&#x2B63;| | |
-|renderd ![prg][prg]|&#x2B60;|mod_tile ![prg][prg]|&#x2B60;|tiles ![png][png]|
-|&#x2B61;|&#x2B68;|                      |&#x2B67;|
-|Mapnik XML ![xml][xml]|&#x2B62;|Mapnik ![prg][prg]| | |
-|                      |&#x2B67;|&#x2B61;| | |
+|                   | |&#x21E9;| | |
+|Disk Cache (tiles)![png][png]| |Apache Web Server ![prg][prg]|&#x21E8;|Web page ![html][html]|
+|                   |&#x21D8;|&#x21E9;| | |
+|renderd ![prg][prg]|&#x21E6;|mod_tile ![prg][prg]|&#x21E6;|tiles ![png][png]|
+|&#x21E7;|&#x21D8;|                      |&#x21D7;|
+|Mapnik XML ![xml][xml]|&#x21E8;|Mapnik ![prg][prg]| | |
+|                      |&#x21D7;|&#x21E7;| | |
 |PostgreSQL PostGIS ![db][db]| |shapefiles *data* directory ![shape][shape]| | |
 {: .drawing}
 
