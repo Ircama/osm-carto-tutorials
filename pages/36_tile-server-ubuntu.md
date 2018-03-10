@@ -8,7 +8,7 @@ rendering-note: this page is best viewed with Jekyll rendering
 
 ## Introduction
 
-Even if the general scope of this site is to provide tutorials to set-up a development environment of OpenStreetMap Carto and offer recommendations to edit the style, this page shows how OpenStreetMap Carto can be used to implement a tile server using the same software adopted by OpenStreetMap.
+This page shows how [OpenStreetMap Carto](https://wiki.openstreetmap.org/wiki/Standard_tile_layer) can be used to implement a [tile server](https://en.wikipedia.org/wiki/Tiled_web_map) using the same software adopted by OpenStreetMap. It includes step-by-step instructions to install an Ubuntu based Tile Server and is limited to describe some best practices, in the consideration that the main scope of this site is to provide tutorials to set-up a development environment of OpenStreetMap Carto and offer recommendations to edit the style.
 
 The OSM Tile Server is a [web server](https://en.wikipedia.org/wiki/Web_server) specialized in delivering [raster](https://en.wikipedia.org/wiki/Raster_graphics) maps, serving them as static [tiles](https://en.wikipedia.org/wiki/Raster_graphics) and able to perform [rendering](https://wiki.openstreetmap.org/wiki/Rendering) in real time or providing cached images. The adopted web software by OpenStreetMap is the [Apache HTTP Server]( https://en.wikipedia.org/wiki/Apache_HTTP_Server), together with a specific plugin named *mod_tile* and a related backend stack able to generate tiles at run time; programs and libraries are chained together to create the tile server.
 
@@ -40,13 +40,13 @@ A background on the tiles expiry method can be found at [tiles expiry mechanism]
 The overall process is here represented[^4].
 
 |                   | |client browser  ![web][web]| | |
-|                   | |↓                   | | |
-|Disk Cache (tiles)![png][png]| |Apache Web Server ![prg][prg]|→|Web page ![html][html]|
-|                   |↘|↓                   | | |
-|renderd ![prg][prg]|←|mod_tile ![prg][prg]|←|tiles ![png][png]|
-|  ↑                |↘|                      |↗|
-|Mapnik XML ![xml][xml]|→|Mapnik ![prg][prg]| | |
-|                      |↗|↑| | |
+|                   | |&#x2B63;| | |
+|Disk Cache (tiles)![png][png]| |Apache Web Server ![prg][prg]|&#x2B62;|Web page ![html][html]|
+|                   |&#x2B68;|&#x2B63;| | |
+|renderd ![prg][prg]|&#x2B60;|mod_tile ![prg][prg]|&#x2B60;|tiles ![png][png]|
+|&#x2B61;|&#x2B68;|                      |&#x2B67;|
+|Mapnik XML ![xml][xml]|&#x2B62;|Mapnik ![prg][prg]| | |
+|                      |&#x2B67;|&#x2B61;| | |
 |PostgreSQL PostGIS ![db][db]| |shapefiles *data* directory ![shape][shape]| | |
 {: .drawing}
 

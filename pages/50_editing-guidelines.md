@@ -12,11 +12,11 @@ This page aims to describe the general editing process of OpenStreetMap Carto, t
 The following workflow summarizes the main actions.
 
 |**Check DB data.**![db][db]<span>Within the PostGIS instance, find the DB columns related to the feature in scope.<span>Verify that the needed column is included in *openstreetmap-carto.style* or that the [hstore](https://www.postgresql.org/docs/9.5/static/hstore.html) tags column can provide the needed feature through the *tags->'feature'* syntax. As *osm2pgsql* populates hstore values for features that are not present in *openstreetmap-carto.style*, this file is expected to be rarely modified.|
-|↓|
+|&#x2B63;|
 |**Edit project.mml.**![yml][yml]<span>Check whether the selected columns are already managed within the appropriate layers in *project.mml*.<span>If everything is already appropriately defined, all modifications can be directly implemented within the CartoCSS *.mss* files.<span>Conversely, if the feature is not present within the layer(s), *project.mml* has to be edited.<span>For complex development, a new layer might be needed and in this case a new section has to be developed in *project.mml*.|
-|↓|
+|&#x2B63;|
 |**Edit the .mss style.**![css][css]<span>The *.mss* files can then be modified to define the rendering attributes of the new feature within each related layer. CartoCSS selectors shall refer layers or classes defined in *project.mml*. Inside a selector, filters and properties define rendering attributes.<span>If a new layer is added, possibly a new *.mss* stylesheet file needs to be created.|
-|↓|
+|&#x2B63;|
 |**Test modifications.**![html][html]<span>All modifications must be tested (e.g., with Kosmtik) on different regions and using all zooms; regions shall be selected by analyzing wide areas, checking places with high and low concentration of the feature.|
 {: .drawing .djustify}
 

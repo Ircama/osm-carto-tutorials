@@ -7,9 +7,7 @@ permalink: /kosmtik-ubuntu-setup/
 
 ## Introduction
 
-The suggested tool to support the autohoring of [OpenStreetMap stylesheets](https://wiki.openstreetmap.org/wiki/Stylesheets) developed in [CartoCSS](https://wiki.openstreetmap.org/wiki/CartoCSS) is [Kosmtik](https://github.com/kosmtik/kosmtik), a software to produce, browse and verify [raster tile maps](https://en.wikipedia.org/wiki/Tiled_web_map) based on pre-processors like [CartoCSS](https://github.com/mapbox/carto) and rendered through [Mapnik](https://github.com/mapnik/mapnik/blob/master/docs/design.md).
-
-Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto.
+[Kosmtik](https://github.com/kosmtik/kosmtik) is an open source modular mapping framework for managing [CartoCSS](https://wiki.openstreetmap.org/wiki/CartoCSS) rendering of [OpenStreetMap stylesheets](https://wiki.openstreetmap.org/wiki/Stylesheets) and creating [Mapnik](https://github.com/mapnik/mapnik/blob/master/docs/design.md) ready [raster tile maps](https://en.wikipedia.org/wiki/Tiled_web_map). It consists of a JavaScript [node](https://en.wikipedia.org/wiki/Node.js) module and needs a list of prerequisite software like PostgreSQL, PostGIS, Python, osm2pgsql and Node.js itself. Kosmtik also includes node versions of further software like Mapnik and Carto. It is written by [Yohan Boniface](https://github.com/yohanboniface) and other [contributors](https://github.com/kosmtik/kosmtik/graphs/contributors).
 
 The recommended method to install Kosmtik is via the [Docker image and related scripts](../docker-kosmtik) provided with OpenStreetMap Carto. Alternatively to the Docker installation method, the following procedure can be used to install a Kosmtik development environment of *openstreetmap-carto* by performing one by one all the required steps on an Ubuntu PC.
 

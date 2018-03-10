@@ -171,9 +171,9 @@ osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag
 Its related execution diagram is the following:
 
 |configuration.txt ![txt][txt]| |Openstreetmap Changes ![xml][xml]|
-|                             |↘|↓                  |
-|state.txt ![txt][txt]|→|*Osmosis* ![prg][prg]|→|*Osm2pgsql* ![prg][prg]|
-|                     |↙|                   | |↓|
+|                             |&#x2B68;|&#x2B63;|
+|state.txt ![txt][txt]|&#x2B62;|*Osmosis* ![prg][prg]|&#x2B62;|*Osm2pgsql* ![prg][prg]|
+|                     |&#x2B69;|                   | |&#x2B63;|
 |state.txt ![txt][txt]| |                   | |PostgreSQL PostGIS ![db][db]|
 {: .drawing}
 
@@ -235,9 +235,9 @@ sudo apt-get install -y python-psycopg2 python-shapely python-lxml
 The toolchain to process a trimmed download is the following:
 
 |configuration.txt ![txt][txt]| |Openstreetmap Changes ![xml][xml]|
-|                             |↘|↓                  |
-|state.txt ![txt][txt]|→|*Osmosis* ![prg][prg]|→|*trim_osc.py* ![prg][prg]|→|*Osm2pgsql* ![prg][prg]|
-|                     |↙|                   | |                           | |↓|
+|                             |&#x2B68;|&#x2B6;|
+|state.txt ![txt][txt]|&#x2B62;|*Osmosis* ![prg][prg]|&#x2B62;|*trim_osc.py* ![prg][prg]|&#x2B62;|*Osm2pgsql* ![prg][prg]|
+|                     |&#x2B69;|                   | |                           | |&#x2B63;|
 |state.txt ![txt][txt]| |                   | |                           | |PostgreSQL PostGIS ![db][db]|
 {: .drawing}
 
@@ -329,9 +329,9 @@ rm osmChange
 The revised toolchain is the following:
 
 |configuration.txt ![txt][txt]| |osmChange ![xml][xml]|
-|                             |↘|↓                  |
-|state.txt ![txt][txt]|→|*Osmosis* ![prg][prg]|→|*trim_osc.py* ![prg][prg]|→|*Osm2pgsql* ![prg][prg]|→|*render_expired* ![prg][prg]|
-|                     |↙|                   | |                           | |↓|
+|                             |&#x2B68;|&#x2B63;|
+|state.txt ![txt][txt]|&#x2B62;|*Osmosis* ![prg][prg]|&#x2B62;|*trim_osc.py* ![prg][prg]|&#x2B62;|*Osm2pgsql* ![prg][prg]|&#x2B62;|*render_expired* ![prg][prg]|
+|                     |&#x2B69;|                   | |                           | |&#x2B63;|
 |state.txt ![txt][txt]| |                   | |                           | |PostgreSQL ![db][db]|
 {: .drawing}
 
@@ -517,6 +517,6 @@ Osmosis and osmupdate.
 
 [^1]: [Paul’s Blog - It Starts With the Planet](http://www.paulnorman.ca/blog/2018/01/it-starts-with-the-planet/)
 [^2]: [Toby's Blog of open/mappy things](http://ksmapper.blogspot.it/2011/04/keeping-database-up-to-date-with.html)
-[^3]: [pnorman comment on 15 Mar 2017]https://github.com/openstreetmap/osm2pgsql/issues/709#issuecomment-286895927)
+[^3]: [pnorman comment on 15 Mar 2017](https://github.com/openstreetmap/osm2pgsql/issues/709#issuecomment-286895927)
 [^4]: [Nakaner comment on 15 Mar 2017](https://github.com/openstreetmap/osm2pgsql/issues/709#issuecomment-286899135])
 [^5]: [Building a tile server from packages - Updating chapter](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages/)

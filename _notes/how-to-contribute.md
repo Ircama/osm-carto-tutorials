@@ -298,30 +298,30 @@ Some examples:
 
 ```markdown
 |First information|
-|↓|
+|&#x2B63;|
 |Second information|
-|↓|
+|&#x2B63;|
 |Third information|
-|↓|
+|&#x2B63;|
 |Final information|
 {: .drawing .djustify}
 ```
 
 |First information|
-|↓|
+|&#x2B63;|
 |Second information|
-|↓|
+|&#x2B63;|
 |Third information|
-|↓|
+|&#x2B63;|
 |Final information|
 {: .drawing .djustify}
 
 {% raw %}
 ```markdown
 |A YAML file ![yml][yml]       | |A CSS file ![css][css]| |An image ![png][png]|
-|                               |↘|↓|↙|
-|DB tables ![db][db]   |→|**A program**  ![prg][prg]|→|Some web pages ![web][web]|
-|                               |↗|↑|↖|
+|                               |&#x2B68;|&#x2B63;|&#x2B69;|
+|DB tables ![db][db]   |&#x2B62;|**A program**  ![prg][prg]|&#x2B60;|Some web pages ![web][web]|
+|                               |&#x2B67;|&#x2B61;|&#x2B66;|
 |A JSON file ![json][json] | |Geographic data ![shape][shape]| |An XML ![xml][xml]|
 {: .drawing}
 
@@ -330,9 +330,9 @@ Some examples:
 {% endraw %}
 
 |A YAML file ![yml][yml]       | |A CSS file ![css][css]| |An image ![png][png]|
-|                               |↘|↓|↙|
-|DB tables ![db][db]   |→|**A program**  ![prg][prg]|←|Some web pages ![web][web]|
-|                               |↗|↑|↖|
+|                               |&#x2B68;|&#x2B63;|&#x2B69;|
+|DB tables ![db][db]   |&#x2B62;|**A program**  ![prg][prg]|&#x2B60;|Some web pages ![web][web]|
+|                               |&#x2B67;|&#x2B61;|&#x2B66;|
 |A JSON file ![json][json] | |Geographic data ![shape][shape]| |An XML ![xml][xml]|
 {: .drawing}
 
