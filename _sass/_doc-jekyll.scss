@@ -88,7 +88,14 @@ table.drawing td.darrow {
     padding: 0 !important;
     border: 0px !important;
     margin: 0px !important;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    width: 18px;
+}
+
+table.drawing td.darrow img {
+    height: 18px;
+    width: 18px;
+    float: none;
 }
 
 table.djustify td.dcontent {

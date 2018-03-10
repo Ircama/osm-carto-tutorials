@@ -33,3 +33,11 @@
 [svg]: {{ site.baseurl }}/public/icons/29495.png "SVG image"
 [cad]: {{ site.baseurl }}/public/icons/28866.png "CAD file"
 [tiff]: {{ site.baseurl }}/public/icons/29058.png "TIFF image"
+[A-W]: https://upload.wikimedia.org/wikipedia/commons/c/c5/U%2B2190.svg
+[A-N]: https://upload.wikimedia.org/wikipedia/commons/9/9e/U%2B2191.svg
+[A-E]: https://upload.wikimedia.org/wikipedia/commons/8/8d/U%2B2192.svg
+[A-S]: https://upload.wikimedia.org/wikipedia/commons/f/f2/U%2B2193.svg
+[A-NW]: https://upload.wikimedia.org/wikipedia/commons/f/fc/U%2B2196.svg
+[A-NE]: https://upload.wikimedia.org/wikipedia/commons/9/9b/U%2B2197.svg
+[A-SE]: https://upload.wikimedia.org/wikipedia/commons/a/aa/U%2B2198.svg
+[A-SW]: https://upload.wikimedia.org/wikipedia/commons/a/ab/U%2B2199.svg

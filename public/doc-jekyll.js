@@ -35,7 +35,8 @@ $(function() {
   var elem = $('table.drawing td');
   $.each(elem, function() {
     if ( ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) > 150 ) ) ||
-        ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) >255 ) ) )
+        ( ( $(this).text().length < 2 ) && ( $(this).text().charCodeAt(0) >255 ) ) ||
+        ( $(this).text() == '') )
       $(this).addClass("darrow")
     else
       $(this).addClass("dcontent");

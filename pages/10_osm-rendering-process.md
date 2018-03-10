@@ -55,9 +55,9 @@ The rendering process takes its data from a [PostgreSQL](https://www.postgresql.
 The following diagram represents the process to populate the PostGIS instance with OSM data though osm2pgsql.
 
 |                                     | |OSM data extract ![xml][xml]|
-|                                     | |&#x21E9;|
-|openstreetmap-carto.style ![txt][txt]|&#x21E8;|**osm2pgsql** ![prg][prg]|&#x21E8;|PostgreSQL PostGIS ![db][db]|
-|                                     | |&#x21E7;|
+|                                     | |![A-S][]|
+|openstreetmap-carto.style ![txt][txt]|![A-E][]|**osm2pgsql** ![prg][prg]|![A-E][]|PostgreSQL PostGIS ![db][db]|
+|                                     | |![A-N][]|
 |                                     | |openstreetmap-carto.lua ![lua][lua]|
 {: .drawing}
 
@@ -87,7 +87,7 @@ Additional information available [here](https://wiki.openstreetmap.org/wiki/Plan
 
 The process adopted to download and index the needed shapefiles is the following:
 
-|shapefiles ![dl][dl]|&#x21E8;|**get-shapefiles.py** ![prg][prg]|&#x21E8;|shapefiles *data* directory ![shape][shape]|
+|shapefiles ![dl][dl]|![A-E][]|**get-shapefiles.py** ![prg][prg]|![A-E][]|shapefiles *data* directory ![shape][shape]|
 {: .drawing}
 
 ### Mapnik rendering
@@ -119,8 +119,8 @@ The conversion of the OpenStreetMap Carto source files into the XML Mapnik file 
 The output of the *Carto* compiler is the Mapnik XML file, merging the definitions in *project.mml* together with all referenced styles in *.mms* files and all shapefile links; the obtained XML file is in final format, to be directly processed by Mapnik.
 
 |                                      | |project.mml ![yml][yml]      | ||
-|                                      | |&#x21E9;| ||
-|osm-carto CartoCSS styles (.mml) ![css][css]|&#x21E8;|**carto** ![prg][prg]        |&#x21E8;|Mapnik XML ![xml][xml]|
+|                                      | |![A-S][]| ||
+|osm-carto CartoCSS styles (.mml) ![css][css]|![A-E][]|**carto** ![prg][prg]        |![A-E][]|Mapnik XML ![xml][xml]|
 {: .drawing}
 
 <br />
@@ -128,7 +128,7 @@ The output of the *Carto* compiler is the Mapnik XML file, merging the definitio
 As an example, at the time of writing these are the sizes:
 
 | 113189 bytes|project.mml![yml][yml]||all **.mms*: 234773 bytes ![css][css]|
-|       |&#x21E9;|||
+|       |![A-S][]|||
 |2077776 bytes|style.xml   ![xml][xml]|||
 {: .drawing}
 
@@ -145,9 +145,9 @@ Mapnik reads the following sources to render the tiles:
 The process to generate the Mapnik XML file from the OpenStreetMap Carto sources is the following:
 
 |                             | |Mapnik XML ![xml][xml]|
-|                             | |&#x21E9;|
-|PostgreSQL PostGIS ![db][db] |&#x21E8;|**Mapnik**  ![prg][prg]|&#x21E8;|images ![png][png]|
-|                             | |&#x21E7;|
+|                             | |![A-S][]|
+|PostgreSQL PostGIS ![db][db] |![A-E][]|**Mapnik**  ![prg][prg]|![A-E][]|images ![png][png]|
+|                             | |![A-N][]|
 |                             | |shapefiles *data* directory ![shape][shape]|
 {: .drawing}
 
@@ -164,9 +164,9 @@ The best platform to perform CartoCSS customizations is [Kosmtik](https://github
 The development environment based on Kosmtik reflects the OSM architecture through a local toolchain.
 
 |project.mml ![yml][yml]        | |osm-carto CartoCSS styles (.mss) ![css][css]|
-|                               |&#x21D8;|&#x21E9;|
-|PostgreSQL PostGIS ![db][db]   |&#x21E8;|**Kosmtik**  ![prg][prg]|&#x21E8;|Web images ![web][web]|
-|                               |&#x21D7;|&#x21E7;|
+|                               |![A-SE][]|![A-S][]|
+|PostgreSQL PostGIS ![db][db]   |![A-E][]|**Kosmtik**  ![prg][prg]|![A-E][]|Web images ![web][web]|
+|                               |![A-NE][]|![A-N][]|
 |localconfig.json ![json][json] | |shapefiles *data* directory ![shape][shape]|
 {: .drawing}
 

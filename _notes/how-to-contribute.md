@@ -298,30 +298,30 @@ Some examples:
 
 ```markdown
 |First information|
-|&#x21E9;|
+|![A-S][]|
 |Second information|
-|&#x21E9;|
+|![A-S][]|
 |Third information|
-|&#x21E9;|
+|![A-S][]|
 |Final information|
 {: .drawing .djustify}
 ```
 
 |First information|
-|&#x21E9;|
+|![A-S][]|
 |Second information|
-|&#x21E9;|
+|![A-S][]|
 |Third information|
-|&#x21E9;|
+|![A-S][]|
 |Final information|
 {: .drawing .djustify}
 
 {% raw %}
 ```markdown
 |A YAML file ![yml][yml]       | |A CSS file ![css][css]| |An image ![png][png]|
-|                               |&#x21D8;|&#x21E9;|&#x21D9;|
-|DB tables ![db][db]   |&#x21E8;|**A program**  ![prg][prg]|&#x21E6;|Some web pages ![web][web]|
-|                               |&#x21D7;|&#x21E7;|&#x21D6;|
+|                               |![A-SE][]|![A-S][]|![A-SW][]|
+|DB tables ![db][db]   |![A-E][]|**A program**  ![prg][prg]|![A-W][]|Some web pages ![web][web]|
+|                               |![A-NE][]|![A-N][]|![A-NW][]|
 |A JSON file ![json][json] | |Geographic data ![shape][shape]| |An XML ![xml][xml]|
 {: .drawing}
 
@@ -330,9 +330,9 @@ Some examples:
 {% endraw %}
 
 |A YAML file ![yml][yml]       | |A CSS file ![css][css]| |An image ![png][png]|
-|                               |&#x21D8;|&#x21E9;|&#x21D9;|
-|DB tables ![db][db]   |&#x21E8;|**A program**  ![prg][prg]|&#x21E6;|Some web pages ![web][web]|
-|                               |&#x21D7;|&#x21E7;|&#x21D6;|
+|                               |![A-SE][]|![A-S][]|![A-SW][]|
+|DB tables ![db][db]   |![A-E][]|**A program**  ![prg][prg]|![A-W][]|Some web pages ![web][web]|
+|                               |![A-NE][]|![A-N][]|![A-NW][]|
 |A JSON file ![json][json] | |Geographic data ![shape][shape]| |An XML ![xml][xml]|
 {: .drawing}
 
