@@ -1,6 +1,6 @@
-Some test might not pass (this does not mean that the installation is necessarily failed)
+Notice that some test might not pass (this does not mean that the installation is necessarily failed)
     
-Notice that, when running `npm test`, an error like the following indicates that your system does not have a modern enough libstdc++/gcc-base toolchain:
+Notice also that, when running `npm test`, an error like the following indicates that your system does not have a modern enough libstdc++/gcc-base toolchain:
     
 `Error: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version GLIBCXX_3.4.20 not found (required by /node_modules/osrm/lib/binding/osrm.node)`
     

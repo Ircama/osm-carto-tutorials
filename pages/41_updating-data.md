@@ -4,7 +4,6 @@ title: Keeping the local database in sync with OSM
 permalink: /updating-data/
 comments: true
 rendering-note: this page is best viewed with Jekyll rendering
-sitemap: false # remove this once the page is completed
 ---
 
 {% include_relative _includes/configuration-variables.md notitle='yes' %}
@@ -26,7 +25,7 @@ A number of tools have been developed to get, analyze and process incremental Op
 
 For the replication process, we assume that the database is created and that an initial import has already been made through [Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql), as described in "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)". (Notice that `-s` or `--slim` option is needed for the initial import to allow subsequent updates through `-a` or `--append`.)
 
-## Keeping the PostgreSQL database up to date with Osmosis
+## Updating with Osmosis and Osm2pgsql
 
 The traditional method to keep the tile server and the PostgreSQL/PostGIS database up-to-date with the latest OSM data is based on the *Osmosis*/*osm2pgsql* chain.
 
@@ -496,6 +495,8 @@ Other tools are available, capable to gain better performance, additional integr
 
 Anyway, we need to verify that they do not introduce downsides and that the result is exactly the same of the osmosis/osm2pgsql toolchain and this is beyond the scope of this tutorial.
 
+For instance the logic used by *imposm* might be different from the one used by *osm2pgsql*. If using that tool, you have to make it perform exactly the same as the standard toolchain.[^6]
+
 ### External references
 
 Jochen Topf in his [blog](https://blog.jochentopf.com/) reports that [Osmium](https://github.com/osmcode/osmium-tool/) can [provide expedicious and exact extracts](https://blog.jochentopf.com/2017-02-06-expedicious-and-exact-extracts-with-osmium.html).
@@ -503,43 +504,10 @@ Jochen Topf in his [blog](https://blog.jochentopf.com/) reports that [Osmium](ht
 A [note](https://github.com/gravitystorm/openstreetmap-carto/issues/2884) within the openstreetmap-carto repository mentions websites providing direct extracts as well as other tools that can be possibly used.
 
 
+Performance tuning:
 
-
-
-
-
-
-{% comment %}
-# DA FARE
-
-
-https://blog.jochentopf.com/2017-02-06-expedicious-and-exact-extracts-with-osmium.html
-http://ksmapper.blogspot.it/2011/04/keeping-database-up-to-date-with.html
-https://gis.stackexchange.com/questions/94352/update-database-via-osmosis-and-osm2pgsql-too-slow
-https://www.geofabrik.de/media/2012-09-08-osm2pgsql-performance.pdf
-file:///C:/Users/alberto/Downloads/OSM%20tiles%20server.pdf
-
-
-
-
-## Note to be processed
-
-https://github.com/geometalab/osmaxx/wiki/Updating-the-planet---extracting-data
-https://mygisnotes.wordpress.com/tag/osm/
-
-
-https://github.com/posm/posm/issues/17
-
-https://blog.jochentopf.com/2017-02-06-expedicious-and-exact-extracts-with-osmium.html
-
-https://manned.org/osmosis.1
-https://manned.org/osmconvert.1
-https://manned.org/osmfilter.1
-Osmosis and osmupdate.
-
-
-
-{% endcomment %}
+- Old article: [Optimising the Mapnik Rendering Toolchain](https://www.geofabrik.de/media/2012-09-08-osm2pgsql-performance.pdf).
+- Some notes: [Update database via osmosis and osm2pgsql too slow](https://gis.stackexchange.com/questions/94352/update-database-via-osmosis-and-osm2pgsql-too-slow).
 
 --------------------------
 
@@ -550,3 +518,4 @@ Osmosis and osmupdate.
 [^3]: [pnorman comment on 15 Mar 2017](https://github.com/openstreetmap/osm2pgsql/issues/709#issuecomment-286895927)
 [^4]: [Nakaner comment on 15 Mar 2017](https://github.com/openstreetmap/osm2pgsql/issues/709#issuecomment-286899135])
 [^5]: [Building a tile server from packages - Updating chapter](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages/)
+[^6]: [pnorman commented on 11 May 2016](https://github.com/gravitystorm/openstreetmap-carto/issues/2123#issuecomment-218310742)

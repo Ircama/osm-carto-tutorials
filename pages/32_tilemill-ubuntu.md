@@ -3,6 +3,7 @@ layout: page
 title: Installing TileMill and OpenStreetMap-Carto on Ubuntu
 comments: true
 permalink: /tilemill-ubuntu/
+rendering-note: this page is best viewed with Jekyll rendering
 ---
 
 ## Introduction
@@ -20,6 +21,8 @@ Additional information:
 
 A PostGIS database is needed and can be installed locally (suggested) or remotely (might be slow, depending on the network).
 
+This site also logs a [procedure to install Tilemill on Windows](../tilemill-osm-carto){:target="_blank"}, exploiting an old Windows package that has not been updated since years. Even if it was valid in the past, its version limitations produce incompatibility with the current release of *openstreetmap-carto*. The process to install Tilemill is using Ubuntu, as described in this page.
+
 {% include_relative _includes/update-ubuntu.md %}
 
 {% include_relative _includes/install-git.md program='TileMill' %}
@@ -30,34 +33,51 @@ A PostGIS database is needed and can be installed locally (suggested) or remotel
 
 Optional elements (needed for the topcube module related to the client user interface, not needed if TileMill will only be run in server mode):
 
-    # Install the topcube module, UI prerequisite to TileMill:
-    sudo apt-get install -y libgtk2.0-dev libwebkit-dev libwebkitgtk-dev
+```shell
+# Install the topcube module, UI prerequisite to TileMill:
+sudo apt-get install -y libgtk2.0-dev libwebkit-dev libwebkitgtk-dev
+```
 
 Installation of TileMill:
 
-    mkdir -p ~/src ; cd ~/src
-    git clone https://github.com/tilemill-project/tilemill.git
-    cd ~/src/tilemill
-    npm install
+```shell
+mkdir -p ~/src ; cd ~/src
+git clone https://github.com/tilemill-project/tilemill.git
+cd ~/src/tilemill
+npm install
+```
 
 ## Test TileMill
+
+To perform a preliminary test of the application, see [Start TileMill](#start-tilemill): a simple run without *openstreetmap-carto* will work; then you need to go back to this point to proceed with the installation of *openstreetmap-carto* and PostGIS, including data load.
+
+The application also provides some unit tests:
 
 ```
 cd ~/src/tilemill
 npm test # you can also run TileMill to test: see "Start TileMill" below.
 ```
     
-See [Start TileMill](#start-tilemill).
+{% include_relative _includes/test-app.md cdprogram='/home/$USER/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
 
-{% include_relative _includes/test-app.md cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
-
-{% include_relative _includes/inst-osm-carto.md cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
+{% include_relative _includes/inst-osm-carto.md cdprogram='/home/$USER/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
-{% include_relative _includes/firewall.md port=20009 cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
+{% include_relative _includes/firewall.md port=20009 cdprogram='/home/$USER/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
 
-{% include_relative _includes/postgis-inst.md port=20009 cdprogram='/home/ubuntu/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
+{% include_relative _includes/postgis-inst.md port=20009 cdprogram='/home/$USER/Documents/MapBox/project # if this directory is missing, start TileMill to create it' %}
+
+## Link openstreetmap-carto to the TileMill project directory
+
+TileMill can open projects found in its *project* folder, which can be configured within its *Settings* (check the *Documents* box of the *Application settings*, showing the local file path to TileMill projects & exports). By default this directory is created in */home/$USER/Documents/MapBox/project*, where *$USER* is the actual user that installed the application. The previously described installation procedure already uses that directory to set-up *openstreetmap-carto*.
+
+In case *openstreetmap-carto* is installed in another directory (e.g., *~/src/openstreetmap-carto*), the easiest way to allow TileMill to show and open the openstreetmap-carto project is to perform a symbolic link between openstreetmap-carto and the TileMill projects folder. Run the following:
+
+```shell
+cd /home/$USER/Documents/MapBox/project
+ln -s ~/src/openstreetmap-carto .
+```
 
 ## Start TileMill
 

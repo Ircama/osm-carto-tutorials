@@ -3,6 +3,8 @@ layout: page
 title: Installing Tilemill and OpenStreetMap-Carto on Windows
 comments: true
 permalink: /tilemill-osm-carto/
+rendering-note: this page is best viewed with Jekyll rendering
+sitemap: false # remove this once the page is completed
 ---
 
 ## Introduction
