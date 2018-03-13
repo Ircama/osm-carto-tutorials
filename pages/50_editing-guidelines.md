@@ -399,9 +399,11 @@ The reference document is [CONTRIBUTING](https://github.com/gravitystorm/openstr
 
 ## Design patterns
 
+A file named [USECASES](https://github.com/gravitystorm/openstreetmap-carto/blob/master/USECASES.md) describes which features should be rendered on a given zoomlevel and for a specific use case. This report is currently restricted to some low zoom levels (5, 6 and 7).
+
 [Christoph Hormann](https://github.com/imagico) published an excellent document on [Design goals and guidelines for the Openstreetmap-carto style](https://matteobrusa.github.io/md-styler/?url=https://raw.githubusercontent.com/imagico/openstreetmap-carto/a8c9a49ad5f0e4c1fa0f34f580adbebfbe9cc5c3/CARTOGRAPHY.md&theme=bootstrap). It extends the official [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md) document with considerations on colors and zoom levels; reading and understanding it is recommended.
 
-I'd also thoroughly recommend the various guides at [Imagico blog](http://blog.imagico.de/en/).
+Check also the various notes within the [Imagico's blog](http://blog.imagico.de/en/).
 
 ### Zoom filter in stylesheets
 

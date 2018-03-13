@@ -103,7 +103,7 @@ osmosis --version 2>&1 | grep "Osmosis Version"
 
 ### Continue set-up
 
-As Osmosis is a java program, you may need to specify appropriate options to the JVM like the memory usage (e.g., increasing it with the `-Xmx` option) and the temporary directory (e.g, something other than */tmp/*). You can set for instance the *JAVACMD_OPTIONS* environment variable like in the following example:
+As Osmosis is a java program, you may need to specify appropriate options to the JVM like the memory usage (e.g., increasing it with the `-Xmx` option) and the temporary directory (e.g., something other than */tmp/*). You can set for instance the *JAVACMD_OPTIONS* environment variable like in the following example:
 
 ```shell
 export JAVACMD_OPTIONS="-Xmx2G -Djava.io.tmpdir=/some/other/path/than/tmp/"
@@ -127,7 +127,7 @@ sudo chmod a+w .
 
 Two configuration files are needed: *state.txt* and *configuration.txt*.
 
-To create a default configuration file for osmosis, first remove any previous exixting configuration file:
+To create a default configuration file for osmosis, first remove any previous existing configuration file:
 
     rm -f configuration.txt
 
@@ -367,15 +367,18 @@ The date of the planet file obtained through a previously performed *osm2pgsql* 
 
 Its [man Page]({{ site.baseurl }}/manpage.html?url=https://raw.githubusercontent.com/openstreetmap/mod_tile/master/docs/openstreetmap-tiles-update-expire.1){:target="_blank"} describes the usage.
 
-Install the script:
+Install the script (as well as the auxiliary small script *osmosis-db_replag*):
 
 ```shell
 wget https://raw.githubusercontent.com/openstreetmap/mod_tile/master/openstreetmap-tiles-update-expire
 chmod a+x ./openstreetmap-tiles-update-expire
 sudo mv ./openstreetmap-tiles-update-expire /usr/bin
+wget https://raw.githubusercontent.com/openstreetmap/mod_tile/master/osmosis-db_replag
+chmod a+x ./osmosis-db_replag
+sudo mv ./osmosis-db_replag /usr/bin
 ```
 
-The script must be edited to modify the following configuration settings:
+The *openstreetmap-tiles-update-expire* script must be edited to modify the following configuration settings:
 
 - Add some configuration variables:
   ```shell
@@ -387,9 +390,10 @@ The script must be edited to modify the following configuration settings:
 - [LOG_DIR](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L13) has to be set to the log directory
 - [WORKOSM_DIR](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L14) has to be set to the osmosis temporary folder
 - [EXPIRY_MINZOOM and EXPIRY_MAXZOOM](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L26-L27) are used by osm2pgsql (`-e` option to create a tile expiry list) and by *render_expired*.
-- Remove comment including `osmosis-db_replag`
 
 Notice that the script invokes `http://osm.personalwerk.de/replicate-sequences/?"$1"T00:00:00Z` to download *state.txt* and *http://osm.personalwerk.de/replicate-sequences* redirects to *https://replicate-sequences.osm.mazdermind.de*, already mentioned before.
+
+Edit also *osmosis-db_replag* script and check `STATE=/var/lib/mod_tile/.osmosis/state.txt` by setting the actual path of *state.txt* (which should be *$WORKOSM_DIR/state.txt*). After creating *state.txt*, test *osmosis-db_replag* with `*osmosis-db_replag -h`.
 
 To prepare the script for the first execution[^5]:
 
@@ -431,9 +435,9 @@ In his blog, SomeoneElse [reports the modifications](https://wiki.openstreetmap.
 
 [Geofabrik](https://www.geofabrik.de/) provides an [updated version of the planet dataset](https://download.geofabrik.de/technical.html) from the latest OpenStreetMap data, already splitted into a number of [pre-defined regions](https://download.geofabrik.de/).
 
-When using Geofabrik to download the initial dataset to the local database, data can be kept updated by applying diff update files (differences between the new extract and the previous one) that Geofabrik also computes each time a new exctract is produced for a region. Using diff files of the same region of the initial download, users can continuously update their own regional extract instead of having to download the full file. Applying updates from Geofabrik rather than the whole planet minimises the size of the database and the amount of data fetched from the remote server.
+When using Geofabrik to download the initial dataset to the local database, data can be kept updated by applying diff update files (differences between the new extract and the previous one) that Geofabrik also computes each time a new extract is produced for a region. Using diff files of the same region of the initial download, users can continuously update their own regional extract instead of having to download the full file. Applying updates from Geofabrik rather than the whole planet minimizes the size of the database and the amount of data fetched from the remote server.
 
-By default, the *baseUrl* parameter in *configuration.txt* points to the whole planet. If you are using an extract downloaded from [Geofabrik](https://download.geofabrik.de/), you should change the url basing on the metadata of the related PBF file; *osmium* is a tool which among other things allows the analisys of a PBF file; it can be installed from package through:
+By default, the *baseUrl* parameter in *configuration.txt* points to the whole planet. If you are using an extract downloaded from [Geofabrik](https://download.geofabrik.de/), you should change the url basing on the metadata of the related PBF file; *osmium* is a tool which among other things allows the analysis of a PBF file; it can be installed from package through:
 
     sudo apt-get -y install osmium-tool
 
@@ -496,6 +500,12 @@ Other tools are available, capable to gain better performance, additional integr
 Anyway, we need to verify that they do not introduce downsides and that the result is exactly the same of the osmosis/osm2pgsql toolchain and this is beyond the scope of this tutorial.
 
 For instance the logic used by *imposm* might be different from the one used by *osm2pgsql*. If using that tool, you have to make it perform exactly the same as the standard toolchain.[^6]
+
+## Is updating really needed?
+
+For most use cases, periodic loading of diff updates is not really needed. Especially for very small areas or when monthly updates are enough, it is worthwhile to perform a full db re-import each time, rather than implementing the osmosis/osm2pgsql toolchain. Full imports of small areas are generally fast enough and take less disk space; you simply need to download the new version of the extract, drop the database and re-import everything, getting rid of the data needed for the update by not using the `-s` or `--slim` option. This will also avoid DB maintenance procedures.
+
+When needing diff updates, it is more efficient to update less often and a periodicity of one day (or better one week) is suggested.
 
 ### External references
 

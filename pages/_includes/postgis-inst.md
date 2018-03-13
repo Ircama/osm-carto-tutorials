@@ -105,7 +105,7 @@ then you might be installing PostgreSQL 9.3 (instead of 9.5), for which you shou
 
 Install it and repeat the create extension commands.
 
-If you need to use a different tablespace than the default one, execute the following commands instead of the previous ones (example: the tablespace has location `/tmp/db`):
+Check to create the DB within a disk partition where enough disk space is available[^96]. If you need to use a different tablespace than the default one, execute the following commands instead of the previous ones (example: the tablespace has location `/tmp/db`):
 
 ```shell
 export PGPASSWORD={{ pg_password }}
@@ -176,9 +176,9 @@ The [PostgreSQL wiki](http://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Ser
 
 [Paul Norman’s Blog](http://www.paulnorman.ca/blog/2011/11/loading-a-pgsnapshot-schema-with-a-planet-take-2/) has an interesting note on optimizing the database, which is used here below.
 
-Adjusting `maintenance_work_mem` and `work_mem` are probably enough on a development or testing machine.[^98]: both parameters should be increased for faster data loading and faster queries while rendering respectively.
+Default `maintenance_work_mem` and `work_mem` settings are far too low for rendering.[^98]: both parameters should be increased for faster data loading and faster queries (index scanning).
 
-Conservative settings for a 2GB VM are `work_mem=16MB` and `maintenance_work_mem=128MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`.
+Conservative settings for a 4GB VM are `work_mem=32MB` and `maintenance_work_mem=256MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`.
 
 Besides, important settings are `shared_buffers` and the *write-ahead-log* (*wal*). There are also some other settings you might want to change specifically for the import.
 
@@ -195,6 +195,7 @@ Suggested settings:
     shared_buffers = 128MB
     min_wal_size = 1GB
     max_wal_size = 2GB
+	work_mem = 32MB
     maintenance_work_mem = 256MB
     autovacuum = off
     fsync = off
@@ -203,20 +204,25 @@ The latter two ones allow a faster import: the first turns off auto-vacuum durin
 
 The PostgreSQL tuning adopted by OpenStreetMap can be found in the [PostgreSQL Chef Cookbook](https://github.com/openstreetmap/chef/blob/master/cookbooks/postgresql/attributes/default.rb): the specific PostgreSQL tuning for the OpenStreetMap tile servers is reported in the related [Tileserver Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L38-L45).
 
-For a dev&test installation on a system with 16GB of RAM, the suggested settings are the following:
+For a dev&test installation on a system with 16GB of RAM, the suggested settings are the following[^97]:
 
     shared_buffers = 2GB
-    work_mem = 128MB
+    work_mem = 128MB # or 256MB
     maintenance_work_mem = 1GB
     wal_level = minimal
     synchronous_commit = off
     min_wal_size = 1GB
     max_wal_size = 2GB
+	checkpoint_segments = 60
     checkpoint_timeout = 15min
     checkpoint_completion_target = 0.9
     default_statistics_target = 1000
     autovacuum = off
     fsync = off
+
+*default_statistics_target* can be even increased to 10000.
+
+If performing database updates, run ANALYZE periodically.
 
 To stop and start the database:
 
@@ -302,7 +308,7 @@ Notice that the following elements are used:
 - the *openstreetmap-carto.lua* LUA script
 - *gis* DB name
 
-Depending on the input file size, the *osm2pgsql* command might take very long.
+Depending on the input file size, the *osm2pgsql* command might take very long. An interesting [page related to Osm2pgsql benchmarks](https://wiki.openstreetmap.org/wiki/Osm2pgsql/benchmarks) associates sizing of hw/sw systems with related figures to import OpenStreetMap data.
 
 Note: if you get the following error:
 
@@ -333,7 +339,7 @@ Enabling *hstore* extension and using it with *osm2pgsql* will fix those errors.
 
 ## Create indexes
 
-Add the indexes indicated by *openstreetmap-carto*:
+Add the partial geometry indexes indicated by *openstreetmap-carto* to provide effective improvement to the queries:
 
 ```shell
 HOSTNAME=localhost # set it to the actual ip address or host name
@@ -367,5 +373,8 @@ Check [The OpenStreetMap data model](https://www.mapbox.com/mapping/osm-data-mod
 
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
 
+[^95]: [osm2pgsql import - disk space running out during index creation](https://help.openstreetmap.org/questions/52672/osm2pgsql-import-disk-space-running-out-during-index-creation)
+[^96]: [Import error: could not extend file](https://help.openstreetmap.org/questions/26900/import-error-could-not-extend-file)
+[^97]: [Most reliable way to import large dataset with osm2psql](https://gis.stackexchange.com/questions/104220/most-reliable-way-to-import-large-dataset-with-osm2psql)
 [^98]: Information taken from [switch2osm](https://switch2osm.org/loading-osm-data).
 [^99]: [Information from Paul Norman's Blog](http://www.paulnorman.ca/blog/2011/11/loading-a-pgsnapshot-schema-with-a-planet-take-2/).
