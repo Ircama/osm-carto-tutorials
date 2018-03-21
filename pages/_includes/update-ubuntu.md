@@ -9,7 +9,9 @@ This procedure is updated to the version of OpenStreetMap Carto available at the
 
 ## General setup for Ubuntu
 
-This install procedure also supports [WSL - Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). This means that a Windows 10 64-bit PC can be used to perform the installation, after setting-up WSL.
+[Install Ubuntu](../install-ubuntu){:target="_blank"}.
+
+This procedure also supports [WSL - Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). This means that a Windows 10 64-bit PC can be used to perform the installation, after setting-up WSL.
 
 ### Update Ubuntu
 
