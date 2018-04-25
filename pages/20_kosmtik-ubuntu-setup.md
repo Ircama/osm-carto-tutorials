@@ -32,16 +32,24 @@ The following subfolders will be created:
 
 ## Install Kosmtik
 
-    mkdir -p ~/src ; cd ~/src
-    git clone https://github.com/kosmtik/kosmtik.git
-    cd ~/src/kosmtik
-    npm install
+```shell
+mkdir -p ~/src ; cd ~/src
+git clone https://github.com/kosmtik/kosmtik.git
+cd ~/src/kosmtik
+npm install
+```
+
+If you wish to use *kosmtik* everywhere, you need to install it globally (rather than locally, ie. in a node_modules folder inside your current folder); for the global installation, you need the `-g` parameter:
+
+```shell
+sudo npm install -g
+```
 
 Read [Kosmtik Install or Update](https://github.com/kosmtik/kosmtik#install-or-update) for further information.
 
 ## Test Kosmtik
 
-```
+```shell
 cd ~/src/kosmtik
 npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
 ```
@@ -75,18 +83,11 @@ Using your favourite editor, create a file named *localconfig.json* in the *open
             "Datasource.user": "{{ pg_user }}",
             "Datasource.host": "localhost"
         }
-    },
-    {
-        "where": "Layer",
-        "if": {
-            "id": "hillshade"
-        },
-        "then": {
-            "Datasource.file": "/home/ybon/Code/maps/hdm/DEM/data/hillshade.vrt"
-        }
     }
 ]
 ```
+
+Notice the datasource parameters, including user and password, that you might need to change.
 
 Replace coordinates and zoom with your preferred ones within the following line:
 
@@ -108,11 +109,23 @@ In this example, the default center is (9.111, 45.111) and the default zoom is 1
 
 ## Start Kosmtik
 
-Run Kosmtik from the openstreetmap-carto directory, supposing that the Kosmtik installation is in ../kosmtik.
+Position to *openstreetmap-carto* directory:
 
-    cd ~/src/openstreetmap-carto
+```shell
+cd ~/src/openstreetmap-carto
+```
 
-    node ../kosmtik/index.js serve project.mml --host 0.0.0.0
+Run Kosmtik:
+
+```shell
+~/src/kosmtik/index.js serve project.mml --localconfig localconfig.json --host 0.0.0.0
+```
+
+or also, from any directory (in case of installation with the `-g` option):
+
+```shell
+kosmtik serve ~/src/openstreetmap-carto/project.mml --localconfig ~/src/openstreetmap-carto/localconfig.json --host 0.0.0.0
+```
 
 Read [Usage](https://github.com/kosmtik/kosmtik#usage) for further information.
 
@@ -127,15 +140,12 @@ Notice that *Https* will not work (use http instead).
 Note: the following Kosmtik warnings can be ignored:
 
 ```
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Italic' in FontSet 'fontset-0'
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 'fontset-0'
 Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 'fontset-0'
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 'fontset-1'
 Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 'fontset-1'
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Bold' in FontSet 'fontset-2'
-Mapnik LOG> ...: warning: unable to find face-name 'Arundina Regular' in FontSet 'fontset-2'
 Mapnik LOG> ...: warning: unable to find face-name 'unifont Medium' in FontSet 'fontset-2'
 ```
+
+To cosmetically remove these warinings, install the [Old unifont Medium font](#old-unifont-medium-font).
 
 Accessing the database and rendering images is often a slow process (mainly depending on the amount of data to be managed, but also on the server performance and on the network), so give many seconds to Kosmtik to output or refresh the map.
 

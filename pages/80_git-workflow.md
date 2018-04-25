@@ -60,11 +60,12 @@ Maintainers like topic branches. It is easier to review the pull request and mer
 
 ### Other recommendations
 
+- When considering to approach a first contribution, it would be useful to start addressing an already open issue: it helps you to get involved and reducing the number of open issues is appreciated by the community.
+- If you have a new proposal which requires coding and you are new to this repo, a good practice would be to create an issue first, possibly introducing yourself to the community and discussing about your approach; doing this before beginning to develop could allow you to take advantage of suggestions from commenters and save coding time.
+- Search for your topic in existing GitHub Issues within OpenStreetMap Carto (open or closed) before opening a new one; Openstreetmap-carto has a very rich issue log, which might already report aspects related to your topic.
+- When creating an issue, consider reporting the expected behavior, the actual behavior and add links and screenshots illustrating the problem.
 - [GitHub Desktop](https://desktop.github.com/) might be used by Windows or Mac users.
 It is recommended to always use `git` commands directly (selecting *Open in Git Shell*). This way GitHub Desktop is exploited just as a monitor and not to issue commands (GitHub Desktop provides a too basic interface and does not clarify which git commands wraps; also, it uses merge vs. rebase).
-- First search for already discussed GitHub issues within OpenStreetMap Carto (open or closed) which might be similar to your idea.
-- When considering to approach a first contribution, it would be useful to start addressing an already open issue: it helps you to get involved and reducing the number of open issues is appreciated by the community.
-- If a new idea requires coding and you are new to this repo, a good practice would be to create an issue first, possibly introducing yourself to the community and discussing about your proposal; doing this before beginning to develop could allow you to take advantage of suggestions from commenters and save coding time.
 
 ## Git Workflow 
 
@@ -72,12 +73,16 @@ It is recommended to always use `git` commands directly (selecting *Open in Git 
 
 Check that [git](https://git-scm.com/documentation) is installed.
 
-    git --version
+```shell
+git --version
+```
 
 Otherwise (with Ubuntu):
 
-    sudo apt-get update
-    sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip git unzip curl
+```shell
+sudo apt-get update
+sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip git unzip curl
+```
 
 Windows or Mac users might install [GitHub Desktop](https://desktop.github.com/), which includes *git*.
 
@@ -97,7 +102,9 @@ On GitHub, navigate to your fork of the openstreetmap-carto repository (*https:/
 
 To get/check your user name:
 
-    git config user.name
+```shell
+git config user.name
+```
 
 Under your repository name (NOT gravitystorm), click *Clone or download*.
 
@@ -105,7 +112,9 @@ If you have GitHub Desktop installed, you can press *Open in Desktop*
 
 Otherwise, in the *Clone with HTTPs* section, click to copy the clone URL for the repository. Then open Git Bash and change directory to an appropriate folder (e.g., change to your home directory).  Type `git clone`, and then paste the URL you copied before. It will look like this, with your GitHub username instead of YOUR-USERNAME:
 
-    git clone https://github.com/YOUR-USERNAME/openstreetmap-carto.git
+```shell
+git clone https://github.com/YOUR-USERNAME/openstreetmap-carto.git
+```
 
 Press Enter. Your local clone will be created.
 
@@ -117,17 +126,21 @@ You need to verify that Git is configured to sync your fork with the original Op
 
 Change directory to your local copy of the OpenStreetMap Carto repository
 
-    cd openstreetmap-carto
+```shell
+cd openstreetmap-carto
+```
 
 Remotes are like a nickname for the URL of a repository.
 
 Get a list of existing remotes including URLs after the name:
 
-    git remote -v
+```shell
+git remote -v
+```
 
 If you correctly cloned the repo and are in its directory, you should have at least your origin repo:
 
-```
+```shell
 git remote -v
 origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (fetch)
 origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (push)
@@ -135,15 +148,19 @@ origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (push)
 
 If you do not have reference to the original *gravitystorm* repository, type the following command to configure it:
 
-    git remote add gravitystorm https://github.com/gravitystorm/openstreetmap-carto.git
+```shell
+git remote add gravitystorm https://github.com/gravitystorm/openstreetmap-carto.git
+```
 
 To also add remote origin from GitHub project:
 
-    git remote add origin https://github.com/YOUR-USERNAME/openstreetmap-carto.git
+```shell
+git remote add origin https://github.com/YOUR-USERNAME/openstreetmap-carto.git
+```
 
 Then `git remote` should provide a complete configuration:
 
-```
+```shell
 git remote -v
 gravitystorm    https://github.com/gravitystorm/openstreetmap-carto.git (fetch)
 gravitystorm    https://github.com/gravitystorm/openstreetmap-carto.git (push)
@@ -153,7 +170,9 @@ origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (push)
 
 To list all your branches that you have already defined in your remote:
 
-    git branch -a
+```shell
+git branch -a
+```
 
 ### Update the master branch
 
@@ -167,28 +186,36 @@ If you are using GitHub Desktop, right key on your project on the left panel, *V
 
 Verify the presence of the note "This branch is even with gravitystorm:master." and that there is no mention like this one: "This branch is [n] commits behind gravitystorm:master." In case, select *Open in Git Shell*, get the shell prompt and perform the following commands.
 
-    git checkout master
-    git pull gravitystorm master
-    git push origin master
+```shell
+git checkout master
+git pull gravitystorm master
+git push origin master
+```
 
 The above commands can be safely performed even if you are already even with gravitystorm:master (and are suggested).
 
 Note 1: if you followed the suggestion to apply changes on branches, leaving your *master* untouched, the synching operation shall always work without producing errors; nevertheless, if there are (unwanted) local changes, `git pull gravitystorm master` fails; to discard local changes:
 
-    git reset --hard
-    git pull gravitystorm master
+```shell
+git reset --hard
+git pull gravitystorm master
+```
 
 Note 2: `git push origin master` might ask your GitHub user and password.
 
 Note 3: Reset local master to a specific commit of the origin:
 
-    git checkout master
-    git reset --hard [commit ID]
-    git push --force origin master
+```shell
+git checkout master
+git reset --hard [commit ID]
+git push --force origin master
+```
 
 Note 4: Display differences from local and origin master (it won't print any diff if there are no differences):
 
-    git diff master..origin/master
+```shell
+git diff master..origin/master
+```
 
 ### Create a topic branch
 
@@ -202,11 +229,13 @@ Now, create a topic branch named "*revised-feature*" from master, for a new revi
 
 You can name the topic branch anything, but it makes sense to use appropriate naming, possibly through a small number of characters (so that you can easily check it online via GitHub). Notice that the name of your branch will be visible to revisors and approvers, so it would be useful to take some time to consider an appropriate naming.
 
-    git checkout master
-    git checkout -b revised-feature
-    git branch
-        master
-      * revised-feature
+```shell
+git checkout master
+git checkout -b revised-feature
+git branch
+	master
+  * revised-feature
+```
 
 This topic branch *revised-feature* is now isolated and branched off the history of your `master` branch.
 
@@ -214,38 +243,38 @@ This topic branch *revised-feature* is now isolated and branched off the history
 
 - List local branches (current branch highlighted with an asterisk):
 
-  ```
+  ```shell
   git branch
   ```
 
 - List local and remote branches:
 
-  ```
+  ```shell
   git branch -a
   ```
 
 - Switch to a specific branch (e.g., named *revised-feature* here):
 
-  ```
+  ```shell
   git checkout revised-feature
   ```
   
   You might get this error if you have unstaged changes: "Please, commit your changes or stash them before you can switch branches.".
   If you want remove all local changes from your working copy, simply stash them:
   
-  ```
+  ```shell
   git stash save --keep-index
   ```
   
   If you don't need them anymore, you now can drop that stash:
   
-  ```
+  ```shell
   git stash drop
   ```
   
 - Create a new branch (e.g., named revised-feature) and checkout it:
 
-  ```
+  ```shell
   git checkout -b revised-feature
   ```
 
@@ -253,7 +282,7 @@ This topic branch *revised-feature* is now isolated and branched off the history
 
   You can discard changes which are not yet committed by doing a reset (`git reset --hard`) or with the following:
   
-  ```
+  ```shell
   git clean -dfx
   git checkout .
   ```
@@ -264,7 +293,7 @@ If maintainers updated the gravitystorm repo, you first need to update your *mas
 
 Update your branch with the last commits of *gravitystorm:master*, also combining multiple commits (squashing them into one):
 
-```
+```shell
 git rebase -i origin/master
 ```
 
@@ -276,7 +305,7 @@ After issuing `git rebase -i origin/master`, if you have to perform updates, you
 
 Push only after your updates are ready. When pushing, because of rebasing you need the *--force* flag:
 
-```
+```shell
 git push --force
 ```
 
@@ -319,14 +348,14 @@ Notes:
 
   - If you only want to modify your last commit message, issue the following:
   
-    ```
+    ```shell
     git commit --amend
     git push --force
     ```
   
   - If you want to consolidate your last two commits into one:
   
-    ```
+    ```shell
     git rebase -i HEAD~2
     git push --force
     ```
@@ -351,7 +380,9 @@ Copy all files changed/added with your development to your local git folder (sta
 
 Notice that changed files are automatically managed by GitHub, but new ones are not automatically staged and 'git add' is needed:
 
-    git add <new files>
+```shell
+git add <new files>
+```
 
 *git add* will stage the file changes. You can then commit the staged file(s) with *git commit*.
 
@@ -359,22 +390,24 @@ Notice that changed files are automatically managed by GitHub, but new ones are 
 
 To overwrite local changes with the last commit of your current branch
 
-```
+```shell
 git checkout HEAD file/to/overwrite
 git pull
 ```
 
 To overwrite local changes with the last commit of gravitystorm:
 
-```
+```shell
 git checkout HEAD^ file/to/overwrite
 git pull
 ```
 
 ### Check the status of your modifications
 
-    git status
-      modified: [A_FILENAME]
+```shell
+git status
+  modified: [A_FILENAME]
+```
 
 git status shows that you have modified one file.
 
@@ -382,13 +415,15 @@ git status shows that you have modified one file.
 
 A good practice is to perform a dry-run before issuing the actual commit:
 
+```shell
     git commit -a --dry-run
+```
 
 No command is executed when the *--dry-run* option is used. Nevertheless, the produced output is useful to check that everything is ready to be committed. You can also add the *-v* option to show the differences.
 
 To use *vi* as editor (default would be *nano* for UNIX and notepad for Windows):
 
-```
+```shell
 git config --global core.editor "vim"
 ```
 
@@ -396,7 +431,9 @@ Keeping the default editor is suggested with Windows.
 
 Commit command:
 
-    git commit -a
+```shell
+git commit -a
+```
 
 An editor will open, requesting to enter the commit message which will become public and is important for revisors, so please take care to add:
 - a summary of the commit in the first line (be concise, e.g. less than 80 characters)
@@ -411,26 +448,30 @@ After the commit, if you are using GitHub Desktop, you can check that the change
 
 You can go on producing additional commits in subsequent periods:
 
-    [ edit some file ]
-    git commit -am "[#11] Improved feature"
+```shell
+[ edit some file ]
+git commit -am "[#11] Improved feature"
+```
 
-### Prepare to Send Pull Request
+### Prepare to Send a Pull Request
 
 Before sending the pull request, you should ensure that your changes merge cleanly with the main repository gravitystorm/openstreetmap-carto.
 
 You can do this by pulling the latest changes from the main repository and rebasing the history of the master branch onto the topic branch *revised-feature*. Essentially, this will fast-forward your topic branch to the latest commit of the master.
 
-    git checkout master
-    git pull gravitystorm master
-    git checkout revised-feature
-    git rebase master
-    git status
+```shell
+git checkout master
+git pull gravitystorm master
+git checkout revised-feature
+git rebase master
+git status
+```
 
 Alternatively, you can use `git merge master` instead of `git rebase master`, but your topic branches history may not be as clean.
 
 Update your branch with the last commits of *gravitystorm:master*, also combining multiple commits (squashing them into one):
 
-```
+```shell
 git rebase -i origin/master
 ```
 
@@ -440,23 +481,33 @@ See previously detailed explanations.
 
 Verify that the prompt refers to the correct branch:
 
-    git checkout revised-feature
+```shell
+git checkout revised-feature
+```
 
 Push your topic:
 
-    git push
+```shell
+git push
+```
 
 Or:
 
-    git push origin revised-feature
+```shell
+git push origin revised-feature
+```
 
 In case of "fatal: The current branch scripts-readme has no upstream branch.", use the following:
 
-    git push --set-upstream origin revised-feature
+```shell
+git push --set-upstream origin revised-feature
+```
 
 You might get an error in case of rebase. Issue then:
 
-    git push --force
+```shell
+git push --force
+```
 
 By pushing your topic branch onto your GitHub fork, a gravitystorm/openstreetmap-carto maintainer can review and merge the topic branch into the main repository.
 
@@ -488,6 +539,8 @@ Resolves #1234
 ```
 Check also https://help.github.com/articles/closing-issues-via-commit-messages/
 
+Test rendering; report links and sample images within the description, including *Before* and *After*.
+
 Verify that "Allow edits from maintainers" is checked.
 
 Press "Create pull request".
@@ -498,30 +551,38 @@ Since you worked on the topic branch instead of the master branch, you can conti
 
 You can select another branch and go on working on it:
 
-    git checkout master
-    git pull gravitystorm master
-    git checkout another_branch
+```shell
+git checkout master
+git pull gravitystorm master
+git checkout another_branch
+```
 
 You can create a new topic branch (be sure to create it from master):
 
-    git checkout master
-    git pull gravitystorm master
-    git checkout -b new_feature
-    git branch -a
-      * new_feature
-        master
-        revised-feature
+```shell
+git checkout master
+git pull gravitystorm master
+git checkout -b new_feature
+git branch -a
+  * new_feature
+	master
+	revised-feature
+```
 
 ## When your Pull Request is Accepted
 
-    git checkout master
-    git pull gravitystorm master
-    git log 
+```shell
+git checkout master
+git pull gravitystorm master
+git log 
+```
 
 You can now delete your topic branch, because it is now merged into the main repository and in master branch.
 
-    git branch -d revised-feature
-    git push origin :revised-feature
+```shell
+git branch -d revised-feature
+git push origin :revised-feature
+```
 
 I know, deleting a remote topic branch is ugly (git push origin :revised-feature).
 
@@ -529,12 +590,14 @@ I know, deleting a remote topic branch is ugly (git push origin :revised-feature
 
 In this case, you just need to update your branch from the main repository and then address the rejection reason.
 
-    git checkout master
-    git pull gravitystorm master
-    git checkout revised-feature
-    git rebase master
-    ( edit / commit / edit / commit / rebase)
-    git push origin revised-feature
+```shell
+git checkout master
+git pull gravitystorm master
+git checkout revised-feature
+git rebase master
+( edit / commit / edit / commit / rebase)
+git push origin revised-feature
+```
 
 Edit the pull request message from your GitHub account, after accessing your PR.
 
@@ -558,7 +621,7 @@ The following are useful monitoring elements offered by GitHub Desktop (the Wind
   
 * You also have the built-in git GUI: `gitk`
 
-## Recommendations
+## Final recommendations
 - Clone your GitHub repository, not gravitystorm/openstreetmap-carto
 - Do not use your local GitHub repository for development; just copy there the modified files
 - Do not modify the original repository you want to contribute, but fork it

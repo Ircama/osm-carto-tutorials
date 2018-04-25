@@ -13,12 +13,12 @@ rendering-note: this page is best viewed with Jekyll rendering
 You might need the following hw configuration or create a virtual machine with the following suggested configuration:
 
 - 7th or 8th Generation Core processor, 64 bit (or Generation 2 Virtual Machine); lots of CPU cores is suggested for a production tile server
-- Memory: at least 4 GB for dev/testing with a small area (or >32 GB for a production tile server); Postgresql takes advantage of the disk cache
-- Harddisk: 10 GB for dev/testing with a small area, better if SSD (or > 1TB SSD for a production tile server); harddrive performance to speed-up database access is crucial
+- Memory: at least 4 GB for dev/testing with a small area (or >32 GB for a production tile server); PostgreSQL takes advantage of the disk cache
+- Harddisk: At least 10 GB for dev/testing with a small area, better if SSD (or > 1TB fast RAID array or SSD for a production tile server[^81]); harddrive performance to speed-up database access is crucial. You can also selectively put the most important parts of the database on an SSD and the rest on slower disks. Osm2pgsql supports using separate tablespaces for different parts of the database for this purpose.[^80]
 
 ## Ubuntu installation
 
-Download the newest [Ubuntu 16.04 LTS ISO](https://www.ubuntu.com/download/server).
+Download the latest [Ubuntu 18.04 LTS or Ubuntu 16.04 LTS ISO](https://www.ubuntu.com/download/server).
 
 Create bootable installation media from iso, CD or USB, boot server from it.
 
@@ -77,3 +77,7 @@ Option: Install Ubuntu Server
 - Wait for completion...
 
 Login and change the password
+
+[^80]: Information taken from the *Hardware* paragraph of [Building a tile server from packages](https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages) page within [switch2osm.org](https://switch2osm.org).
+
+[^81]: The full OSM map database and regular update files are available at [Planet OSM](https://planet.openstreetmap.org). The whole planet is currently around about 300GB (65 GB zipped)-

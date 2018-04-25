@@ -44,7 +44,7 @@ disqus_shortname:    ircama-github-io-osm-carto-tutorials
 
 # Gems
 #
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jemoji

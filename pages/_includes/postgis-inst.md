@@ -4,7 +4,7 @@
 
 Currently the tested versions for OpenstreetMap Carto are PostgreSQL 9.5 and PostGIS 2.2:
 
-Also older PostgreSQL version should be suitable.
+Also older or [newer PostgreSQL version](https://www.postgresql.org/) should be suitable[^94].
 
 On Ubuntu there are pre-packaged versions of both postgis and postgresql, so these can simply be installed via the Ubuntu package manager.
 
@@ -21,10 +21,10 @@ Note: used PostgreSQL port is 5432 (default).
 
 A user named {{ pg_user }} will be created during the installation process.
 
-## Set the password for the *{{ pg_user }}* user
+### Set the password for the *{{ pg_user }}* user
 
 ```shell
-sudo -u {{ pg_user }} psql postgres
+psql -U {{ pg_user }}
 \password {{ pg_user }}
 ```
 
@@ -33,7 +33,7 @@ Alternative procedure (useful if you get authentication issues with the previous
 ```shell
 sudo su -
 sudo -i -u {{ pg_user}}
-psql {{ pg_user}}
+psql -U {{ pg_user}}
 \password {{ pg_user }}
 ```
 
@@ -52,7 +52,7 @@ exit # from 'sudo -i -u {{ pg_user}}'
 exit # from 'sudo su -'
 ```
 
-## Create the PostGIS instance
+### Create the PostGIS instance
 
 Now you need to create a PostGIS database. The defaults of various programs including openstreetmap-carto (ref. project.mml) assume the database is called *gis*. You need to create a PostgreSQL database and set up a PostGIS extension on it.
 
@@ -62,6 +62,7 @@ The character encoding scheme to be used in the database is *UTF8* and the adopt
 export PGPASSWORD={{ pg_password }}
 HOSTNAME=localhost # set it to the actual ip address or host name
 psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8'"
+
 # alternative command: createdb -E UTF8 -l en_GB.UTF8 -O {{ pg_user }} gis
 ```
 
@@ -79,13 +80,37 @@ And select "en_GB.UTF-8 UTF-8" in the first screen ("Locales to be generated"). 
 
 If you get the following error:
 
+    ERROR:  new collation (en_GB.utf8) is incompatible with the collation of the template database (en_US.UTF-8)
+    HINT:  Use the same collation as in the template database, or use template0 as template.
+
+you need to use template0 for gis:
+
+```shell
+psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8' TEMPLATE template0"
+
+# alternative command: createdb -E UTF8 -l en_GB.UTF8 -O {{ pg_user }}  -T template0 gis
+```
+
+If you get the following error:
+
     ERROR:  new encoding (UTF8) is incompatible with the encoding of the template database (SQL_ASCII)
     HINT:  Use the same encoding as in the template database, or use template0 as template.
 
 (error generally happening with Ubuntu on Windows with [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux)), then add also `TEMPLATE template0`; e.g., use the following command:
 
-    psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8' TEMPLATE template0"
-	# alternative command: createdb -E UTF8 -l en_GB.utf8 -O {{ pg_user }} -T template0 gis
+```shell
+psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8' TEMPLATE template0"
+# alternative command: createdb -E UTF8 -l en_GB.utf8 -O {{ pg_user }} -T template0 gis
+```
+
+Check to create the DB within a disk partition where enough disk space is available[^96]. If you need to use a different tablespace than the default one, execute the following commands instead of the previous ones (example: the tablespace has location `/tmp/db`):
+
+```shell
+sudo mkdir /mnt/db # Suppose this is the tablespace location
+sudo chown {{ pg_user }}:{{ pg_user }} /mnt/db
+psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE TABLESPACE gists LOCATION '/mnt/db'"
+psql -U {{ pg_user }} -h $HOSTNAME -c "ALTER DATABASE gis SET TABLESPACE gists"
+```
 
 Create the *postgis* and *hstore* extensions:
 
@@ -103,38 +128,17 @@ then you might be installing PostgreSQL 9.3 (instead of 9.5), for which you shou
 
     sudo apt-get install postgis postgresql-9.3-postgis-scripts
 
-Install it and repeat the create extension commands.
+Install it and repeat the create extension commands. Notice that PostgreSQL 9.3 is not currently supported by openstreetmap-carto.
 
-Check to create the DB within a disk partition where enough disk space is available[^96]. If you need to use a different tablespace than the default one, execute the following commands instead of the previous ones (example: the tablespace has location `/tmp/db`):
-
-```shell
-export PGPASSWORD={{ pg_password }}
-HOSTNAME=localhost # set it to the actual ip address or host name
-sudo mkdir /mnt/db # Suppose this is the tablespace location
-sudo chown postgres:postgres /mnt/db
-psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE TABLESPACE gists LOCATION '/mnt/db'"
-psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8' TABLESPACE gists"
-psql -U {{ pg_user }} -h $HOSTNAME -c "\connect gis"
-psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION postgis"
-psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "CREATE EXTENSION hstore"
-```
-
-## Add a user and grant access to gis DB
+### Add a user and grant access to gis DB
 
 In order for the application to access the *gis* database, a DB user with the same name of your UNIX user is needed. Let's suppose your UNIX ue is *{{ pg_login }}*.
 
 ```shell
-sudo su -
-sudo -i -u {{ pg_user}}
-createuser {{ pg_login }}
-psql
-grant all privileges on database gis to {{ pg_login }};
-\q
-exit
-exit
+psql -U {{ pg_user }} -c "create user {{ pg_login }};grant all privileges on database gis to {{ pg_login }};"
 ```
 
-## Enabling remote access to PostgreSQL
+### Enabling remote access to PostgreSQL
 
 To remotely access PostgreSQL, you need to edit *pg_hba.conf*:
 
@@ -157,18 +161,20 @@ Finally, the DB shall be restarted:
     sudo /etc/init.d/postgresql restart
 
 Check that the *gis* database is available. To list all databases defined in PostgreSQL, issue the following command:
-    
-	psql -U postgres -h $HOSTNAME -c "\l+"
+ 
+```shell 
+psql -U {{ pg_user }} -h $HOSTNAME -c "\l+"
+```
 
 The obtained report should include the *gis* database, as in the following table:
 
    Name    |  Owner   | Encoding  |  Collate   |   Ctype    |    Access privileges
 -----------|----------|-----------|------------|------------|-------------------------
- gis       | postgres | UTF8      | en_US.utf8 | en_US.utf8 | =Tc/postgres
-           |          |           |            |            | postgres=CTc/postgres
-           |          |           |            |            | tileserver=CTc/postgres
+ gis       | {{ pg_user }} | UTF8      | en_US.utf8 | en_US.utf8 | =Tc/{{ pg_user }}
+           |          |           |            |            | {{ pg_user }}=CTc/{{ pg_user }}
+           |          |           |            |            | {{ pg_login }}=CTc/{{ pg_user }}
 
-## Tuning the database
+### Tuning the database
 
 The default PostgreSQL settings aren't great for very large databases like OSM databases. Proper tuning can just about double the performance.
 
@@ -186,7 +192,7 @@ To edit the PostgreSQL configuration file with *vi* editor:
 
     sudo vi /etc/postgresql/9.5/main/postgresql.conf
 
-and if you are running PostgreSQL 9.3:
+and if you are running PostgreSQL 9.3 (not supported):
 
     sudo vi /etc/postgresql/9.3/main/postgresql.conf
 
@@ -250,31 +256,31 @@ Go to [Get an OpenStreetMap data extract](#get-an-openstreetmap-data-extract).
 
 This alternative installation procedure generates the most updated executable by compiling the sources.
 
+Install Needed dependencies:
+
 ```shell
-# Needed dependencies
 sudo apt-get install -y make cmake g++ libboost-dev libboost-system-dev \
   libboost-filesystem-dev libexpat1-dev zlib1g-dev \
   libbz2-dev libpq-dev libgeos-dev libgeos++-dev libproj-dev lua5.2 \
   liblua5.2-dev
+```
 
-# Download osm2pgsql
-cd /tmp
+Download osm2pgsql:
+
+```shell
+mkdir -p ~/src ; cd ~/src
 git clone git://github.com/openstreetmap/osm2pgsql.git 
+```
 
-# Prepare for compiling
+Prepare for compiling, compile and install:
+
+```shell
 cd osm2pgsql
 mkdir build && cd build
 cmake ..
-
-# Compile
 make
-
-# Install
 sudo make install
-
-# Clean-out temporary files
-cd ../..
-rm -rf osm2pgsql
+cd
 ```
 
 {% include_relative _includes/download-osm-data.md %}
@@ -299,7 +305,7 @@ osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-trans
 Notice that the suggested process adopts the `-s` (`--slim` option), which uses temporary tables, so running it takes more diskspace (and is very slow), while less RAM memory is used. You might add `--drop` option with `-s` (`--slim`), to also drop temporary tables after import, otherwise you will also find the temporary tables *nodes*, *ways*, and *rels* (these tables started out as pure
 “helper” tables for memory-poor systems, but today they are widely used because they are also a prerequisite for updates).
 
-If everything is ok, you can go to [Create indexes](#create-indexes).
+If everything is ok, you can go to [Create indexes and grant users](#create-indexes-and-grant-users).
 
 Notice that the following elements are used:
 
@@ -337,20 +343,24 @@ or this one:
 then you need to enable *hstore* extension to the db with `CREATE EXTENSION hstore;` and also add the *--hstore* flag to *osm2pgsql*.
 Enabling *hstore* extension and using it with *osm2pgsql* will fix those errors.
 
-## Create indexes
+## Create indexes and grant users
 
-Add the partial geometry indexes indicated by *openstreetmap-carto* to provide effective improvement to the queries:
+Create partial indexes to speed up the queries included in *project.mml* and grant access to all *gis* tables to avoid *renderd* errors when accessing tables with user *{{ pg_login }}*.
 
-```shell
-HOSTNAME=localhost # set it to the actual ip address or host name
-cd {{ include.cdprogram }}
-cd openstreetmap-carto
-scripts/indexes.py | psql -U {{ pg_user }} -h $HOSTNAME -d gis
-```
+- Add the partial geometry indexes indicated by *openstreetmap-carto* to provide effective improvement to the queries:
+
+  ```shell
+  HOSTNAME=localhost # set it to the actual ip address or host name
+  cd {{ include.cdprogram }}
+  cd openstreetmap-carto
+  scripts/indexes.py | psql -U {{ pg_user }} -h $HOSTNAME -d gis
+  ```
+
+- {% include_relative _includes/grant.md %}
 
 To list all tables available in the *gis* database, issue the following command:
 
-    psql -U postgres -h $HOSTNAME -d gis -c "\dt+"
+    psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "\dt+"
 
 The database shall include the *rels*, *ways* and *nodes* tables (created with the `--slim` mode of *osm2pgsql*) in order to allow updates.
 
@@ -358,14 +368,14 @@ In the following example of output, the `--slim` mode of *osm2pgsql* was used:
 
  Schema |        Name        | Type  |  Owner
 --------|--------------------|-------|----------
- public | planet_osm_line    | table | postgres
- public | planet_osm_nodes   | table | postgres
- public | planet_osm_point   | table | postgres
- public | planet_osm_polygon | table | postgres
- public | planet_osm_rels    | table | postgres
- public | planet_osm_roads   | table | postgres
- public | planet_osm_ways    | table | postgres
- public | spatial_ref_sys    | table | postgres
+ public | planet_osm_line    | table | {{ pg_user }}
+ public | planet_osm_nodes   | table | {{ pg_user }}
+ public | planet_osm_point   | table | {{ pg_user }}
+ public | planet_osm_polygon | table | {{ pg_user }}
+ public | planet_osm_rels    | table | {{ pg_user }}
+ public | planet_osm_roads   | table | {{ pg_user }}
+ public | planet_osm_ways    | table | {{ pg_user }}
+ public | spatial_ref_sys    | table | {{ pg_user }}
 
 In fact, the tables *planet_osm_rels*, *planet_osm_ways*, *planet_osm_nodes* are available, as described in the [Database Layout of Pgsql](https://github.com/openstreetmap/osm2pgsql/blob/master/docs/pgsql.md#database-layout).
 
@@ -373,6 +383,7 @@ Check [The OpenStreetMap data model](https://www.mapbox.com/mapping/osm-data-mod
 
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
 
+[^94]: [pnorman comment on 11 Oct 2017](https://github.com/gravitystorm/openstreetmap-carto/issues/2840#issuecomment-335647059]
 [^95]: [osm2pgsql import - disk space running out during index creation](https://help.openstreetmap.org/questions/52672/osm2pgsql-import-disk-space-running-out-during-index-creation)
 [^96]: [Import error: could not extend file](https://help.openstreetmap.org/questions/26900/import-error-could-not-extend-file)
 [^97]: [Most reliable way to import large dataset with osm2psql](https://gis.stackexchange.com/questions/104220/most-reliable-way-to-import-large-dataset-with-osm2psql)

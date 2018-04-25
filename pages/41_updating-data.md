@@ -397,13 +397,7 @@ Edit also *osmosis-db_replag* script and check `STATE=/var/lib/mod_tile/.osmosis
 
 To prepare the script for the first execution[^5]:
 
-- Grant rights to the update tables for "*{{ pg_login }}*" user:
-
-  ```shell
-  wget https://raw.githubusercontent.com/openstreetmap/osm2pgsql/master/install-postgis-osm-user.sh
-  chmod a+x ./install-postgis-osm-user.sh
-  sudo ./install-postgis-osm-user.sh gis {{ pg_login }}
-  ```
+- {% include_relative _includes/grant.md %}
   
 - Initialise the *osmosis* replication stack to the data of your data import. Choose the date of the planet data, as this is the date from which the diffs will start.
 
@@ -427,7 +421,7 @@ To prepare the script for the first execution[^5]:
   scripts/get-shapefiles.py
   ```
 
-The previously mentioned *trim_osc.py* Python script can be added to *install-postgis-osm-user.sh* in order to trim the input to a bounding box or a polygon so that the postgres database doesn't grow significantly as updates are applied to it. The [openstreetmap-tiles-update-expire script by junichim](https://github.com/junichim/mod_tile/blob/master/openstreetmap-tiles-update-expire) is a modification to the original one by including *trim_osc.py* from Zverik's "regional" scripts.
+The previously mentioned *trim_osc.py* Python script can be added to *install-postgis-osm-user.sh* in order to trim the input to a bounding box or a polygon so that the postgreSQL database doesn't grow significantly as updates are applied to it. The [openstreetmap-tiles-update-expire script by junichim](https://github.com/junichim/mod_tile/blob/master/openstreetmap-tiles-update-expire) is a modification to the original one by including *trim_osc.py* from Zverik's "regional" scripts.
 
 In his blog, SomeoneElse [reports the modifications](https://wiki.openstreetmap.org/wiki/User:SomeoneElse/Ubuntu_1604_tileserver_load#Updating_your_database_as_people_edit_OpenStreetMap) and includes the appropriated *cron* scheduling. [TRIM_REGION_OPTIONS](https://github.com/junichim/mod_tile/blob/master/openstreetmap-tiles-update-expire#L27) shall be updated to reflect the actual region boundaries.
 

@@ -140,7 +140,7 @@ To create db tables, populate them and create some index run the following:
 
 ```batchfile
 cd <directory where you saved the .osm file and osm2pgsql>
-osm2pgsql.exe -H localhost -d gis -U postgres -s -c -G -k -C 800 -S %USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\openstreetmap-carto.style --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua <filename>.osm
+osm2pgsql.exe -H localhost -d gis -U {{ pg_user }} -s -c -G -k -C 800 -S %USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\openstreetmap-carto.style --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua <filename>.osm
 ```
 
 Notice that the suggested process adopts the `-s` (`--slim` option), which uses temporary tables, so running it takes more diskspace, while less RAM memory is used. You might add `--drop` option with `-s` (`--slim`), to also drop temporary tables after import.
@@ -148,7 +148,7 @@ Notice that the suggested process adopts the `-s` (`--slim` option), which uses 
 If a script file named `openstreetmap-carto.lua` is available in the openstreetmap-carto folder, add the parameter `--tag-transform-script <lua script>`. The command would become the following:
 
 ```batchfile
-osm2pgsql -H localhost -d gis -U postgres -s -c -G -k -C 800 -S %USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\openstreetmap-carto.style --tag-transform-script %USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\openstreetmap-carto.lua <filename>.osm (or <filename>.osm.pbf)
+osm2pgsql -H localhost -d gis -U {{ pg_user }} -s -c -G -k -C 800 -S %USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\openstreetmap-carto.style --tag-transform-script %USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\openstreetmap-carto.lua <filename>.osm (or <filename>.osm.pbf)
 ```
 
 Notes:
@@ -163,13 +163,13 @@ If still you fail to connect to the database, try editing `%programfiles%\Postgr
 Note to create the indexes (which could slightly speed up db access):
 
 ```
-%USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\scripts\indexes.py | "C:\Program Files\PostgreSQL\<version>\bin\psql" -h localhost -U postgres -d gis
+%USERPROFILE%\Documents\MapBox\project\openstreetmap-carto-master\scripts\indexes.py | "C:\Program Files\PostgreSQL\<version>\bin\psql" -h localhost -U {{ pg_user }} -d gis
 ```
 
 alternatively:
 
 ```
-"c:\Program Files\PostgreSQL\<version>\bin\psql" -h localhost -U postgres -d gis -f indexes.sql
+"c:\Program Files\PostgreSQL\<version>\bin\psql" -h localhost -U {{ pg_user }} -d gis -f indexes.sql
 ```
 
 ### Install Shapeindex

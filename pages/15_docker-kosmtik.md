@@ -20,9 +20,9 @@ Sufficient disk space of several gigabytes is generally needed. Docker creates a
 
 The subsequently described step-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu, with Windows and with macOS.
 
-The Windows configuration exploiting Docker and Doker Toolbox is definitively a great tool to allow developing *openstreetmap-carto* with a 64 bit Windows PC and locally testing the style through Kosmtik on the same machine. With Docker Toolbox, Kosmtik is transparently run in a VirtualBox VM, with all development data (e.g., openstreetmap-carto directory) physically residing on the host system and the PostGIS database (with imported OSM data) hosted within the VM.
+The Windows configuration exploiting Docker and Doker Toolbox is definitively a great tool to allow developing *openstreetmap-carto* with a 64 bit Windows PC and locally testing the style through Kosmtik on the same machine. With Docker Toolbox, Kosmtik is transparently run in a VirtualBox VM, with all development data (e.g., openstreetmap-carto directory) physically residing on the Windows host system and the PostGIS database (with imported OSM data) hosted within the VM.
 
-The next paragraph describes the [installation of Kosmtik with Ubuntu](#ubuntu-installation). The subsequent ones details the steps to [install Kosmtik with Windows](#windows-installation) and [with macOS](#macos-installation).
+The next paragraph describes the [installation of Kosmtik with Ubuntu](#ubuntu-installation). The subsequent ones detail the steps to [install Kosmtik with Windows](#windows-installation) and [with macOS](#macos-installation).
 
 ## Ubuntu installation
 
@@ -30,8 +30,10 @@ For a standard Kosmtik installation without using Docker, check [Installing Kosm
 
 Update the system:
 
-    sudo apt-get update
-    sudo apt-get -y upgrade
+```shell
+sudo apt-get update
+sudo apt-get -y upgrade
+```
 
 If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo shutdown -r`.
 
@@ -40,38 +42,48 @@ If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo 
 The documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md) describes 
 how to run OpenStreetMap Carto with Docker. Check it before starting installation.
 
-Follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 16.10, 16.04 or 14.04 (e.g., Docker CE).
+Follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 18.04, 16.10, 16.04 or 14.04 (e.g., Docker CE).
 
 Follow the [post-installation steps](https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user).
 
 Install [Docker Compose](https://github.com/docker/compose/releases) as in this example:
 
-    curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > docker-compose
-    sudo mv docker-compose /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-    sudo chgrp docker /usr/local/bin/docker-compose
+```shell
+curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > docker-compose
+sudo mv docker-compose /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo chgrp docker /usr/local/bin/docker-compose
+```
 
 Notice: substitute `1.14.0` in the above example with the version shown in the [Latest release](https://github.com/docker/compose/releases/latest) tag.
 
 Verify that [docker-compose](https://docs.docker.com/compose/reference/overview/) is correctly installed:
 
-    docker-compose -v
+```shell
+docker-compose -v
+```
 
 Install openstreetmap-carto:
 
-    mkdir -p ~/src ; cd ~/src
-    git clone https://github.com/gravitystorm/openstreetmap-carto.git
-    cd openstreetmap-carto
+```shell
+mkdir -p ~/src ; cd ~/src
+git clone https://github.com/gravitystorm/openstreetmap-carto.git
+cd openstreetmap-carto
+```
 
 Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
-    curl https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
+```shell
+curl https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
+```
 
 For further information on the downloading of appropriate *.osm* or *.pbf* file, check "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)".
 
 Complete the installation and access the map from your browser. Run *docker-compose*:
 
-    docker-compose up
+```shell
+docker-compose up
+```
 
 The procedure takes many minutes to complete. Wait for `kosmtik:1	[Core] Loading map`.
 
@@ -79,7 +91,9 @@ With your browser, access the map through *<http://ServerAddress:6789>*
 
 To stop the database container:
 
-    docker-compose stop db
+```shell
+docker-compose stop db
+```
 
 Check also [Recommendations and troubleshooting](#recommendations-and-troubleshooting).
 
@@ -105,17 +119,35 @@ Docker stores its disk image by default in the home directories of the user. If 
 
 ## Windows installation
 
-Windows 10 64-bit offers at least two ways to install Kosmtik and openstreetmap-carto via Docker: one is through [Windows Subsystem for Linux](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) (WSL) and the other is via native Docker or Docker Toolbox.
+Windows 10 64-bit allows installing *Kosmtik* and *openstreetmap-carto* via native Docker or Docker Toolbox.
 
-Via Windows Subsystem for Linux, Docker will be installed in the Ubuntu instance running within WSL, following the standard [Ubuntu installation procedure](#ubuntu-installation). To set-up WSL, follow the related [Windows installation guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10): enable the "Windows Subsystem for Linux" optional feature, then install [Ubuntu](https://www.microsoft.com/it-it/store/p/ubuntu/9nblggh4msv6?rtc=1) from the Windows Store; a recent build of Ubuntu 16.04 LTS will be loaded. Then, the standard [Ubuntu installation procedure](#ubuntu-installation) can be performed.
-
-Alternatively to WSL, the following procedure describes how to run Docker with Docker for Windows or Docker Toolbox.
-
-With Windows, at the moment [Docker](https://docs.docker.com/docker-for-windows/) can only be installed on 64-bit physical machines with hardware-assisted virtualization support enabled and where the operating system provides [Hyper-V Host role]( https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install) (e.g., 64-bit Microsoft Windows 10 Professional/Enterprise/Education but not Windows 10 Home 64-bit, Windows 7 64-bit, etc.).
+With Windows, at the moment [Docker](https://docs.docker.com/docker-for-windows/) can only be installed on 64-bit physical machines with hardware-assisted virtualization support enabled and where the operating system provides [Hyper-V Host role]( https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install) (e.g., 64-bit Microsoft Windows 10 Professional/Enterprise/Education but not Windows 10 Home 64-bit, Windows 7 64-bit, etc.; anyway, Windows 10 Home can be upgraded to Win 10 Pro and this operation is relatively cheap).
 
 For 64-bit Windows operating systems not natively supporting Docker, [Docker Toolbox]( https://docs.docker.com/toolbox/overview/) can be installed, which uses Oracle Virtual Box instead of Hyper-V. Neither Docker nor Docker Toolbox can be installed on a 32-bit architecture. Nested virtualization scenarios are not generally supported. Oracle Virtual Box would need a bare metal hw and should not be run inside a VM to support a 64 bit OS.
 
 Kosmtik running through Docker Toolbox on a Windows 7 (or Windows 10 Home) takes about 2.8 GB in *C:\Users\\<user\>\\.docker*. It is advisable to use an i5 machine with 8 GB RAM at least.
+
+### Windows with Native Docker
+
+This procedure allows installing and running a Docker image of Kosmtik with x64 Windows versions able to run native Docker.
+
+Before starting, it is important to read the documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md)
+
+- Install Docker for Windows (enabling also the virtualization in the PC BIOS setting).
+- Download openstreetmap-carto (at https://github.com/gravitystorm/openstreetmap-carto) to a local subdirectory of the user's home directory (C:\users\username).
+- Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf* (example, download https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf and rename it as *data.osm.pbf*). For further information on the downloading of appropriate *.osm* or *.pbf* file, check "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)".
+
+- Open a CMD prompt to this directory. Run *docker-compose*:
+
+      docker-compose up
+
+The procedure takes many minutes to complete. Wait for `kosmtik:1	[Core] Loading map`.
+
+Kosmtik can be run via browser pointing to
+
+    http://localhost:6789
+
+### Windows with Docker Toolbox
 
 The procedure here described allows installing and running a Docker image of Kosmtik with x64 Windows versions requiring Docker Toolbox.
 
@@ -135,11 +167,13 @@ An error like `pywintypes.error: (2, 'WaitNamedPipe'...` means that the *Docker 
 
 Download openstreetmap-carto to a local subdirectory of the user's home directory (C:\users\username):
 
-    cd
-    git clone https://github.com/gravitystorm/openstreetmap-carto.git
-    cd openstreetmap-carto
+```bat
+cd
+git clone https://github.com/gravitystorm/openstreetmap-carto.git
+cd openstreetmap-carto
+```
 
-- Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
+Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
       curl https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
 
@@ -173,7 +207,7 @@ To start again the VM (alternatively to closing end reopening *Docker Quickstart
 
     docker-machine start default
 
-  Wait for the VM to start, then issue:
+Wait for the VM to start, then issue:
 
     eval $(docker-machine env default)
 
@@ -189,8 +223,10 @@ Change the memory of the *default* virtual machine though *Oracle VM VirtualBox*
 
 Also, modify the `.env` file as described at the [Importing data](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md#importing-data) section of the documentation. Then restart the project: close and restart *Docker Quickstart Terminal* (e.g., *All Programs*, *Docker*, *Docker Quickstart Terminal*); finally issue:
 
-    cd openstreetmap-carto
-    docker-compose up kosmtik
+```bat
+cd openstreetmap-carto
+docker-compose up kosmtik
+```
 
 ## Recommendations and troubleshooting
 

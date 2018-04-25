@@ -1,20 +1,51 @@
 ## Install Node.js
 
-To verify whether [Node.js](https://nodejs.org/en/) is already installed:
+[Node.js](https://nodejs.org/en/) can be installed via different methods, including:
 
-    nodejs --version
+- Standard mode with Ubuntu's Advanced Packaging Tool (APT)
+- Version management tools, like:
+  - [n](https://github.com/tj/n) (Interactively Manage Your Node.js Versions)
+  - [nvm](https://github.com/creationix/nvm) (Node Version Manager)
 
-*nodejs-legacy* might be needed for {{ include.program }} (at least required with Ubuntu 16.04 at the time of writing).
+A [list of useful commands](../nodejs-commands){:target="_blank"} to manage *Node.js* is available at a specific page.
 
-    sudo apt-get install -y nodejs-legacy npm
+### Distro-stable version from the APT package manager
 
-The following error when running {{ include.program }} is related to compatibility issues with nodejs and should be fixed by installing *nodejs-legacy*.
+The recent versions of Ubuntu come with NodeJS (package nodejs) and npm (package npm) in the default repositories. Depending on which Ubuntu version you're running, those packages may contain outdated releases; the one coming with Ubuntu 16.04 will not be the latest, but it should be stable and sufficient to run Kosmtik and Carto. Installation command:
 
-    npm ERR! Failed at the mapnik@3.5.13 install script 'node-pre-gyp install --fallback-to-build'.
-    npm ERR! Make sure you have the latest version of node.js and npm installed.`
+```shell
+sudo apt-get install -y nodejs npm
+node -v 2>/dev/null || sudo ln -fs /usr/bin/nodejs /usr/local/bin/node
+nodejs -v
+node -v
+npm -v
+```
 
-Installing the latest version of *nodejs* is not suggested at the moment. If you really want to do it:
+### Install *Node.js* through a version management tool
 
-    sudo apt-get install -y nodejs npm # this package might not support {{ include.program }}, see notes in this paragraph
+Alternatively, a suggested approach is using a Node.js version management tool, which simplifies the interactive management of different Node.js versions and allows performing the upgrade to the latest one. We will use *n*.
 
-Read [nodejs](https://nodejs.org/en/download/) for further information.
+Install *n*:
+
+```shell
+mkdir -p ~/src ; cd ~/src
+git clone https://github.com/tj/n.git
+cd n
+sudo make install # To uninstall: sudo make uninstall
+cd ..
+```
+
+Some programs (like *Kosmtik* and *carto*) accept the latest (stable) *node* version (`sudo n stable`), other ones (like *Tilemill*) run with v6.14.1 (`sudo n 6.14.1`).
+
+We will install the latest stable one:
+
+```shell
+sudo n stable
+```
+
+Get the installed version number:
+
+```shell
+node -v
+npm -v
+```

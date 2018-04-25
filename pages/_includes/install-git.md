@@ -1,6 +1,6 @@
 ## Install Git
 
-[Git](https://git-scm.com/) should be already installed on Ubuntu 16.04.
+[Git](https://git-scm.com/) might come already preinstalled sometimes.
 
 ```shell
 git --version # to verify whether git is already installed

@@ -20,7 +20,7 @@ The following workflow summarizes the main actions.
 |**Test modifications.**![html][html]<span>All modifications must be tested (e.g., with Kosmtik) on different regions and using all zooms; regions shall be selected by analyzing wide areas, checking places with high and low concentration of the feature.|
 {: .drawing .djustify}
 
-Before entering into the details of editing the styles, in case you are also willing to contribute to OpenStreetMap Carto, you are strongly suggested to have a look to [Guidelines for adding new features](https://github.com/gravitystorm/openstreetmap-carto/issues/1630). It's a long thread which qualifies and limits the current contribution scope to this project. The Git repository discourages unbounded addition of features and cartographic complexity; also, there are discussions about removal of existing ones. Check also [Review onboarding](https://github.com/gravitystorm/openstreetmap-carto/issues/2291#issuecomment-242908868).
+Before entering into the details of editing the styles, in case you are also willing to contribute to OpenStreetMap Carto, you are suggested to have a look to [Guidelines for adding new features](https://github.com/gravitystorm/openstreetmap-carto/issues/1630). It's a long thread which qualifies and limits the current contribution scope to this project.
 
 ## Description of *project.mml*
 
@@ -242,7 +242,7 @@ Consider the following style defined in project.mml (with some revisions as exam
 
 In the above example, the style is identified as "water-areas", named with the same label, rendered at zoom >= 4; it uses polygons, defines a class named "water-elements" and provides the following properties for the CartoCSS stylesheet: `[name]`, `[landuse]`, `[waterway]`, `[way_pixels]` (the latter produces the area in screen pixels), `[natural]` (in double quotes to prevent being interpreted as SQL token); these are the columns of the SQL Query.
 
-Notice that the area is calculated in pixels and not in meters, to avoid the need of compensation at different latitudes in relation to the Mercator projection. Similarly, a line length should be calculated in pixels using the [geometric mean](https://en.wikipedia.org/wiki/Geometric_mean) of x and y (sqrt(x*y))[^5]:
+Notice that the area is calculated in pixels and not in meters, to avoid the need of compensation at different latitudes in relation to the Mercator projection. Similarly, a line length should be calculated in pixels using the [geometric mean](https://en.wikipedia.org/wiki/Geometric_mean) of *x* and *y* `(sqrt(x*y))`[^5]:
 
 ```
 ST_Length(way)/NULLIF(SQRT(!pixel_width!::real*!pixel_height!::real),0)
@@ -313,23 +313,23 @@ A feature might be rendered through more layers. Generally (but not always) a la
 
 Take for instance `amenity=place_of_worship`, which is defined in the following layers (within the current version of *project.mml*):
 
-* *landcover* (geometry: "polygon"):
+- *landcover* (geometry: "polygon"):
   - `#landcover` selector in *landcover.mss*
   - related rendering produces regular highlights for polygons
 
-* *buildings-major* (geometry: "polygon"):
+- *buildings-major* (geometry: "polygon"):
   - `#buildings-major` selector in *buildings.mss*
   - related rendering produces special highlights for polygons with wide "way_area"
 
-* *amenity-points-poly* (class: "points", geometry: "polygon"):
+- *amenity-points-poly* (class: "points", geometry: "polygon"):
   - `.points` class in *amenity-points.mss*
   - related rendering adds marker icon for polygons
 
-* *amenity-points* (class: "points", geometry: "point"):
+- *amenity-points* (class: "points", geometry: "point"):
   - `.points` class in *amenity-points.mss* (uses the same class of amenity-points-poly)
   - related rendering adds marker icon for points
 
-* *text-poly* (class: "text", geometry: "polygon"):
+- *text-poly* (class: "text", geometry: "polygon"):
   - `.text` class in *amenity-points.mss*
   - related rendering produces adds text label
 
@@ -400,6 +400,14 @@ The reference document is [CONTRIBUTING](https://github.com/gravitystorm/openstr
 ## Design patterns
 
 A file named [USECASES](https://github.com/gravitystorm/openstreetmap-carto/blob/master/USECASES.md) describes which features should be rendered on a given zoomlevel and for a specific use case. This report is currently restricted to some low zoom levels (5, 6 and 7).
+
+All colours used in *openstreetmap-carto* are defined in [RGB](https://en.wikipedia.org/wiki/RGB_color_space), with annotations in [LCh](https://en.wikipedia.org/wiki/Lab_color_space#Cylindrical_representation:_CIELCh_or_CIEHLC). This makes it much easier to review different colours comparing their related HLS parameters. An example is the need to define a number of tones at the same saturation/chroma and lightness but with different hues. When you do this in LCh, simply the hue parameter can be changed, keeping the other two values unaltered.[^10]
+
+LCh is a perceptually uniform reference color space based on actual studies of how people perceive colors. The [LCh color wheel](https://www.colourphil.co.uk/images/lch_colourspace_3.jpg) has four "primary" colors, yellow, cyan, violet-blue, and magenta-red. In this color space, *L* indicates lightness, *C* represents chroma or relative saturation, and h is the hue angle in polar coordinates. The value of chroma *C* is the distance from the lightness axis (*L*) and starts at 0 in the center. Hue angle is expressed in degrees ranging from 0 to 360 (e.g., 0° is red, and 90° is or yellow, 360° is red). It uses cylindrical coordinates. Lightness ranges from 0 to 100; dark to bright. Chroma ranges from 0 to 100 too, unsaturated to fully saturated.
+
+All colours in openstreetmap-carto are anyway just annotated in LCh and reported in RGB as this is the color space used by Mapnik, to avoid gamut outside of RGB color space[^9]. The conversion between LCh and RGB shall be done manually with an external program. As LCh has the problem that it is possible to specify colours that cannot be represented in RGB, a preliminarily defined LCh color has to be manually adjusted so that the corresponding RGB value exists.
+
+___
 
 [Christoph Hormann](https://github.com/imagico) published an excellent document on [Design goals and guidelines for the Openstreetmap-carto style](https://matteobrusa.github.io/md-styler/?url=https://raw.githubusercontent.com/imagico/openstreetmap-carto/a8c9a49ad5f0e4c1fa0f34f580adbebfbe9cc5c3/CARTOGRAPHY.md&theme=bootstrap). It extends the official [CARTOGRAPHY](https://github.com/gravitystorm/openstreetmap-carto/blob/master/CARTOGRAPHY.md) document with considerations on colors and zoom levels; reading and understanding it is recommended.
 
@@ -492,3 +500,5 @@ A recommended ontology of [map features](https://wiki.openstreetmap.org/wiki/Map
 [^6]: Text taken from [imagico](https://github.com/imagico)'s [comment for pull 2138](https://github.com/gravitystorm/openstreetmap-carto/pull/2138#issuecomment-259414267)
 [^7]: Text taken from [gravitystorm](https://github.com/gravitystorm)'s [comment for pull 2473](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-263553007)
 [^8]: Text taken from [nebulon42](https://github.com/nebulon42)'s [comment for pull 2506](https://github.com/gravitystorm/openstreetmap-carto/pull/2506#issuecomment-266558272)
+[^9]: [Comments on colors](https://github.com/gravitystorm/openstreetmap-carto/issues/2492)
+[^10]: [Sample of usage of LCH colors](https://github.com/gravitystorm/openstreetmap-carto/pull/599#issuecomment-45451076)

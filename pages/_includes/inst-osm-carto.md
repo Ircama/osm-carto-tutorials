@@ -40,7 +40,7 @@ To install them (except Noto Emoji Regular and Noto Sans Arabic UI Regular/Bold)
 
     sudo apt-get install -y fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted fonts-hanazono ttf-unifont
 
-Installation of Noto Emoji Regular and Noto Sans Arabic UI Regular/Bold:
+Installation of Noto fonts (hinted ones should be used if available[^71]):
 
 ```shell
 cd ~/src
@@ -57,17 +57,16 @@ sudo cp noto-fonts/hinted/NotoSansAdlamUnjoined-Regular.ttf /usr/share/fonts/tru
 sudo cp noto-fonts/hinted/NotoSansChakma-Regular.ttf /usr/share/fonts/truetype/noto
 sudo cp noto-fonts/hinted/NotoSansOsage-Regular.ttf /usr/share/fonts/truetype/noto
 sudo cp noto-fonts/hinted/NotoSansSinhalaUI-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansArabicUI-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansCherokee-Bold.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansSinhalaUI-Bold.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansSymbols-Bold.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/NotoSansArabicUI-Bold.ttf /usr/share/fonts/truetype/noto
 sudo cp noto-fonts/unhinted/NotoSansSymbols2-Regular.ttf /usr/share/fonts/truetype/noto
-sudo cp noto-fonts/unhinted/NotoSansArabicUI-Regular.ttf /usr/share/fonts/truetype/noto
-sudo cp noto-fonts/unhinted/NotoSansCherokee-Bold.ttf /usr/share/fonts/truetype/noto
-sudo cp noto-fonts/unhinted/NotoSansSinhalaUI-Bold.ttf /usr/share/fonts/truetype/noto
-sudo cp noto-fonts/unhinted/NotoSansSymbols-Bold.ttf /usr/share/fonts/truetype/noto
-sudo cp noto-fonts/unhinted/NotoSansArabicUI-Bold.ttf /usr/share/fonts/truetype/noto
 sudo fc-cache -fv
 sudo apt install fontconfig
 fc-list
 fc-list | grep Emoji
-cd openstreetmap-carto
 ```
 
 DejaVu Sans is used as an optional fallback font for systems without Noto Sans. If all the Noto fonts are installed, it should never be used.
@@ -76,7 +75,26 @@ DejaVu Sans is used as an optional fallback font for systems without Noto Sans. 
 
 Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#fonts) for further information.
 
-The *unifont Medium* font (lowercase label), which was included in past OS versions, now is no more available and substituted by *Unifont Medium* (uppercase). Warnings related to the unavailability of *unifont Medium* are not relevant and are due to the old decision of OpenStreetMap maintainers to support [both the past Ubuntu 12.04 font and the newer version](https://github.com/gravitystorm/openstreetmap-carto/pull/429) (uppercase). Removing the reference to "unifont Medium" in *openstreetmap-carto/style.xml* avoids the warning.
+### Old unifont Medium font
+
+The *unifont Medium* font (lowercase label), which was included in past OS versions, now is no more available and substituted by *Unifont Medium* (uppercase). Warnings related to the unavailability of *unifont Medium* are not relevant[^72] and are due to the old decision of OpenStreetMap maintainers to support [both the past Ubuntu 12.04 font and the newer version](https://github.com/gravitystorm/openstreetmap-carto/pull/429) (uppercase).
+
+One way to avoid the warning is removing the reference to "unifont Medium" in *openstreetmap-carto/style.xml*.
+
+Another alternative way to remove the lowercase *unifont Medium* warning is installing the old "unifont Medium" font (used by Ubuntu 12.10):
+
+```shell
+mkdir -p ~/src ; cd ~/src
+mkdir OldUnifont
+cd OldUnifont
+wget http://http.debian.net/debian/pool/main/u/unifont/unifont_5.1.20080914.orig.tar.gz
+tar xvfz unifont_5.1.20080914.orig.tar.gz unifont-5.1.20080914/font/precompiled/unifont.ttf
+sudo cp unifont-5.1.20080914/font/precompiled/unifont.ttf /usr/share/fonts/truetype/unifont/OldUnifont.ttf
+sudo fc-cache -fv
+fc-list | grep -i unifont # both uppercase and lowercase fonts will be listed
+```
+
+Notice that above installation operation is useless, just removes the warning.
 
 ## Create the *data* folder
 
@@ -89,3 +107,6 @@ scripts/get-shapefiles.py
 The actual shapefiles loaded by the OpenStreetMap tile servers are reported in the related [Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L65-L89).
 
 Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.
+
+[^71]: [pnorman comment on hinted fonts](https://github.com/gravitystorm/openstreetmap-carto/issues/2402#issuecomment-252496456)
+[^72]: [Is lowercase "unifont" needed?](https://github.com/gravitystorm/openstreetmap-carto/issues/2924)
