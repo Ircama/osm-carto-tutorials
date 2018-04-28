@@ -220,7 +220,9 @@ chmod +x /home/{{ pg_login }}/osmosisworkingdir/osmosis-update.sh
 
 A sample of *cron* job is the following:
 
-    * * * * * /home/{{ pg_login }}/osmosisworkingdir/osmosis-update.sh >> /home/{{ pg_login }}/osmosisworkingdir/osmosis.log 2>&1
+```shell
+* * * * * /home/{{ pg_login }}/osmosisworkingdir/osmosis-update.sh >> /home/{{ pg_login }}/osmosisworkingdir/osmosis.log 2>&1
+```
 
 ### Trimming downloaded data to a bounding box or polygon
 

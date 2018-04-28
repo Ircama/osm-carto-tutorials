@@ -89,10 +89,26 @@ ln -s ~/src/openstreetmap-carto .
 
 ## Start TileMill
 
-    cd ~/src/tilemill
-    ./index.js --server=true --listenHost=0.0.0.0
+TileMill can be run from the local Ubuntu desktop (including creation of the client window) or as Ubuntu service for remote access.
 
-Notice that `--server=true` is only needed in case of server based startup, to avoid the local user interface. Besides, `--listenHost=0.0.0.0` is needed to access TileMill installed on a remote server (not necessary when doing http://localhost:20009).
+To start TileMill from the local UI:
+
+```shell
+cd ~/src/tilemill
+./index.js
+```
+
+To run TileMill as an Ubuntu service and [configure it to listen for public traffic](https://tilemill-project.github.io/tilemill/docs/guides/ubuntu-service/#configuring-to-listen-for-public-traffic), you need to find you IP or hostname and use `--server=true --listenHost=0.0.0.0 --coreUrl=<IP address>:<server port> --tileUrl=<IP address>:<tile port>`.
+
+Generally *<server port>* is 20009 and *<tile port>* is 20008. Example:
+
+```shell
+cd ~/src/tilemill
+TILEMILL_HOST=`ifconfig eth0 | grep 'inet addr:'| cut -d: -f2 | awk '{ print $1}'` # get my local ethernet IP address
+./index.js --server=true --listenHost=0.0.0.0 --coreUrl=${TILEMILL_HOST}:20009 --tileUrl=${TILEMILL_HOST}:20008
+```
+
+You can then access TileMill from a remote browser pointing to *http://<IP address>:<server port>*. Example: *http://192.168.1.150:20009*.
 
 An error message like *role ... does not exist...* might be possibly related to missing environment variables PGUSER, PGPASSWORD, etc. Set these variables and restart TileMill.
 

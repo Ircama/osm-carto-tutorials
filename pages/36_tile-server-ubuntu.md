@@ -109,7 +109,7 @@ Install the latest version 0 of *carto* (recommended):
 sudo npm install -g carto@0
 ```
 
-It should be carto 0.18.2 at the time of writing.
+It should be *carto 0.18.2* at the time of writing.
 
 If you instead want to install the current development of *carto* (1.0.0 at the time of writing), run the following:
 
