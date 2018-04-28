@@ -31,7 +31,7 @@ This site also logs a [procedure to install Tilemill on Windows](../tilemill-osm
 
 ## Install a previous version of node-js
 
-Tilemill needs an old node version to successfully install:
+TileMill needs an old node version to successfully install:
 
 ```shell
 sudo n 6.14.1

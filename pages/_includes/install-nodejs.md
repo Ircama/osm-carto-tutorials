@@ -11,7 +11,7 @@ A [list of useful commands](../nodejs-commands){:target="_blank"} to manage *Nod
 
 ### Distro-stable version from the APT package manager
 
-The recent versions of Ubuntu come with NodeJS (package nodejs) and npm (package npm) in the default repositories. Depending on which Ubuntu version you're running, those packages may contain outdated releases; the one coming with Ubuntu 16.04 will not be the latest, but it should be stable and sufficient to run Kosmtik and Carto. Installation command:
+The recent versions of Ubuntu come with NodeJS (package nodejs) and npm (package npm) in the default repositories. Depending on which Ubuntu version you're running, those packages may contain outdated releases; the one coming with Ubuntu 16.04 will not be the latest, but it should be stable and sufficient to run Kosmtik and Carto, but not appropriate for TileMill, which instead needs `sudo apt-get install -y nodejs-legacy npm` (or an old version of node installed via nodejs version management tool). Installation command:
 
 ```shell
 sudo apt-get install -y nodejs npm
