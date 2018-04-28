@@ -29,14 +29,6 @@ This site also logs a [procedure to install Tilemill on Windows](../tilemill-osm
 
 {% include_relative _includes/install-nodejs.md program='TileMill' %}
 
-## Install a previous version of node-js
-
-TileMill needs an old node version to successfully install:
-
-```shell
-sudo n 6.14.1
-```
-
 ## Install TileMill
 
 Optional elements (needed for the topcube module related to the client user interface, not needed if TileMill will only be run in server mode):

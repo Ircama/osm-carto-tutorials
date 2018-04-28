@@ -11,7 +11,18 @@ A [list of useful commands](../nodejs-commands){:target="_blank"} to manage *Nod
 
 ### Distro-stable version from the APT package manager
 
-The recent versions of Ubuntu come with NodeJS (package nodejs) and npm (package npm) in the default repositories. Depending on which Ubuntu version you're running, those packages may contain outdated releases; the one coming with Ubuntu 16.04 will not be the latest, but it should be stable and sufficient to run Kosmtik and Carto, but not appropriate for TileMill, which instead needs `sudo apt-get install -y nodejs-legacy npm` (or an old version of node installed via nodejs version management tool). Installation command:
+The recent versions of Ubuntu come with Node.js (*nodejs* package) and npm (*npm* package) in the default repositories. Depending on which Ubuntu version you're running, those packages may contain outdated releases; the one coming with Ubuntu 16.04 will not be the latest, but it should be stable and sufficient to run Kosmtik and Carto. TileMill instead needs *nodejs-legacy* (or an old version of node installed via a Node.js version management tool).
+
+{% if include.program == 'TileMill' %}
+For *{{ include.program }}* we will install *nodejs-legacy*:
+
+```shell
+sudo apt-get install -y nodejs-legacy npm
+nodejs -v
+npm -v
+```
+{% else %}
+For *{{ include.program }}* we will install *nodejs*:
 
 ```shell
 sudo apt-get install -y nodejs npm
@@ -20,6 +31,7 @@ nodejs -v
 node -v
 npm -v
 ```
+{% endif %}
 
 ### Install *Node.js* through a version management tool
 
@@ -37,13 +49,21 @@ cd ..
 
 Some programs (like *Kosmtik* and *carto*) accept the latest (stable) *node* version (`sudo n stable`), other ones (like *Tilemill*) run with v6.14.1 (`sudo n 6.14.1`).
 
-We will install the latest stable one:
+{% if include.program == 'TileMill' %}
+For *{{ include.program }}* we will install the old node version:
+
+```shell
+sudo n 6.14.1
+```
+{% else %}
+For *{{ include.program }}* we will install the latest stable one:
 
 ```shell
 sudo n stable
 ```
+{% endif %}
 
-Get the installed version number:
+To get the installed version number:
 
 ```shell
 node -v
