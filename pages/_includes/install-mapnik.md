@@ -98,7 +98,7 @@ Notice that the [Mapnik installation document for Ubuntu 16.04](https://github.c
 
 ```shell
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-sudo apt-get update -y
+sudo apt-get update
 sudo apt-get install -y gcc-6 g++-6 clang-3.8
 
 export CXX="clang++-3.8" && export CC="clang-3.8"
@@ -248,48 +248,6 @@ cd ~/
   ```
 
 You can then [verify that Mapnik has been correctly installed](#verify-that-mapnik-has-been-correctly-installed).
-
-#### Mapnik 3.1.x (not tested)
-
-Unsuggested build procedure which installs the *master* branch, that is going to be Mapnik 3.1.x, having incompatible changes at the time of writing[^79] and requiring c++14 compliant compiler:
-
-```shell
-cd ~/src
-git clone https://github.com/mapnik/mapnik.git --depth 10
-cd mapnik
-git submodule update --init
-bash
-source bootstrap.sh
-./configure && make
-
-```
-
-Notice that only purpose of running *bootstrap.sh* here is to make environment under which visual tests are passing. It is not needed to build Mapnik from sources and only useful for developers.[^78]
-
-Test Mapnik (without needing to install):
-
-```shell
-make test # some test might not pass
-```
-
-Install Mapnik:
-
-```shell
-sudo make install
-cd ~/
-```
-
-Build Python bindings:
-
-```shell
-sudo apt-get install -y python-setuptools python3-setuptools libboost-python-dev
-
-cd ~/src
-git clone https://github.com/mapnik/python-mapnik.git
-cd python-mapnik
-sudo python setup.py develop
-sudo python setup.py install
-```
 
 ## Verify that Mapnik has been correctly installed
 

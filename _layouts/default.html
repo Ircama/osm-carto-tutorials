@@ -19,14 +19,14 @@ Homepage: {{ site.url }}{{ site.baseurl }} - {{ jekyll.environment }}
     <div class="wrap">
       <div class="masthead">
         <div class="container">
-          <h4 data-toc-skip class="masthead-title">
+          <div data-toc-skip class="masthead-title">
             <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
             <small> - {{ site.tagline }}</small>
             {% for page in site.pages_list %}
               &nbsp;&nbsp;&nbsp;
               <small><a href="{{ site.baseurl }}{{ page[1] }}">{{ page[0] }}</a></small>
             {% endfor %}
-          </h3>
+          </div>
         </div>
       </div>
 
