@@ -109,19 +109,13 @@ In this example, the default center is (9.111, 45.111) and the default zoom is 1
 
 ## Start Kosmtik
 
-Position to *openstreetmap-carto* directory:
-
-```shell
-cd ~/src/openstreetmap-carto
-```
-
 Run Kosmtik:
 
 ```shell
-~/src/kosmtik/index.js serve project.mml --localconfig localconfig.json --host 0.0.0.0
+~/src/kosmtik/index.js serve ~/src/openstreetmap-carto/project.mml --localconfig ~/src/openstreetmap-carto/localconfig.json --host 0.0.0.0
 ```
 
-or also, from any directory (in case of installation with the `-g` option):
+or also, in case of installation with the `-g` option:
 
 ```shell
 kosmtik serve ~/src/openstreetmap-carto/project.mml --localconfig ~/src/openstreetmap-carto/localconfig.json --host 0.0.0.0

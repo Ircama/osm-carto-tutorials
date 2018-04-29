@@ -77,7 +77,7 @@ cd ..
 ### Install *node* with *n*
 
 ```shell
-sudo n stable
+sudo n lts
 ```
 
 ### Completely uninstall *n*
@@ -96,7 +96,7 @@ sudo apt-get install -y nodejs npm
 
 sudo npm cache clean -f
 sudo npm install -g n
-sudo n stable
+sudo n lts
 exit # close the session and restart to clear the path
 ```
 

@@ -9,7 +9,7 @@
 
 A [list of useful commands](../nodejs-commands){:target="_blank"} to manage *Node.js* is available at a specific page.
 
-### Distro-stable version from the APT package manager
+### Distro version from the APT package manager
 
 The recent versions of Ubuntu come with Node.js (*nodejs* package) and npm (*npm* package) in the default repositories. Depending on which Ubuntu version you're running, those packages may contain outdated releases; the one coming with Ubuntu 16.04 will not be the latest, but it should be stable and sufficient to run Kosmtik and Carto. TileMill instead needs *nodejs-legacy* (or an old version of node installed via a Node.js version management tool).
 
@@ -47,7 +47,7 @@ sudo make install # To uninstall: sudo make uninstall
 cd ..
 ```
 
-Some programs (like *Kosmtik* and *carto*) accept the latest (stable) *node* version (`sudo n stable`), other ones (like *Tilemill*) run with v6.14.1 (`sudo n 6.14.1`).
+Some programs (like *Kosmtik* and *carto*) accept the latest LTS *node* version (`sudo n lts`), other ones (like *Tilemill*) run with v6.14.1 (`sudo n 6.14.1`).
 
 {% if include.program == 'TileMill' %}
 For *{{ include.program }}* we will install the old node version:
@@ -56,10 +56,10 @@ For *{{ include.program }}* we will install the old node version:
 sudo n 6.14.1
 ```
 {% else %}
-For *{{ include.program }}* we will install the latest stable one:
+For *{{ include.program }}* we will install the latest LTS one:
 
 ```shell
-sudo n stable
+sudo n lts
 ```
 {% endif %}
 
