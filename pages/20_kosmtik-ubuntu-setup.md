@@ -45,6 +45,8 @@ If you wish to use *kosmtik* everywhere, you need to install it globally (rather
 sudo npm install -g
 ```
 
+In case the installation fails, this is possibly due to some incompatibility with npm/Node.js; to fix this, try downgrading the Node.js version.
+
 Read [Kosmtik Install or Update](https://github.com/kosmtik/kosmtik#install-or-update) for further information.
 
 ## Test Kosmtik

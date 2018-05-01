@@ -47,6 +47,8 @@ cd ~/src/tilemill
 npm install
 ```
 
+In case the installation fails, this is possibly due to some incompatibility with npm/Node.js; to fix this, try downgrading the Node.js version.
+
 ## Test TileMill
 
 To perform a preliminary test of the application, see [Start TileMill](#start-tilemill): a simple run without *openstreetmap-carto* will work; then you need to go back to this point to proceed with the installation of *openstreetmap-carto* and PostGIS, including data load.

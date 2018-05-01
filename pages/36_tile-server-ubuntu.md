@@ -117,6 +117,8 @@ If you instead want to install the current development of *carto* (1.0.0 at the 
 sudo npm install -g carto
 ```
 
+In case the installation fails, this is possibly due to some incompatibility with npm/Node.js; to fix this, try downgrading the Node.js version.
+
 To check the installed verison:
 
 ```shell

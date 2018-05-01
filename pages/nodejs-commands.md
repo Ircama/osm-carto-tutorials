@@ -162,6 +162,7 @@ hash -r
 ## Reinstall a local node package
 
 ```shell
+cd <directory where the node application is located>
 sudo rm -rf node_modules
 sudo rm -rf /usr/local/lib/node_modules/<package>
 npm install
@@ -170,6 +171,7 @@ npm install
 ## Install global node package for all users
 
 ```shell
+cd <directory where the node application is located>
 sudo rm -rf /usr/local/lib/node_modules/<package>
 sudo rm -rf node_modules
 sudo npm install -g
