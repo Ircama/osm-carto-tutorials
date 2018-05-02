@@ -42,25 +42,14 @@ If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo 
 The documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md) describes 
 how to run OpenStreetMap Carto with Docker. Check it before starting installation.
 
-Follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 18.04, 16.10, 16.04 or 14.04 (e.g., Docker CE).
+Follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 18.04, 16.10, 16.04 or 14.04 (e.g., Docker CE) from the Docker site.
 
-Follow the [post-installation steps](https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user).
+Follow the [post-installation steps](https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user) from the Docker site.
 
-Install [Docker Compose](https://github.com/docker/compose/releases) as in this example:
-
-```shell
-curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > docker-compose
-sudo mv docker-compose /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo chgrp docker /usr/local/bin/docker-compose
-```
-
-Notice: substitute `1.14.0` in the above example with the version shown in the [Latest release](https://github.com/docker/compose/releases/latest) tag.
-
-Verify that [docker-compose](https://docs.docker.com/compose/reference/overview/) is correctly installed:
+Follow the steps to [install Docker Compose](https://docs.docker.com/compose/install/) from the Docker site. Alternatively, you could use the following command to grab the latest *Docker Compose* version from GitHub (which, when successful, should return the actual installed version):
 
 ```shell
-docker-compose -v
+sudo curl --silent -L $(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | grep -Po '"browser_download_url": "\K(http.*/docker-compose-'"$(uname -s)-$(uname -m)"')?(?=")') -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose && sudo chgrp docker /usr/local/bin/docker-compose && docker-compose -v
 ```
 
 Install openstreetmap-carto:
