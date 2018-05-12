@@ -44,7 +44,18 @@ how to run OpenStreetMap Carto with Docker. Check it before starting installatio
 
 Follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 18.04, 16.10, 16.04 or 14.04 (e.g., Docker CE) from the Docker site. Check alternatively the [Docker installation script](https://github.com/docker/docker-install).
 
+The lastest dev/test version of the Docker installation script can be downloaded and executed with the following command:
+
+```shell
+sh <(curl --silent https://cdn.rawgit.com/docker/docker-install/master/install.sh)
+```
+
 Then follow the [post-installation steps](https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user) from the Docker site.
+
+```shell
+sudo usermod -aG docker $USER
+# Then log out and log back in
+```
 
 Subsequently, follow the steps to [install Docker Compose](https://docs.docker.com/compose/install/) from the Docker site. Alternatively, you could use the following command to grab the latest *Docker Compose* version from GitHub.
 
