@@ -137,7 +137,7 @@ then run the following (e.g., `--rrii` option):
 
 A default *configuration.txt* file and another one named *download.lock* will be created. *download.lock* can be ignored (as used by Osmosis to ensure that only one copy is running at a time).
 
-An [issue](https://trac.openstreetmap.org/ticket/5483) with the past versions of Osmosis is that the created default configuration includes a *http* *baseUrl* instead of using *https*. Fortunately, it can be fixed by manually adjusting the *configuration.txt* file, substituting *http* with *https*; then all updates will use the new url. A correct baseUrl will be: `baseUrl=https://planet.openstreetmap.org/...`.
+An [issue](https://trac.openstreetmap.org/ticket/5483) with the past versions of Osmosis is that the created default configuration includes a *http* *baseUrl* instead of using *https*. Fortunately, it can be fixed by manually adjusting the *configuration.txt* file, substituting *http* with *https*; then all updates will use the new url. A correct baseUrl will be: `baseUrl=https://planet.openstreetmap.org/...`. The following command can be run to fix the url:
 
 ```shell
 sed -i 's!baseUrl=http://planet.openstreetmap.org/!baseUrl=https://planet.openstreetmap.org/!' configuration.txt
@@ -409,7 +409,7 @@ To prepare the script for the first execution[^5]:
 
       sudo -u {{ pg_login }} /usr/bin/openstreetmap-tiles-update-expire `date -u +"%Y-%m-%d"`
 
-- You will next need to update the default configuration of *osmosis*. In *configuration.txt*, change the `base_url` to `https://planet.openstreetmap.org/replication/minute/` (notice the usage of *https*).
+- You will next need to update the default configuration of *osmosis*. In *configuration.txt*, change the `base_url` to `https://planet.openstreetmap.org/replication/minute/` (notice the usage of *https*). The following [command](https://github.com/SomeoneElseOSM/mod_tile/blob/switch2osm/openstreetmap-tiles-update-expire#L114) will do the job:
 
   ```shell
   test ! -f $WORKOSM_DIR/configuration_orig.txt -a -f $WORKOSM_DIR/configuration.txt && mv $WORKOSM_DIR/configuration.txt $WORKOSM_DIR/configuration_orig.txt && sed 's!baseUrl=http://planet.openstreetmap.org/!baseUrl=https://planet.openstreetmap.org/!' $WORKOSM_DIR/configuration_orig.txt > $WORKOSM_DIR/configuration.txt
