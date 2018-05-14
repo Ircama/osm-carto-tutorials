@@ -54,10 +54,10 @@ Then follow the [post-installation steps](https://docs.docker.com/engine/install
 
 ```shell
 sudo usermod -aG docker $USER
-# Then log out and log back in
+# To activate changes, log out and log back in
 ```
 
-Subsequently, follow the steps to [install Docker Compose](https://docs.docker.com/compose/install/) from the Docker site. Alternatively, you could use the following command to grab the latest *Docker Compose* version from GitHub.
+Subsequently, follow the steps to [install *Docker Compose*](https://docs.docker.com/compose/install/) from the Docker site. Alternatively, you could use the following command to grab the latest *Docker Compose* version from GitHub.
 
 ```shell
 sudo curl --silent -L $(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | sed -n 's/^[\t ]*"browser_download_url": *"\(http.*\/docker-compose-'"$(uname -s)-$(uname -m)"'\)"/\1/p') -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose && sudo chgrp docker /usr/local/bin/docker-compose && docker-compose -v

@@ -139,6 +139,10 @@ A default *configuration.txt* file and another one named *download.lock* will be
 
 An [issue](https://trac.openstreetmap.org/ticket/5483) with the past versions of Osmosis is that the created default configuration includes a *http* *baseUrl* instead of using *https*. Fortunately, it can be fixed by manually adjusting the *configuration.txt* file, substituting *http* with *https*; then all updates will use the new url. A correct baseUrl will be: `baseUrl=https://planet.openstreetmap.org/...`.
 
+```shell
+sed -i 's!baseUrl=http://planet.openstreetmap.org/!baseUrl=https://planet.openstreetmap.org/!' configuration.txt
+```
+
 You might also need change the replication period which is specified within the *baseUrl*. By default, this points to minutely diffs (`baseUrl=https://planet.openstreetmap.org/replication/minute`). If you want hourly or daily, you should edit the file so that it references the related replication diffs URL: `https://planet.openstreetmap.org/replication/hour/`, or `https://planet.openstreetmap.org/replication/day/`.
 
 *configuration.txt* shall at least include *baseUrl* and *maxInterval*. A Java exception occurs in case one of these two is missing (e.g., `SEVERE: Thread for task 1-read-replication-interval failed`).
@@ -393,7 +397,7 @@ The *openstreetmap-tiles-update-expire* script must be edited to modify the foll
 - [WORKOSM_DIR](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L14) has to be set to the osmosis temporary folder
 - [EXPIRY_MINZOOM and EXPIRY_MAXZOOM](https://github.com/openstreetmap/mod_tile/blob/master/openstreetmap-tiles-update-expire#L26-L27) are used by osm2pgsql (`-e` option to create a tile expiry list) and by *render_expired*.
 
-Notice that the script invokes `http://osm.personalwerk.de/replicate-sequences/?"$1"T00:00:00Z` to download *state.txt* and *http://osm.personalwerk.de/replicate-sequences* redirects to *https://replicate-sequences.osm.mazdermind.de*, already mentioned before.
+Notice that the script invokes `http://osm.personalwerk.de/replicate-sequences/?"$1"T00:00:00Z` ([sources on GitHub](https://github.com/MaZderMind/replicate-sequences)) to download *state.txt* and *http://osm.personalwerk.de/replicate-sequences* redirects to *https://replicate-sequences.osm.mazdermind.de*, already mentioned before.
 
 Edit also *osmosis-db_replag* script and check `STATE=/var/lib/mod_tile/.osmosis/state.txt` by setting the actual path of *state.txt* (which should be *$WORKOSM_DIR/state.txt*). After creating *state.txt*, test *osmosis-db_replag* with `*osmosis-db_replag -h`.
 
@@ -405,7 +409,11 @@ To prepare the script for the first execution[^5]:
 
       sudo -u {{ pg_login }} /usr/bin/openstreetmap-tiles-update-expire `date -u +"%Y-%m-%d"`
 
-- You will next need to update the default configuration of *osmosis*. In *configuration.txt*, change the `base_url` to `https://planet.openstreetmap.org/replication/minute/`
+- You will next need to update the default configuration of *osmosis*. In *configuration.txt*, change the `base_url` to `https://planet.openstreetmap.org/replication/minute/` (notice the usage of *https*).
+
+  ```shell
+  test ! -f $WORKOSM_DIR/configuration_orig.txt -a -f $WORKOSM_DIR/configuration.txt && mv $WORKOSM_DIR/configuration.txt $WORKOSM_DIR/configuration_orig.txt && sed 's!baseUrl=http://planet.openstreetmap.org/!baseUrl=https://planet.openstreetmap.org/!' $WORKOSM_DIR/configuration_orig.txt > $WORKOSM_DIR/configuration.txt
+  ```
 
 - Update your tileserver by up to an hour and expire the corresponding rendered tiles:
 
