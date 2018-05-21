@@ -109,6 +109,16 @@ In this example, the default center is (9.111, 45.111) and the default zoom is 1
 
 {% include_relative _includes/postgis-inst.md port=6789 cdprogram='~/src' %}
 
+## Install Kosmtik plugins
+
+Openstreetmap-carto suggests [installing some Kosmtik plugins](https://github.com/gravitystorm/openstreetmap-carto/blob/master/Dockerfile#L19-L26):
+
+```shell
+~/src/kosmtik/index.js plugins --install kosmtik-overpass-layer --install kosmtik-fetch-remote --install kosmtik-overlay --install kosmtik-open-in-josm --install kosmtik-map-compare --install kosmtik-osm-data-overlay --install kosmtik-mapnik-reference --install kosmtik-geojson-overlay
+```
+
+Full list of plugins can be found within the [Kosmtik GitHub repository](https://github.com/kosmtik).
+
 ## Start Kosmtik
 
 Run Kosmtik:

@@ -28,7 +28,7 @@ The next paragraph describes the [installation of Kosmtik with Ubuntu](#ubuntu-i
 
 For a standard Kosmtik installation without using Docker, check [Installing Kosmtik and OpenStreetMap-Carto on Ubuntu](../kosmtik-ubuntu-setup/).
 
-Update the system:
+To go on installing *Docker*, first update the system:
 
 ```shell
 sudo apt-get update
@@ -42,7 +42,17 @@ If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo 
 The documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md) describes 
 how to run OpenStreetMap Carto with Docker. Check it before starting installation.
 
-Follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 18.04, 16.10, 16.04 or 14.04 (e.g., Docker CE) from the Docker site. Check alternatively the [Docker installation script](https://github.com/docker/docker-install).
+You need *docker-compose*, which can be installed from package through:
+
+```shell
+sudo apt-get install -y docker-compose
+sudo usermod -aG docker $USER
+# To activate changes, log out and log back in
+```
+
+After logging out and logging back in, you can proceed to install *openstreetmap-carto*.
+
+Otherwise follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 18.04, 16.10, 16.04 or 14.04 (e.g., Docker CE) from the Docker site. Check alternatively the [Docker installation script](https://github.com/docker/docker-install).
 
 The lastest dev/test version of the Docker installation script can be downloaded and executed with the following command:
 
@@ -50,20 +60,20 @@ The lastest dev/test version of the Docker installation script can be downloaded
 sh <(curl --silent https://cdn.rawgit.com/docker/docker-install/master/install.sh)
 ```
 
-Then follow the [post-installation steps](https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user) from the Docker site.
+Then follow the [post-installation steps](https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user) from the Docker site. I.e:
 
 ```shell
 sudo usermod -aG docker $USER
 # To activate changes, log out and log back in
 ```
 
-Subsequently, follow the steps to [install *Docker Compose*](https://docs.docker.com/compose/install/) from the Docker site. Alternatively, you could use the following command to grab the latest *Docker Compose* version from GitHub.
+Subsequently, perform the instructions to [install *Docker Compose*](https://docs.docker.com/compose/install/) from the Docker site. Alternatively, you could use the following command to grab the latest *Docker Compose* version from GitHub.
 
 ```shell
 sudo curl --silent -L $(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | sed -n 's/^[\t ]*"browser_download_url": *"\(http.*\/docker-compose-'"$(uname -s)-$(uname -m)"'\)"/\1/p') -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose && sudo chgrp docker /usr/local/bin/docker-compose && docker-compose -v
 ```
 
-The above command, when successful, shall return the actual installed version.
+When successful, it shall return the actual installed version.
 
 Install openstreetmap-carto:
 
