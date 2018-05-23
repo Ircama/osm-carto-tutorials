@@ -91,6 +91,18 @@ curl https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output 
 
 For further information on the downloading of appropriate *.osm* or *.pbf* file, check "[Get an OpenStreetMap data extract](../tile-server-ubuntu#get-an-openstreetmap-data-extract)".
 
+Notice that, to maximize security, the default configuration [denies remote access to Kosmitk and to the PostGIS DB](https://github.com/gravitystorm/openstreetmap-carto/pull/3208), so the only valid addess by default is localhost (http://127.0.0.1:6789). In order to enable remote access to Kosmitk, before running `docker-compose up` edit *docker-compose.yml* and [change](https://github.com/gravitystorm/openstreetmap-carto/pull/3208/files#diff-4e5e90c6228fd48698d074241c2ba760L13)
+
+```yaml
+  - "127.0.0.1:6789:6789"
+```
+
+to
+
+```yaml
+  - "6789:6789"
+```
+
 Complete the installation and access the map from your browser. Run *docker-compose*:
 
 ```shell
@@ -151,7 +163,9 @@ Before starting, it is important to read the documentation in [DOCKER.md](https:
 
 - Open a CMD prompt to this directory. Run *docker-compose*:
 
-      docker-compose up
+  ```bat
+  docker-compose up
+  ```
 
 The procedure takes many minutes to complete. Wait for `kosmtik:1	[Core] Loading map`.
 
@@ -193,7 +207,9 @@ For further information on the downloading of appropriate *.osm* or *.pbf* file,
 
 Complete the installation and access the map from your browser. Run *docker-compose*:
 
-    docker-compose up
+```bat
+docker-compose up
+```
 
 The procedure takes many minutes to complete. Wait for `kosmtik:1	[Core] Loading map`.
 
