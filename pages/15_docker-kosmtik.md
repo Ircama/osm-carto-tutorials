@@ -94,13 +94,13 @@ For further information on the downloading of appropriate *.osm* or *.pbf* file,
 Notice that, to maximize security, the default configuration [denies remote access to Kosmitk and to the PostGIS DB](https://github.com/gravitystorm/openstreetmap-carto/pull/3208), so the only valid addess by default is localhost (http://127.0.0.1:6789). In order to enable remote access to Kosmitk, before running `docker-compose up` edit *docker-compose.yml* and [change](https://github.com/gravitystorm/openstreetmap-carto/pull/3208/files#diff-4e5e90c6228fd48698d074241c2ba760L13)
 
 ```yaml
-  - "127.0.0.1:6789:6789"
+      - "127.0.0.1:6789:6789"
 ```
 
 to
 
 ```yaml
-  - "6789:6789"
+      - "6789:6789"
 ```
 
 Complete the installation and access the map from your browser. Run *docker-compose*:

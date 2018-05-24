@@ -113,17 +113,17 @@ In this example, the default center is (9.111, 45.111) and the default zoom is 1
 
 Openstreetmap-carto suggests [installing some Kosmtik plugins](https://github.com/gravitystorm/openstreetmap-carto/blob/master/Dockerfile#L19-L26):
 
-Case of global installation (Kosmtik installation with the `-g` option):
-
-```shell
-test -d /usr/lib/node_modules/kosmtik && cd /usr/lib/node_modules/kosmtik && sudo kosmtik plugins --install kosmtik-overpass-layer --install kosmtik-fetch-remote --install kosmtik-overlay --install kosmtik-open-in-josm --install kosmtik-map-compare --install kosmtik-osm-data-overlay --install kosmtik-mapnik-reference --install kosmtik-geojson-overlay
-cd ~/src
-```
-
 Case of local installation:
 
 ```shell
 cd ~/src/kosmtik && ./index.js plugins --install kosmtik-overpass-layer --install kosmtik-fetch-remote --install kosmtik-overlay --install kosmtik-open-in-josm --install kosmtik-map-compare --install kosmtik-osm-data-overlay --install kosmtik-mapnik-reference --install kosmtik-geojson-overlay
+cd ~/src
+```
+
+Case of global installation (Kosmtik installation with the `-g` option):
+
+```shell
+test -d /usr/lib/node_modules/kosmtik && cd /usr/lib/node_modules/kosmtik && sudo kosmtik plugins --install kosmtik-overpass-layer --install kosmtik-fetch-remote --install kosmtik-overlay --install kosmtik-open-in-josm --install kosmtik-map-compare --install kosmtik-osm-data-overlay --install kosmtik-mapnik-reference --install kosmtik-geojson-overlay
 cd ~/src
 ```
 

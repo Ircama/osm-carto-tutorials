@@ -126,7 +126,9 @@ If you get the following error
 
 then you might be installing PostgreSQL 9.3 (instead of 9.5), for which you should also need:
 
-    sudo apt-get install postgis postgresql-9.3-postgis-scripts
+```shell
+sudo apt-get install postgis postgresql-9.3-postgis-scripts
+```
 
 Install it and repeat the create extension commands. Notice that PostgreSQL 9.3 is not currently supported by openstreetmap-carto.
 
@@ -142,7 +144,9 @@ psql -U {{ pg_user }} -c "create user {{ pg_login }};grant all privileges on dat
 
 To remotely access PostgreSQL, you need to edit *pg_hba.conf*:
 
-    sudo vi /etc/postgresql/9.5/main/pg_hba.conf
+```shell
+sudo vi /etc/postgresql/9.5/main/pg_hba.conf
+```
 
 and add the following line:
 
@@ -152,17 +156,21 @@ and add the following line:
 
 Then edit *postgresql.conf*:
 
-    sudo vi /etc/postgresql/9.5/main/postgresql.conf
+```shell
+sudo vi /etc/postgresql/9.5/main/postgresql.conf
+```
 
 and set `listen_addresses = '*'`
 
 Finally, the DB shall be restarted:
 
-    sudo /etc/init.d/postgresql restart
+```shell
+sudo /etc/init.d/postgresql restart
+```
 
 Check that the *gis* database is available. To list all databases defined in PostgreSQL, issue the following command:
  
-```shell 
+```shell
 psql -U {{ pg_user }} -h $HOSTNAME -c "\l+"
 ```
 
@@ -184,27 +192,33 @@ The [PostgreSQL wiki](http://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Ser
 
 Default `maintenance_work_mem` and `work_mem` settings are far too low for rendering.[^98]: both parameters should be increased for faster data loading and faster queries (index scanning).
 
-Conservative settings for a 4GB VM are `work_mem=32MB` and `maintenance_work_mem=256MB`. On a machine with enough memory you could set them as high as `work_mem=128MB` and `maintenance_work_mem=1GB`.
+Conservative settings for a 4GB VM are `work_mem=32MB` and `maintenance_work_mem=256MB`. On a machine with enough memory you could set them as high as `work_mem=256MB` and `maintenance_work_mem=1GB`.
 
 Besides, important settings are `shared_buffers` and the *write-ahead-log* (*wal*). There are also some other settings you might want to change specifically for the import.
 
 To edit the PostgreSQL configuration file with *vi* editor:
 
-    sudo vi /etc/postgresql/9.5/main/postgresql.conf
+```shell
+sudo vi /etc/postgresql/9.5/main/postgresql.conf
+```
 
 and if you are running PostgreSQL 9.3 (not supported):
 
-    sudo vi /etc/postgresql/9.3/main/postgresql.conf
+```shell
+sudo vi /etc/postgresql/9.3/main/postgresql.conf
+```
 
-Suggested settings:
+Suggested minimum settings:
 
-    shared_buffers = 128MB
-    min_wal_size = 1GB
-    max_wal_size = 2GB
-	work_mem = 32MB
-    maintenance_work_mem = 256MB
-    autovacuum = off
-    fsync = off
+```ini
+shared_buffers = 128MB
+min_wal_size = 1GB
+max_wal_size = 2GB
+work_mem = 32MB # check comments for better tuning
+maintenance_work_mem = 256MB
+autovacuum = off
+fsync = off
+```
 
 The latter two ones allow a faster import: the first turns off auto-vacuum during the import and allows you to run a vacuum at the end; the second introduces data corruption in case of a power outage and is dangerous. If you have a power outage while importing the data, you will have to drop the data from the database and re-import, but it’s faster. Just remember to change these settings back after importing. fsync has no effect on query times once the data is loaded.
 
@@ -212,19 +226,21 @@ The PostgreSQL tuning adopted by OpenStreetMap can be found in the [PostgreSQL C
 
 For a dev&test installation on a system with 16GB of RAM, the suggested settings are the following[^97]:
 
-    shared_buffers = 2GB
-    work_mem = 128MB # or 256MB
-    maintenance_work_mem = 1GB
-    wal_level = minimal
-    synchronous_commit = off
-    min_wal_size = 1GB
-    max_wal_size = 2GB
-	checkpoint_segments = 60
-    checkpoint_timeout = 15min
-    checkpoint_completion_target = 0.9
-    default_statistics_target = 1000
-    autovacuum = off
-    fsync = off
+```ini
+shared_buffers = 2GB
+work_mem = 256MB
+maintenance_work_mem = 1GB
+wal_level = minimal
+synchronous_commit = off
+min_wal_size = 1GB
+max_wal_size = 2GB
+checkpoint_segments = 60
+checkpoint_timeout = 15min
+checkpoint_completion_target = 0.9
+default_statistics_target = 1000
+autovacuum = off
+fsync = off
+```
 
 *default_statistics_target* can be even increased to 10000.
 
@@ -232,9 +248,11 @@ If performing database updates, run ANALYZE periodically.
 
 To stop and start the database:
 
-    sudo /etc/init.d/postgresql stop
+```shell
+sudo /etc/init.d/postgresql stop
 
-    sudo /etc/init.d/postgresql start
+sudo /etc/init.d/postgresql start
+```
 
 You may get an error and need to increase the shared memory size. Edit */etc/sysctl.d/30-postgresql-shm.conf* and run `sudo sysctl -p /etc/sysctl.d/30-postgresql-shm.conf`. A parameter like `kernel.shmmax=17179869184` and `kernel.shmall=4194304` could be appropriate for a 16GB segment size.[^99]
 
@@ -248,7 +266,9 @@ Osm2pgsql is an OpenStreetMap specific software used to load the OSM data into t
 
 To install [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql):
 
-    sudo apt-get install -y osm2pgsql
+```shell
+sudo apt-get install -y osm2pgsql
+```
 
 Go to [Get an OpenStreetMap data extract](#get-an-openstreetmap-data-extract).
 
@@ -291,7 +311,9 @@ The [osm2pgsql documentation](https://github.com/openstreetmap/osm2pgsql/tree/ma
 
 *osm2pgsql* uses overcommit like many scientific and large data applications, which requires adjusting a kernel setting:
 
-    sudo sysctl -w vm.overcommit_memory=1
+```shell
+sudo sysctl -w vm.overcommit_memory=1
+```
 
 To load data from an *.osm* or *.pbf* file to PostGIS, issue the following:
 
@@ -318,8 +340,7 @@ Depending on the input file size, the *osm2pgsql* command might take very long. 
 
 Note: if you get the following error:
 
-`
-node_changed_mark failed: ERROR:  prepared statement "node_changed_mark" does not exist
+    node_changed_mark failed: ERROR:  prepared statement "node_changed_mark" does not exist
 
 do the following command on your *original.osm*:
 
@@ -360,7 +381,9 @@ Create partial indexes to speed up the queries included in *project.mml* and gra
 
 To list all tables available in the *gis* database, issue the following command:
 
-    psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "\dt+"
+```shell
+psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "\dt+"
+```
 
 The database shall include the *rels*, *ways* and *nodes* tables (created with the `--slim` mode of *osm2pgsql*) in order to allow updates.
 
