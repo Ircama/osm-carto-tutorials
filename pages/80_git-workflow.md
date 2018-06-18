@@ -545,6 +545,20 @@ Verify that "Allow edits from maintainers" is checked.
 
 Press "Create pull request".
 
+### Test automation
+
+The repository supports [Travis CI](https://en.wikipedia.org/wiki/Travis_CI) for automatically testing each pull request and simplifying the integration process.
+
+The file named [.travis.yml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml), used to configure Travis CI, includes all testing sequences automatically performed by GitHub when a new commit is pushed or a pull request is submitted. A container-based build is activated, relevant files are verified, the project is compiled with *carto* and all resulting XML, SVG and lua transforms are validated for formal correctness.
+
+A check result section appears when submitting the pull request and you should verify that all automatic verifications have passed.
+
+A label reporting that some checks haven't completed yet is normal as the test automation takes time.
+
+If you see at the end that checks have failed, there are problems in your PR that you need to fix and generally maintainers refrain from merging it.
+
+To see the errors, click on Details in the section. This will bring up the Travis log. Green means that the test has passed. Red means there’s a problem.
+
 ### While Waiting, Continuing Crafting Commits
 
 Since you worked on the topic branch instead of the master branch, you can continue working while waiting for the pull request to go through.
