@@ -406,7 +406,7 @@ Check [The OpenStreetMap data model](https://www.mapbox.com/mapping/osm-data-mod
 
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
 
-[^94]: [pnorman comment on 11 Oct 2017](https://github.com/gravitystorm/openstreetmap-carto/issues/2840#issuecomment-335647059]
+[^94]: [pnorman comment on 11 Oct 2017](https://github.com/gravitystorm/openstreetmap-carto/issues/2840#issuecomment-335647059)
 [^95]: [osm2pgsql import - disk space running out during index creation](https://help.openstreetmap.org/questions/52672/osm2pgsql-import-disk-space-running-out-during-index-creation)
 [^96]: [Import error: could not extend file](https://help.openstreetmap.org/questions/26900/import-error-could-not-extend-file)
 [^97]: [Most reliable way to import large dataset with osm2psql](https://gis.stackexchange.com/questions/104220/most-reliable-way-to-import-large-dataset-with-osm2psql)
