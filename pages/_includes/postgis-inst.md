@@ -368,7 +368,7 @@ Enabling *hstore* extension and using it with *osm2pgsql* will fix those errors.
 
 Create partial indexes to speed up the queries included in *project.mml* and grant access to all *gis* tables to avoid *renderd* errors when accessing tables with user *{{ pg_login }}*.
 
-- Add the partial geometry indexes indicated by *openstreetmap-carto* to provide effective improvement to the queries:
+- Add the partial geometry indexes indicated by *openstreetmap-carto*[^93] to provide effective improvement to the queries:
 
   ```shell
   HOSTNAME=localhost # set it to the actual ip address or host name
@@ -406,6 +406,7 @@ Check [The OpenStreetMap data model](https://www.mapbox.com/mapping/osm-data-mod
 
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
 
+[^93]: .travis.yml [applies]()https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml#L43 the custom indexes via `psql -1Xq -v ON_ERROR_STOP=1 -d gis -f indexes.sql`. Notice that *indexes.sql* shall be kept up to date with *indexes.py* and this is also [checked]()https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml#L37 by .travis.yml.
 [^94]: [pnorman comment on 11 Oct 2017](https://github.com/gravitystorm/openstreetmap-carto/issues/2840#issuecomment-335647059]
 [^95]: [osm2pgsql import - disk space running out during index creation](https://help.openstreetmap.org/questions/52672/osm2pgsql-import-disk-space-running-out-during-index-creation)
 [^96]: [Import error: could not extend file](https://help.openstreetmap.org/questions/26900/import-error-could-not-extend-file)
