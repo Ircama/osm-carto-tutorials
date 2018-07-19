@@ -406,7 +406,7 @@ Check [The OpenStreetMap data model](https://www.mapbox.com/mapping/osm-data-mod
 
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
 
-[^93]: .travis.yml [applies]()https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml#L43 the custom indexes via `psql -1Xq -v ON_ERROR_STOP=1 -d gis -f indexes.sql`. Notice that *indexes.sql* shall be kept up to date with *indexes.py* and this is also [checked]()https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml#L37 by .travis.yml.
+[^93]: .travis.yml [applies](https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml#L43) the custom indexes via `psql -1Xq -v ON_ERROR_STOP=1 -d gis -f indexes.sql`. Notice that *indexes.sql* shall be kept up to date with *indexes.py* and this is also [checked](https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml#L37) by .travis.yml.
 [^94]: [pnorman comment on 11 Oct 2017](https://github.com/gravitystorm/openstreetmap-carto/issues/2840#issuecomment-335647059)
 >>>>>>> 3183e4f4fd5e828210fc2434c754f13613a04260
 [^95]: [osm2pgsql import - disk space running out during index creation](https://help.openstreetmap.org/questions/52672/osm2pgsql-import-disk-space-running-out-during-index-creation)
