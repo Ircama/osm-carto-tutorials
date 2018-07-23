@@ -262,17 +262,28 @@ The configuration adopted for PostgreSQL is [postgresql/attributes/default.rb](h
 
 ## Install Osm2pgsql
 
-Osm2pgsql is an OpenStreetMap specific software used to load the OSM data into the PostGIS database.
+[Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) is an OpenStreetMap specific software used to load the OSM data into the PostGIS database.
 
-To install [osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql):
+The [default packaged versions](https://launchpad.net/ubuntu/+source/osm2pgsql) of Osm2pgsql are 0.88.1-1 on Ubuntu 16.04 LTS and 0.94.0+ds-1 on Ubuntu 18.04 LTS. Nevertheless, more recent versions are suggested, available at the [OpenStreetMap Osmadmins PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) or compiling the software from sources.
+
+To install osm2pgsql from package (might not install an updated version):
 
 ```shell
 sudo apt-get install -y osm2pgsql
 ```
 
+To install Osm2pgsql from Osmadmins PPA:
+
+```shell
+sudo add-apt-repository -y ppa:osmadmins/ppa
+apt-key adv --keyserver keyserver.ubuntu.com --recv A438A16C88C6BE41CB1616B8D57F48750AC4F2CB
+sudo apt-get update
+sudo apt-get install -y osm2pgsql
+```
+
 Go to [Get an OpenStreetMap data extract](#get-an-openstreetmap-data-extract).
 
-### Alternative installation procedure
+### Generate Osm2pgsql from sources
 
 This alternative installation procedure generates the most updated executable by compiling the sources.
 
@@ -296,8 +307,9 @@ Prepare for compiling, compile and install:
 
 ```shell
 cd osm2pgsql
-mkdir build && cd build
-cmake ..
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 sudo make install
 cd

@@ -32,7 +32,7 @@ If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo 
 
 ### Install essential tools
 
-    sudo apt-get -y install curl unzip gdal-bin tar wget bzip2 build-essential clang
+    sudo apt-get -y install ca-certificates curl unzip gdal-bin tar wget bzip2 build-essential clang
 
 For the subsequent installation steps, we suppose that `cd` defaults to your home directory.
 

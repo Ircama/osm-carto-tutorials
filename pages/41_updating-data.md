@@ -456,7 +456,7 @@ git clone https://github.com/osmcode/libosmium
 git clone https://github.com/osmcode/osmium-tool
 mkdir build
 cd build
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 sudo make install
 sudo ln /usr/local/bin/osmium /usr/bin
