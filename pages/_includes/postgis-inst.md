@@ -266,9 +266,11 @@ The configuration adopted for PostgreSQL is [postgresql/attributes/default.rb](h
 
 The [default packaged versions](https://launchpad.net/ubuntu/+source/osm2pgsql) of Osm2pgsql are 0.88.1-1 on Ubuntu 16.04 LTS and 0.94.0+ds-1 on Ubuntu 18.04 LTS. Nevertheless, more recent versions are suggested, available at the [OpenStreetMap Osmadmins PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) or compiling the software from sources.
 
-To install osm2pgsql from package (might not install an updated version):
+To install osm2pgsql from package (will not install an updated version):
 
 ```shell
+sudo apt-get install ppa-purge && sudo ppa-purge -y ppa:osmadmins/ppa # This if you need to downgrade osm2pgsql to the stock version
+
 sudo apt-get install -y osm2pgsql
 ```
 
