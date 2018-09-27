@@ -32,14 +32,16 @@ sudo apt-get install ppa-purge && sudo ppa-purge ppa:no1wantdthisname/ppa
 
 We report some alternative procedures to install Mapnik (in the consideration to run an updated version of Ubuntu).
 
-### Install Mapnik library from package
-
-Optionally, a specific PPA made by [talaj](https://github.com/talaj) offers packaged version 3.0.19 of Mapnik for Ubuntu 16.04 LTS Xenial.
+With Ubuntu versions older than 18.04 LTS, the default Mapnik version is older than the minumum one required, which is 3.0.19. Anyway, a specific PPA made by [talaj](https://github.com/talaj) offers the packaged version 3.0.19 of Mapnik for Ubuntu 16.04 LTS Xenial.
 
 ```shell
 sudo add-apt-repository -y ppa:talaj/osm-mapnik
 sudo apt-get update
 ```
+
+Ubuntu 18.04 LTS provides Mapnik 3.0.19 and does not need a specific PPA.
+
+### Install Mapnik library from package
 
 Command to install Mapnik from the standard Ubuntu repository:
 

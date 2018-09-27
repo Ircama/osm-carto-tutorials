@@ -2,15 +2,15 @@
 
 [PostgreSQL](https://www.postgresql.org/) is a relational database, and [PostGIS](http://postgis.net/) is its spatial extender, which allows you to store geographic objects like map data in it; it serves a similar function to ESRI’s SDE or Oracle’s Spatial extension. PostgreSQL + PostGIS are used for a wide variety of features such as rendering maps, geocoding, and analysis.
 
-Currently the tested versions for OpenstreetMap Carto are PostgreSQL 9.5 and PostGIS 2.2:
+Currently the tested versions for OpenstreetMap Carto are PostgreSQL 10 and PostGIS 2.4:
 
-Also older or [newer PostgreSQL version](https://www.postgresql.org/) should be suitable[^94].
+Also older or [newer PostgreSQL version](https://www.postgresql.org/) should be suitable.
 
 On Ubuntu there are pre-packaged versions of both postgis and postgresql, so these can simply be installed via the Ubuntu package manager.
 
 ```shell
 sudo apt-get update
-sudo apt-get install -y postgresql postgis pgadmin3 postgresql-contrib
+sudo apt-get install -y postgresql-10
 ```
 
 With [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux), you need to start the db:
@@ -264,7 +264,7 @@ The configuration adopted for PostgreSQL is [postgresql/attributes/default.rb](h
 
 [Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) is an OpenStreetMap specific software used to load the OSM data into the PostGIS database.
 
-The [default packaged versions](https://launchpad.net/ubuntu/+source/osm2pgsql) of Osm2pgsql are 0.88.1-1 on Ubuntu 16.04 LTS and 0.94.0+ds-1 on Ubuntu 18.04 LTS. Nevertheless, more recent versions are suggested, available at the [OpenStreetMap Osmadmins PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) or compiling the software from sources.
+The [default packaged versions](https://launchpad.net/ubuntu/+source/osm2pgsql) of Osm2pgsql are 0.88.1-1 on Ubuntu 16.04 LTS and 0.96.0 on Ubuntu 18.04 LTS. Nevertheless, more recent versions are suggested, available at the [OpenStreetMap Osmadmins PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) or compiling the software from sources.
 
 To install osm2pgsql from package (will not install an updated version):
 
@@ -421,8 +421,6 @@ Check [The OpenStreetMap data model](https://www.mapbox.com/mapping/osm-data-mod
 Read [custom indexes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#custom-indexes) for further information.
 
 [^93]: .travis.yml [applies](https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml#L43) the custom indexes via `psql -1Xq -v ON_ERROR_STOP=1 -d gis -f indexes.sql`. Notice that *indexes.sql* shall be kept up to date with *indexes.py* and this is also [checked](https://github.com/gravitystorm/openstreetmap-carto/blob/master/.travis.yml#L37) by .travis.yml.
-[^94]: [pnorman comment on 11 Oct 2017](https://github.com/gravitystorm/openstreetmap-carto/issues/2840#issuecomment-335647059)
->>>>>>> 3183e4f4fd5e828210fc2434c754f13613a04260
 [^95]: [osm2pgsql import - disk space running out during index creation](https://help.openstreetmap.org/questions/52672/osm2pgsql-import-disk-space-running-out-during-index-creation)
 [^96]: [Import error: could not extend file](https://help.openstreetmap.org/questions/26900/import-error-could-not-extend-file)
 [^97]: [Most reliable way to import large dataset with osm2psql](https://gis.stackexchange.com/questions/104220/most-reliable-way-to-import-large-dataset-with-osm2psql)

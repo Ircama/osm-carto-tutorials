@@ -21,17 +21,17 @@ Openstreetmap uses [Munin](http://munin-monitoring.org/) for server monitoring,
 
 [Tile server munin graphs](https://munin.openstreetmap.org/openstreetmap/render.openstreetmap/index.html) are available to tell what's happening on the systems; there is also a [description](https://help.openstreetmap.org/questions/527/how-can-i-make-sense-of-muninopenstreetmaporg) on how to interpret them.
 
-Summary of the software configuration of the tile servers as found in some GitHub posts and sites:[^3] [^4]
+Summary of the software configuration of the tile servers as found in some GitHub posts and sites:[^3] [^4] [^5]
 
-* O.S. version: Ubuntu 16.04.1 LTS (old outdated ref. [here](https://github.com/openstreetmap/operations/issues/104))
-* Mapnik version: 3.0.9 (Mapnik 3 is now required); for the most updated information on required version, see [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md).
-* PostgreSQL version: 9.5
-* PostGIS version: 2.2
-* Carto version: 0.18 (it is installed from npm and can be easily upgraded when necessary); for the most updated information on required version, see [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md).
-* osm2pgsql version: [0.88.1 for Ubuntu 16.04 (and 0.90.1 for yakkety)](https://github.com/gravitystorm/openstreetmap-carto/issues/657#issuecomment-247884068)
+* O.S. version: Ubuntu 18.04
+* Mapnik version: 3.0.19 (Mapnik 3 is required; see [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md).
+* PostgreSQL version: 10
+* PostGIS version: 2.4
+* Carto version: 1.1.0 (see [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md).
+* osm2pgsql version: 0.96.1
 * openstreetmap-carto version: check [Configuration of the production Tile Servers](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L93), section *:styles*, item *:revision*.
 * [Currently used carto command line argument](https://github.com/openstreetmap/chef/blob/master/cookbooks/tile/recipes/default.rb#L350)
-* [Usage of nodejs-legacy](https://github.com/openstreetmap/chef/blob/4670fb28130f0c5f6371ddc4932bf856725ee589/cookbooks/nodejs/recipes/default.rb#L25-L27)
+* [Usage of nodejs-legacy no more needed](https://github.com/openstreetmap/chef/blob/master/cookbooks/nodejs/recipes/default.rb#L27-L29)
 
 The [Operations Working Group log](https://gravitystorm.github.io/owg-log/) reports updated information regarding versions.
 
@@ -52,7 +52,8 @@ Other useful references:
 * [Current Tile CDN geographical setup](https://dns.openstreetmap.org/tile.openstreetmap.org.html)
 * [Tile delivery CDN monitoring](https://munin.openstreetmap.org/openstreetmap/tile.openstreetmap/index.html)
 
-[^1]: [math1985](https://github.com/math1985)'s [comment on issue 243](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-264490751)
+[^1]: [math1985](https://github.com/math1985)'s [comment on OpenStreetMap Carto issue 243](https://github.com/gravitystorm/openstreetmap-carto/pull/2473#issuecomment-264490751)
 [^2]: [tomhughes](https://github.com/tomhughes)'s [comment on Chef issue 103](https://github.com/openstreetmap/chef/issues/103#issuecomment-264657532)
-[^3]: [Upgrade tileservers to mapnik3 - chef issue log](https://github.com/openstreetmap/chef/issues/39)
-[^4]: [kocio-pl](https://github.com/kocio-pl)'s [comment on issue 2080](https://github.com/gravitystorm/openstreetmap-carto/issues/2080#issuecomment-249390120)
+[^3]: [Upgrade tileservers to mapnik3 - Chef issue log](https://github.com/openstreetmap/chef/issues/39)
+[^4]: [kocio-pl](https://github.com/kocio-pl)'s [comment on OpenStreetMap Carto issue 2080](https://github.com/gravitystorm/openstreetmap-carto/issues/2080#issuecomment-249390120)
+[^5]: [tomhughes](https://github.com/tomhughes)'s [comment on Chef issue 155](https://github.com/openstreetmap/chef/issues/155#issuecomment-413818970)

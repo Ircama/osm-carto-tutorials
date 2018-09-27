@@ -72,7 +72,19 @@ You can test Apache by accessing it through a browser at *http://your-server-ip*
 
 ## Install Mod_tile from package
 
-If using the [above mentioned talaj PPA](#install-mapnik-library-from-package), *mod_tile/renderd* can be installed from package through the following command:
+[Mod_tile](https://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik.
+
+With Ubuntu 18.04, *mod_tile/renderd* can be installed by adding the [OpenStreetMap PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) maintained by the  
+“OpenStreetMap Administrators” team:
+
+```shell
+sudo add-apt-repository -y ppa:osmadmins/ppa
+sudo apt-get update
+```
+
+Also the [above mentioned talaj PPA](#install-mapnik-library-from-package) is suitable.
+
+After adding the PPA, *mod_tile/renderd* can be installed from package through the following command:
 
 ```shell
 sudo apt-get install -y libapache2-mod-tile
@@ -80,7 +92,18 @@ sudo apt-get install -y libapache2-mod-tile
 
 ## Install Mod_tile from source
 
-[Mod_tile](https://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik. We can compile it from GitHub repository.
+Alternatively to installing Mod_tile via PPA, we can compile it from its GitHub repository.
+
+To remove the previously installed PPA and related packages:
+
+```shell
+sudo apt-get purge -y libapache2-mod-tile
+sudo apt -y autoremove
+sudo add-apt-repository -y --remove ppa:osmadmins/ppa
+sudo add-apt-repository -y --remove ppa:talaj/osm-mapnik
+```
+
+To compile Mod_tile:
 
 ```shell
 sudo apt-get install -y autoconf autogen
@@ -103,19 +126,21 @@ The rendering process implemented by *mod_tile* and *renderd* is well explained 
 
 According to the current [openstreetmap-carto documentation](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#additional-deployment-dependencies), the minimum *carto* ([CartoCSS](https://cartocss.readthedocs.io/en/latest/)) version that can be installed is *0.18*. As *carto* compiles the openstreetmap-carto stilesheets, keeping the same version as in openstreetmap-carto documentation is recommended (instead of simply installing the latest *carto* release).
 
-Install the latest version 0 of *carto* (recommended):
+The latest carto version 1.1.0 is supported and can be installed with
+
+```shell
+sudo npm install -g carto
+```
+
+At the moment of writing, this version produces warnings like ["Styles do not match layer selector .text-low-zoom"](https://github.com/gravitystorm/openstreetmap-carto/issues/3183).
+
+To avoid these warning, install the latest version 0 of *carto* (recommended):
 
 ```shell
 sudo npm install -g carto@0
 ```
 
 It should be *carto 0.18.2* at the time of writing.
-
-If you instead want to install the current development of *carto* (1.0.0 at the time of writing), run the following:
-
-```shell
-sudo npm install -g carto
-```
 
 In case the installation fails, this is possibly due to some incompatibility with npm/Node.js; to fix this, try downgrading the Node.js version.
 
@@ -143,7 +168,7 @@ Test *carto* and produce *style.xml* from the *openstreetmap-carto* style:
 ```shell
 cd ~/src
 cd openstreetmap-carto
-carto -a "3.0.6" project.mml > style.xml
+carto -a "3.0.20" project.mml > style.xml
 ls -l style.xml
 ```
 
