@@ -126,7 +126,7 @@ The rendering process implemented by *mod_tile* and *renderd* is well explained 
 
 According to the current [openstreetmap-carto documentation](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#additional-deployment-dependencies), the minimum *carto* ([CartoCSS](https://cartocss.readthedocs.io/en/latest/)) version that can be installed is *0.18*. As *carto* compiles the openstreetmap-carto stilesheets, keeping the same version as in openstreetmap-carto documentation is recommended (instead of simply installing the latest *carto* release).
 
-The latest carto version 1.1.0 is supported and can be installed with
+The latest carto version 1.1.0 can be installed with
 
 ```shell
 sudo npm install -g carto
@@ -134,7 +134,7 @@ sudo npm install -g carto
 
 At the moment of writing, this version produces warnings like ["Styles do not match layer selector .text-low-zoom"](https://github.com/gravitystorm/openstreetmap-carto/issues/3183).
 
-To avoid these warning, install the latest version 0 of *carto* (recommended):
+To avoid these warning, install the version 0 of *carto*:
 
 ```shell
 sudo npm install -g carto@0
