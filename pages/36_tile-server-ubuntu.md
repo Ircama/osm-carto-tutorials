@@ -456,7 +456,7 @@ Pre-rendering tiles is generally not needed (or not wanted); its main usage is t
 
 To pre-render tiles, use *render_list* command. Pre-rendered tiles will be cached in `/var/lib/mod_tile` directory.
 
-To show all command line option of [render_list]({{ site.baseurl }}/manpage.html?url=https://raw.githubusercontent.com/Ircama/mod_tile/render_list.1-options/docs/render_list.1){:target="_blank"}:
+To show all command line option of [render_list]({{ site.baseurl }}/manpage.html?url=https://raw.githubusercontent.com/openstreetmap/mod_tile/master/docs/render_list.1){:target="_blank"}:
 
 ```shell
 render_list --help
