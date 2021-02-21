@@ -39,6 +39,8 @@ If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo 
 
 [Configure a swap](../kosmtik-ubuntu-setup/#configure-a-swap).
 
+### Install Docker
+
 The documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md) describes 
 how to run OpenStreetMap Carto with Docker. Check it before starting installation.
 
@@ -50,7 +52,15 @@ sudo usermod -aG docker $USER
 # To activate changes, log out and log back in
 ```
 
+You might also need the following:
+
+```shell
+sudo chown $USER /var/run/docker.sock
+```
+
 After logging out and logging back in, you can proceed to install *openstreetmap-carto*.
+
+Go to [the next step](#install-openstreetmap-carto).
 
 Otherwise follow the steps to [install Docker](https://docs.docker.com/engine/installation/linux/ubuntu/) on Ubuntu 18.04, 16.10, 16.04 or 14.04 (e.g., Docker CE) from the Docker site. Check alternatively the [Docker installation script](https://github.com/docker/docker-install).
 
@@ -75,7 +85,9 @@ sudo curl --silent -L $(curl --silent "https://api.github.com/repos/docker/compo
 
 When successful, it shall return the actual installed version.
 
-Install openstreetmap-carto:
+### Install openstreetmap-carto
+
+Clone *openstreetmap-carto* repository into a directory on your host system:
 
 ```shell
 mkdir -p ~/src ; cd ~/src
@@ -83,7 +95,7 @@ git clone https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
 ```
 
-Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
+Download a PBF of OSM data to the same directory where openstreetmap-carto has been downloaded, as mentioned in [DOCKER.md](https://github.com/ gravitystorm/openstreetmap-carto/blob/master/DOCKER.md). The downloaded file shall be named *data.osm.pbf*. E.g.:
 
 ```shell
 curl https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf --output data.osm.pbf
@@ -103,21 +115,51 @@ to
       - "6789:6789"
 ```
 
+If necessary, run `sudo service postgresql stop` to make sure you don't have currently running a native PostgreSQL server which would conflict with Docker's PostgreSQL server.
+
 Complete the installation and access the map from your browser. Run *docker-compose*:
 
+### Import data
+
+To import the data (only necessary the first time or when you change the data file), run the following:
+
 ```shell
-docker-compose up
+docker-compose up import
 ```
 
-The procedure takes many minutes to complete. Wait for `kosmtik:1	[Core] Loading map`.
+The procedure takes many minutes to complete.
+
+### Run the style preview
+
+to run Kosmtik, the style preview application:
+
+```shell
+docker-compose up kosmtik
+```
+
+The first time, the procedure takes many minutes to complete.
+
+Wait for `[Core] Map ready`
 
 With your browser, access the map through *<http://ServerAddress:6789>*
+
+E.g., to view the output of Kosmtik browse to http://localhost:6789
+
+Press Ctrl+C to stop Kosmtik, the style preview application.
 
 To stop the database container:
 
 ```shell
 docker-compose stop db
 ```
+
+To do everything in one step:
+
+```shell
+docker-compose up
+```
+
+Wait for `[Core] Map ready`.
 
 Check also [Recommendations and troubleshooting](#recommendations-and-troubleshooting).
 
