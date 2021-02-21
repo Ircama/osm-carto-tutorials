@@ -1,25 +1,28 @@
 ## Install Node.js
 
-[Node.js](https://nodejs.org/en/) can be installed via different methods, including:
+Install [Node.js](https://nodejs.org/en/) with Ubuntu 20.04 LTS:
 
-- [NodeSource Node.js Binary Distributions](https://github.com/nodesource/distributions)
+```shell
+# Check installations:
+node -v
+nodejs -v
+npm -v
+
+# If components needs to be installed, run the following:
+sudo apt install -y nodejs npm
+```
+
+Go to [Check Node.js versions](#check-nodejs-versions).
+
+Additional notes on Node.js: other modes to install it:
+
+- [NodeSource Node.js Binary Distributions](https://github.com/nodesource/distributions). Check related [installation instructions](https://github.com/nodesource/distributions#installation-instructions).
 - Standard mode with Ubuntu's Advanced Packaging Tool (APT)
 - Version management tools, like:
   - [n](https://github.com/tj/n) (Interactively Manage Your Node.js Versions)
   - [nvm](https://github.com/creationix/nvm) (Node Version Manager)
 
 A [list of useful commands](../nodejs-commands){:target="_blank"} to manage *Node.js* is available at a specific page.
-
-### Installation procedure suggested by openstreetmap-carto
-
-For running Kosmtik, Openstreetmap-carto currently suggests [installing Node.js v6.x](https://github.com/gravitystorm/openstreetmap-carto/blob/master/Dockerfile#L11-L12) from NodeSource Node.js Binary Distributions, basing on related [installation instructions](https://github.com/nodesource/distributions#installation-instructions):
-
-```shell
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && sudo apt-get install -y nodejs
-node -v
-nodejs -v
-npm -v
-```
 
 The above reported Node.js version also supports installing TileMill and Carto.
 
@@ -77,9 +80,12 @@ sudo n lts
 ```
 {% endif %}
 
-To get the installed version number:
+### Check Node.js versions
+
+To get the installed version numbers:
 
 ```shell
 node -v
 npm -v
 ```
+

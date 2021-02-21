@@ -33,6 +33,16 @@ The following subfolders will be created:
 ## Install Kosmtik
 
 ```shell
+sudo npm install -g kosmtik
+```
+
+Go to [next installation steps](#end-of-kosmtik-installation).
+
+### Install Kosmtik from its GitHub repository
+
+As alternative installation method, install Kosmtik from its GitHub repository:
+
+```shell
 mkdir -p ~/src ; cd ~/src
 git clone https://github.com/kosmtik/kosmtik.git
 cd ~/src/kosmtik
@@ -49,7 +59,7 @@ In case the installation fails, this is possibly due to some incompatibility wit
 
 Read [Kosmtik Install or Update](https://github.com/kosmtik/kosmtik#install-or-update) for further information.
 
-## Test Kosmtik
+### Test Kosmtik
 
 ```shell
 cd ~/src/kosmtik
@@ -60,6 +70,10 @@ See [Start Kosmtik](#start-kosmtik).
 
 {% include_relative _includes/test-app.md cdprogram='~/src' %}
 
+### End of Kosmtik installation
+
+Continue with next steps.
+
 {% include_relative _includes/inst-osm-carto.md cdprogram='~/src' %}
 
 {% include_relative _includes/configuration-variables.md os='Ubuntu' %}
@@ -68,7 +82,8 @@ See [Start Kosmtik](#start-kosmtik).
 
 Using your favourite editor, create a file named *localconfig.json* in the *openstreetmap-carto* directory, including the following:
 
-```
+```json
+cat > localconfig.json <<\eof
 [
     {
         "where": "center",
@@ -87,19 +102,20 @@ Using your favourite editor, create a file named *localconfig.json* in the *open
         }
     }
 ]
+eof
 ```
 
 Notice the datasource parameters, including user and password, that you might need to change.
 
 Replace coordinates and zoom with your preferred ones within the following line:
 
-```
+```json
         "then": [9.111, 45.111, 15]
 ```
 
 For instance, for Liechtenstein you would use:
 
-```
+```json
         "then": [9.5634, 47.1237, 15]
 ```
 
@@ -115,8 +131,18 @@ Openstreetmap-carto suggests [installing some Kosmtik plugins](https://github.co
 
 Case of local installation:
 
+## Install Kosmtik plugins
+
 ```shell
-cd ~/src/kosmtik && ./index.js plugins --install kosmtik-overpass-layer --install kosmtik-fetch-remote --install kosmtik-overlay --install kosmtik-open-in-josm --install kosmtik-map-compare --install kosmtik-osm-data-overlay --install kosmtik-mapnik-reference --install kosmtik-geojson-overlay
+cd ~/src/kosmtik
+./index.js plugins --install kosmtik-overpass-layer
+./index.js plugins --install kosmtik-fetch-remote
+./index.js plugins --install kosmtik-overlay
+./index.js plugins --install kosmtik-open-in-josm
+./index.js plugins --install kosmtik-map-compare
+./index.js plugins --install kosmtik-osm-data-overlay
+./index.js plugins --install kosmtik-mapnik-reference
+./index.js plugins --install kosmtik-geojson-overlay
 cd ~/src
 ```
 
@@ -166,3 +192,4 @@ To cosmetically remove these warinings, install the [Old unifont Medium font](#o
 Accessing the database and rendering images is often a slow process (mainly depending on the amount of data to be managed, but also on the server performance and on the network), so give many seconds to Kosmtik to output or refresh the map.
 
 {% include_relative _includes/edit-the-stylesheets.md editor='*vi*' program='Kosmtik' %}
+

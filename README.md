@@ -102,7 +102,7 @@ This chapter summarizes all the steps to locally deploy and test this [jekill](h
     gem install jekyll bundler
     ```
 
-- Update the bundler version in Gemfile.lock. (Gemfile.lock is removed, so that Bundler will fetch all remote sources, resolve dependencies and install all needed gems.)
+- Update the bundler version in Gemfile.lock. (Gemfile.lock is removed, so that Bundler will fetch all remote sources, resolve dependencies and install all needed gems. In general, this also fixes Dependabot security updates on vulnerabilities.)
 
     ```shell
     cd ~/Documents/GitHub/osm-carto-tutorials

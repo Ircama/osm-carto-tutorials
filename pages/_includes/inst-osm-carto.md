@@ -2,10 +2,13 @@
 
 Check that [Python](https://www.python.org/) is installed:
 
-    python -V
-    python3 -V
+```shell
+sudo apt-get install -y python3 python3-distutils
 
-Otherwise Python needs to be installed.
+# Verify Python installation:
+python -V
+python3 -V
+```
 
 ## Install Yaml and Package Manager for Python
 
@@ -15,20 +18,25 @@ This is necessary in order to run OpenStreetMap-Carto scripts/indexes.
 sudo apt-get install -y python-yaml
 
 pip -V # to verify whether pip is already installed
-sudo apt-get install -y python-pip
+sudo apt-get install -y python3-pip
+python3 -m pip install --upgrade pip
 ```
 
 ## Install Mapnik Utilities
 
 The *Mapnik Utilities* package includes shapeindex.
 
-    sudo apt-get install -y mapnik-utils
+```shell
+sudo apt-get install -y mapnik-utils
+```
 
 ## Install *openstreetmap-carto*
 
-    cd {{ include.cdprogram }}
-    git clone https://github.com/gravitystorm/openstreetmap-carto.git
-    cd openstreetmap-carto
+```shell
+cd {{ include.cdprogram }}
+git clone https://github.com/gravitystorm/openstreetmap-carto.git
+cd openstreetmap-carto
+```
 
 Read [installation notes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md) for further information.
 
@@ -38,7 +46,9 @@ Currently Noto fonts are used.
 
 To install them (except Noto Emoji Regular and Noto Sans Arabic UI Regular/Bold):
 
-    sudo apt-get install -y fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted fonts-hanazono ttf-unifont
+```shell
+sudo apt-get install -y fonts-noto-cjk fonts-noto-hinted fonts-noto-unhinted fonts-hanazono ttf-unifont
+```
 
 Installation of Noto fonts (hinted ones should be used if available[^71]):
 
@@ -71,7 +81,9 @@ fc-list | grep Emoji
 
 DejaVu Sans is used as an optional fallback font for systems without Noto Sans. If all the Noto fonts are installed, it should never be used.
 
-    sudo apt-get install -y fonts-dejavu-core
+```shell
+sudo apt-get install -y fonts-dejavu-core
+```
 
 Read [font notes](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#fonts) for further information.
 
@@ -95,18 +107,6 @@ fc-list | grep -i unifont # both uppercase and lowercase fonts will be listed
 ```
 
 Notice that above installation operation is useless, just removes the warning.
-
-## Create the *data* folder
-
-```shell
-cd {{ include.cdprogram }}
-cd openstreetmap-carto
-scripts/get-shapefiles.py
-```
-
-The actual shapefiles loaded by the OpenStreetMap tile servers are reported in the related [Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb#L65-L89).
-
-Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.
 
 [^71]: [pnorman comment on hinted fonts](https://github.com/gravitystorm/openstreetmap-carto/issues/2402#issuecomment-252496456)
 [^72]: [Is lowercase "unifont" needed?](https://github.com/gravitystorm/openstreetmap-carto/issues/2924)

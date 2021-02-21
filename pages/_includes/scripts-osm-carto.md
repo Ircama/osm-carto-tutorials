@@ -1,48 +1,40 @@
 The following scripts are provided to support coding. They are necessary and useful solely during making changes to the map style and are unnecessary for map rendering.
 
-### scripts/get-shapefiles.py
+### scripts/get-external-data.py
 
 This script generates and populates the *data* directory with all needed shapefiles, including indexing them through *shapeindex*. Check [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md) for further documentation.
 
 ```shell
-Command-line options: get-shapefiles.py [-h] [-c] [-d <directory name>] [-e] [-f] [-l] [-n]
-                         [-p] [-r] [-s] [-u] [--world-boundaries]
-                         [--simplified-land] [--ne-admin] [--land-polygons]
-                         [--icesheet-polygons] [--icesheet-outlines]
+usage: get-external-data.py [-h] [-f] [-c CONFIG] [-D DATA] [-d DATABASE] [-H HOST] [-p PORT] [-U USERNAME] [-v] [-q] [-w PASSWORD] [-R RENDERUSER]
+
+Load external data into a database
 
 optional arguments:
   -h, --help            show this help message and exit
-  -c, --check           check whether the 'data' directory already exists
-  -d <directory name>, --directory <directory name>
-                        set the name of the data directory (default: 'data')
-  -e, --no-extract      do not populate target directories with the expansion
-                        of downloaded data
-  -f, --force           force continuing even if project.mml does not exist
-  -l, --no-curl         do not use 'curl' even if available
-  -n, --no-download     do not download archive if already existing locally
-  -p, --pause           pause before starting
-  -r, --remove          remove each downloaded archive after its expansion
-  -s, --no-shape        do not run shapeindex
-  -u, --update          force downloading files even if not newer than the
-                        locally existing ones
-  --world-boundaries    only process world_boundaries
-  --simplified-land     only process simplified-land-polygons-complete-3857
-  --ne-admin            only process ne_110m_admin_0_boundary_lines_land
-  --land-polygons       only process land-polygons-split-3857
-  --icesheet-polygons   only process antarctica-icesheet-polygons-3857
-  --icesheet-outlines   only process antarctica-icesheet-outlines-3857
+  -f, --force           Download new data, even if not required
+  -c CONFIG, --config CONFIG
+                        Name of configuration file (default external-data.yml)
+  -D DATA, --data DATA  Override data download directory
+  -d DATABASE, --database DATABASE
+                        Override database name to connect to
+  -H HOST, --host HOST  Override database server host or socket directory
+  -p PORT, --port PORT  Override database server port
+  -U USERNAME, --username USERNAME
+                        Override database user name
+  -v, --verbose         Be more verbose. Overrides -q
+  -q, --quiet           Only report serious problems
+  -w PASSWORD, --password PASSWORD
+                        Override database password
+  -R RENDERUSER, --renderuser RENDERUSER
+                        User to grant access for rendering
 ```
 
-The script supports Windows, UNIX, Python 2.7, Python 3 and *curl* when installed (anyway *curl* is not required, for more comfortable Windows support). Installation of *shapeindex* is a prerequisite to index files, but is not strictly required if `-s` option is used (anyway, old indexes are not automatically removed; it is better to manually remove indexes from the subfolders when updating the data directory without updating indexes).
-
-*get-shapefiles.py* can be run from the *scripts* directory of *openstreetmap-carto*, or from its base folder, or through absolute path from any directory. It allows a default Web proxy and also the configuration of the HTTP_PROXY environment variable. Windows PAC and NTLM authentication are not supported.
-
-The code exploits an internal dictionary for easy adaptation to future changes. 
+*get-external-data.py* can be run from the *scripts* directory of *openstreetmap-carto*, or from its base folder.
 
 Typical usage:
 
 ```shell
-$ scripts/get-shapefiles.py
+scripts/get-external-data.py
 ```
 
 ### scripts/generate_road_colours.py

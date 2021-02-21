@@ -10,7 +10,7 @@ On Ubuntu there are pre-packaged versions of both postgis and postgresql, so the
 
 ```shell
 sudo apt-get update
-sudo apt-get install -y postgresql-10
+sudo apt-get install -y postgresql postgis
 ```
 
 With [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux), you need to start the db:
@@ -19,38 +19,6 @@ With [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux), you need 
 
 Note: used PostgreSQL port is 5432 (default).
 
-A user named {{ pg_user }} will be created during the installation process.
-
-### Set the password for the *{{ pg_user }}* user
-
-```shell
-psql -U {{ pg_user }}
-\password {{ pg_user }}
-```
-
-Alternative procedure (useful if you get authentication issues with the previous one):
-
-```shell
-sudo su -
-sudo -i -u {{ pg_user}}
-psql -U {{ pg_user}}
-\password {{ pg_user }}
-```
-
-Enter the following password twice: `{{ pg_password }}`
-
-This is just an example of password, you can use the one you prefer.
-
-After entering the password, exit from *psql* with:
-
-    \q
-
-With the second procedure, also isssue:
-
-```shell
-exit # from 'sudo -i -u {{ pg_user}}'
-exit # from 'sudo su -'
-```
 
 ### Create the PostGIS instance
 
@@ -59,11 +27,18 @@ Now you need to create a PostGIS database. The defaults of various programs incl
 The character encoding scheme to be used in the database is *UTF8* and the adopted collation is *en_GB.utf8*. (The `U&"..."` escaped Unicode syntax used in *project.mml* should work [only when the server encoding is UTF8](https://www.postgresql.org/docs/9.5/static/sql-syntax-lexical.html). This is also in line with what reported in the [PostgreSQL Chef configuration code](https://github.com/openstreetmap/chef/blob/master/cookbooks/postgresql/resources/database.rb#L25-L27).)
 
 ```shell
-export PGPASSWORD={{ pg_password }}
+sudo -u postgres createuser -s $USER
 HOSTNAME=localhost # set it to the actual ip address or host name
-psql -U {{ pg_user }} -h $HOSTNAME -c "CREATE DATABASE gis ENCODING 'UTF-8' LC_COLLATE 'en_GB.utf8' LC_CTYPE 'en_GB.utf8'"
+createdb gis --encoding="UTF8" --lc-collate="en_GB.UTF-8" --lc-ctype="en_GB.UTF-8" --template=template0
+psql -d gis -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
+```
 
-# alternative command: createdb -E UTF8 -l en_GB.UTF8 -O {{ pg_user }} gis
+Go to [the next step](#add-a-user-and-grant-access-to-gis-db).
+
+If in different host:
+
+```shell
+createdb gis --host="$HOSTNAME" --encoding="UTF8" --lc-collate="en_GB.UTF-8" --lc-ctype="en_GB.UTF-8" --template=template0
 ```
 
 If you get the following error:
@@ -72,11 +47,15 @@ If you get the following error:
 
 then you need to add *'en_GB.utf8'* locale using the following command:
 
-    sudo dpkg-reconfigure locales
+```shell
+sudo dpkg-reconfigure locales
+```
 
 And select "en_GB.UTF-8 UTF-8" in the first screen ("Locales to be generated"). Subsequently, restarting the db would be suggested:
 
-    sudo service postgresql restart
+```shell
+sudo service postgresql restart
+```
 
 If you get the following error:
 
@@ -137,7 +116,7 @@ Install it and repeat the create extension commands. Notice that PostgreSQL 9.3 
 In order for the application to access the *gis* database, a DB user with the same name of your UNIX user is needed. Let's suppose your UNIX ue is *{{ pg_login }}*.
 
 ```shell
-psql -U {{ pg_user }} -c "create user {{ pg_login }};grant all privileges on database gis to {{ pg_login }};"
+psql -d gis -c "create user tileserver;grant all privileges on database gis to tileserver;"
 ```
 
 ### Enabling remote access to PostgreSQL
@@ -264,14 +243,12 @@ The configuration adopted for PostgreSQL is [postgresql/attributes/default.rb](h
 
 [Osm2pgsql](https://wiki.openstreetmap.org/wiki/Osm2pgsql) is an OpenStreetMap specific software used to load the OSM data into the PostGIS database.
 
-The [default packaged versions](https://launchpad.net/ubuntu/+source/osm2pgsql) of Osm2pgsql are 0.88.1-1 on Ubuntu 16.04 LTS and 0.96.0 on Ubuntu 18.04 LTS. Nevertheless, more recent versions are suggested, available at the [OpenStreetMap Osmadmins PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) or compiling the software from sources.
+The [default packaged versions](https://launchpad.net/ubuntu/+source/osm2pgsql) of Osm2pgsql are 0.88.1-1 on Ubuntu 16.04 LTS and 0.96.0 on Ubuntu 18.04 LTS. Nevertheless, more recent versions are suggested, available at the [OpenStreetMap Osmadmins PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) or [compiling the software from sources](https://github.com/openstreetmap/osm2pgsql).
 
-To install osm2pgsql from package (will not install an updated version):
+To install osm2pgsql:
 
 ```shell
-sudo apt-get install ppa-purge && sudo ppa-purge -y ppa:osmadmins/ppa # This if you need to downgrade osm2pgsql to the stock version
-
-sudo apt-get install -y osm2pgsql
+sudo apt install -y osm2pgsql
 ```
 
 To install Osm2pgsql from Osmadmins PPA:
@@ -334,6 +311,16 @@ To load data from an *.osm* or *.pbf* file to PostGIS, issue the following:
 ```shell
 cd {{ include.cdprogram }}
 cd openstreetmap-carto
+osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis [.osm or .pbf file]
+```
+
+Go to [the next step](#create-the-data-folder).
+
+If using a different server:
+
+```shell
+cd {{ include.cdprogram }}
+cd openstreetmap-carto
 HOSTNAME=localhost # set it to the actual ip address or host name
 osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $HOSTNAME -U {{ pg_user }} [.osm or .pbf file]
 ```
@@ -341,7 +328,7 @@ osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-trans
 Notice that the suggested process adopts the `-s` (`--slim` option), which uses temporary tables, so running it takes more diskspace (and is very slow), while less RAM memory is used. You might add `--drop` option with `-s` (`--slim`), to also drop temporary tables after import, otherwise you will also find the temporary tables *nodes*, *ways*, and *rels* (these tables started out as pure
 “helper” tables for memory-poor systems, but today they are widely used because they are also a prerequisite for updates).
 
-If everything is ok, you can go to [Create indexes and grant users](#create-indexes-and-grant-users).
+If everything is ok, you can go to [the next step](#create-the-data-folder).
 
 Notice that the following elements are used:
 
@@ -378,11 +365,42 @@ or this one:
 then you need to enable *hstore* extension to the db with `CREATE EXTENSION hstore;` and also add the *--hstore* flag to *osm2pgsql*.
 Enabling *hstore* extension and using it with *osm2pgsql* will fix those errors.
 
+## Create the *data* folder
+
+```shell
+python3 -m pip install psycopg2-binary
+
+cd {{ include.cdprogram }}
+cd openstreetmap-carto
+scripts/get-external-data.py
+```
+
+The way shapefiles are loaded by the OpenStreetMap tile servers is reported in the related [Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb).
+
+Read [scripted download](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#scripted-download) for further information.
+
 ## Create indexes and grant users
 
 Create partial indexes to speed up the queries included in *project.mml* and grant access to all *gis* tables to avoid *renderd* errors when accessing tables with user *{{ pg_login }}*.
 
 - Add the partial geometry indexes indicated by *openstreetmap-carto*[^93] to provide effective improvement to the queries:
+
+  ```shell
+  cd {{ include.cdprogram }}
+  cd openstreetmap-carto
+  HOSTNAME=localhost # set it to the actual ip address or host name
+  psql -d gis -f indexes.sql
+  ```
+
+  Alternative mode:
+
+  ```shell
+  cd {{ include.cdprogram }}
+  cd openstreetmap-carto
+  scripts/indexes.py | psql -d gis
+  ```
+
+  If using a different host:
 
   ```shell
   HOSTNAME=localhost # set it to the actual ip address or host name
@@ -391,9 +409,22 @@ Create partial indexes to speed up the queries included in *project.mml* and gra
   scripts/indexes.py | psql -U {{ pg_user }} -h $HOSTNAME -d gis
   ```
 
+  Alternative mode with a different host:
+
+  ```shell
+  HOSTNAME=localhost # set it to the actual ip address or host name
+  psql -U {{ pg_user }} -h $HOSTNAME -d gis -f indexes.sql
+  ```
+
 - {% include_relative _includes/grant.md %}
 
 To list all tables available in the *gis* database, issue the following command:
+
+```shell
+psql -d gis -c "\dt+"
+```
+
+or:
 
 ```shell
 psql -U {{ pg_user }} -h $HOSTNAME -d gis -c "\dt+"
