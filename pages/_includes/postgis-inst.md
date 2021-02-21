@@ -13,9 +13,11 @@ sudo apt-get update
 sudo apt-get install -y postgresql postgis
 ```
 
-With [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux), you need to start the db:
+You need to start the db:
 
-    sudo service postgresql start
+```shell
+sudo service postgresql start
+```
 
 Note: used PostgreSQL port is 5432 (default).
 
@@ -28,7 +30,6 @@ The character encoding scheme to be used in the database is *UTF8* and the adopt
 
 ```shell
 sudo -u postgres createuser -s $USER
-HOSTNAME=localhost # set it to the actual ip address or host name
 createdb gis --encoding="UTF8" --lc-collate="en_GB.UTF-8" --lc-ctype="en_GB.UTF-8" --template=template0
 psql -d gis -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
 ```
@@ -38,6 +39,7 @@ Go to [the next step](#add-a-user-and-grant-access-to-gis-db).
 If in different host:
 
 ```shell
+HOSTNAME=localhost # set it to the actual ip address or host name
 createdb gis --host="$HOSTNAME" --encoding="UTF8" --lc-collate="en_GB.UTF-8" --lc-ctype="en_GB.UTF-8" --template=template0
 ```
 
@@ -311,7 +313,22 @@ To load data from an *.osm* or *.pbf* file to PostGIS, issue the following:
 ```shell
 cd {{ include.cdprogram }}
 cd openstreetmap-carto
-osm2pgsql -s -C 300 -c -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis [.osm or .pbf file]
+
+export OSM2PGSQL_CACHE=${OSM2PGSQL_CACHE:-512}
+export OSM2PGSQL_NUMPROC=${OSM2PGSQL_NUMPROC:-1}
+export OSM2PGSQL_DATAFILE=${OSM2PGSQL_DATAFILE:-data.osm.pbf}
+
+osm2pgsql \
+--cache $OSM2PGSQL_CACHE \
+--number-processes $OSM2PGSQL_NUMPROC \
+--hstore \
+--multi-geometry \
+--database gis \
+--slim \
+--drop \
+--style openstreetmap-carto.style \
+--tag-transform-script openstreetmap-carto.lua \
+[.osm or .pbf file]
 ```
 
 Go to [the next step](#create-the-data-folder).
