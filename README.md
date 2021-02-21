@@ -63,3 +63,58 @@ Summary of the main changes from the default Lanyon Theme:
  * Integrated a Liquid HTML compressor
  * Added a very basic Liquid Javascript compressor
  * Added footnotes management
+ 
+ ---------------
+ 
+# How to locally deploy and test this website
+
+This chapter summarizes all the steps to locally deploy and test this [jekill](https://docs.github.com/en/github/working-with-github-pages/setting-up-a-github-pages-site-with-jekyll)-based [GitHub Pages](https://pages.github.com/) website with Ubuntu.
+
+- Clone this repository (e.g. with [GitHub Desktop](https://desktop.github.com/))
+
+- Not strictly necessary: install [Snap](https://en.wikipedia.org/wiki/Snap_(package_manager)):
+
+    ```shell
+    sudo apt update
+    sudo apt install snapd
+    ```
+
+- Install [Jekyll](https://jekyllrb.com/docs/installation/) and related prerequisites:
+
+    ```shell
+    cd
+
+    # Test that prerequisites are already installed (each command shows how to install the related prerequisite if missing)
+    ruby -v # if missing, install it with e.g.: snap install ruby --classic
+    gem -v
+    cc -v
+    g++ -v
+    make -v
+
+    # Install Ruby
+    sudo apt-get install ruby-full build-essential zlib1g-dev
+    echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
+    echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
+    echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
+    source ~/.bashrc
+
+    # Install jekyll and bundler
+    gem install jekyll bundler
+    ```
+
+- Update the bundler version in Gemfile.lock. (Gemfile.lock is removed, so that Bundler will fetch all remote sources, resolve dependencies and install all needed gems.)
+
+    ```shell
+    cd ~/Documents/GitHub/osm-carto-tutorials
+    rm Gemfile.lock
+    bundle install
+    
+    # Alternatively, you can run "bundle update --bundler"
+    ```
+
+- Finally, serve the website
+
+    ```shell
+    bundle exec jekyll serve
+    ```
+
