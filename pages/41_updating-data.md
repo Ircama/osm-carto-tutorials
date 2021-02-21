@@ -176,7 +176,7 @@ Once *configuration.txt* and *state.txt* are correctly created, a sequence of co
 cd ~/src/openstreetmap-carto
 
 osmosis --read-replication-interval workingDirectory="${WORKOSM_DIR}" --simplify-change --write-xml-change - | \
-osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $PGHOST -U $PGUSER -
+osm2pgsql --append -r xml -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $PGHOST -U $PGUSER -
 ```
 
 Its related execution diagram is the following:
@@ -212,7 +212,7 @@ WORKOSM_DIR=/home/{{ pg_login }}/osmosisworkingdir
 
 cd ~/src/openstreetmap-carto
 osmosis --read-replication-interval workingDirectory="${WORKOSM_DIR}" --simplify-change --write-xml-change - | \
-osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $PGHOST -U $PGUSER -
+osm2pgsql --append -r xml -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $PGHOST -U $PGUSER -
 ```
 
 Save and test it:
@@ -309,7 +309,7 @@ osmosis --read-replication-interval workingDirectory="${WORKOSM_DIR}" --simplify
 
 ~/src/regional/trim_osc.py -d gis --user $PGUSER --host $PGHOST --port $PGPORT --password -p "${WORKOSM_DIR}/liechtenstein.poly" osmChange osmChange
 
-osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $PGHOST -U $PGUSER osmChange
+osm2pgsql --append -r xml -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $PGHOST -U $PGUSER osmChange
 
 rm osmChange
 ```
@@ -492,7 +492,7 @@ WORKOSM_DIR=/home/{{ pg_login }}/osmosisworkingdir
 cd ~/src/openstreetmap-carto
 HOSTNAME=localhost # set it to the actual ip address or host name
 osmosis --read-replication-interval workingDirectory=${WORKOSM_DIR} --simplify-change --write-xml-change - | \
-osm2pgsql --append -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $PGHOST -U $PGUSER -
+osm2pgsql --append -r xml -s -C 300 -G --hstore --style openstreetmap-carto.style --tag-transform-script openstreetmap-carto.lua -d gis -H $PGHOST -U $PGUSER -
 ```
 
 ## Using tools different from osmosis and osm2pgsql
