@@ -33,6 +33,7 @@ The following subfolders will be created:
 ## Install Kosmtik
 
 ```shell
+npm set prefix /usr # Forcing prefix to /usr because Ubuntu sets npm prefix to /usr/local, which breaks the install
 sudo npm install -g kosmtik
 ```
 

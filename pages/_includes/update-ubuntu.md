@@ -32,7 +32,11 @@ If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo 
 
 ### Install essential tools
 
-    sudo apt-get -y install ca-certificates gnupg curl unzip gdal-bin tar wget bzip2 build-essential clang
+```shell
+sudo apt-get -y install ca-certificates gnupg curl unzip gdal-bin \
+tar wget bzip2 build-essential clang python3-psycopg2 python3-yaml \
+python3-requests postgresql-client
+```
 
 Check prerequisites suggested by [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto/blob/master/Dockerfile#L11-L12).
 

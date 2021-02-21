@@ -34,6 +34,8 @@ createdb gis --encoding="UTF8" --lc-collate="en_GB.UTF-8" --lc-ctype="en_GB.UTF-
 psql -d gis -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
 ```
 
+Note: `ERROR:  invalid locale name: "en_GB.UTF-8"` means that *en_GB.UTF-8* locale has not been installed. After installing locale, the database shall be restarted in order to be able to load the locale.
+
 Go to [the next step](#add-a-user-and-grant-access-to-gis-db).
 
 If in different host:
