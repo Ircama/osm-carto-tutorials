@@ -33,8 +33,7 @@ The following subfolders will be created:
 ## Install Kosmtik
 
 ```shell
-npm set prefix /usr # Forcing prefix to /usr because Ubuntu sets npm prefix to /usr/local, which breaks the install
-sudo npm install -g kosmtik
+sudo npm install --unsafe-perm -g kosmtik
 ```
 
 Go to [next installation steps](#end-of-kosmtik-installation).
@@ -44,16 +43,7 @@ Go to [next installation steps](#end-of-kosmtik-installation).
 As alternative installation method, install Kosmtik from its GitHub repository:
 
 ```shell
-mkdir -p ~/src ; cd ~/src
-git clone https://github.com/kosmtik/kosmtik.git
-cd ~/src/kosmtik
-npm install
-```
-
-If you wish to use *kosmtik* everywhere, you need to install it globally (rather than locally, ie. in a node_modules folder inside your current folder); for the global installation, you need the `-g` parameter:
-
-```shell
-sudo npm install -g
+sudo npm install --unsafe-perm -g git+https://github.com/kosmtik/kosmtik
 ```
 
 In case the installation fails, this is possibly due to some incompatibility with npm/Node.js; to fix this, try downgrading the Node.js version.
