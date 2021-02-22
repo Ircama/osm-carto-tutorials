@@ -169,6 +169,22 @@ The obtained report should include the *gis* database, as in the following table
 
 The default PostgreSQL settings aren't great for very large databases like OSM databases. Proper tuning can just about double the performance.
 
+```shell
+sudo vi /etc/postgresql/*/main/pg_hba.conf
+# change: local   all             postgres                                peer
+# to:     local   all             postgres                                trust
+```
+
+After performing the above change, restart the DB:
+
+```shell
+sudo service postgresql restart
+export POSTGRES_USER=postgres
+export PG_MAINTENANCE_WORK_MEM=256MB
+export PG_WORK_MEM=16MB
+bash scripts/tune-postgis.sh
+```
+
 The [PostgreSQL wiki](http://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server) has a page on database tuning.
 
 [Paul Norman’s Blog](http://www.paulnorman.ca/blog/2011/11/loading-a-pgsnapshot-schema-with-a-planet-take-2/) has an interesting note on optimizing the database, which is used here below.
@@ -182,7 +198,7 @@ Besides, important settings are `shared_buffers` and the *write-ahead-log* (*wal
 To edit the PostgreSQL configuration file with *vi* editor:
 
 ```shell
-sudo vi /etc/postgresql/9.5/main/postgresql.conf
+sudo vi /etc/postgresql/*/main/postgresql.conf
 ```
 
 and if you are running PostgreSQL 9.3 (not supported):
