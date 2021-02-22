@@ -36,7 +36,7 @@ The following subfolders will be created:
 sudo npm install --unsafe-perm -g kosmtik
 ```
 
-Go to [next installation steps](#end-of-kosmtik-installation).
+Go to [next installation steps](#python-installation).
 
 ### Install Kosmtik from its GitHub repository
 
@@ -50,24 +50,7 @@ In case the installation fails, this is possibly due to some incompatibility wit
 
 Read [Kosmtik Install or Update](https://github.com/kosmtik/kosmtik#install-or-update) for further information.
 
-### Test Kosmtik
-
-```shell
-cd ~/src/kosmtik
-npm test # you can also run Kosmtik to test: see "Start Kosmtik" below.
-```
-    
-See [Start Kosmtik](#start-kosmtik).
-
-{% include_relative _includes/test-app.md cdprogram='~/src' %}
-
-### End of Kosmtik installation
-
-Continue with next steps.
-
 {% include_relative _includes/inst-osm-carto.md cdprogram='~/src' %}
-
-{% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
 ## Create *localconfig.json*
 
@@ -120,6 +103,21 @@ In this example, the default center is (9.111, 45.111) and the default zoom is 1
 
 Openstreetmap-carto suggests [installing some Kosmtik plugins](https://github.com/gravitystorm/openstreetmap-carto/blob/master/Dockerfile#L19-L26):
 
+Case of global installation (Kosmtik installation with the `-g` option):
+
+```shell
+cd /usr/local/lib/node_modules/kosmtik/
+sudo kosmtik plugins --install kosmtik-overpass-layer \
+                    --install kosmtik-fetch-remote \
+                    --install kosmtik-overlay \
+                    --install kosmtik-open-in-josm \
+                    --install kosmtik-map-compare \
+                    --install kosmtik-osm-data-overlay \
+                    --install kosmtik-mapnik-reference \
+                    --install kosmtik-geojson-overlay
+cd ~/src
+```
+
 Case of local installation:
 
 ## Install Kosmtik plugins
@@ -137,27 +135,24 @@ cd ~/src/kosmtik
 cd ~/src
 ```
 
-Case of global installation (Kosmtik installation with the `-g` option):
-
-```shell
-test -d /usr/lib/node_modules/kosmtik && cd /usr/lib/node_modules/kosmtik && sudo kosmtik plugins --install kosmtik-overpass-layer --install kosmtik-fetch-remote --install kosmtik-overlay --install kosmtik-open-in-josm --install kosmtik-map-compare --install kosmtik-osm-data-overlay --install kosmtik-mapnik-reference --install kosmtik-geojson-overlay
-cd ~/src
-```
-
 Full list of plugins can be found within the [Kosmtik GitHub repository](https://github.com/kosmtik).
 
 ## Start Kosmtik
 
 Run Kosmtik:
 
+in case of installation with the `-g` option:
+
 ```shell
-~/src/kosmtik/index.js serve ~/src/openstreetmap-carto/project.mml --localconfig ~/src/openstreetmap-carto/localconfig.json --host 0.0.0.0
+cd ~/src
+cd openstreetmap-carto
+kosmtik serve project.mml --host 0.0.0.0
 ```
 
-or also, in case of installation with the `-g` option:
+or also, in case of local installation:
 
 ```shell
-kosmtik serve ~/src/openstreetmap-carto/project.mml --localconfig ~/src/openstreetmap-carto/localconfig.json --host 0.0.0.0
+~/src/kosmtik/index.js serve ~/src/openstreetmap-carto/project.mml --localconfig ~/src/openstreetmap-carto/localconfig.json --host 0.0.0.0
 ```
 
 Read [Usage](https://github.com/kosmtik/kosmtik#usage) for further information.

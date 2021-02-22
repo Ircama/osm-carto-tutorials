@@ -182,6 +182,8 @@ sudo service postgresql restart
 export POSTGRES_USER=postgres
 export PG_MAINTENANCE_WORK_MEM=256MB
 export PG_WORK_MEM=16MB
+cd ~/src
+cd openstreetmap-carto
 bash scripts/tune-postgis.sh
 ```
 
