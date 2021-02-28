@@ -41,9 +41,11 @@ sudo apt-get update
 
 Ubuntu 18.04 LTS provides Mapnik 3.0.19 and does not need a specific PPA.
 
-### Install Mapnik library from package
+### Install Mapnik library from package (only valid for Ubuntu 18.04)
 
-Command to install Mapnik from the standard Ubuntu repository:
+With Ubuntu 20.04 LTS, skip this paragraph and go to [mapnik installation from sources](#alternatively-install-mapnik-from-sources).
+
+For Ubuntu 18.04 (not Ubuntu 20), the following command installs Mapnik from the standard Ubuntu repository:
 
 ```shell
 sudo apt-get install -y git autoconf libtool libxml2-dev libbz2-dev \
@@ -65,9 +67,19 @@ After installing Mapnik from package, go to [check Mapnik installation](#verify-
 
 ### Alternatively, install Mapnik from sources
 
-To install the latest Mapnik version, you need to recompile it from sources.
+To install Mapnik from sources, follow the [Mapnik installation page for Ubuntu](https://github.com/mapnik/mapnik/wiki/UbuntuInstallation).
 
-Refer to [Mapnik Ubuntu Installation](https://github.com/mapnik/mapnik/wiki/UbuntuInstallation) to for specific documentation.
+First create a directory to load the sources:
+
+```shell
+mkdir -p ~/src ; cd ~/src
+```
+
+Note: if you get the following error: `++ compiler does not support C++14 standard (-std=c++14), which is required. Please upgrade your compiler`, use this explort instead of the one included in the linked documentation:
+
+```
+export CXX="clang++-10" && export CC="clang-10"
+```
 
 Refer to [Mapnik Releases](https://github.com/mapnik/mapnik/releases) for the latest version and changelog.
 
@@ -79,11 +91,6 @@ sudo add-apt-repository --remove -y ppa:mapnik/nightly-trunk
 sudo add-apt-repository --remove -y ppa:talaj/osm-mapnik
 ```
 
-First create a directory to load the sources:
-
-```shell
-mkdir -p ~/src ; cd ~/src
-```
 
 Install prerequisites:
 
@@ -92,18 +99,14 @@ sudo apt-get install -y libxml2-dev libfreetype6-dev \
   libjpeg-dev libpng-dev libproj-dev libtiff-dev \
   libcairo2 libcairo2-dev python-cairo python-cairo-dev \
   libgdal-dev git
-
 sudo apt-get install -y build-essential python-dev libbz2-dev libicu-dev
-```
+sudo apt-get install -y python zlib1g-dev clang make pkg-config curl
 
-Notice that the [Mapnik installation document for Ubuntu 16.04](https://github.com/mapnik/mapnik/wiki/UbuntuInstallation#ubuntu-1604) suggests to first update the compiler (not to be done for Ubuntu 18.04):
-
-```shell
+# you might have to update your outdated clang
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-sudo apt-get update
+sudo apt-get update -y
 sudo apt-get install -y gcc-6 g++-6 clang-3.8
-
-export CXX="clang++-3.8" && export CC="clang-3.8"
+export CXX="clang++-10" && export CC="clang-10"
 ```
 
 Check `clang --version` and `g++-6 --version` before upgrading the compiler. As mentioned, installing *gcc-6* and *clang-3.8* should only be done with Ubuntu 16.04, which by default comes with older versions (not with Ubuntu 18.04).
@@ -188,22 +191,10 @@ Download the latest sources of Mapnik:
 
 ```shell
 cd ~/src
-git clone -b v3.0.x https://github.com/mapnik/mapnik.git --depth 10
+git clone https://github.com/mapnik/mapnik mapnik --depth 10
 cd mapnik
 git submodule update --init
-```
-
-Procedure to build Mapnik with Ubuntu 18.04 LTS or Ubuntu 16.04 with the default compiler:
-
-```shell
-./configure && make
-```
-
-The above reported commands are appropriate with *boost* installed from package (or compiled with the default compiler).
-
-Wen using the upgraded compiler with Ubuntu 16.04 (suggested mode), ensure that you have set `export CXX="clang++-3.8" && export CC="clang-3.8"` before. Then do the following:
-
-```shell
+source bootstrap.sh
 ./configure CUSTOM_CXXFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0" CXX=${CXX} CC=${CC}
 make
 ```
@@ -211,6 +202,8 @@ make
 After Mapnik is successfully compiled, use the following command to install it to your system:
 
 ```shell
+make
+make test
 sudo make install
 cd ~/
 ```
