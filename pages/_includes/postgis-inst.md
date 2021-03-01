@@ -123,6 +123,7 @@ In order for the application to access the *gis* database, a DB user with the sa
 
 ```shell
 psql -d gis -c "create user tileserver;grant all privileges on database gis to tileserver;"
+psql -d gis -c 'create user "www-data";grant all privileges on database gis to "www-data";'
 ```
 
 ### Enabling remote access to PostgreSQL
@@ -193,12 +194,23 @@ Run *tune-postgis.sh*:
 export POSTGRES_USER=postgres
 export PG_MAINTENANCE_WORK_MEM=256MB
 export PG_WORK_MEM=16MB
+export psql=psql
+
 cd ~/src
 cd openstreetmap-carto
 bash scripts/tune-postgis.sh
 ```
 
 Whitout setting *postgres* to *trust*, the following error occurs: `psql: error: FATAL:  Peer authentication failed for user "postgres"` when running *tune-postgis.sh*.
+
+Configure a [swap](#configure-a-swap) to prevent the following message:
+
+```
+INFO:root:Checking table water_polygons
+Killed
+```
+
+To cleanup the *data* directory and redo again *tune-postgis.sh*: `rm -rf data`.
 
 #### Optional further tuning requirements
 
@@ -418,6 +430,8 @@ then you need to enable *hstore* extension to the db with `CREATE EXTENSION hsto
 Enabling *hstore* extension and using it with *osm2pgsql* will fix those errors.
 
 ## Create the *data* folder
+
+At least 18 GB HD and appropriate RAM/swap is needed for this step (24 GB HD is better). 8 GB HD will not be enough.
 
 ```shell
 python3 -m pip install psycopg2-binary

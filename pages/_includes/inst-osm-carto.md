@@ -33,6 +33,7 @@ sudo apt-get install -y mapnik-utils
 ## Install *openstreetmap-carto*
 
 ```shell
+mkdir -p {{ include.cdprogram }}
 cd {{ include.cdprogram }}
 git clone https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
@@ -54,8 +55,9 @@ Installation of Noto fonts (hinted ones should be used if available[^71]):
 
 ```shell
 cd ~/src
-git clone https://github.com/googlei18n/noto-emoji.git
-git clone https://github.com/googlei18n/noto-fonts.git
+git clone https://github.com/googlefonts/noto-emoji.git
+git clone https://github.com/googlefonts/noto-fonts.git
+
 sudo cp noto-emoji/fonts/NotoColorEmoji.ttf /usr/share/fonts/truetype/noto
 sudo cp noto-emoji/fonts/NotoEmoji-Regular.ttf /usr/share/fonts/truetype/noto
 sudo cp noto-fonts/hinted/NotoSansArabicUI-Regular.ttf /usr/share/fonts/truetype/noto
@@ -73,7 +75,22 @@ sudo cp noto-fonts/hinted/NotoSansSinhalaUI-Bold.ttf /usr/share/fonts/truetype/n
 sudo cp noto-fonts/hinted/NotoSansSymbols-Bold.ttf /usr/share/fonts/truetype/noto
 sudo cp noto-fonts/hinted/NotoSansArabicUI-Bold.ttf /usr/share/fonts/truetype/noto
 sudo cp noto-fonts/unhinted/NotoSansSymbols2-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/hinted/ttf/NotoSansBalinese/NotoSansBalinese-Regular.ttf /usr/share/fonts/truetype/noto
+sudo cp noto-fonts/archive/hinted/NotoSansSyriac/NotoSansSyriac-Regular.ttf /usr/share/fonts/truetype/noto
+
+mkdir NotoSansSyriacEastern-unhinted
+cd NotoSansSyriacEastern-unhinted
+wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansSyriacEastern-unhinted.zip
+unzip NotoSansSyriacEastern-unhinted.zip
+sudo cp NotoSansSyriacEastern-Regular.ttf /usr/share/fonts/truetype/noto
+cd ..
+
 sudo apt install fontconfig
+```
+
+At the end:
+
+```shell
 sudo fc-cache -fv
 fc-list
 fc-list | grep Emoji

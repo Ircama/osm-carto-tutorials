@@ -170,7 +170,7 @@ Test *carto* and produce *style.xml* from the *openstreetmap-carto* style:
 ```shell
 cd ~/src
 cd openstreetmap-carto
-carto -a "3.0.20" project.mml > style.xml
+carto -a "3.0.22" project.mml > style.xml
 ls -l style.xml
 ```
 
@@ -199,6 +199,10 @@ sudo vi /usr/local/etc/renderd.conf
 ```
 
 Note: when installing *mod_tile* from package, the pathname is */etc/renderd.conf*. 
+
+```shell
+sudo vi /etc/renderd.conf
+```
 
 In `[mapnik]` section, change the value of the *plugins_dir* parameter to reflect the one returned by `mapnik-config --input-plugins`:
 
@@ -303,7 +307,7 @@ DAEMON_ARGS="-c /usr/local/etc/renderd.conf"
 RUNASUSER={{ pg_login }}
 ```
 
-Note: when installing *mod_tile* from package, keep `DAEMON=/usr/bin/$NAME` and `DAEMON_ARGS="-c /etc/renderd.conf"`.
+Important note: when installing *mod_tile* from package, keep `DAEMON=/usr/bin/$NAME` and `DAEMON_ARGS="-c /etc/renderd.conf"`.
 
 In `RUNASUSER={{ pg_login }}` we suppose that your user is *{{ pg_login }}*. Change it to your actual user name.
 
@@ -371,6 +375,7 @@ sudo ln -s /etc/apache2/mods-available/mod_tile.load /etc/apache2/mods-enabled/
 Then edit the default virtual host file.
 
 ```shell
+test -f /etc/apache2/sites-enabled/000-default.conf || sudo ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled
 sudo vi /etc/apache2/sites-enabled/000-default.conf
 ```
 
@@ -388,6 +393,10 @@ ModTileMissingRequestTimeout 60
 ```
 
 Note: when installing *mod_tile* from package, set `LoadTileConfigFile /etc/renderd.conf`. 
+
+```apache
+LoadTileConfigFile /etc/renderd.conf
+```
 
 Save and close the file.
 
@@ -573,7 +582,11 @@ Check existence of `/var/run/renderd`:
 ls -ld /var/run/renderd
 ```
     
-Verify that the access permission are `-rw-r--r--  1 {{ pg_login }} {{ pg_login }}`.
+Verify that the access permission are `-rw-r--r--  1 {{ pg_login }} {{ pg_login }}`. You can temporarily do
+
+```shell
+sudo chmod 777 /var/run/renderd
+```
 
 Check existence of the *style.xml* file:
     
