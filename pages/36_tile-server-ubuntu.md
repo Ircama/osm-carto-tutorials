@@ -132,7 +132,9 @@ The latest carto version 1.1.0 can be installed with
 sudo npm install -g carto
 ```
 
-At the moment of writing, this version produces warnings like ["Styles do not match layer selector .text-low-zoom"](https://github.com/gravitystorm/openstreetmap-carto/issues/3183).
+This works with Ubuntu 20.04 LTS.
+
+Up to Ubuntu 18.04 LTS, this version produces warnings like ["Styles do not match layer selector .text-low-zoom"](https://github.com/gravitystorm/openstreetmap-carto/issues/3183).
 
 To avoid these warning, install the version 0 of *carto*:
 
@@ -175,8 +177,6 @@ ls -l style.xml
 When selecting the appropriate API version, you should not get any relevant warning message.
 
 The command `sudo apt-get install -y node-carto` might install an old *carto* version, not compatible with Openstreetmap Carto, and should be avoided.
-
-{% include_relative _includes/configuration-variables.md os='Ubuntu' %}
 
 {% include_relative _includes/postgis-inst.md port='80 and local port 443' cdprogram='~/src' %}
 

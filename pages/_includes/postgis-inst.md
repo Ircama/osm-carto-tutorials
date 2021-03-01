@@ -40,6 +40,8 @@ Go to [the next step](#add-a-user-and-grant-access-to-gis-db).
 
 If in different host:
 
+{% include_relative _includes/configuration-variables.md os='Ubuntu' %}
+
 ```shell
 HOSTNAME=localhost # set it to the actual ip address or host name
 createdb gis --host="$HOSTNAME" --encoding="UTF8" --lc-collate="en_GB.UTF-8" --lc-ctype="en_GB.UTF-8" --template=template0

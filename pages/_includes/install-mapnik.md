@@ -51,7 +51,7 @@ sudo apt-get install -y git autoconf libtool libxml2-dev libbz2-dev \
   libmapnik-dev mapnik-utils python3-mapnik
 ```
 
-With Ubuntu 18.04 LTS, you might use python-mapnik instead of python3-mapnik.
+With Ubuntu 18.04 LTS, you might use *python-mapnik* instead of *python3-mapnik*.
 
 [Launchpad reports the Mapnik version](https://launchpad.net/mapnik/+packages) installed from package depending on the operating system; the newer the OS, the higher the Mapnik release.
 
@@ -258,7 +258,7 @@ mapnik-config --input-plugins
 
 Check then with Python 3:
 ```shell
-    python3 -c "import mapnik;print(mapnik.__file__)"
+python3 -c "import mapnik;print(mapnik.__file__)"
 ```
 
 If python 2.7 is used, use this command to check:
