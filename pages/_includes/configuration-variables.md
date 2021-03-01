@@ -4,7 +4,7 @@
 {% assign pg_password = 'postgres_007%' %}
 
 {% endcapture %}{% assign cache = nil %}{% if include.notitle != "yes" %}
-## Set the environment variables
+### Set the environment variables
 {% endif %}{% if include.os == "Windows" %}
 ```batchfile
 setx PGHOST localhost

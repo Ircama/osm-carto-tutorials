@@ -127,7 +127,7 @@ psql -d gis -c "create user tileserver;grant all privileges on database gis to t
 
 ### Enabling remote access to PostgreSQL
 
-To remotely access PostgreSQL, you need to edit *pg_hba.conf*:
+If in different host, to remotely access PostgreSQL, you need to edit *pg_hba.conf*:
 
 ```shell
 sudo vi /etc/postgresql/9.5/main/pg_hba.conf
@@ -171,6 +171,10 @@ The obtained report should include the *gis* database, as in the following table
 
 The default PostgreSQL settings aren't great for very large databases like OSM databases. Proper tuning can just about double the performance.
 
+#### Minimum tuning requirements
+
+Set the *postgres* user to *trust*:
+
 ```shell
 sudo vi /etc/postgresql/*/main/pg_hba.conf
 # change: local   all             postgres                                peer
@@ -181,6 +185,11 @@ After performing the above change, restart the DB:
 
 ```shell
 sudo service postgresql restart
+```
+
+Run *tune-postgis.sh*:
+
+```shell
 export POSTGRES_USER=postgres
 export PG_MAINTENANCE_WORK_MEM=256MB
 export PG_WORK_MEM=16MB
@@ -188,6 +197,10 @@ cd ~/src
 cd openstreetmap-carto
 bash scripts/tune-postgis.sh
 ```
+
+Whitout setting *postgres* to *trust*, the following error occurs: `psql: error: FATAL:  Peer authentication failed for user "postgres"` when running *tune-postgis.sh*.
+
+#### Optional further tuning requirements
 
 The [PostgreSQL wiki](http://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server) has a page on database tuning.
 
