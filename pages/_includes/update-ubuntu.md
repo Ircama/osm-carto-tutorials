@@ -38,6 +38,13 @@ tar wget bzip2 build-essential clang python3-psycopg2 python3-yaml \
 python3-requests postgresql-client
 ```
 
+Optional elements:
+
+```shell
+sudo apt-get -y install munin-node munin protobuf-c-compiler libtiff5-dev
+libcairomm-1.0-dev libagg-dev lua5.1 liblua5.1-0-dev
+```
+
 Check prerequisites suggested by [openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto/blob/master/Dockerfile#L11-L12).
 
 For the subsequent installation steps, we suppose that `cd` defaults to your home directory.

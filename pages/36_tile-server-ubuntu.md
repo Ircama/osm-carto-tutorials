@@ -74,7 +74,7 @@ You can test Apache by accessing it through a browser at *http://your-server-ip*
 
 [Mod_tile](https://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik.
 
-With Ubuntu 18.04, *mod_tile/renderd* can be installed by adding the [OpenStreetMap PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) maintained by the  
+With Ubuntu 18.04, *mod_tile/renderd* can be installed by adding the [OpenStreetMap PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) maintained by the
 “OpenStreetMap Administrators” team:
 
 ```shell
@@ -109,6 +109,10 @@ To compile Mod_tile:
 sudo apt-get install -y autoconf autogen
 mkdir -p ~/src ; cd ~/src
 git clone https://github.com/openstreetmap/mod_tile.git
+
+# Alternative repository:
+# git clone -b switch2osm git://github.com/SomeoneElseOSM/mod_tile.git
+
 cd mod_tile
 ./autogen.sh && ./configure && make && sudo make install && sudo make install-mod_tile && sudo ldconfig
 cd ~/
@@ -198,7 +202,7 @@ Edit *renderd* configuration file with your preferite editor:
 sudo vi /usr/local/etc/renderd.conf
 ```
 
-Note: when installing *mod_tile* from package, the pathname is */etc/renderd.conf*. 
+Note: when installing *mod_tile* from package, the pathname is */etc/renderd.conf*.
 
 ```shell
 sudo vi /etc/renderd.conf
@@ -219,7 +223,7 @@ plugins_dir=/usr/lib/mapnik/2.2/input/
 ```
 
 With Mapnik 3.0 from sources:
-	
+
 ```ini
 plugins_dir=/usr/local/lib/mapnik/input/
 ```
@@ -239,7 +243,7 @@ HOST=localhost
 ```
 
 Notice that URI shall be set to `/osm_tiles/`.
-   
+
 Also, substitute all `;** ` with `;xxx=** ` (e.g., with vi `:1,$s/^;\*\* /;xxx=** /g`).
 
 We suppose in the above example that your home directory is */home/{{ pg_login }}*. Change it to your actual home directory.
@@ -283,7 +287,7 @@ Install *renderd* init script by copying the sample init script included in its 
 sudo cp ~/src/mod_tile/debian/renderd.init /etc/init.d/renderd
 ```
 
-Note: when installing *mod_tile* from package, the above command is not needed. 
+Note: when installing *mod_tile* from package, the above command is not needed.
 
 Grant execute permission.
 
@@ -291,7 +295,7 @@ Grant execute permission.
 sudo chmod a+x /etc/init.d/renderd
 ```
 
-Note: when installing *mod_tile* from package, the above command is not needed. 
+Note: when installing *mod_tile* from package, the above command is not needed.
 
 Edit the init script file
 
@@ -321,7 +325,7 @@ sudo mkdir -p /var/lib/mod_tile
 sudo chown {{ pg_login }}:{{ pg_login }} /var/lib/mod_tile
 ```
 
-Note: when installing *mod_tile* from package, the above commands are not needed. 
+Note: when installing *mod_tile* from package, the above commands are not needed.
 
 Again change it to your actual user name.
 
@@ -392,7 +396,7 @@ ModTileRequestTimeout 3
 ModTileMissingRequestTimeout 60
 ```
 
-Note: when installing *mod_tile* from package, set `LoadTileConfigFile /etc/renderd.conf`. 
+Note: when installing *mod_tile* from package, set `LoadTileConfigFile /etc/renderd.conf`.
 
 ```apache
 LoadTileConfigFile /etc/renderd.conf
@@ -505,6 +509,12 @@ For both *render_list* and *render_list_geo.pl*, option `-m` allows selecting sp
 
 ## Troubleshooting Apache, mod_tile and renderd
 
+To monitor the tile server, showing a line every time a tile is requested, and one every time related rendering is completed:
+
+```shell
+tail -f /var/log/syslog | grep " TILE "
+```
+
 To clear all osm tiles cache, remove /var/lib/mod_tile/default (using rm -rf if you dare) and restart renderd daemon:
 
 ```shell
@@ -581,7 +591,7 @@ Check existence of `/var/run/renderd`:
 ```shell
 ls -ld /var/run/renderd
 ```
-    
+
 Verify that the access permission are `-rw-r--r--  1 {{ pg_login }} {{ pg_login }}`. You can temporarily do
 
 ```shell
@@ -589,7 +599,7 @@ sudo chmod 777 /var/run/renderd
 ```
 
 Check existence of the *style.xml* file:
-    
+
 ```shell
 ls -l /home/{{ pg_login }}/src/openstreetmap-carto/style.xml
 ```
@@ -710,7 +720,7 @@ Notice we are using *https* for *openstreetmap.org*.
     left: auto;
     right: 0;
     top: 85px;
-  }  
+  }
   .ol-zoom {
     top: 3em;
   }
@@ -801,7 +811,7 @@ Notice we are using *https* for *openstreetmap.org*.
         url: 'osm_tiles/{z}/{x}/{y}.png'
       })
     });
-    
+
     // Set up the OSM layer
     var openStreetMap = new ol.layer.Tile({
       preload: Infinity,
@@ -828,7 +838,7 @@ Notice we are using *https* for *openstreetmap.org*.
       center: ol.proj.transform(center, 'EPSG:4326', 'EPSG:3857'),
       zoom: zoom
     });
-    
+
     // Create the map
     var map = new ol.Map({
       layers: [myTileServer, openStreetMap],
@@ -882,7 +892,7 @@ Notice we are using *https* for *openstreetmap.org*.
     });
 
     var swipe = document.getElementById('swipe');
-    
+
     openStreetMap.on('precompose', function(event) {
         var ctx = event.context;
         var width = ctx.canvas.width * (swipe.value / 100);
@@ -897,7 +907,7 @@ Notice we are using *https* for *openstreetmap.org*.
         var ctx = event.context;
         ctx.restore();
       });
-    
+
     swipe.addEventListener('input', function() {
         map.render();
     }, false);
@@ -952,7 +962,7 @@ Paste the following HTML code in the file. Replace *your-server-ip* with your IP
   <script>
     // Create the map
     var map = L.map('map').setView([45, 10], 3);
-    
+
     // Set up the OSM layer
     L.tileLayer(
     'http://your-server-ip/osm_tiles/{z}/{x}/{y}.png'
@@ -974,8 +984,9 @@ A rapid way to test the slippy map is through an online source code playground l
 
 [^1]: sources used for this document are the following:
 
+    * [switch2osm.org - Manually building a tile server (20.04 LTS)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-20-04-lts/)
     * [switch2osm.org - Manually building a tile server (18.04 LTS)](https://switch2osm.org/manually-building-a-tile-server-18-04-lts/)
-	* [switch2osm.org - Manually building a tile server (16.04.2 LTS)](https://switch2osm.org/manually-building-a-tile-server-16-04-2-lts/)
+    * [switch2osm.org - Manually building a tile server (16.04.2 LTS)](https://switch2osm.org/manually-building-a-tile-server-16-04-2-lts/)
     * [switch2osm.org - Manually building a tile server (14.04)](https://switch2osm.org/serving-tiles/manually-building-a-tile-server-14-04/)
     * [OSM Wiki - Mod tile/Setup of your own tile server](https://wiki.openstreetmap.org/wiki/Mod_tile/Setup_of_your_own_tile_server)
     * [Build Your Own OpenStreetMap Tile Server on Ubuntu 16.04](https://www.linuxbabe.com/linux-server/openstreetmap-tile-server-ubuntu-16-04)

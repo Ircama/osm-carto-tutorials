@@ -20,15 +20,13 @@ Examples:
 
       wget -c https://download.geofabrik.de/europe/great-britain-latest.osm.pbf
 
-* Map data of Lombardy (279M):
-
-      wget -c https://osm-estratti.wmflabs.org/estratti/regioni/pbf/03---Lombardia.pbf
-
 * For just Liechtenstein:
 
-      wget https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf.md5
       wget https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf
-      md5sum -c liechtenstein-latest.osm.pbf.md5 # Check that the download wasn't corrupted
+      wget https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf.md5
+
+      # Optionally, the following will xheck that the download wasn't corrupted:
+      md5sum -c liechtenstein-latest.osm.pbf.md5
 
 Another method to download data is directly with your browser. Check [this page](https://wiki.openstreetmap.org/wiki/Downloading_data).
 

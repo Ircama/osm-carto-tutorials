@@ -13,6 +13,12 @@ sudo apt-get update
 sudo apt-get install -y postgresql postgis
 ```
 
+Optional installations:
+
+```shell
+sudo apt-get install -y postgresql-contrib postgresql-12-postgis-3 postgresql-12-postgis-3-scripts
+```
+
 You need to start the db:
 
 ```shell
@@ -122,8 +128,11 @@ Install it and repeat the create extension commands. Notice that PostgreSQL 9.3 
 In order for the application to access the *gis* database, a DB user with the same name of your UNIX user is needed. Let's suppose your UNIX ue is *{{ pg_login }}*.
 
 ```shell
-psql -d gis -c "create user tileserver;grant all privileges on database gis to tileserver;"
+psql -d gis -c "create user tileserver;grant all privileges on database gis to {{ pg_user }};"
 psql -d gis -c 'create user "www-data";grant all privileges on database gis to "www-data";'
+
+psql -d gis -c 'ALTER TABLE geometry_columns OWNER TO {{ pg_user }};'
+psql -d gis -c 'ALTER TABLE spatial_ref_sys OWNER TO  {{ pg_user }};'
 ```
 
 ### Enabling remote access to PostgreSQL
@@ -155,7 +164,7 @@ sudo /etc/init.d/postgresql restart
 ```
 
 Check that the *gis* database is available. To list all databases defined in PostgreSQL, issue the following command:
- 
+
 ```shell
 psql -U {{ pg_user }} -h $HOSTNAME -c "\l+"
 ```
@@ -328,7 +337,7 @@ Download osm2pgsql:
 
 ```shell
 mkdir -p ~/src ; cd ~/src
-git clone git://github.com/openstreetmap/osm2pgsql.git 
+git clone git://github.com/openstreetmap/osm2pgsql.git
 ```
 
 Prepare for compiling, compile and install:
@@ -378,6 +387,14 @@ osm2pgsql \
 [.osm or .pbf file]
 ```
 
+With available memory, set `export OSM2PGSQL_CACHE=2500`; it allocates 2.5 GB of memory to the import process.
+
+Option `--create` loads data into an empty database rather than trying to append to an existing one.
+
+Relaying to OSM2PGSQL_NUMPROC, if you have more cores available, you can set it accordingly.
+
+The [osm2pgsql manual](https://osm2pgsql.org/doc/manual.html) describes usage and all options in detail.
+
 Go to [the next step](#create-the-data-folder).
 
 If using a different server:
@@ -425,13 +442,13 @@ or this one:
 
     Postgis Plugin: ERROR:  column "tags" does not exist
     LINE 8: ...ASE WHEN "natural" IN ('mud') THEN "natural" ELSE tags->'wet...
-   
+
 then you need to enable *hstore* extension to the db with `CREATE EXTENSION hstore;` and also add the *--hstore* flag to *osm2pgsql*.
 Enabling *hstore* extension and using it with *osm2pgsql* will fix those errors.
 
 ## Create the *data* folder
 
-At least 18 GB HD and appropriate RAM/swap is needed for this step (24 GB HD is better). 8 GB HD will not be enough.
+At least 18 GB HD and appropriate RAM/swap is needed for this step (24 GB HD is better). 8 GB HD will not be enough. With 1 GB RAM, configuring a swap is mandatory.
 
 ```shell
 python3 -m pip install psycopg2-binary
@@ -440,6 +457,8 @@ cd {{ include.cdprogram }}
 cd openstreetmap-carto
 scripts/get-external-data.py
 ```
+
+To cleanup the *get-external-data.py* procedure and restart from scratch, remove the *data* directory (`rm -r data`).
 
 The way shapefiles are loaded by the OpenStreetMap tile servers is reported in the related [Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb).
 
