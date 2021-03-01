@@ -41,17 +41,17 @@ sudo apt-get update
 
 Ubuntu 18.04 LTS provides Mapnik 3.0.19 and does not need a specific PPA.
 
-### Install Mapnik library from package (only valid for Ubuntu 18.04)
+### Install Mapnik library from package
 
-With Ubuntu 20.04 LTS, skip this paragraph and go to [mapnik installation from sources](#alternatively-install-mapnik-from-sources).
-
-For Ubuntu 18.04 (not Ubuntu 20), the following command installs Mapnik from the standard Ubuntu repository:
+The following command installs Mapnik from the standard Ubuntu repository:
 
 ```shell
 sudo apt-get install -y git autoconf libtool libxml2-dev libbz2-dev \
   libgeos-dev libgeos++-dev libproj-dev gdal-bin libgdal-dev g++ \
-  libmapnik-dev mapnik-utils python-mapnik
+  libmapnik-dev mapnik-utils python3-mapnik
 ```
+
+With Ubuntu 18.04 LTS, you might use python-mapnik instead of python3-mapnik.
 
 [Launchpad reports the Mapnik version](https://launchpad.net/mapnik/+packages) installed from package depending on the operating system; the newer the OS, the higher the Mapnik release.
 
@@ -86,7 +86,9 @@ Refer to [Mapnik Releases](https://github.com/mapnik/mapnik/releases) for the la
 Remove any other old Mapnik packages:
 
 ```shell
-sudo apt-get purge -y libmapnik* mapnik-* python-mapnik
+sudo apt-get purge -y libmapnik* mapnik-*
+sudo apt-get purge -y python-mapnik
+sudo apt-get purge -y python3-mapnik
 sudo add-apt-repository --remove -y ppa:mapnik/nightly-trunk
 sudo add-apt-repository --remove -y ppa:talaj/osm-mapnik
 ```
@@ -191,7 +193,7 @@ Download the latest sources of Mapnik:
 
 ```shell
 cd ~/src
-git clone https://github.com/mapnik/mapnik mapnik --depth 10
+git clone -b v3.0.x https://github.com/mapnik/mapnik
 cd mapnik
 git submodule update --init
 source bootstrap.sh
@@ -202,7 +204,6 @@ make
 After Mapnik is successfully compiled, use the following command to install it to your system:
 
 ```shell
-make
 make test
 sudo make install
 cd ~/
@@ -238,9 +239,11 @@ cd ~/
   cd ~/src
   git clone -b v3.0.x https://github.com/mapnik/python-mapnik.git
   cd python-mapnik
-  sudo python setup.py develop
-  sudo python setup.py install
+  sudo -E python3 setup.py develop
+  sudo -E python3 setup.py install
   ```
+
+  Note: Mapnik and `mapnik-config` (part of Mapnik) need to be installed prior to this setup.
 
 You can then [verify that Mapnik has been correctly installed](#verify-that-mapnik-has-been-correctly-installed).
 
@@ -253,7 +256,12 @@ mapnik-config -v
 mapnik-config --input-plugins
 ```
 
-Check then with Python:
+Check then with Python 3:
+```shell
+    python3 -c "import mapnik;print(mapnik.__file__)"
+```
+
+If python 2.7 is used, use this command to check:
 
 ```shell
 python -c "import mapnik;print mapnik.__file__"
