@@ -54,7 +54,7 @@ The overall process is here represented[^4].
 
 An additional description of the rendering process of OpenStreetMap can be found at [OSM architecture](../osm-rendering-process).
 
-The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu 18.04 LTS, 16.04 LTS or 14.04.[^1]
+The following step-by-step procedure can be used to install and configure all the necessary software to operate your own OpenStreetMap tile server on Ubuntu.[^1]
 
 {% include_relative _includes/update-ubuntu.md %}
 
