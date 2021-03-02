@@ -140,7 +140,7 @@ psql -d gis -c 'ALTER TABLE spatial_ref_sys OWNER TO  {{ pg_user }};'
 If in different host, to remotely access PostgreSQL, you need to edit *pg_hba.conf*:
 
 ```shell
-sudo vi /etc/postgresql/9.5/main/pg_hba.conf
+sudo vi /etc/postgresql/*/main/pg_hba.conf
 ```
 
 and add the following line:
@@ -152,7 +152,7 @@ and add the following line:
 Then edit *postgresql.conf*:
 
 ```shell
-sudo vi /etc/postgresql/9.5/main/postgresql.conf
+sudo vi /etc/postgresql/*/main/postgresql.conf
 ```
 
 and set `listen_addresses = '*'`

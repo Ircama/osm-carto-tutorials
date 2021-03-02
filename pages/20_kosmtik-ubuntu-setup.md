@@ -32,6 +32,8 @@ The following subfolders will be created:
 
 ## Install Kosmtik
 
+Note: with Ubuntu 20.04 LTS, go to the [Kosmtik installation from its GitHub repository](#install-kosmtik-from-its-github-repository).
+
 ```shell
 sudo npm install --unsafe-perm -g kosmtik
 ```
@@ -56,7 +58,34 @@ Read [Kosmtik Install or Update](https://github.com/kosmtik/kosmtik#install-or-u
 
 Using your favourite editor, create a file named *localconfig.json* in the *openstreetmap-carto* directory, including the following:
 
+
 ```json
+cd ~/src
+cd openstreetmap-carto
+cat > localconfig.json <<\eof
+[
+    {
+        "where": "center",
+        "then": [9.111, 45.111, 15]
+    },
+    {
+        "where": "Layer",
+        "if": {
+            "Datasource.type": "postgis"
+        },
+        "then": {
+            "Datasource.dbname": "gis"
+        }
+    }
+]
+eof
+```
+
+If accessing a remote server, also set *Datasource.password*, *Datasource.user* and *Datasource.host*:
+
+```json
+cd ~/src
+cd openstreetmap-carto
 cat > localconfig.json <<\eof
 [
     {
@@ -101,20 +130,24 @@ In this example, the default center is (9.111, 45.111) and the default zoom is 1
 
 ## Install Kosmtik plugins
 
-Openstreetmap-carto suggests [installing some Kosmtik plugins](https://github.com/gravitystorm/openstreetmap-carto/blob/master/Dockerfile#L19-L26):
+Openstreetmap-carto suggests [installing some Kosmtik plugins](https://github.com/gravitystorm/openstreetmap-carto/blob/master/Dockerfile#L13-L22):
 
-Case of global installation (Kosmtik installation with the `-g` option):
+Case of global installation ([plugins management through kosmtik is deprecated, one should install the normal way](https://github.com/kosmtik/kosmtik/issues/302#issuecomment-775112456)):
 
 ```shell
 cd /usr/local/lib/node_modules/kosmtik/
-sudo kosmtik plugins --install kosmtik-overpass-layer \
-                    --install kosmtik-fetch-remote \
-                    --install kosmtik-overlay \
-                    --install kosmtik-open-in-josm \
-                    --install kosmtik-map-compare \
-                    --install kosmtik-osm-data-overlay \
-                    --install kosmtik-mapnik-reference \
-                    --install kosmtik-geojson-overlay
+sudo npm install kosmtik-overpass-layer
+sudo npm install kosmtik-fetch-remote
+sudo npm install kosmtik-place-search
+sudo npm install kosmtik-overlay
+sudo npm install kosmtik-open-in-josm
+sudo npm install kosmtik-map-compare
+sudo npm install kosmtik-osm-data-overlay
+sudo npm install kosmtik-tiles-export
+sudo npm install kosmtik-mbtiles-export
+sudo npm install kosmtik-magnacarto
+sudo npm install kosmtik-mapnik-reference
+sudo npm install kosmtik-geojson-overlay
 cd ~/src
 ```
 
@@ -124,14 +157,18 @@ Case of local installation:
 
 ```shell
 cd ~/src/kosmtik
-./index.js plugins --install kosmtik-overpass-layer
-./index.js plugins --install kosmtik-fetch-remote
-./index.js plugins --install kosmtik-overlay
-./index.js plugins --install kosmtik-open-in-josm
-./index.js plugins --install kosmtik-map-compare
-./index.js plugins --install kosmtik-osm-data-overlay
-./index.js plugins --install kosmtik-mapnik-reference
-./index.js plugins --install kosmtik-geojson-overlay
+npm install kosmtik-overpass-layer
+npm install kosmtik-fetch-remote
+npm install kosmtik-place-search
+npm install kosmtik-overlay
+npm install kosmtik-open-in-josm
+npm install kosmtik-map-compare
+npm install kosmtik-osm-data-overlay
+npm install kosmtik-tiles-export
+npm install kosmtik-mbtiles-export
+npm install kosmtik-magnacarto
+npm install kosmtik-mapnik-reference
+npm install kosmtik-geojson-overlay
 cd ~/src
 ```
 
