@@ -13,7 +13,7 @@ sudo apt-get update
 sudo apt-get install -y postgresql postgis
 ```
 
-Optional installations:
+Optional components:
 
 ```shell
 sudo apt-get install -y postgresql-contrib postgresql-12-postgis-3 postgresql-12-postgis-3-scripts

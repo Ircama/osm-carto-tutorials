@@ -154,8 +154,6 @@ sudo npm install -g kosmtik-place-search
 
 Case of local installation:
 
-## Install Kosmtik plugins
-
 ```shell
 cd ~/src/kosmtik
 
@@ -181,6 +179,7 @@ cd ~/src
 Activate plugins:
 
 ```shell
+mkdir -p /home/$USER/.config
 cat > /home/$USER/.config/kosmtik.yml <<\eof
 plugins:
   # Plugins that should work:
