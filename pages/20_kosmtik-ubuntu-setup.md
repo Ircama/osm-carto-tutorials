@@ -135,20 +135,21 @@ Openstreetmap-carto suggests [installing some Kosmtik plugins](https://github.co
 Case of global installation ([plugins management through kosmtik is deprecated, one should install the normal way](https://github.com/kosmtik/kosmtik/issues/302#issuecomment-775112456)):
 
 ```shell
-cd /usr/local/lib/node_modules/kosmtik/
-sudo npm install kosmtik-overpass-layer
-sudo npm install kosmtik-fetch-remote
-sudo npm install kosmtik-place-search
-sudo npm install kosmtik-overlay
-sudo npm install kosmtik-open-in-josm
-sudo npm install kosmtik-map-compare
-sudo npm install kosmtik-osm-data-overlay
-sudo npm install kosmtik-tiles-export
-sudo npm install kosmtik-mbtiles-export
-sudo npm install kosmtik-magnacarto
-sudo npm install kosmtik-mapnik-reference
-sudo npm install kosmtik-geojson-overlay
-cd ~/src
+# Plugins that should work:
+sudo npm install -g kosmtik-overpass-layer
+sudo npm install -g kosmtik-fetch-remote
+sudo npm install -g kosmtik-overlay
+sudo npm install -g kosmtik-map-compare
+sudo npm install -g kosmtik-osm-data-overlay
+sudo npm install -g kosmtik-tiles-export
+sudo npm install -g kosmtik-magnacarto
+
+# Plugins that might not work:
+sudo npm install -g kosmtik-mapnik-reference
+sudo npm install -g kosmtik-mbtiles-export
+sudo npm install -g kosmtik-open-in-josm
+sudo npm install -g kosmtik-geojson-overlay
+sudo npm install -g kosmtik-place-search
 ```
 
 Case of local installation:
@@ -157,19 +158,52 @@ Case of local installation:
 
 ```shell
 cd ~/src/kosmtik
+
+# Plugins that should work:
 npm install kosmtik-overpass-layer
 npm install kosmtik-fetch-remote
-npm install kosmtik-place-search
 npm install kosmtik-overlay
-npm install kosmtik-open-in-josm
 npm install kosmtik-map-compare
 npm install kosmtik-osm-data-overlay
 npm install kosmtik-tiles-export
-npm install kosmtik-mbtiles-export
 npm install kosmtik-magnacarto
+
+# Plugins that might not work:
 npm install kosmtik-mapnik-reference
+npm install kosmtik-mbtiles-export
+npm install kosmtik-open-in-josm
 npm install kosmtik-geojson-overlay
+npm install kosmtik-place-search
+
 cd ~/src
+```
+
+Activate plugins:
+
+```shell
+cat > /home/$USER/.config/kosmtik.yml <<\eof
+plugins:
+  # Plugins that should work:
+  - kosmtik-fetch-remote
+  - kosmtik-geojson-overlay
+  - kosmtik-magnacarto
+  - kosmtik-map-compare
+  - kosmtik-overlay
+  - kosmtik-overpass-layer
+  - kosmtik-tiles-export
+  # Plugins that might not work:
+  #- kosmtik-mapnik-reference
+  #- kosmtik-mbtiles-export
+  #- kosmtik-open-in-josm
+  #- kosmtik-osm-data-overlay
+  #- kosmtik-place-search
+eof
+```
+
+To show plaugins and kosmtik version:
+
+```shell
+kosmtik version
 ```
 
 Full list of plugins can be found within the [Kosmtik GitHub repository](https://github.com/kosmtik).

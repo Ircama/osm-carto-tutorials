@@ -212,13 +212,6 @@ bash scripts/tune-postgis.sh
 
 Whitout setting *postgres* to *trust*, the following error occurs: `psql: error: FATAL:  Peer authentication failed for user "postgres"` when running *tune-postgis.sh*.
 
-Configure a [swap](#configure-a-swap) to prevent the following message:
-
-```
-INFO:root:Checking table water_polygons
-Killed
-```
-
 To cleanup the *data* directory and redo again *tune-postgis.sh*: `rm -rf data`.
 
 #### Optional further tuning requirements
@@ -459,6 +452,13 @@ scripts/get-external-data.py
 ```
 
 To cleanup the *get-external-data.py* procedure and restart from scratch, remove the *data* directory (`rm -r data`).
+
+Configure a [swap](#configure-a-swap) to prevent the following message:
+
+```
+INFO:root:Checking table water_polygons
+Killed
+```
 
 The way shapefiles are loaded by the OpenStreetMap tile servers is reported in the related [Chef configuration](https://github.com/openstreetmap/chef/blob/master/roles/tile.rb).
 

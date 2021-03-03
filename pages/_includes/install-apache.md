@@ -6,7 +6,7 @@ To install apache:
 
     sudo apt-get install -y apache2 apache2-dev
 
-If using [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux), the Apache service needs to be started with
+The Apache service can be started with
 
     sudo service apache2 start
 

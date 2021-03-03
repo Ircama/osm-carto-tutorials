@@ -2,6 +2,8 @@
 
 We need to install the Mapnik library. Mapnik is used to render the OpenStreetMap data into the tiles managed by the Apache web server through *renderd* and *mod_tile*.
 
+With Ubuntu 20.04 LTS, go to [mapnik installation](#install-mapnik-library-from-package).
+
 ### FreeType dependency in Ubuntu 16.04 LTS
 
 With Ubuntu 18.04 LTS, which installs FreeType 2.8.1, skip this paragraph and continue with [installing Mapnik](#install-mapnik-library-from-package).
@@ -13,7 +15,7 @@ echo "Old freetype version:"
 dpkg -l|grep freetype6
 
 sudo add-apt-repository -y ppa:no1wantdthisname/ppa
-sudo apt-get update 
+sudo apt-get update
 sudo apt-get install -y libfreetype6 libfreetype6-dev
 ```
 
@@ -216,23 +218,23 @@ cd ~/
   ```shell
   sudo apt-get install -y python-setuptools python3-setuptools
   ```
-  
+
   Only in case you installed *boost* from package, you also need:
-  
+
   ```shell
   sudo apt-get install -y libboost-python-dev
   ```
-  
+
   Do not peform the above *libboost-python-dev* installation with *boost* compiled from source.
 
   Set *BOOST* variables if you installed *boost* from sources:
-  
+
   ```shell
   export BOOST_PYTHON_LIB=boost_python
   export BOOST_THREAD_LIB=boost_thread
   export BOOST_SYSTEM_LIB=boost_system
   ```
-  
+
 - Download and compile *python-mapnik*. We still use v3.0.x branch:
 
   ```shell
@@ -261,7 +263,7 @@ Check then with Python 3:
 python3 -c "import mapnik;print(mapnik.__file__)"
 ```
 
-If python 2.7 is used, use this command to check:
+If python 2.7 is used (not Ubuntu 20.04 LTS), use this command to check:
 
 ```shell
 python -c "import mapnik;print mapnik.__file__"
