@@ -135,21 +135,31 @@ Openstreetmap-carto suggests [installing some Kosmtik plugins](https://github.co
 Case of global installation ([plugins management through kosmtik is deprecated, one should install the normal way](https://github.com/kosmtik/kosmtik/issues/302#issuecomment-775112456)):
 
 ```shell
+
+sudo npm install -g leaflet
+sudo npm install -g leaflet-editinosm
+sudo npm install -g leaflet.photon
+sudo npm install -g osmtogeojson
+
 # Plugins that should work:
-sudo npm install -g kosmtik-overpass-layer
-sudo npm install -g kosmtik-fetch-remote
-sudo npm install -g kosmtik-overlay
-sudo npm install -g kosmtik-map-compare
-sudo npm install -g kosmtik-osm-data-overlay
-sudo npm install -g kosmtik-tiles-export
-sudo npm install -g kosmtik-magnacarto
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-overpass-layer # Add overpass layers to your Kosmtik project
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-fetch-remote # Kosmtik plugin to fetch remote layer data
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-overlay # Add an overlay in Kosmtik
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-map-compare # Add a map to compare side-by-side with your work in Kosmtik
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-osm-data-overlay # Display OSM data on top of your map in Kosmtik.
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-tiles-export # Export tiles tree of your Kosmtik map
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-deploy # Deploy your Kosmtik project on a remote server
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-mapnik-reference # Browse Mapnik and CartoCSS reference in Kosmtik; needs  --mapnik-version 3.0.20
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-open-in-josm # Add a control in Kosmtik to open your favorite OSM editor with the current
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-geojson-overlay # Show a geojson overlay on top of your Kosmtik map
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-place-search # Search control for Kosmtik
 
 # Plugins that might not work:
-sudo npm install -g kosmtik-mapnik-reference
-sudo npm install -g kosmtik-mbtiles-export
-sudo npm install -g kosmtik-open-in-josm
-sudo npm install -g kosmtik-geojson-overlay
-sudo npm install -g kosmtik-place-search
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-magnacarto # Magnacarto renderer support for Kosmtik
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-mbtiles-export # Export your Kosmtik project in MBTiles
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-mbtiles-source # Use an MBTiles file as a source for a vector tile based probject in kosmtik
+sudo npm install -g git+https://github.com/kosmtik/kosmtik-places # Bookmark places in Kosmtik
+
 ```
 
 Case of local installation:
@@ -157,21 +167,29 @@ Case of local installation:
 ```shell
 cd ~/src/kosmtik
 
+npm install leaflet
+npm install leaflet-editinosm
+npm install leaflet.photon
+npm install osmtogeojson
+
 # Plugins that should work:
-npm install kosmtik-overpass-layer
-npm install kosmtik-fetch-remote
-npm install kosmtik-overlay
-npm install kosmtik-map-compare
-npm install kosmtik-osm-data-overlay
-npm install kosmtik-tiles-export
-npm install kosmtik-magnacarto
+npm install git+https://github.com/kosmtik/kosmtik-overpass-layer # Add overpass layers to your Kosmtik project
+npm install git+https://github.com/kosmtik/kosmtik-fetch-remote # Kosmtik plugin to fetch remote layer data
+npm install git+https://github.com/kosmtik/kosmtik-overlay # Add an overlay in Kosmtik
+npm install git+https://github.com/kosmtik/kosmtik-map-compare # Add a map to compare side-by-side with your work in Kosmtik
+npm install git+https://github.com/kosmtik/kosmtik-osm-data-overlay # Display OSM data on top of your map in Kosmtik.
+npm install git+https://github.com/kosmtik/kosmtik-tiles-export # Export tiles tree of your Kosmtik map
+npm install git+https://github.com/kosmtik/kosmtik-deploy # Deploy your Kosmtik project on a remote server
+npm install git+https://github.com/kosmtik/kosmtik-mapnik-reference # Browse Mapnik and CartoCSS reference in Kosmtik; needs  --mapnik-version 3.0.20
+npm install git+https://github.com/kosmtik/kosmtik-open-in-josm # Add a control in Kosmtik to open your favorite OSM editor with the current
+npm install git+https://github.com/kosmtik/kosmtik-geojson-overlay # Show a geojson overlay on top of your Kosmtik map
+npm install git+https://github.com/kosmtik/kosmtik-place-search # Search control for Kosmtik
 
 # Plugins that might not work:
-npm install kosmtik-mapnik-reference
-npm install kosmtik-mbtiles-export
-npm install kosmtik-open-in-josm
-npm install kosmtik-geojson-overlay
-npm install kosmtik-place-search
+npm install git+https://github.com/kosmtik/kosmtik-mbtiles-export # Export your Kosmtik project in MBTiles
+npm install git+https://github.com/kosmtik/kosmtik-magnacarto # Magnacarto renderer support for Kosmtik
+npm install git+https://github.com/kosmtik/kosmtik-mbtiles-source # Use an MBTiles file as a source for a vector tile based probject in kosmtik
+npm install git+https://github.com/kosmtik/kosmtik-places # Bookmark places in Kosmtik
 
 cd ~/src
 ```
@@ -185,17 +203,20 @@ plugins:
   # Plugins that should work:
   - kosmtik-fetch-remote
   - kosmtik-geojson-overlay
-  - kosmtik-magnacarto
   - kosmtik-map-compare
   - kosmtik-overlay
   - kosmtik-overpass-layer
   - kosmtik-tiles-export
+  - kosmtik-deploy
+  - kosmtik-mapnik-reference # this needs --mapnik-version 3.0.20
+  - kosmtik-open-in-josm # this only works locally
+  - kosmtik-osm-data-overlay
+  - kosmtik-place-search
   # Plugins that might not work:
-  #- kosmtik-mapnik-reference
+  #- kosmtik-magnacarto
   #- kosmtik-mbtiles-export
-  #- kosmtik-open-in-josm
-  #- kosmtik-osm-data-overlay
-  #- kosmtik-place-search
+  #- kosmtik-places
+  #- kosmtik-mbtiles-source
 eof
 ```
 
@@ -216,7 +237,7 @@ in case of installation with the `-g` option:
 ```shell
 cd ~/src
 cd openstreetmap-carto
-kosmtik serve project.mml --host 0.0.0.0
+kosmtik serve project.mml --host 0.0.0.0 --mapnik-version 3.0.20
 ```
 
 or also, in case of local installation:

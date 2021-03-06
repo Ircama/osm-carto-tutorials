@@ -16,7 +16,7 @@ Kosmtik is a [node](https://en.wikipedia.org/wiki/Node.js) module needing a list
 
 The openstreetmap-carto repository needs to be a directory that is shared between your host system and the Docker virtual machine. Home directories are shared by default; if your repository is in another place, you need to add this to the Docker sharing list.
 
-Sufficient disk space of several gigabytes is generally needed. Docker creates an image for its virtual system that holds the virtualised operating system and the containers. The format (Docker.raw, Docker.qcow2, \*.vhdx, etc.) depends on the host system. To provide a rough idea of the sizing, the physical size might start with 2-3 GB for the virtual OS and could grow to 6-7 GB when filled with the containers needed for the database, Kosmtik, and a small OSM region. Further 1-2 GB would be needed for shape files in the openstreetmap-carto/data repository.
+Sufficient disk space of 24 GB is generally needed (8 GB are not enough). Docker creates an image for its virtual system that holds the virtualised operating system and the containers. The format (Docker.raw, Docker.qcow2, \*.vhdx, etc.) depends on the host system. To provide a rough idea of the sizing, the physical size might start with 2-3 GB for the virtual OS and could grow to 6-7 GB when filled with the containers needed for the database, Kosmtik, and a small OSM region. Further 1-2 GB would be needed for shape files in the openstreetmap-carto/data repository. The shapefile import procedure takes disk (1.2 GB + an additional GB for temporary space) and RAM (if less than 4 GB RAM is available, a swap is necessary).
 
 The subsequently described step-by-step procedure allows installing and running a Docker image of Kosmtik with Ubuntu, with Windows and with macOS.
 
@@ -39,9 +39,11 @@ If on a brand new system you also want to do `sudo apt-get dist-upgrade && sudo 
 
 [Configure a swap](../kosmtik-ubuntu-setup/#configure-a-swap).
 
+Notice that a swap is necessary if the RAM is lower than 4 GB.
+
 ### Install Docker
 
-The documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md) describes 
+The documentation in [DOCKER.md](https://github.com/gravitystorm/openstreetmap-carto/blob/master/DOCKER.md) describes
 how to run OpenStreetMap Carto with Docker. Check it before starting installation.
 
 You need *docker-compose*, which can be installed from package through:
@@ -115,6 +117,13 @@ to
       - "6789:6789"
 ```
 
+or
+
+```yaml
+    ports:
+      - "0.0.0.0:6789:6789"
+```
+
 If necessary, run `sudo service postgresql stop` to make sure you don't have currently running a native PostgreSQL server which would conflict with Docker's PostgreSQL server.
 
 Complete the installation and access the map from your browser. Run *docker-compose*:
@@ -124,10 +133,13 @@ Complete the installation and access the map from your browser. Run *docker-comp
 To import the data (only necessary the first time or when you change the data file), run the following:
 
 ```shell
+cd ~/src/openstreetmap-carto
 docker-compose up import
 ```
 
 The procedure takes many minutes to complete.
+
+Especially, the step `import_1   | INFO:root:Checking table water_polygons` takes relevant time (depending on the internet bandwidth, disk performance and available RAM; for instance 5-10 minutes). Anyway, if the data import process gets stuck at this stage (simply use *htop* on another terminal to check that postgres proceeds), it means that no enough RAM is allocated; check that a swap is configured.
 
 ### Run the style preview
 
@@ -175,11 +187,11 @@ The setup procedure of Kosmtik with [Docker for Mac](https://docs.docker.com/doc
 
 The steps to add the openstreetmap-carto directory to the Docker sharing list are: Docker Preferences > File Sharing; Windows: Docker Settings > Shared Drives.
 
-Importing the data needs a substantial amount of RAM in the virtual machine. If you find the import process (Reading in file: data.osm.pbf, Processing) being _killed_ by the Docker demon, exiting with error code 137, increase the Memory assigned to Docker (e.g. Docker Preferences > Advanced > Adjust the computing resources). 
+Importing the data needs a substantial amount of RAM in the virtual machine. If you find the import process (Reading in file: data.osm.pbf, Processing) being _killed_ by the Docker demon, exiting with error code 137, increase the Memory assigned to Docker (e.g. Docker Preferences > Advanced > Adjust the computing resources).
 
-Docker copies log files from the virtual machine into the host system, their [location depends on the host OS](https://stackoverflow.com/questions/30969435/where-is-the-docker-daemon-log). E.g. the 'console-ring' appears to be a ringbuffer of the console log, which can help to find reasons for killings.  
+Docker copies log files from the virtual machine into the host system, their [location depends on the host OS](https://stackoverflow.com/questions/30969435/where-is-the-docker-daemon-log). E.g. the 'console-ring' appears to be a ringbuffer of the console log, which can help to find reasons for killings.
 
-While installing software in the containers and populating the database, the disk image of the virtual machine grows in size, by Docker allocating more clusters. When the disk on the host system is full (only a few MB remaining), Docker can appear stuck. Watch the system log files of your host system for failed allocations. 
+While installing software in the containers and populating the database, the disk image of the virtual machine grows in size, by Docker allocating more clusters. When the disk on the host system is full (only a few MB remaining), Docker can appear stuck. Watch the system log files of your host system for failed allocations.
 
 Docker stores its disk image by default in the home directories of the user. If you don't have enough space here, you can move it elsewhere. (E.g. Docker > Preferences > Disk).[^1]
 

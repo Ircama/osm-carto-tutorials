@@ -4,6 +4,10 @@ The following scripts are provided to support coding. They are necessary and use
 
 This script generates and populates the *data* directory with all needed shapefiles, including indexing them through *shapeindex*. Check [INSTALL](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md) for further documentation.
 
+The shapefile configuration is read from a dictionary file which is by default [external-data.yml](https://github.com/gravitystorm/openstreetmap-carto/blob/master/external-data.yml), that describes the datasets as well as related download and installation process as declarative workflow.
+
+At list 24 GB HD and 4 GB RAM are suggested to successfully run this procedure.
+
 ```shell
 usage: get-external-data.py [-h] [-f] [-c CONFIG] [-D DATA] [-d DATABASE] [-H HOST] [-p PORT] [-U USERNAME] [-v] [-q] [-w PASSWORD] [-R RENDERUSER]
 
@@ -77,23 +81,23 @@ The currently produced files are related to *motorway*, *trunk*, *primary*, *sec
 **Installation**
 
 + Installation of prerequisite components with Windows:
-  
+
   Download the LXML WHL library from https://pypi.python.org/pypi/lxml
-  
+
   Example using Python 2.7:
-  
+
   ```shell
       > pip install lxml-3.6.4-cp27-cp27m-win32.whl
       > pip install colormath
   ```
-  
+
   Example using Python 3.5:
 
   ```shell
       > pip install lxml-3.6.4-cp35-cp35m-win32.whl
       > pip install colormath
   ```
-  
+
   Running the script:
 
   ```shell
@@ -108,7 +112,7 @@ The currently produced files are related to *motorway*, *trunk*, *primary*, *sec
   sudo pip install colormath
   sudo pip install lxml
   ```
-  
+
     Running the script:
 
   ```shell
