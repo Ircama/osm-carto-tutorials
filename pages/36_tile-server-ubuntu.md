@@ -74,7 +74,9 @@ You can test Apache by accessing it through a browser at *http://your-server-ip*
 
 [Mod_tile](https://wiki.openstreetmap.org/wiki/Mod_tile) is an Apache module to efficiently render and serve map tiles for www.openstreetmap.org map using Mapnik.
 
-With Ubuntu 18.04, *mod_tile/renderd* can be installed by adding the [OpenStreetMap PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) maintained by the
+### Mod_tile/renderd for Ubuntu 18.04 and Ubuntu 20.04
+
+With Ubuntu 18.04 (bionic) and Ubuntu 20.04 (focal), *mod_tile/renderd* can be installed by adding the [OpenStreetMap PPA](https://launchpad.net/~osmadmins/+archive/ubuntu/ppa) maintained by the
 “OpenStreetMap Administrators” team:
 
 ```shell
@@ -87,7 +89,15 @@ Also the [above mentioned talaj PPA](#install-mapnik-library-from-package) is su
 After adding the PPA, *mod_tile/renderd* can be installed from package through the following command:
 
 ```shell
-sudo apt-get install -y libapache2-mod-tile
+sudo apt-get install -y libapache2-mod-tile # this includes both mod-tile and renderd
+```
+
+### Mod_tile/renderd for Ubuntu 21.04
+
+On Ubuntu 21.04 (hirsute) the package is available and can be installed with
+
+```shell
+sudo apt-get install -y libapache2-mod-tile renderd
 ```
 
 ## Install Mod_tile from source
@@ -118,6 +128,8 @@ cd mod_tile
 cd ~/
 ```
 
+Check also https://github.com/openstreetmap/mod_tile/blob/master/docs/build/building_on_ubuntu_20_04.md
+
 The rendering process implemented by *mod_tile* and *renderd* is well explained [in the related GitHub readme](https://github.com/openstreetmap/mod_tile).
 
 {% include_relative _includes/inst-osm-carto.md cdprogram='~/src' %}
@@ -130,7 +142,7 @@ The rendering process implemented by *mod_tile* and *renderd* is well explained 
 
 According to the current [openstreetmap-carto documentation](https://github.com/gravitystorm/openstreetmap-carto/blob/master/INSTALL.md#additional-deployment-dependencies), the minimum *carto* ([CartoCSS](https://cartocss.readthedocs.io/en/latest/)) version that can be installed is *0.18*. As *carto* compiles the openstreetmap-carto stilesheets, keeping the same version as in openstreetmap-carto documentation is recommended (instead of simply installing the latest *carto* release).
 
-The latest carto version 1.1.0 can be installed with
+The latest carto version 1.2.0 can be installed with
 
 ```shell
 sudo npm install -g carto
@@ -271,6 +283,8 @@ TILESIZE=256
 ```
 
 Save the file.
+
+Check the existence of the /var/run/renderd directory, otherwise create it with `sudo mkdir /var/run/renderd/renderd.sock`.
 
 Check this to be sure:
 

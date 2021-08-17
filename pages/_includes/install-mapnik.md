@@ -258,6 +258,8 @@ mapnik-config -v
 mapnik-config --input-plugins
 ```
 
+Verify that [Python is installed](#python-installation). Also verify that [pip is installed](#install-yaml-and-package-manager-for-python).
+
 Check then with Python 3:
 ```shell
 python3 -c "import mapnik;print(mapnik.__file__)"

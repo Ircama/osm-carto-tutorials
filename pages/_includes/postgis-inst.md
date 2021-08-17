@@ -380,6 +380,8 @@ osm2pgsql \
 [.osm or .pbf file]
 ```
 
+`[.osm or .pbf file]`: substitute this with your already downloaded *.osm* or *.pbf* file, like, e.g., *liechtenstein-latest.osm.pbf*.
+
 With available memory, set `export OSM2PGSQL_CACHE=2500`; it allocates 2.5 GB of memory to the import process.
 
 Option `--create` loads data into an empty database rather than trying to append to an existing one.
