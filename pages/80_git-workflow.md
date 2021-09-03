@@ -22,7 +22,7 @@ Basically, the [Fork](https://en.wikipedia.org/wiki/Fork_(software_development))
 - Clone the forked repository to your local system.
 - Add a Git remote for the original repository.
 - Create a feature branch in which to place your changes.
-- Make your changes to the new branch (and not to your master, which is needed to be set even with gravitystorm:master). 
+- Make your changes to the new branch (and not to your master, which is needed to be set even with upstream:master). 
 - Develop your changes in a separate directory (not directly to the staging folder) and, when finished, stage (copy) your changes to your local git folder related to the branch.
 - Commit the changes to the branch and add an appropriate comment.
 - Push the branch to GitHub.
@@ -106,7 +106,7 @@ To get/check your user name:
 git config user.name
 ```
 
-Under your repository name (NOT gravitystorm), click *Clone or download*.
+Under your repository name (NOT gravitystorm/upstream), click *Clone or download*.
 
 If you have GitHub Desktop installed, you can press *Open in Desktop*
 
@@ -146,10 +146,10 @@ origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (fetch)
 origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (push)
 ```
 
-If you do not have reference to the original *gravitystorm* repository, type the following command to configure it:
+If you do not have reference to the original *gravitystorm* repository (*upstream*), type the following command to configure it:
 
 ```shell
-git remote add gravitystorm https://github.com/gravitystorm/openstreetmap-carto.git
+git remote add upstream https://github.com/gravitystorm/openstreetmap-carto.git
 ```
 
 To also add remote origin from GitHub project:
@@ -162,8 +162,8 @@ Then `git remote` should provide a complete configuration:
 
 ```shell
 git remote -v
-gravitystorm    https://github.com/gravitystorm/openstreetmap-carto.git (fetch)
-gravitystorm    https://github.com/gravitystorm/openstreetmap-carto.git (push)
+upstream    https://github.com/gravitystorm/openstreetmap-carto.git (fetch)
+upstream    https://github.com/gravitystorm/openstreetmap-carto.git (push)
 origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (fetch)
 origin  https://github.com/YOUR-USERNAME/openstreetmap-carto.git (push)
 ```
@@ -174,31 +174,63 @@ To list all your branches that you have already defined in your remote:
 git branch -a
 ```
 
+Finally, enter the following commands to set the *upstream*:
+
+```shell
+git remote set-url --push upstream no_push
+```
+
+To keep in sync with changes in Gravitystorm, you want to set up your repository so it pulls from upstream by default. This can be done with:
+
+```shell
+git config branch.master.remote upstream
+git config branch.master.merge refs/heads/master
+```
+
+Now you can `git pull` from the master but cannot *push* to upstream, so you are obliged to create a new branch for each new feature. When you will push your feature branch to origin (your own fork), you'll be able to do a pull-request to Gravitystorm from your origin on Github.
+
+Optionally, you may also want to have easy access to all pull requests sent to the Gravitystorm repository:
+
+```shell
+git config --add remote.upstream.fetch '+refs/pull/*/head:refs/remotes/upstream/pr/*'
+```
+
+To read the git configuration, use `git config --list`.
+
+To set/change the user name and email, use:
+
+```shell
+git config user.email "your_email@abc.com" # you might also use git config user.email "YourUser@users.noreply.github.com"
+git config user.name "User name" 
+```
+
+The `--global` option of `git config` can be used to set the value for all reporitories instead of the current one.
+
 ### Update the master branch
 
-If maintainers update the gravitystorm repo, their changes are not automatically reported in your fork and you need to manually issue the appropriate commands to set your *master* even with *gravitystorm:master*.
+If maintainers update the gravitystorm repo, their changes are not automatically reported in your fork and you need to manually issue the appropriate commands to set your *master* even with *upstream:master*.
 
 Before developing on a branch, committing changes or pushing your code, you always need to check that your *master* is "even" with *origin/master*: this is performed by checking out your *master* branch and updating it with *gravitystorm/openstreetmap-carto* latest changes.
 
-With the browser, access your remote GitHub repository and verify that you are even with gravitystorm:master.
+With the browser, access your remote GitHub repository and verify that you are even with upstream:master.
 
 If you are using GitHub Desktop, right key on your project on the left panel, *View on GitHub* (your browser is opened to GitHub).
 
-Verify the presence of the note "This branch is even with gravitystorm:master." and that there is no mention like this one: "This branch is [n] commits behind gravitystorm:master." In case, select *Open in Git Shell*, get the shell prompt and perform the following commands.
+Verify the presence of the note "This branch is even with upstream:master." and that there is no mention like this one: "This branch is [n] commits behind upstream:master." In case, select *Open in Git Shell*, get the shell prompt and perform the following commands.
 
 ```shell
 git checkout master
-git pull gravitystorm master
+git pull upstream master
 git push origin master
 ```
 
-The above commands can be safely performed even if you are already even with gravitystorm:master (and are suggested).
+The above commands can be safely performed even if you are already even with upstream:master (and are suggested).
 
-Note 1: if you followed the suggestion to apply changes on branches, leaving your *master* untouched, the synching operation shall always work without producing errors; nevertheless, if there are (unwanted) local changes, `git pull gravitystorm master` fails; to discard local changes:
+Note 1: if you followed the suggestion to apply changes on branches, leaving your *master* untouched, the synching operation shall always work without producing errors; nevertheless, if there are (unwanted) local changes, `git pull upstream master` fails; to discard local changes:
 
 ```shell
 git reset --hard
-git pull gravitystorm master
+git pull upstream master
 ```
 
 Note 2: `git push origin master` might ask your GitHub user and password.
@@ -289,15 +321,15 @@ This topic branch *revised-feature* is now isolated and branched off the history
 
 ### Updating a branch
 
-If maintainers updated the gravitystorm repo, you first need to update your *master* to be even with *gravitystorm:master* (see [Update the master branch](#update-the-master-branch)); then, you also need to update your branch with appropriate commands; consider meanwhile to combine (squash) your multiple commits into a single one, for future easier revision by maintainers and commenters.
+If maintainers updated the gravitystorm repo, you first need to update your *master* to be even with *upstream:master* (see [Update the master branch](#update-the-master-branch)); then, you also need to update your branch with appropriate commands; consider meanwhile to combine (squash) your multiple commits into a single one, for future easier revision by maintainers and commenters.
 
-Update your branch with the last commits of *gravitystorm:master*, also combining multiple commits (squashing them into one):
+Update your branch with the last commits of *upstream:master*, also combining multiple commits (squashing them into one):
 
 ```shell
 git rebase -i origin/master
 ```
 
-In general, you update a branch to either help revisors by synching your branch to be one commit ahead of gravitystorm:master (e.g., after *gravitystorm:master* received some merge), or to perform some updates.
+In general, you update a branch to either help revisors by synching your branch to be one commit ahead of upstream:master (e.g., after *upstream:master* received some merge), or to perform some updates.
 
 `git rebase -i origin/master` might produce conflicts which need manual fixing (see below). After solving conflicts: `git rebase --continue`.
 
@@ -309,7 +341,7 @@ Push only after your updates are ready. When pushing, because of rebasing you ne
 git push --force
 ```
 
-When rebasing, an editor will open and all the commits on your branch will be listed. If you only have one *pick* line, you simply need to mention that you rebased to the last gravitystorm:master commit and leave all other subsequent comments; then save and close the editor. If you have multiple commits, it should look something like:
+When rebasing, an editor will open and all the commits on your branch will be listed. If you only have one *pick* line, you simply need to mention that you rebased to the last upstream:master commit and leave all other subsequent comments; then save and close the editor. If you have multiple commits, it should look something like:
 
     pick 704c166 adding new file
     pick df1ece0 adding another file
@@ -325,7 +357,7 @@ Squash all but one commit (unless you want several to be merged into master) and
     squash d04306a making another change
     squash b0c7604 final commit for new feature
 
-The editor will open again and you will then be prompted to enter a new commit message; be precise and concise with this message, merging all the commit messages, because this message will substitute all previous ones and will be visible to maintainers and commenters (and checked by them to understand what you did). Also mention that you rebased to the last gravitystorm:master commit. It is good practice to begin with the last comments. E.g.,
+The editor will open again and you will then be prompted to enter a new commit message; be precise and concise with this message, merging all the commit messages, because this message will substitute all previous ones and will be visible to maintainers and commenters (and checked by them to understand what you did). Also mention that you rebased to the last upstream:master commit. It is good practice to begin with the last comments. E.g.,
 
     **Title**
 
@@ -461,7 +493,7 @@ You can do this by pulling the latest changes from the main repository and rebas
 
 ```shell
 git checkout master
-git pull gravitystorm master
+git pull upstream master
 git checkout revised-feature
 git rebase master
 git status
@@ -469,7 +501,7 @@ git status
 
 Alternatively, you can use `git merge master` instead of `git rebase master`, but your topic branches history may not be as clean.
 
-Update your branch with the last commits of *gravitystorm:master*, also combining multiple commits (squashing them into one):
+Update your branch with the last commits of *upstream:master*, also combining multiple commits (squashing them into one):
 
 ```shell
 git rebase -i origin/master
@@ -567,7 +599,7 @@ You can select another branch and go on working on it:
 
 ```shell
 git checkout master
-git pull gravitystorm master
+git pull upstream master
 git checkout another_branch
 ```
 
@@ -575,7 +607,7 @@ You can create a new topic branch (be sure to create it from master):
 
 ```shell
 git checkout master
-git pull gravitystorm master
+git pull upstream master
 git checkout -b new_feature
 git branch -a
   * new_feature
@@ -587,7 +619,7 @@ git branch -a
 
 ```shell
 git checkout master
-git pull gravitystorm master
+git pull upstream master
 git log 
 ```
 
@@ -606,7 +638,7 @@ In this case, you just need to update your branch from the main repository and t
 
 ```shell
 git checkout master
-git pull gravitystorm master
+git pull upstream master
 git checkout revised-feature
 git rebase master
 ( edit / commit / edit / commit / rebase)
@@ -620,7 +652,7 @@ Edit the pull request message from your GitHub account, after accessing your PR.
 The following are useful monitoring elements offered by GitHub Desktop (the Windows/Mac sowtware provided by GitHub):
 
 * [Comparison graph](https://help.github.com/desktop/guides/contributing/about-the-comparison-graph/)
-  You can easily monitor whether you are at the same level of gravitystorm:master, whether you branch might need a rebase, etc.
+  You can easily monitor whether you are at the same level of upstream:master, whether you branch might need a rebase, etc.
 
 * [PowerShell-based Git Shell](https://git-scm.com/book/it/v2/Git-in-Other-Environments-Git-in-Powershell) that comes with GitHub Desktop.
   It exploits [posh-git](https://github.com/dahlbyk/posh-git#posh-git).
