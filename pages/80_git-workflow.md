@@ -84,7 +84,7 @@ sudo apt-get update
 sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip git unzip curl
 ```
 
-Windows or Mac users might install [GitHub Desktop](https://desktop.github.com/), which includes *git*.
+Windows or Mac users might install [GitHub Desktop](https://desktop.github.com/), which optionally includes *git*.
 
 If you are using GitHub Desktop, to issue git commands press the right key of the mouse on your project in the left panel, select
 *Open in Git Shell*.
@@ -94,17 +94,30 @@ If you are using GitHub Desktop, to issue git commands press the right key of th
 Access the original repository [https://github.com/gravitystorm/openstreetmap-carto](https://github.com/gravitystorm/openstreetmap-carto) after logging on to GitHub with your account.
 In the top-right corner of the page, click *Fork*.
 
+This will create your *origin* repository on GitHub. The Gravitystorm repository will be the *upstream*.
+
 Check [this](https://help.github.com/articles/fork-a-repo/) for additional help.
 
-### Create a local clone of your fork
-
-On GitHub, navigate to your fork of the openstreetmap-carto repository (*https://github.com/YOUR-USERNAME/openstreetmap-carto*, with your GitHub username instead of YOUR-USERNAME).
+### Check your user configuration
 
 To get/check your user name:
 
 ```shell
 git config user.name
 ```
+
+To set/change the user name and email, use:
+
+```shell
+git config user.email "your_email@abc.com" # you might also use git config user.email "YourUser@users.noreply.github.com"
+git config user.name "User name" 
+```
+
+The `--global` option of `git config` can be used to set the value for all repositories instead of the current one.
+
+### Create a local clone of your fork
+
+On GitHub, navigate to your fork of the openstreetmap-carto repository (*https://github.com/YOUR-USERNAME/openstreetmap-carto*, with your GitHub username instead of YOUR-USERNAME).
 
 Under your repository name (NOT gravitystorm/upstream), click *Clone or download*.
 
@@ -174,11 +187,13 @@ To list all your branches that you have already defined in your remote:
 git branch -a
 ```
 
-Finally, enter the following commands to set the *upstream*:
+Then enter the following command:
 
 ```shell
 git remote set-url --push upstream no_push
 ```
+
+With the above command, you can `git pull` from the master but cannot *push* to upstream, so you are obliged to create a new branch for each new feature. When you push your feature branch to origin (your own fork), you'll be able to do a pull-request to Gravitystorm from your origin on Github.
 
 To keep in sync with changes in Gravitystorm, you want to set up your repository so it pulls from upstream by default. This can be done with:
 
@@ -187,8 +202,6 @@ git config branch.master.remote upstream
 git config branch.master.merge refs/heads/master
 ```
 
-Now you can `git pull` from the master but cannot *push* to upstream, so you are obliged to create a new branch for each new feature. When you will push your feature branch to origin (your own fork), you'll be able to do a pull-request to Gravitystorm from your origin on Github.
-
 Optionally, you may also want to have easy access to all pull requests sent to the Gravitystorm repository:
 
 ```shell
@@ -196,15 +209,6 @@ git config --add remote.upstream.fetch '+refs/pull/*/head:refs/remotes/upstream/
 ```
 
 To read the git configuration, use `git config --list`.
-
-To set/change the user name and email, use:
-
-```shell
-git config user.email "your_email@abc.com" # you might also use git config user.email "YourUser@users.noreply.github.com"
-git config user.name "User name" 
-```
-
-The `--global` option of `git config` can be used to set the value for all reporitories instead of the current one.
 
 ### Update the master branch
 
