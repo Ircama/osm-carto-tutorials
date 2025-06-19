@@ -521,6 +521,129 @@ table.gsc-search-box td.gsc-input {
 }
 
 //______________________________________________________________________________________________________
+/* Media print section */
+
+@media print {
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{font-size:11pt; max-width:100%;}
+  a:not(.github-commit), a:not(.github-commit):visited { text-decoration: underline; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:not(.github-commit):after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+
+  .container {
+    overflow: hidden;
+    max-height: 100%;
+    max-width: 100%;
+  }
+  .masthead, .toc-title, .sticky, .sidebar, #sidebar-checkbox, .sidebar-checkbox,
+  .sidebar-toggle, .related, .pagination, .noprint {
+    display: none !important;
+    opacity: 0;
+  }
+  pre code {
+    display: block !important;
+    overflow: hidden !important;
+    /* Need all the following to word wrap instead of scroll box */
+    /* This will override the overflow:auto if present */
+    white-space: pre !important;
+    white-space: pre-wrap !important; /* css-3 */
+    white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+  }
+  @page { 
+      size: auto;   /* auto is the initial value */ 
+  
+      /* this affects the margin in the printer settings */ 
+      margin: 25mm 17mm 25mm 17mm;
+  }
+  h1, h2, h3, h4, h5 {
+    page-break-after: avoid;
+  }
+  table, figure {
+    page-break-inside: avoid;
+  }
+  body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+  }
+  #element::-webkit-scrollbar { 
+    display: none; 
+  }
+  .wrap {
+    width: 100%;
+  }
+  #sidebar-checkbox:checked ~ .sidebar, #sidebar-checkbox:checked ~ .wrap, #sidebar-checkbox:checked ~ .sidebar-toggle {
+      -webkit-transform: translateX(0) !important;
+      -ms-transform: translateX(0) !important;
+      transform: translateX(0) !important;
+  }
+  table.drawing td.dcontent {
+    border: 1px solid black !important;
+  }
+  table.drawing td img {
+    padding-left: 2px;
+  }
+
+  h1 {
+      text-align: left !important;
+      counter-increment: c1;
+      counter-reset: c4;
+      counter-reset: c3;
+      counter-reset: c2;
+  }
+  
+  h2 {
+      counter-increment: c2;
+      counter-reset: c3;
+      counter-reset: c4;
+  }
+  
+  h3 {
+      counter-increment: c3;
+      counter-reset: c4;
+  }
+
+  h4 {
+      counter-increment: c4;
+  }
+  
+  h1:before,
+  h2:before,
+  h3:before,
+  h4:before {
+      padding-right: 0.25cm;
+  }
+
+  h1:before {
+      content: "Chapter " counter(c1) "\a\a";
+      white-space: pre;
+  }
+  
+  h2:before {
+      content: counter(c1) "." counter(c2);
+  }
+  
+  h3:before {
+      content: counter(c1) "." counter(c2) "." counter(c3);
+  }
+
+  h4:before {
+      content: counter(c1) "." counter(c2) "." counter(c3) "." counter(c4);
+  }
+
+}
+
+//______________________________________________________________________________________________________
 /* Miscellaneous section */
 /* Force rewriting auto-calculated Bootstrap line height */
 body {
